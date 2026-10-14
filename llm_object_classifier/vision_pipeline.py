@@ -5,6 +5,8 @@ import base64
 import csv
 import hashlib
 import json
+import itertools
+import math
 import time
 import urllib.error
 import urllib.request
@@ -73,24 +75,81 @@ def request_json(base_url, path, body=None, timeout=600):
         raise RuntimeError(f"HTTP {exc.code}: {message}") from None
 
 
-def chat(base_url, model, system, prompt, temperature, seed, image=None, timeout=600):
+DEFAULT_OPTIONS = {"num_ctx": 8192, "num_predict": 2048, "top_p": 0.8,
+                   "top_k": 20, "presence_penalty": 1.5, "num_gpu": 999}
+
+
+class GPURequiredError(RuntimeError):
+    """Abort the run when GPU execution cannot be confirmed."""
+
+
+def loaded_gpu(base_url, model, timeout=600):
+    state = request_json(base_url, "/api/ps", timeout=timeout)
+    for entry in state.get("models", []):
+        if model in (entry.get("name"), entry.get("model")):
+            if entry.get("size_vram", 0) > 0:
+                return entry
+            break
+    raise GPURequiredError(f"GPU use not confirmed for {model}. Check NVIDIA Container Toolkit, "
+                           "docker compose GPU override, VRAM and Ollama logs. CPU fallback refused.")
+
+
+def chat(base_url, model, system, prompt, temperature, seed, image=None, timeout=600,
+         options=None, require_gpu=False):
     message = {"role": "user", "content": prompt}
     if image is not None:
         message["images"] = [base64.b64encode(image).decode()]
+    effective = {**DEFAULT_OPTIONS, **(options or {}), "temperature": temperature, "seed": seed}
     started = time.perf_counter()
     response = request_json(base_url, "/api/chat", {
         "model": model, "messages": [{"role": "system", "content": system}, message],
         "stream": False, "think": False, "format": "json", "keep_alive": "5m",
-        "options": {"temperature": temperature, "seed": seed, "num_ctx": 8192,
-                    "num_predict": 2048, "top_p": 0.8, "top_k": 20,
-                    "presence_penalty": 1.5}}, timeout)
-    return {"content": response.get("message", {}).get("content", ""),
-        "elapsed_seconds": time.perf_counter() - started,
+        "options": effective}, timeout)
+    elapsed = time.perf_counter() - started
+    result = {"content": response.get("message", {}).get("content", ""),
+        "elapsed_seconds": elapsed, "options": effective,
         "done_reason": response.get("done_reason"),
         "eval_count": response.get("eval_count"),
         "eval_duration_ns": response.get("eval_duration"),
         "load_duration_ns": response.get("load_duration"),
         "prompt_eval_count": response.get("prompt_eval_count")}
+    if require_gpu:
+        result["gpu"] = loaded_gpu(base_url, model, timeout)
+    return result
+
+
+def variants(args):
+    profiles = [{"name": "default", "options": {}}]
+    if getattr(args, "profiles", None):
+        profiles = json.loads(args.profiles.read_text())
+    if not isinstance(profiles, list) or not profiles:
+        raise ValueError("profiles must be a nonempty JSON list.")
+    result, names = [], set()
+    for profile in profiles:
+        if not isinstance(profile, dict):
+            raise ValueError("Each profile must be an object.")
+        name, options = profile.get("name"), profile.get("options", {})
+        if not isinstance(name, str) or not name or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in name) or name in names:
+            raise ValueError("Profile names must be unique and use letters, digits, _ or -.")
+        names.add(name)
+        if not isinstance(options, dict) or set(options) - set(DEFAULT_OPTIONS):
+            raise ValueError("Unsupported profile options.")
+        effective = {**DEFAULT_OPTIONS, "num_ctx": getattr(args, "num_ctx", 8192),
+                     "num_predict": getattr(args, "num_predict", 2048), **options}
+        for key, value in effective.items():
+            if type(value) not in (int, float) or not math.isfinite(value):
+                raise ValueError(f"Invalid option {key}.")
+        if not 0 < effective["top_p"] <= 1 or not 0 <= effective["presence_penalty"] <= 2:
+            raise ValueError("top_p must be in (0,1], presence_penalty in [0,2].")
+        for key in ("num_ctx", "num_predict", "top_k", "num_gpu"):
+            if type(effective[key]) is not int or effective[key] < (0 if key in ("top_k", "num_gpu") else 1):
+                raise ValueError(f"Invalid integer option {key}.")
+        for temperature, seed in itertools.product(args.temperatures, getattr(args, "seeds", None) or [args.seed]):
+            result.append({"id": f"{name}-t{temperature}-s{seed}", "profile": name,
+                           "temperature": temperature, "seed": seed, "options": effective})
+    if len({v["id"] for v in result}) != len(result):
+        raise ValueError("Duplicate experiment settings.")
+    return result
 
 
 def region_objects(record, data_dir):
@@ -121,6 +180,10 @@ def region_objects(record, data_dir):
 
 
 def run(args):
+    experiments = variants(args)
+    require_gpu = getattr(args, "require_gpu", False)
+    caption_options = {**DEFAULT_OPTIONS, "num_ctx": getattr(args, "num_ctx", 8192),
+                       "num_predict": getattr(args, "num_predict", 2048)}
     run_dir = args.output_dir
     run_dir.mkdir(parents=True, exist_ok=True)
     if (run_dir / "manifest.json").exists():
@@ -134,17 +197,26 @@ def run(args):
               for name in {args.vision_model, args.reason_model}}
     if "vision" not in models[args.vision_model].get("capabilities", []):
         raise ValueError("Selected vision model does not report vision capability.")
+    if getattr(args, "require_unquantized", False):
+        for name, info in models.items():
+            precision = info.get("details", {}).get("quantization_level", "").upper()
+            if precision not in {"BF16", "F16", "F32"}:
+                raise ValueError(f"{name}: expected unquantized BF16/F16/F32, got {precision!r}.")
     write_json(run_dir / "manifest.json", {
         "prompt_version": PROMPT_VERSION, "caption_system": CAPTION_SYSTEM,
         "reason_system": REASON_SYSTEM, "input_sha256": hashlib.sha256(args.input.read_bytes()).hexdigest(),
+        "experiments": experiments, "caption_options": caption_options,
         "models": models, "ollama": request_json(args.base_url, "/api/version"),
         "settings": {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()},
         "note": "Semantic class regions, not object instances. No fixed/movable ground truth; no accuracy."})
     summary = {"frames": len(records), "caption_ok": 0, "caption_error": 0, "caption_cached": 0,
-        "reasoning": {str(t): {"ok": 0, "error": 0, "skipped": 0, "objects": 0} for t in args.temperatures}}
+        "reasoning": {str(t): {"ok": 0, "error": 0, "skipped": 0, "objects": 0} for t in args.temperatures},
+        "experiments": {v["id"]: {"ok": 0, "error": 0, "skipped": 0, "objects": 0, **v}
+                        for v in experiments}}
     rows_path = run_dir / "results.csv"
     with rows_path.open("w", newline="", encoding="utf-8") as out:
-        fields = ["frame_id", "object_id", "label", "temperature", "status", "classification",
+        fields = ["frame_id", "object_id", "label", "experiment", "profile", "seed", "top_p", "top_k",
+                  "presence_penalty", "num_ctx", "num_predict", "temperature", "status", "classification",
                   "reason", "visual_observation", "attachment_evidence", "caption_seconds",
                   "caption_cached", "reason_seconds", "error"]
         writer = csv.DictWriter(out, fieldnames=fields)
@@ -163,7 +235,7 @@ def run(args):
                 key = hashlib.sha256(image + json.dumps({"prompt": prompt, "system": CAPTION_SYSTEM,
                     "model": args.vision_model, "model_info": models[args.vision_model],
                     "temperature": args.caption_temperature, "seed": args.seed,
-                    "version": PROMPT_VERSION, "context": 8192, "output_tokens": 2048},
+                    "version": PROMPT_VERSION, "options": caption_options},
                     sort_keys=True).encode()).hexdigest()
                 cache = args.cache_dir / f"{key}.json"
                 if cache.exists():
@@ -173,7 +245,8 @@ def run(args):
                     summary["caption_cached"] += 1
                 else:
                     caption_info = chat(args.base_url, args.vision_model, CAPTION_SYSTEM, prompt,
-                        args.caption_temperature, args.seed, image, args.timeout)
+                        args.caption_temperature, args.seed, image, args.timeout,
+                        options=caption_options, require_gpu=require_gpu)
                     caption = validate_caption(objects, json.loads(caption_info["content"]))
                     caption_info.update({"parsed": caption, "cached": False})
                     write_json(cache, caption_info)
@@ -181,53 +254,66 @@ def run(args):
                 write_json(frame_dir / "input.json", {"record": record, "regions": objects, "caption_prompt": prompt})
                 summary["caption_ok"] += 1
                 print(f"  opis OK ({caption_info['elapsed_seconds']:.1f} s, cache={caption_info['cached']})", flush=True)
+            except GPURequiredError:
+                raise
             except Exception as exc:
                 summary["caption_error"] += 1
                 write_json(frame_dir / "caption_error.json", {"error": str(exc), "response": caption_info})
                 print(f"  NAPAKA OPISA: {exc}", flush=True)
-            for temperature in args.temperatures:
-                counters = summary["reasoning"][str(temperature)]
+            for variant in experiments:
+                temperature, seed = variant["temperature"], variant["seed"]
+                counters = summary["experiments"][variant["id"]]
+                aggregate = summary["reasoning"][str(temperature)]
+                row_settings = {"experiment": variant["id"], "profile": variant["profile"],
+                                "seed": seed, **{k: v for k, v in variant["options"].items() if k != "num_gpu"}}
+                def count(key, value=1):
+                    counters[key] += value
+                    aggregate[key] += value
                 if caption is None:
-                    counters["skipped"] += 1
-                    writer.writerow({"frame_id": frame_id, "temperature": temperature,
+                    count("skipped")
+                    writer.writerow({**row_settings, "frame_id": frame_id, "temperature": temperature,
                                      "status": "skipped_caption_error", "error": "No valid visual observations."})
                     continue
+                prompt = reason_prompt(frame_id, record["objects"], caption)
                 result = {}
                 started = time.perf_counter()
                 try:
-                    prompt = reason_prompt(frame_id, record["objects"], caption)
                     result = chat(args.base_url, args.reason_model, REASON_SYSTEM, prompt,
-                                  temperature, args.seed, timeout=args.timeout)
+                                  temperature, seed, timeout=args.timeout,
+                                  options=variant["options"], require_gpu=require_gpu)
                     parsed = json.loads(result["content"])
                     exact_items(record["objects"], parsed.get("objects"))
                     predictions = validate_classifications(validate_frame(record), parsed)
-                    result.update({"status": "ok", "parsed": parsed, "prompt": prompt})
-                    counters["ok"] += 1
-                    counters["objects"] += len(predictions)
+                    result.update({"status": "ok", "parsed": parsed, "prompt": prompt, "experiment": variant})
+                    count("ok")
+                    count("objects", len(predictions))
                     labels = {typed_id(o["id"]): o["label"] for o in record["objects"]}
                     observations = {typed_id(o["id"]): o for o in caption["objects"]}
                     for pred in predictions:
                         obs = observations[typed_id(pred.id)]
-                        writer.writerow({"frame_id": frame_id, "object_id": pred.id,
+                        writer.writerow({**row_settings, "frame_id": frame_id, "object_id": pred.id,
                             "label": labels[typed_id(pred.id)], "temperature": temperature, "status": "ok",
                             "classification": pred.classification, "reason": pred.reason,
                             "visual_observation": obs["observation"], "attachment_evidence": obs["attachment_evidence"],
                             "caption_seconds": caption_info["elapsed_seconds"], "caption_cached": caption_info["cached"],
                             "reason_seconds": result["elapsed_seconds"]})
-                    print(f"  reasoning T={temperature}: OK {len(predictions)} objektov ({result['elapsed_seconds']:.1f} s)", flush=True)
+                    print(f"  reasoning {variant['id']}: OK {len(predictions)} objektov ({result['elapsed_seconds']:.1f} s)", flush=True)
+                except GPURequiredError:
+                    raise
                 except Exception as exc:
-                    counters["error"] += 1
-                    result.update({"status": "error", "error": str(exc),
+                    count("error")
+                    result.update({"status": "error", "error": str(exc), "prompt": prompt, "experiment": variant,
                                    "elapsed_seconds": time.perf_counter() - started})
-                    writer.writerow({"frame_id": frame_id, "temperature": temperature,
+                    writer.writerow({**row_settings, "frame_id": frame_id, "temperature": temperature,
                                      "status": "error", "error": str(exc)})
-                    print(f"  reasoning T={temperature}: NAPAKA {exc}", flush=True)
-                write_json(frame_dir / f"reasoning-t{temperature}.json", result)
+                    print(f"  reasoning {variant['id']}: NAPAKA {exc}", flush=True)
+                write_json(frame_dir / f"reasoning-{variant['id']}.json", result)
             out.flush()
             write_json(run_dir / "summary.json", summary)
     print(json.dumps(summary, indent=2), flush=True)
     print(f"Rezultati: {run_dir}", flush=True)
-    return 0 if any(v["ok"] for v in summary["reasoning"].values()) else 2
+    return 0 if summary["caption_error"] == 0 and all(
+        v["error"] == 0 and v["skipped"] == 0 for v in summary["experiments"].values()) else 2
 
 
 def main():
@@ -243,9 +329,17 @@ def main():
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--timeout", type=int, default=600)
+    parser.add_argument("--seeds", type=int, nargs="+", help="Reasoning seeds; caption always uses --seed.")
+    parser.add_argument("--profiles", type=Path, help="JSON sampling profiles; crossed with temperatures and seeds.")
+    parser.add_argument("--num-ctx", type=int, default=8192)
+    parser.add_argument("--num-predict", type=int, default=2048)
+    parser.add_argument("--require-gpu", action="store_true", help="Abort on CPU fallback; records /api/ps per request.")
+    parser.add_argument("--require-unquantized", action="store_true", help="Check both models' reported weight precision.")
     args = parser.parse_args()
     if args.limit < 1 or len(set(args.temperatures)) != len(args.temperatures):
         parser.error("limit must be positive and temperatures must be unique.")
+    if any(not math.isfinite(t) or t < 0 for t in [*args.temperatures, args.caption_temperature]):
+        parser.error("Temperatures must be finite and nonnegative.")
     try:
         return run(args)
     except Exception as exc:

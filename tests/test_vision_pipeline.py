@@ -55,7 +55,7 @@ class VisionPipelineTests(unittest.TestCase):
             bad = self.prediction()
             bad["objects"][0]["id"] = "1"
             with patch("llm_object_classifier.vision_pipeline.request_json", return_value={"capabilities": ["vision"]}), patch("llm_object_classifier.vision_pipeline.chat", side_effect=[self.result(self.caption()), self.result(self.prediction()), self.result(bad), self.result(self.prediction())]) as chat:
-                self.assertEqual(run(self.args(root, "run1")), 0)
+                self.assertEqual(run(self.args(root, "run1")), 2)
                 self.assertIsInstance(chat.call_args_list[0].args[6], bytes)
                 self.assertEqual(len(chat.call_args_list[1].args), 6)
                 self.assertIn("visual_observations", chat.call_args_list[1].args[3])

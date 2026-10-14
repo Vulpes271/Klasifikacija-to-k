@@ -1,5 +1,8 @@
 # Image observations -> mobility reasoning (Qwen3.5 4B)
 
+For the new NVIDIA GPU + unquantized BF16/Q4 comparison with parameter sweeps,
+see [README_GPU.md](README_GPU.md). The original helper below now verifies GPU use.
+
 Stage 1 receives the photograph and exact semantic-region list, and describes
 visible observations. Stage 2 receives only that description and the list, then
 assigns fixed/movable/uncertain. The same model weights serve both separate calls.
@@ -40,7 +43,7 @@ head -n 15 results/vision-first/results.csv
 ```
 
 - frame-001/caption.json: parsed observations, raw response and generation time.
-- frame-001/reasoning-t0.7.json: raw response, classification, prompt and time.
+- frame-001/reasoning-default-t0.7-s42.json: raw response, classification, prompt and time.
 - manifest.json: prompts, input hash, model metadata/quantization, Ollama and settings.
 - summary.json: updated after each frame; inspect errors and skipped counts.
 - results.csv: observations, attachment evidence, classes, reasons, times and errors.
@@ -49,7 +52,8 @@ head -n 15 results/vision-first/results.csv
   generation time, not the cache lookup time.
 
 Invalid captions skip reasoning for that image and preserve the raw response.
-A reasoning failure at one temperature does not stop the others. Errors are not
+A reasoning failure at one temperature does not stop the others. Any failed or
+skipped response returns exit code 2; GPU verification failure aborts the run. Errors are not
 silently corrected. Process completion alone does not mean all answers succeeded.
 
 ## Scope and limitations

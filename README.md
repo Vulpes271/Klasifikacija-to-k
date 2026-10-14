@@ -7,6 +7,8 @@ Vsebuje kopirljive ukaze za Linux: prenos 10 označenih slik NYUv2 (nekaj MB),
 Qwen2.5 0.5B (398 MB), CPU ali NVIDIA GPU, zagon in ustavitev.
 Ni treba prenašati ali razširjati celotnega THUD arhiva.
 
+**Nov GPU benchmark (Q4/BF16, opis slike → LLM, več parametrov): [README_GPU.md](README_GPU.md).**
+
 Preprost Python 3.11+ projekt za hitro primerjavo lokalnih jezikovnih modelov pri razvrscanju ze oznacenih objektov notranjih prostorov v razrede `fixed`, `movable` in `uncertain`.
 
 Program ne izvaja zaznavanja objektov, segmentacije, SLAM-a ali filtriranja oblaka tock. Vhod je standardiziran JSONL z enim zapisom na sliko.

@@ -20,16 +20,19 @@ fi
 mkdir -p results
 printf 'Run: %s\nLog: results/%s.log\n' "$run_name" "$run_name"
 exec > >(tee -a "results/$run_name.log") 2>&1
+nvidia-smi
+docker compose pull ollama
 docker compose build app
 docker compose up -d --wait --wait-timeout 180 ollama
 docker compose exec -T ollama ollama pull qwen3.5:4b
+docker compose run --rm --no-deps --entrypoint python app -m llm_object_classifier.gpu_check --model qwen3.5:4b
 docker compose run --rm --no-deps --entrypoint python app -m unittest discover -s tests -v
 docker compose run --rm --no-deps --entrypoint python app \
     -u -m llm_object_classifier.vision_pipeline \
     --input data/nyu20/objects.jsonl \
     --output-dir "results/$run_name" \
     --vision-model qwen3.5:4b --reason-model qwen3.5:4b \
-    --temperatures 0 0.3 0.7 --limit 20
+    --temperatures 0 0.3 0.7 --limit 20 --require-gpu
 printf '\nSummary:\n'
 cat "results/$run_name/summary.json"
 printf '\nModel processors:\n'
