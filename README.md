@@ -1,5 +1,12 @@
 # Klasifikacija fiksnih in premicnih objektov z lokalnim LLM
 
+## Nov začetek: Docker + majhen resnični nabor + majhen model
+
+Za prvi preizkus uporabi **[README_DOCKER.md](README_DOCKER.md)**.
+Vsebuje kopirljive ukaze za Linux: prenos 10 označenih slik NYUv2 (nekaj MB),
+Qwen2.5 0.5B (398 MB), CPU ali NVIDIA GPU, zagon in ustavitev.
+Ni treba prenašati ali razširjati celotnega THUD arhiva.
+
 Preprost Python 3.11+ projekt za hitro primerjavo lokalnih jezikovnih modelov pri razvrscanju ze oznacenih objektov notranjih prostorov v razrede `fixed`, `movable` in `uncertain`.
 
 Program ne izvaja zaznavanja objektov, segmentacije, SLAM-a ali filtriranja oblaka tock. Vhod je standardiziran JSONL z enim zapisom na sliko.
@@ -13,7 +20,8 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-Projekt nima runtime odvisnosti zunaj standardne knjiznice.
+LLM odjemalec uporablja standardno knjižnico; priprava majhnega NYUv2 vzorca
+uporablja Pillow, ki se namesti z `requirements.txt`.
 
 ## Lokalni OpenAI-compatible streznik
 
@@ -188,3 +196,4 @@ Testi pokrijejo:
 - manjkajoc objektni ID,
 - baseline in evaluacijo,
 - dokumentirani synthetic THUD `captures_*.json` vzorec.
+

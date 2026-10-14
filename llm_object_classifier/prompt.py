@@ -39,3 +39,4 @@ def build_user_prompt(frame: Frame) -> str:
         + json.dumps(payload, ensure_ascii=False, indent=2)
     )
 
+

@@ -65,3 +65,4 @@ def read_csv_dicts(path: Path) -> list[dict[str, str]]:
     with path.open("r", encoding="utf-8", newline="") as handle:
         return list(csv.DictReader(handle))
 
+

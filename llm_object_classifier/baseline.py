@@ -60,3 +60,4 @@ def classify_label(label: str, mapping: dict[str, str]) -> tuple[str, str]:
         return classification, "No reliable fixed/movable rule for this label."
     return classification, f"Reference label map classifies {label!r} as {classification}."
 
+

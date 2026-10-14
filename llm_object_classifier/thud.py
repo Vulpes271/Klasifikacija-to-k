@@ -103,3 +103,4 @@ def convert_thud_records(path: Path, source_format: str = "auto") -> Iterator[di
         if source_format != "auto":
             raise UnsupportedThudFormatError(f"{member_name}: not compatible with {source_format}.")
 
+

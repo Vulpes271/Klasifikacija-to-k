@@ -84,3 +84,4 @@ class OpenAICompatibleClient:
             raise RuntimeError("OpenAI-compatible response content is not a string.")
         return LlmResult(content=content, elapsed_seconds=elapsed)
 
+

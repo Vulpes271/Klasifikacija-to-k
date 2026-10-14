@@ -116,3 +116,4 @@ def frame_to_json(frame: Frame) -> dict[str, Any]:
     data["objects"] = objects
     return data
 
+
