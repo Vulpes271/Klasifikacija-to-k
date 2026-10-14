@@ -228,6 +228,53 @@ docker compose run --rm app run --input data/nyu-small/objects.jsonl --config co
 docker compose down
 ```
 
+## 10. Isti test s Qwen3.5 0.8B
+
+V isti projektni mapi uporabi drugo konfiguracijo; podatkov ni treba ponovno
+prenašati. Model `qwen3.5:0.8b` je majhen model za prvi test (trenutni prenos
+približno 1–1.3 GB). Uporabimo iste objekte, isti poziv, temperaturo 0 in
+omejitev 2048 izhodnih tokenov. Za hiter test je dodatno razmišljanje izklopljeno
+z `reasoning_effort: none` prek Ollaminega OpenAI združljivega vmesnika.
+
+Če projekt že imaš, najprej pridobi spremembe:
+
+```bash
+git pull --ff-only origin feature/docker-smoke
+bash scripts/test_qwen35.sh
+```
+
+Skripta posodobi Ollama sliko, zažene storitev, zgradi Python aplikacijo,
+prenese model in zažene test na `data/nyu-small/objects.jsonl`. Rezultati se
+shranijo v novo mapo `results/qwen3.5-small-DATUM-URA/`, katere pot izpiše na
+koncu. Rezultati prejšnjega modela ostanejo v `results/qwen-small/`.
+Skripta tudi zavrne že obstoječo mapo, da ne pomeša ponovitev.
+
+Za predvidljivo ime mape ali GPU uporabi:
+
+```bash
+# CPU, poimenuj mapo results/qwen3.5-prvi:
+bash scripts/test_qwen35.sh qwen3.5-prvi
+
+# GPU, če je NVIDIA Container Toolkit že nameščen (razdelek 3):
+export COMPOSE_FILE=compose.yaml:compose.gpu.yaml
+bash scripts/test_qwen35.sh qwen3.5-gpu
+
+# Ustavitev storitve; podatki in modeli ostanejo:
+docker compose down
+```
+
+Primerjaj klasifikacije v `results.csv`, število napak in čase v povzetkih.
+Ta vzorec ima semantične oznake objektov, nima pa referenčnih oznak
+`fixed/movable/uncertain`. Zato iz njega še ne moremo samodejno izračunati,
+kateri model je pravilnejši; najprej ročno določi reference za iste objekte.
+Manjše število napak JSON pomeni zanesljivejši format, ne nujno boljše
+klasifikacije. Modela sta tudi različnih velikosti (0.5B in 0.8B).
+
+Viri: [model Qwen3.5 v Ollami](https://ollama.com/library/qwen3.5:0.8b),
+[nadzor razmišljanja](https://docs.ollama.com/api/openai-compatibility).
+Dejanski zagon Qwen3.5 moraš preveriti na svojem računalniku; v okolju priprave
+ni Dockerja ali GPU.
+
 ## Preverjanje te dostave
 
 Preverjeni so Python testi, dejanski prenos majhnega vzorca in priprava JSONL.
