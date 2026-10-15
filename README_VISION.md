@@ -8,6 +8,9 @@ visible observations. Stage 2 receives only that description and the list, then
 assigns fixed/movable/uncertain. The same model weights serve both separate calls.
 No paid API, public tunnel or host port is required.
 
+For editable prompts, description detail, separate model selection and temperatures,
+see [README_NASTAVITVE.md](README_NASTAVITVE.md). All existing commands retain their defaults.
+
 The 20 NYUv2 frames are each described once (temperature 0). Reasoning uses 0,
 0.3 and 0.7 on the same cached description. Settings: thinking off, seed 42,
 top_p 0.8, top_k 20, presence_penalty 1.5, context 8192, output limit 2048.

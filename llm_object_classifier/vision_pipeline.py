@@ -1,6 +1,5 @@
 """Two-stage Ollama vision -> text reasoning, with cached observations and full logs."""
 from __future__ import annotations
-import argparse
 import base64
 import csv
 import hashlib
@@ -13,18 +12,23 @@ import urllib.request
 from pathlib import Path
 from PIL import Image
 from .schema import validate_frame, validate_classifications
-from .vision_prompts import PROMPT_VERSION, CAPTION_SYSTEM, REASON_SYSTEM, caption_prompt, reason_prompt
+from .vision_config import parse_args
+from .vision_prompts import (
+    PROMPT_VERSION, REASON_SYSTEM, REASON_INSTRUCTION, caption_system, caption_prompt, reason_prompt,
+)
 
 ATTACHMENTS = {"visible_installation", "appears_freestanding", "not_visible", "mixed"}
 
 
 def typed_id(value):
+    """Keep integer 1 distinct from string '1' when matching model output."""
     if type(value) not in (int, str) or value == "":
         raise ValueError("Object IDs must be numbers or nonempty strings, never booleans.")
     return type(value).__name__, value
 
 
 def exact_items(objects, items):
+    """Require every supplied region exactly once, without invented IDs."""
     if not isinstance(items, list):
         raise ValueError("Response must contain an objects list.")
     expected = {typed_id(o["id"]) for o in objects}
@@ -41,6 +45,7 @@ def exact_items(objects, items):
 
 
 def validate_caption(objects, result):
+    """Only structured, complete observations may enter the reasoning stage."""
     if not isinstance(result, dict) or not isinstance(result.get("scene_description"), str):
         raise ValueError("Missing scene_description.")
     if not result["scene_description"].strip():
@@ -57,6 +62,7 @@ def validate_caption(objects, result):
 
 
 def write_json(path, result):
+    """Replace logs atomically so an interrupted write cannot leave half a JSON."""
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = path.with_suffix(path.suffix + ".tmp")
     temp.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
@@ -64,6 +70,7 @@ def write_json(path, result):
 
 
 def request_json(base_url, path, body=None, timeout=600):
+    """GET metadata or POST a generation request using Ollama's native API."""
     request = urllib.request.Request(base_url.rstrip("/") + path,
         data=None if body is None else json.dumps(body).encode(),
         headers={"Content-Type": "application/json"})
@@ -96,6 +103,7 @@ def loaded_gpu(base_url, model, timeout=600):
 
 def chat(base_url, model, system, prompt, temperature, seed, image=None, timeout=600,
          options=None, require_gpu=False):
+    """Send one independent conversation; only stage 1 supplies image bytes."""
     message = {"role": "user", "content": prompt}
     if image is not None:
         message["images"] = [base64.b64encode(image).decode()]
@@ -119,9 +127,10 @@ def chat(base_url, model, system, prompt, temperature, seed, image=None, timeout
 
 
 def variants(args):
+    """Cross reasoning profiles, temperatures and seeds; captions stay shared."""
     profiles = [{"name": "default", "options": {}}]
     if getattr(args, "profiles", None):
-        profiles = json.loads(args.profiles.read_text())
+        profiles = json.loads(args.profiles.read_text(encoding="utf-8-sig"))
     if not isinstance(profiles, list) or not profiles:
         raise ValueError("profiles must be a nonempty JSON list.")
     result, names = [], set()
@@ -180,19 +189,36 @@ def region_objects(record, data_dir):
 
 
 def run(args):
+    """Describe each image once, then reason without sending the image again."""
     experiments = variants(args)
     require_gpu = getattr(args, "require_gpu", False)
     caption_options = {**DEFAULT_OPTIONS, "num_ctx": getattr(args, "num_ctx", 8192),
-                       "num_predict": getattr(args, "num_predict", 2048)}
+                       "num_predict": getattr(args, "caption_num_predict", None)
+                       or getattr(args, "num_predict", 2048)}
+    caption_system_prompt = caption_system(getattr(args, "caption_detail", "brief"))
+    # Snapshot prompt files once: editing them during a run cannot mix experiments.
+    reason_system_prompt = REASON_SYSTEM
+    reason_instructions = REASON_INSTRUCTION
+    for attribute in ("reason_system_file", "reason_prompt_file"):
+        path = getattr(args, attribute, None)
+        if path is not None:
+            text = path.read_text(encoding="utf-8-sig").strip()
+            if not text:
+                raise ValueError(f"Empty prompt file: {path}")
+            if attribute == "reason_system_file":
+                reason_system_prompt = text
+            else:
+                reason_instructions = text
     run_dir = args.output_dir
     run_dir.mkdir(parents=True, exist_ok=True)
     if (run_dir / "manifest.json").exists():
         raise ValueError("Output run already exists. Choose a new directory; old results are preserved.")
-    records = [json.loads(l) for l in args.input.read_text().splitlines() if l.strip()][:args.limit]
+    records = [json.loads(l) for l in args.input.read_text(encoding="utf-8-sig").splitlines() if l.strip()][:args.limit]
     if not records:
         raise ValueError("Input has no frames.")
     for record in records:
         validate_frame(record)
+    # Record actual model metadata and reject a text-only model for image input.
     models = {name: request_json(args.base_url, "/api/show", {"model": name})
               for name in {args.vision_model, args.reason_model}}
     if "vision" not in models[args.vision_model].get("capabilities", []):
@@ -203,8 +229,9 @@ def run(args):
             if precision not in {"BF16", "F16", "F32"}:
                 raise ValueError(f"{name}: expected unquantized BF16/F16/F32, got {precision!r}.")
     write_json(run_dir / "manifest.json", {
-        "prompt_version": PROMPT_VERSION, "caption_system": CAPTION_SYSTEM,
-        "reason_system": REASON_SYSTEM, "input_sha256": hashlib.sha256(args.input.read_bytes()).hexdigest(),
+        "prompt_version": PROMPT_VERSION, "caption_system": caption_system_prompt,
+        "reason_system": reason_system_prompt, "reason_instructions": reason_instructions,
+        "input_sha256": hashlib.sha256(args.input.read_bytes()).hexdigest(),
         "experiments": experiments, "caption_options": caption_options,
         "models": models, "ollama": request_json(args.base_url, "/api/version"),
         "settings": {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()},
@@ -232,19 +259,21 @@ def run(args):
                 image = (args.input.parent / record["image_path"]).read_bytes()
                 objects = region_objects(record, args.input.parent)
                 prompt = caption_prompt(frame_id, objects)
-                key = hashlib.sha256(image + json.dumps({"prompt": prompt, "system": CAPTION_SYSTEM,
+                # Only stage 1 inputs belong in this key. Reasoning edits must not
+                # trigger a fresh image description; detail/model/sampling edits must.
+                key = hashlib.sha256(image + json.dumps({"prompt": prompt, "system": caption_system_prompt,
                     "model": args.vision_model, "model_info": models[args.vision_model],
                     "temperature": args.caption_temperature, "seed": args.seed,
                     "version": PROMPT_VERSION, "options": caption_options},
                     sort_keys=True).encode()).hexdigest()
                 cache = args.cache_dir / f"{key}.json"
                 if cache.exists():
-                    caption_info = json.loads(cache.read_text())
+                    caption_info = json.loads(cache.read_text(encoding="utf-8"))
                     caption = validate_caption(objects, caption_info["parsed"])
                     caption_info["cached"] = True
                     summary["caption_cached"] += 1
                 else:
-                    caption_info = chat(args.base_url, args.vision_model, CAPTION_SYSTEM, prompt,
+                    caption_info = chat(args.base_url, args.vision_model, caption_system_prompt, prompt,
                         args.caption_temperature, args.seed, image, args.timeout,
                         options=caption_options, require_gpu=require_gpu)
                     caption = validate_caption(objects, json.loads(caption_info["content"]))
@@ -260,6 +289,8 @@ def run(args):
                 summary["caption_error"] += 1
                 write_json(frame_dir / "caption_error.json", {"error": str(exc), "response": caption_info})
                 print(f"  NAPAKA OPISA: {exc}", flush=True)
+            # Every reasoning variant receives identical validated observations.
+            # Errors are logged per variant so one failure does not hide the rest.
             for variant in experiments:
                 temperature, seed = variant["temperature"], variant["seed"]
                 counters = summary["experiments"][variant["id"]]
@@ -274,11 +305,11 @@ def run(args):
                     writer.writerow({**row_settings, "frame_id": frame_id, "temperature": temperature,
                                      "status": "skipped_caption_error", "error": "No valid visual observations."})
                     continue
-                prompt = reason_prompt(frame_id, record["objects"], caption)
+                prompt = reason_prompt(frame_id, record["objects"], caption, reason_instructions)
                 result = {}
                 started = time.perf_counter()
                 try:
-                    result = chat(args.base_url, args.reason_model, REASON_SYSTEM, prompt,
+                    result = chat(args.base_url, args.reason_model, reason_system_prompt, prompt,
                                   temperature, seed, timeout=args.timeout,
                                   options=variant["options"], require_gpu=require_gpu)
                     parsed = json.loads(result["content"])
@@ -316,34 +347,16 @@ def run(args):
         v["error"] == 0 and v["skipped"] == 0 for v in summary["experiments"].values()) else 2
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--input", type=Path, default=Path("data/nyu20/objects.jsonl"))
-    parser.add_argument("--output-dir", type=Path, required=True)
-    parser.add_argument("--cache-dir", type=Path, default=Path("results/vision-caption-cache"))
-    parser.add_argument("--base-url", default="http://ollama:11434")
-    parser.add_argument("--vision-model", default="qwen3.5:4b")
-    parser.add_argument("--reason-model", default="qwen3.5:4b")
-    parser.add_argument("--temperatures", type=float, nargs="+", default=[0.0, 0.3, 0.7])
-    parser.add_argument("--caption-temperature", type=float, default=0.0)
-    parser.add_argument("--limit", type=int, default=20)
-    parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--timeout", type=int, default=600)
-    parser.add_argument("--seeds", type=int, nargs="+", help="Reasoning seeds; caption always uses --seed.")
-    parser.add_argument("--profiles", type=Path, help="JSON sampling profiles; crossed with temperatures and seeds.")
-    parser.add_argument("--num-ctx", type=int, default=8192)
-    parser.add_argument("--num-predict", type=int, default=2048)
-    parser.add_argument("--require-gpu", action="store_true", help="Abort on CPU fallback; records /api/ps per request.")
-    parser.add_argument("--require-unquantized", action="store_true", help="Check both models' reported weight precision.")
-    args = parser.parse_args()
-    if args.limit < 1 or len(set(args.temperatures)) != len(args.temperatures):
-        parser.error("limit must be positive and temperatures must be unique.")
-    if any(not math.isfinite(t) or t < 0 for t in [*args.temperatures, args.caption_temperature]):
-        parser.error("Temperatures must be finite and nonnegative.")
+def main(argv=None):
+    args = parse_args(argv)
+    if args.print_models:
+        print(args.vision_model)
+        print(args.reason_model)
+        return 0
     try:
         return run(args)
     except Exception as exc:
-        parser.exit(1, f"Error: {exc}\n")
+        raise SystemExit(f"Error: {exc}") from exc
 
 
 if __name__ == "__main__":

@@ -1,5 +1,8 @@
 # Klasifikacija fiksnih in premicnih objektov z lokalnim LLM
 
+Za dvostopenjski postopek slika -> opis -> reasoning in nastavljanje promptov,
+podrobnosti opisa, obeh modelov ter temperatur glej [README_NASTAVITVE.md](README_NASTAVITVE.md).
+
 ## Nov začetek: Docker + majhen resnični nabor + majhen model
 
 Za prvi preizkus uporabi **[README_DOCKER.md](README_DOCKER.md)**.
