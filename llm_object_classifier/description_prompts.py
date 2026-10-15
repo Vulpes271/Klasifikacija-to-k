@@ -13,6 +13,9 @@ installation. Say what is visible and what cannot be established. Do not halluci
 The input tells you whether supplied IDs are semantic class regions, object
 instances, or unspecified annotations. Semantic class regions may contain several
 objects; describe differences and use mixed evidence when appropriate.
+Some supplied boxes are group annotations (e.g. Products): do not assume that
+one annotated box means one physical object. Coordinates refer to original image
+pixels; image_size is [width, height].
 When supplied_objects is null, identify visible objects yourself and assign unique
 integer IDs within this photograph. These are tentative detections, not dataset
 annotations. Describe separate visible instances separately when possible.
@@ -34,6 +37,7 @@ def system_prompt(detail):
 def user_prompt(frame):
     return "Describe the photograph using these inputs:\n" + json.dumps({
         "frame_id": frame["record"]["frame_id"],
+        "image_size": frame["image_size"],
         "annotation_kind": frame["record"].get("annotation_kind", "unspecified"),
         "supplied_objects": frame["regions"]}, ensure_ascii=False)
 

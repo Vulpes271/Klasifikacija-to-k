@@ -35,10 +35,13 @@ def load_images(manifest, limit=20, frame_ids=None):
             if record.get("image_sha256") and digest != record["image_sha256"]:
                 raise ValueError(f"{fid}: image changed since selection was prepared.")
             with Image.open(path) as image:
+                image_size = list(image.size)
                 image.verify()
                 mime = Image.MIME.get(image.format, "application/octet-stream")
                 if image.format not in {"JPEG", "PNG", "WEBP"}:
                     raise ValueError(f"{fid}: use JPEG, PNG or WEBP.")
+            if record.get("image_size") is not None and record["image_size"] != image_size:
+                raise ValueError(f"{fid}: image_size does not match the photograph.")
             regions = None
             if "objects" in record:
                 validate_frame(record)
@@ -53,7 +56,7 @@ def load_images(manifest, limit=20, frame_ids=None):
                     from .vision_pipeline import region_objects
                     regions = region_objects(record, Path(manifest).resolve().parent)
             selected.append({"record": record, "path": str(path.resolve()), "image": data,
-                             "image_sha256": digest, "mime": mime, "regions": regions})
+                             "image_sha256": digest, "image_size": image_size, "mime": mime, "regions": regions})
             if len(selected) >= limit:
                 break
     if not selected:

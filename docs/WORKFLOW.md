@@ -16,7 +16,37 @@ git pull --ff-only origin feature/separate-vision-stages
 Če Git zaradi lokalnih sprememb zavrne preklop, jih najprej shrani; ne uporabljaj
 `reset --hard` ali brisanja map z rezultati.
 
-## 2. Baza na zunanjem disku
+## 2. Pripravljena izbora THUD (zunanji disk ni potreben)
+
+Oba izbora s po 50 slikami in pripadajočimi oznakami sta vključena v Git.
+Za trenutne poskuse lahko preskočiš razdelek o zunanjem disku.
+
+```bash
+export COMPOSE_FILE=compose.yaml:compose.gpu.yaml
+bash scripts/stage1_describe.sh thud-store-hitri \
+  --config configs/stage1/thud-compare.json \
+  --input data/thud_dense_test50/objects.jsonl --limit 2
+xdg-open results/stage1/thud-store-hitri/comparison.html
+```
+
+Za oba celotna izbora:
+
+```bash
+bash scripts/stage1_describe.sh thud-store-50 \
+  --config configs/stage1/thud-compare.json \
+  --input data/thud_dense_test50/objects.jsonl --limit 50
+bash scripts/stage1_describe.sh thud-agtea-50 \
+  --config configs/stage1/thud-compare.json \
+  --input data/thud_agtea_test50/objects.jsonl --limit 50
+```
+
+Vsak nabor se primerja ločeno. Lokalni frame_id se lahko med naboroma ponovi,
+zato njunih JSONL ne združuj brez predpone prizora. Prvi korak uporabi že pripravljene
+ID-je, vrste in okvirje, ne novega modelskega seznama objektov. Pri `Products`
+lahko ena oznaka zajema skupino predmetov. Za večje število regij ima konfiguracija
+THUD kontekst 16384 in do 8192 izhodnih tokenov; ostale nastavitve so enake.
+
+## 2b. Celotna baza ali druga RGB mapa na zunanjem disku
 
 Bazo razširi zunaj repozitorija. Za prvi test izberi eno mapo, ki vsebuje RGB
 fotografije. Ohranitev izvirne strukture in imen datotek olajša poznejše povezovanje oznak.

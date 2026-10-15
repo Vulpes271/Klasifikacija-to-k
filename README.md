@@ -13,6 +13,21 @@ Git vsebuje kodo, nastavitve in dokumentacijo.
 Za zdaj je smiselno urediti izbor podatkov in primerjati prvi korak. Drugega lahko
 zaženeš pozneje na točno izbranih opisih, brez ponovnega opisovanja slik.
 
+## Vključena izbora THUD: 2 x 50 slik
+
+Oba izbora sta že v repozitoriju: `data/thud_dense_test50` (trgovina) in
+`data/thud_agtea_test50` (raznoliki predmeti). [Podrobnosti in zagon](data/README.md).
+
+```bash
+export COMPOSE_FILE=compose.yaml:compose.gpu.yaml
+bash scripts/stage1_describe.sh thud-prvi \
+  --config configs/stage1/thud-compare.json \
+  --input data/thud_dense_test50/objects.jsonl --limit 2
+```
+
+Za teh 100 izbranih fotografij zunanji disk ni potreben. Celotna izvorna baza
+ostaja lokalno in se ne nalaga v Git.
+
 ## Hiter preizkus na že prenesenih slikah NYUv2
 
 Če imaš že `data/nyu20/objects.jsonl`, lahko novo ločitev preveriš takoj:
