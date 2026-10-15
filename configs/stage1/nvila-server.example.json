@@ -1,0 +1,21 @@
+{
+  "models": [
+    {"name": "qwen35-bf16", "backend": "ollama", "model": "qwen3.5:4b-bf16", "precision": "BF16", "require_gpu": true},
+    {
+      "name": "nvila",
+      "backend": "openai",
+      "base_url": "http://host.docker.internal:8000",
+      "model": "NVILA-8B",
+      "system_as_user": true,
+      "send_seed": false,
+      "json_mode": false,
+      "require_gpu": false
+    }
+  ],
+  "detail": "detailed",
+  "temperatures": [0.0],
+  "seeds": [42],
+  "max_tokens": 4096,
+  "num_ctx": 8192,
+  "timeout": 600
+}

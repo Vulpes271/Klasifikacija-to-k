@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Legacy experiment retained for reproducibility; new stages: stage1_describe.sh / stage2_reason.sh.
 # Same BF16 captions -> quantized/BF16 text reasoning, on NVIDIA GPU.
 set -euo pipefail
 cd "$(dirname "$0")/.."

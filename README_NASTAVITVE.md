@@ -1,5 +1,8 @@
 # Nastavitve: slika -> opis -> reasoning
 
+> Starejša, ohranjena pot. Za nova ločena koraka glej [docs/WORKFLOW.md](docs/WORKFLOW.md).
+
+
 Koda temelji na veji `feature/docker-smoke`. Prvi del prejme sliko in opise
 vidne objekte. Drugi del prejme oznake in opis iz prvega dela ter vrne
 `fixed`, `movable` ali `uncertain`. Modela lahko izberes loceno.

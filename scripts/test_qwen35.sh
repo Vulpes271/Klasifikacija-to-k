@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Legacy experiment retained for reproducibility; new stages: stage1_describe.sh / stage2_reason.sh.
 set -euo pipefail
 
 # Always run Compose from the project root, even from another directory.

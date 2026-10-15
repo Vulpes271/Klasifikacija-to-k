@@ -1,5 +1,8 @@
 # GPU test: slika → opis → LLM → fixed / movable / uncertain
 
+> Starejša, ohranjena pot. Za nova ločena koraka glej [docs/WORKFLOW.md](docs/WORKFLOW.md).
+
+
 Koda je na veji **feature/docker-smoke**. Na `main` je za zdaj samo prvotni README.
 
 ## Zagon na laboratorijskem Linux računalniku

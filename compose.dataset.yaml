@@ -1,0 +1,8 @@
+# Optional read-only external disk mount for either stage and image selection.
+services:
+  app:
+    volumes:
+      - type: bind
+        source: ${DATASET_DIR:?Set DATASET_DIR to the existing external dataset directory}
+        target: /datasets
+        read_only: true

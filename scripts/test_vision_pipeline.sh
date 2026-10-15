@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Legacy experiment retained for reproducibility; new stages: stage1_describe.sh / stage2_reason.sh.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 export LOCAL_UID="$(id -u)"

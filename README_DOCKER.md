@@ -1,5 +1,8 @@
 # Majhen prvi test v Dockerju (Linux terminal)
 
+> Starejša, ohranjena pot. Za nova ločena koraka glej [docs/WORKFLOW.md](docs/WORKFLOW.md).
+
+
 Ta postopek pripravi Python program, lokalno Ollamo in majhen model.
 Prenesemo **10 resničnih RGB slik NYUv2 in njihove semantične maske**,
 ne celotnega arhiva. Prenos slik je reda nekaj MB; skripta izpiše dejansko velikost.

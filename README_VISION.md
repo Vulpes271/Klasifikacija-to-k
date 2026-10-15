@@ -1,5 +1,8 @@
 # Image observations -> mobility reasoning (Qwen3.5 4B)
 
+> Starejša, ohranjena pot. Za nova ločena koraka glej [docs/WORKFLOW.md](docs/WORKFLOW.md).
+
+
 For the new NVIDIA GPU + unquantized BF16/Q4 comparison with parameter sweeps,
 see [README_GPU.md](README_GPU.md). The original helper below now verifies GPU use.
 
