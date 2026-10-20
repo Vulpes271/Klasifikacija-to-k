@@ -243,3 +243,6 @@
 
 - Končni PDF uporablja vektorske pisave Latin Modern in Unicode preslikavo: šest strani, pravilno kopirljivi šumniki, brez Type 3 pisav, LaTeX napak ali prelivanja. Dokazila so v `pdf-validation.json`; končni predogledi vseh strani so lokalno v `results/thud-vmesno/pdf-preview/`.
 - Samostojen paket poročila je pripravljen za Git; surovi izhodi (približno 806 MB) ostajajo lokalno. Obstoječi uporabnikov `vision-launch.log` je ohranjen. Vsa koda, prompti, nastavitve, CSV/JSON, slike, LaTeX in PDF so pripravljeni za shranitev na delovno vejo.
+
+- Lokalni zaključni commit s kodo in celotnim paketom poročila: `06f42d3`. Push je prvotno zavrnil samodejni varnostni pregled zaradi nepotrjenega oddaljenega cilja. Preverjeno je natančno ujemanje `origin` z repozitorijem in izrecnim navodilom za push v CODEX_NALOGA.md; ponovni pregled je ukaz dovolil.
+- Dejanski `git push -u origin feature/separate-vision-stages` je nato odpovedal z izhodom 128: `fatal: could not read Username for 'https://github.com': terminal prompts disabled`. Za objavo manjkajo GitHub poverilnice s pravico pisanja. Lokalni commiti, poročilo in vsi rezultati so ohranjeni; noben podatek ni bil potisnjen na oddaljeno vejo.
