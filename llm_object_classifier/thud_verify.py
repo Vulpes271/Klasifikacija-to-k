@@ -25,6 +25,10 @@ def verify(require_complete=False):
             expected.append((f'extra-{name}-{ds}',10,'extra',ds,'discovery'))
         for prompt,t,seed in [('long-examples',.3,42),('long-no-examples',.3,42),('short-no-examples',.3,42),('long-no-examples',0,42),('long-no-examples',.7,42),('long-no-examples',.3,43)]:
             expected.append((f'reason-{prompt}-t{t}-s{seed}-{ds}',10,'reasoning',ds,None))
+    for ds in DATASETS:
+        name=f'reason-q4-long-no-examples-t0.3-s42-{ds}'
+        if (OUT/name).exists():
+            expected.append((name,10,'reasoning',ds,None))
     hashes={}
     frozen_vectors={}
     for name,expected_count,stage,ds,mode in expected:

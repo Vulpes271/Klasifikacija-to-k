@@ -1,0 +1,33 @@
+{
+  "started_utc": "2026-10-20T19:38:34Z",
+  "image_api_verified": false,
+  "model": "Efficient-Large-Model/NVILA-8B",
+  "server.py": {
+    "source": "https://raw.githubusercontent.com/NVlabs/VILA/main/server.py",
+    "bytes": 11763
+  },
+  "pyproject.toml": {
+    "source": "https://raw.githubusercontent.com/NVlabs/VILA/main/pyproject.toml",
+    "bytes": 2521
+  },
+  "allowed_models": [
+    "NVILA-15B",
+    "VILA1.5-3B",
+    "VILA1.5-3B-AWQ",
+    "VILA1.5-3B-S2",
+    "VILA1.5-3B-S2-AWQ",
+    "Llama-3-VILA1.5-8B",
+    "Llama-3-VILA1.5-8B-AWQ",
+    "VILA1.5-13B",
+    "VILA1.5-13B-AWQ",
+    "VILA1.5-40B",
+    "VILA1.5-40B-AWQ"
+  ],
+  "blockers": [
+    "Official server model Literal excludes NVILA-8B; 8B cannot pass request validation without source changes.",
+    "Official package pins torch==2.3.0; separate Blackwell-compatible dependency validation needed.",
+    "Host Python 3.14 has neither torch nor transformers; isolated venv initialization failed (ensurepip unavailable)."
+  ],
+  "decision": "Stop optional initial diagnostics; no weights downloaded or inference claimed. Baseline/report prioritized. Source changes and isolated CUDA serving remain follow-up.",
+  "diagnostic_scope": "Initial source and isolated-environment diagnostics only; stopped well below 30 minutes. No running image server or GPU inference."
+}

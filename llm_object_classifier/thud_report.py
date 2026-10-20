@@ -126,6 +126,20 @@ def create_review(jobs, frames, audit):
     write_csv(REPORT/'name-overlap.csv',name_rows,list(name_rows[0]) if name_rows else ['status'])
 
 
+def save_run_summary(jobs):
+    """Regenerate the compact total, keeping pilot and warmups separate."""
+    groups={}
+    for prefix,label in [('pilot-','pilot'),('baseline-','baseline'),('extra-','additional_descriptions'),('reason-','reasoning')]:
+        groups[label]=aggregate([r for name,job in jobs.items() if name.startswith(prefix) for r in job['records']])
+    warmups=[r for job in jobs.values() for r in job['warmups']]
+    write_json(REPORT/'run-summary.json',{'groups':groups,
+        'measured_gpu_calls':sum(g['attempted'] for g in groups.values()),
+        'verified_measured_gpu_calls':sum(g['gpu_verified_calls'] for g in groups.values()),
+        'warmup_calls_excluded':len(warmups),'verified_warmup_calls':sum(r.get('gpu_verified',False) for r in warmups),
+        'raw_outputs':str(OUT),'initial_cpu_diagnostic':str(OUT/'diagnostic-cpu-initial-pilot'),
+        'second_part_executed':False})
+
+
 def save_rejected_candidates():
     """Keep parsed rejected JSON separately; never turn a failure into a caption."""
     rejected=[]
@@ -177,8 +191,9 @@ def main():
     REPORT.mkdir(parents=True,exist_ok=True)
     (REPORT/'figures').mkdir(exist_ok=True)
     from .thud_verify import verify
-    verify()
+    verification=verify()
     jobs=collect()
+    save_run_summary(jobs)
     save_rejected_candidates()
     audit=read_json(REPORT/'data-audit.json')
     frames={ds:load_images(ROOT/'data'/ds/'objects.jsonl',50) for ds in DATASETS}
@@ -204,10 +219,13 @@ def main():
     fig.savefig(REPORT/'figures/latency.png',dpi=180);plt.close(fig)
     baseline_rows=[r for name,j in jobs.items() if name.startswith('baseline-') for r in j['records']]
     extra_rows=[r for name,j in jobs.items() if name.startswith('extra-') for r in j['records']]
-    reason_rows=[r for name,j in jobs.items() if name.startswith('reason-') for r in j['records']]
+    reason_rows=[r for name,j in jobs.items() if name.startswith('reason-') and not name.startswith('reason-q4-') for r in j['records']]
+    q4_reason_rows=[r for name,j in jobs.items() if name.startswith('reason-q4-') for r in j['records']]
     environment=read_json(REPORT/'environment.json')
+    tests=read_json(REPORT/'tests.json') if (REPORT/'tests.json').exists() else {}
+    validation_sentence=f'Preverjanje kode: {tests.get("tests","--")} testov ({tests.get("result","še ni izvedeno")}); revizija {verification["complete_jobs"]}/{verification["expected_jobs"]} skupin, {len(verification["invariant_errors"])} kršitev nespremenljivih vhodov/GPU. Podrobnosti: tests.json in verification.json.'
     snapshots=sorted((OUT/'source-snapshots').glob('all-*.json'))
-    commit=read_json(snapshots[-1])['git_commit'] if snapshots else environment['git_commit']['stdout'].strip()
+    commit=read_json(snapshots[0])['git_commit'] if snapshots else environment['git_commit']['stdout'].strip()
     total=aggregate(baseline_rows)
     pages=[]
     model_table=[]
@@ -250,8 +268,9 @@ VRAM je največja dodelitev modelu v shranjenih merjenih odgovorih API, ne celot
             for spec in MODELS:
                 a=aggregate(baseline(jobs,ds,spec['name'],mode))
                 timing.append(['trgovina' if ds==DATASETS[0] else 'agtea','samost.' if mode=='discovery' else 'regije',tex(spec['name']),f'{a["ok"]}/{a["attempted"]}',number(a['median_s']),number(a['p90_s']),number(a['mean_s']),number(a['mean_output_tokens'],0),number(a['generation_tokens_s'])])
+    q4_note=f' Dodatna Q4 ponovitev: {len(q4_reason_rows)}/20.' if q4_reason_rows else ''
     pilot=read_json(REPORT/'pilot-estimate.json') if (REPORT/'pilot-estimate.json').exists() else {}
-    pages.append(r'\section*{Dejanski obseg in hitrost}'+f'Osnovna primerjava: {len(baseline_rows)}/600 merjenih odgovorov, {total["ok"]} odgovorov ustreza shemi, {total["errors"]} napak; skladen zapis JSON ima {total["json_parse_valid_calls"]} odgovorov. Dodatni prvi korak: {len(extra_rows)}/80; drugi korak: {len(reason_rows)}/120. Ogrevalni klici so shranjeni ločeno in izključeni iz teh imenovalcev.\n'+table(['Nabor','Način','Model','OK/vsi','Med.','p90','Povp.','Izh. tok.','tok/s'],timing,'lllrrrrrr')+r'''
+    pages.append(r'\section*{Dejanski obseg in hitrost}'+f'Osnovna primerjava: {len(baseline_rows)}/600 merjenih odgovorov, {total["ok"]} odgovorov ustreza shemi, {total["errors"]} napak; skladen zapis JSON ima {total["json_parse_valid_calls"]} odgovorov. Dodatni prvi korak: {len(extra_rows)}/80; drugi korak: {len(reason_rows)}/120.{q4_note} Ogrevalni klici so shranjeni ločeno in izključeni iz teh imenovalcev.\n'+table(['Nabor','Način','Model','OK/vsi','Med.','p90','Povp.','Izh. tok.','tok/s'],timing,'lllrrrrrr')+r'''
 \begin{center}\includegraphics[width=.94\linewidth]{figures/latency.png}\end{center}
 Izh. tok. je povprečno število izhodnih tokenov. Časi so sekunde na sliko/klic; p90 uporablja linearno interpolacijo. Čas vključuje vse odgovore z izmerjenim časom, tudi zavrnjeni JSON. Napake prenosa lahko nimajo časa; število takih klicev je v agregatih. Tok/s je vsota izhodnih tokenov deljena z vsoto API časa generiranja. Nalaganje in tokeni so ločeno ohranjeni; end-to-end čas je čas celotne skupine, vključno z ogrevanjem, preverjanjem in zapisovanjem.
 '''+f'Osnovni del: skupni end-to-end čas {number(end_seconds/60)} min; ogrevalni klici {number(warm_seconds)} s, od tega API nalaganje {number(warm_load_seconds)} s; API nalaganje v merjenih klicih {number(measured_load_seconds)} s. Nalaganje je podmnožica časa zahteve, zato teh časov ne seštevamo.\n'+f'Pilot: {pilot.get("pilot_calls","--")} merjenih klicev; linearna ocena osnovnega dela pred polnim zagonom je bila {number((pilot.get("estimated_baseline_seconds") or 0)/3600)} h. Ocena ni meritev celotnega izvajanja.\n'+r'''
@@ -276,14 +295,28 @@ RTX 5090 (32607 MiB), Docker Compose in projektna Ollama. Začetni stari kontejn
         cmp=[c for c in comparisons if c['job'] in names]
         changed=sum(c['changed'] for c in cmp)
         reasoning_table.append([tex(prompt)+f' / {t} / {seed}',f'{a["ok"]}/{a["attempted"]}',cl['fixed'],cl['movable'],cl['uncertain'],f'{changed}/{len(cmp)}'])
+    if q4_reason_rows:
+        a=aggregate(q4_reason_rows)
+        cl=Counter(o['classification'] for r in q4_reason_rows if r['status']=='ok' for o in r['parsed']['objects'])
+        cmp=[c for c in comparisons if c['job'].startswith('reason-q4-')]
+        reasoning_table.append(['Q4 / long-no-examples / .3 / 42',f'{a["ok"]}/{a["attempted"]}',cl['fixed'],cl['movable'],cl['uncertain'],f'{sum(c["changed"] for c in cmp)}/{len(cmp)}'])
+    prompt_success={}
+    for prompt in ('long-examples','long-no-examples','short-no-examples'):
+        rs=[r for ds in DATASETS for r in jobs.get(f'reason-{prompt}-t0.3-s42-{ds}',{}).get('records',[])]
+        prompt_success[prompt]=aggregate(rs)
+    findings='Pri T=.3, seed 42: '+', '.join(f'{name} {a["ok"]}/{a["attempted"]}' for name,a in prompt_success.items())+'. To meri izpolnitev sheme, ne pravilnosti odločitev.'
+    candidate='kratki prompt brez primerov' if prompt_success['short-no-examples']['ok']>=prompt_success['long-examples']['ok'] else 'dolgi prompt s primeri'
+    reason_errors=[r.get('error','') for r in reason_rows+q4_reason_rows if r['status']=='error']
+    other_reason_errors=len(reason_errors)-sum('missing reason' in e or 'Duplicate JSON key' in e for e in reason_errors)
+    error_findings=f'V besedilnem delu je {sum("missing reason" in e for e in reason_errors)} odgovorov brez obvezne utemeljitve in {sum("Duplicate JSON key" in e for e in reason_errors)} s podvojenim ključem ter {other_reason_errors} z drugimi kršitvami sheme. Vsi ostanejo zavrnjeni s shranjenim surovim odgovorom; podvojenega ključa ne razrešimo z izbiro zadnje vrednosti.'
     pages.append(r'''\section*{Vpliv prompta, temperature in semena}
-Vnaprej je izbranih 10 enakomerno razpršenih slik iz vsakega nabora (indeksi v \texttt{data-audit.json}). Vsi dodatni testi uporabijo isti izbor. Kratek in podroben opisovalni prompt imata isto izhodno shemo in obvezne podatke, brez vsebinskih primerov. Osnovni podrobni T=0 se ponovno uporabi na izbranih slikah.
+Vnaprej je izbranih 10 enakomerno razpršenih slik iz vsakega nabora (indeksi v \texttt{data-audit.json}). Vsi dodatni testi uporabijo isti izbor; dodatni opisovalni testi merijo samostojno zaznavanje. Kratek in podroben opisovalni prompt imata isto izhodno shemo in obvezne podatke, brez vsebinskih primerov. Osnovni podrobni T=0 se ponovno uporabi na izbranih slikah.
 '''+table(['Opisovalnik BF16','OK/vsi','Med. [s]','Objekti'],extra_table,'lrrr')+r'''
 Število objektov je opis izhoda, ne merilo pravilnosti. Temperatura in seme se spreminjata ločeno; ni polnega kartezičnega produkta. Pri T=0 seme nima zagotovljenega vpliva.
 \subsection*{Besedilna presoja istih zamrznjenih opisov}
 Vhodi so iz osnovnega samostojnega Qwen BF16. SHA256 datotek se zapiše za vsak klic; drugi korak ne odpre slike. Dolga prompta se razlikujeta samo po odstranitvi dveh blokov vsebinskih primerov. Definicije in shema ostanejo iste. Kratka različica ohrani isti pomen. Datoteke in razlike so shranjene v Git.
-'''+table(['Prompt / T / seed','OK/vsi','F','M','U','Spremembe'],reasoning_table,'lrrrrr')+r'''
-F/M/U so števila odločitev fixed/movable/uncertain v veljavnih odgovorih. Spremembe so primerjave istega tipiziranega ID na istem SHA256 opisa proti dolgemu promptu brez primerov pri T=.3, seed 42. Imenovalec vsebuje samo pare veljavnih odgovorov; neuspešni klici so posebej v OK/vsi. Strinjanje ni pravilnost. Izbira dolgega prompta brez primerov za temperaturne teste je vnaprejšnja metodološka izbira zaradi ohranjenih definicij, ne dokaz boljše kakovosti.
+'''+table(['Prompt / T / seed','OK/vsi','F','M','U','Spremembe'],reasoning_table,'lrrrrr')+tex(findings)+r'''
+Vrstice so BF16, dodatna vrstica Q4 je ponovitev istega prompta in opisov. F/M/U so števila odločitev fixed/movable/uncertain v veljavnih odgovorih. Spremembe so primerjave istega tipiziranega ID na istem SHA256 opisa proti dolgemu promptu brez primerov pri T=.3, seed 42. Imenovalec vsebuje samo pare veljavnih odgovorov; neuspešni klici so posebej v OK/vsi. Strinjanje ni pravilnost. Izbira dolgega prompta brez primerov za temperaturne teste je vnaprejšnja metodološka izbira zaradi ohranjenih definicij, ne dokaz boljše kakovosti.
 \subsection*{Kakovost: meje samodejnih meritev}
 \texttt{name-overlap.csv} poroča le presek unikatnih imen po pretvorbi v male črke in normalizaciji presledkov, brez sinonimov ali ujemanja instanc. Izpuščena drugačna imena niso avtomatično zgrešeni objekti, neoznačeni vidni objekti pa niso avtomatično halucinacije. Brez napovedanih okvirjev ni detekcijskega mAP; brez referenc stabilnosti ni accuracy. \texttt{manual-review.html} prikazuje iste slike, referenčne okvirje in vse izhode. Ročno nepreverjena polja v CSV ostanejo označena \texttt{pending}.
 ''')
@@ -313,7 +346,8 @@ F/M/U so števila odločitev fixed/movable/uncertain v veljavnih odgovorih. Spre
                     if record and record.get('status')=='error':
                         case_errors.append(spec['name']+' / '+mode_name+': '+record.get('error','')[:130])
                 excerpt=disc.get('parsed',{}).get('scene_description',disc.get('error','')) if disc else 'Še ni izvedeno.'
-                excerpt=' '.join(excerpt.split())[:195]
+                excerpt=' '.join(excerpt.split())
+                excerpt=excerpt[:192]+'...' if len(excerpt)>195 else excerpt
                 entries.append([tex(spec['name']),tex(f'{disc["status"]}: {len(disc.get("parsed",{}).get("objects",[]))}' if disc else '--'),tex(supplied['status'] if supplied else '--'),tex(excerpt)])
             content+=table(['Model','Detekcija','Regije','Dejanski izsek opisa (model)'],entries,r'p{2.2cm}p{1.5cm}p{1.2cm}p{10cm}')
             if case_errors:
@@ -322,20 +356,39 @@ F/M/U so števila odločitev fixed/movable/uncertain v veljavnih odgovorih. Spre
             content+=r'\textbf{Lastna presoja:} '+tex(manual.get(key,'OSNUTEK: prizor še ni ročno potrjen; tabela prikazuje modelove trditve.'))+'\n'
         pages.append(content)
     write_json(REPORT/'cases.json',case_meta)
-    interesting=[c for c in comparisons if any(w in c['label'].lower() for w in ['door','picture','painting','shelf','shelves','chair','table','cabinet','sofa','desk'])]
-    changed=[c for c in interesting if c['changed']]
-    examples=(changed+interesting)[:5]
-    example_table=[[tex(c['label']),tex(c['baseline_classification']+' → '+c['classification']).replace('→',r'$\rightarrow$'),tex(c['reason'])] for c in examples]
+    categories=[('Vrata',('door',)),('Slike',('picture','painting','artwork','photograph')),
+                ('Police',('shelf','shelves','shelving','bookshelf')),('Pohištvo',('chair','table','desk','sofa','cabinet','furniture'))]
+    example_table=[]
+    for category,words in categories:
+        candidates=[c for c in comparisons if any(w in c['label'].lower() for w in words)]
+        if category=='Pohištvo':
+            candidates=[c for c in candidates if not any(w in c['label'].lower() for w in ('people','person','seated'))]
+        if category=='Vrata':
+            candidates=[c for c in candidates if not any(w in c['label'].lower() for w in ('cooler','refrigerat','fridge'))]
+        # Avoid reference-vs-itself; prefer a real change, then a matched agreement.
+        candidates=[c for c in candidates if 'reason-long-no-examples-t0.3-s42-' not in c['job']]
+        c=next((c for c in candidates if c['changed']),candidates[0] if candidates else None)
+        if c is None:
+            example_table.append([category,'--','Ni samostojnega predmeta te vrste v primerjanih veljavnih opisih.'])
+        else:
+            variant=c['job'].removeprefix('reason-').split('-thud_')[0]
+            scene='trgovina' if c['job'].endswith(DATASETS[0]) else 'agtea'
+            source=scene+' / '+c['frame_id']+' / ID '+str(c['id'])+' / '+variant
+            label=category+': '+c['label']
+            decision=tex(c['baseline_classification'])+r' $\rightarrow$ '+tex(c['classification'])
+            example_table.append([tex(label),decision,tex(c['reason'])+r'\newline{\scriptsize '+tex(source)+'}'])
     pages.append(r'''\section*{Utemeljitve, napake in omejitve}
-Naslednji izseki so besedni razlogi modela; niso lastna potrditev vidnih dokazov. Primeri so izbrani iz vrat, slik, polic in pohištva, kjer so te vrste dejansko vrnjene. Celotni pari z imenom poskusa in SHA256 so v \texttt{reasoning-comparisons.csv}.
-'''+table(['Objekt','Osnova $\rightarrow$ različica','Dejanski modelov razlog'],example_table,r'p{2.8cm}p{4.1cm}p{8.2cm}')+r'''
-Napake niso tiho popravljene. Neveljaven JSON, podvojeni ključi, napačni ID/oznaka ali odrezan odgovor se zavrnejo; surova vsebina ostane shranjena. Napake imajo isti imenovalec kot uspehi. Več ali daljši opisi niso avtomatično boljši. Imena v danih regijah so vhod modela, zato se njihovo kopiranje ne šteje v uspešnost zaznavanja.
+Naslednji izseki so besedni razlogi modela; niso lastna potrditev vidnih dokazov. Primeri so izbrani iz vrat, slik, polic in pohištva, kjer so te vrste dejansko vrnjene. Hladilnih vrat ne enačimo z vrati prostora. Če slik/umetniških del opisovalnik ne izloči, njihovega razvrščanja ne prikazujemo kot izmerjenega. Celotni pari z imenom poskusa in SHA256 so v \texttt{reasoning-comparisons.csv}.
+'''+table(['Objekt',r'Osnova $\rightarrow$ različica','Dejanski modelov razlog'],example_table,r'p{3.3cm}p{3.1cm}p{8.7cm}')+r'''
+'''+tex(error_findings)+r'''
 \subsection*{NVILA 8B}
-Dodatni model ni prikazan kot izveden. Omejena začetna diagnostika je preverila uradni strežnik: njegova validacijska shema ne vključuje \texttt{NVILA-8B}, odvisnosti pa pripenjajo starejši PyTorch. Izolirano gostiteljsko okolje se ni ustvarilo zaradi manjkajočega ensurepip. Uteži niso prenesene, slikovni API ni preverjen; 8B ni preimenovan v 15B. Podrobnosti so v \texttt{nvila-diagnostic.json}. Osnovna primerjava in poročilo imata prednost.
+Dodatni model ni izveden. Omejena začetna diagnostika: uradna validacijska shema ne vključuje \texttt{NVILA-8B}, izolirani venv pa je odpovedal zaradi manjkajočega ensurepip. Uteži niso prenesene in slikovni API ni preverjen; 8B ni preimenovan v 15B. Celotne ovire in viri so v \texttt{nvila-diagnostic.json}.
 \subsection*{Ponovljivost in izvor}
-'''+r'Izhodiščni Git commit: \texttt{'+tex(commit[:12])+r'}. Različice, gonilnik in slika Docker so v \texttt{environment.json}; točna natančnost, slikovni projektor in zmožnosti v manifestih posameznih poskusov. Konfiguracije vsebujejo vse nastavitve, shranjeni odgovori pa prompte, SHA256 slike/opisa, čas, možnosti, GPU stanje in surovi API odgovor.'+r'''
+'''+tex(validation_sentence)+r' Izhodiščni Git commit: \texttt{'+tex(commit[:12])+r'}. Različice, gonilnik in slika Docker so v \texttt{environment.json}; točna natančnost, slikovni projektor in zmožnosti v manifestih posameznih poskusov. Konfiguracije vsebujejo vse nastavitve, shranjeni odgovori pa prompte, SHA256 slike/opisa, čas, možnosti, GPU stanje in surovi API odgovor.'+r'''
 \begin{verbatim}
 bash scripts/thud_experiment.sh --phase all
+python3 -m llm_object_classifier.thud_q4_repeat
+python3 -m llm_object_classifier.thud_verify --require-complete
 python3 -m llm_object_classifier.thud_report
 bash scripts/compile_thud_report.sh
 python3 -m unittest discover -s tests -v
@@ -343,11 +396,14 @@ python3 -m unittest discover -s tests -v
 Zaganjalnik uporablja projektno Ollamo (privzeti omrežni naslov lahko nastavimo z \texttt{--base-url}). Predpogoji: zdrava GPU Ollama, preneseni trije tagi, Python s Pillow. Vsaka dokončana skupina dobi oznako; nadaljevanje preverja nespremenljivost vhodov in ne prepisuje odgovorov. Prekinjeni poskusi drugega koraka ostanejo kot ločeni poskusi.
 Veliki surovi izhodi: \texttt{results/thud-vmesno/}. Majhen paket PDF/LaTeX, slike, agregati, izbor, preglednica in metodologija: \texttt{reports/THUD\_VMESNO/}. Stari NYU poskusi ostanejo ločeni.
 \subsection*{Naslednji utemeljeni poskus}
-Najprej ponoviti meritev hitrosti na istem podnaboru ob izključni uporabi GPU in ročno preveriti istih 20 slik, posebej goste skupinske regije, izpuščene instance ter trditve o pritrditvi. Šele ob primerljivi potrjeni kakovosti je smiselno izbrati krajši prompt ali prompt brez primerov. Nato po izrecnem naročilu začeti 2. del: bogatejši samostojni izhod z ločenimi odnosi in vidnimi dokazi, glede na ugotovljene napake. NVILA zahteva ločeno združljivo okolje in dejanski slikovni API test.
+'''+tex(f'Za naslednji ročni pregled izberemo {candidate} kot kandidata: primerjava sheme zgoraj podpira njegov operativni preizkus, ne dokazuje pravilnosti. Preveriti je treba iste objekte in razhajanja proti dolgemu promptu s primeri, predvsem pri policah in pohištvu. Hitrost ponoviti ob izključni uporabi GPU. Šele po primerljivi ročno potrjeni kakovosti izbrati končni prompt. Nato po izrecnem naročilu začeti 2. del z bogatejšimi odnosi in vidnimi dokazi; NVILA ostaja ločena priprava.')+r'''
 ''')
     header=r'''\documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\input{glyphtounicode}
+\pdfgentounicode=1
 \usepackage[slovene]{babel}
 \usepackage[margin=1.5cm]{geometry}
 \usepackage{graphicx,booktabs,hyperref,array}
@@ -361,6 +417,6 @@ Najprej ponoviti meritev hitrosti na istem podnaboru ob izključni uporabi GPU i
     sources=r'''\vfill{\footnotesize Uradni viri: \href{https://ollama.com/library/qwen3.5:4b-bf16}{Qwen BF16}, \href{https://ollama.com/library/qwen3.5:4b-q4_K_M}{Qwen Q4}, \href{https://ollama.com/library/gemma3:4b-it-q4_K_M}{Gemma Q4}, \href{https://huggingface.co/Efficient-Large-Model/NVILA-8B}{NVILA uteži}, \href{https://github.com/NVlabs/VILA/blob/main/server.py}{NVILA strežnik}. Preverjeno 20. 10. 2026.}
 '''
     (REPORT/'porocilo.tex').write_text(header+('\n\\newpage\n'.join(pages))+sources+'\n\\end{document}\n')
-    print(f'Generated {len(pages)} intended pages; {len(baseline_rows)} baseline, {len(extra_rows)} extra, {len(reason_rows)} reasoning responses.')
+    print(f'Generated {len(pages)} intended pages; {len(baseline_rows)} baseline, {len(extra_rows)} extra, {len(reason_rows)} core reasoning responses, {len(q4_reason_rows)} optional Q4.')
 
 if __name__=='__main__':main()

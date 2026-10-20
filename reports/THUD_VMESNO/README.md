@@ -35,3 +35,13 @@ Prekrivanje imen: male črke, normalizirani presledki, presek unikatnih imen. Br
 `verification.json` preveri vseh 32 skupin osnovnih/dodatnih poskusov, enake slikovne SHA256 med modeli in načinoma, nespremenjene opise, odsotnost slike v drugem koraku in GPU dodelitve. Napaka modelove sheme je merjeni izid, ne neuspeh revizije.
 
 Sintaktično berljivi, a po shemi zavrnjeni odgovori imajo ločene razčlenjene kandidate v `results/thud-vmesno/rejected-candidates.jsonl`; indeks je `rejected-index.json`. Prvotni odgovori ostanejo nespremenjeni, status `error` se ohrani in kandidatov drugi korak ne uporabi.
+
+Dodatna izvedena Q4 ponovitev drugega koraka (20 klicev + 2 ogrevanji, isti zamrznjeni opisi, dolgi prompt brez primerov, T=.3, seed 42):
+
+```bash
+python3 -m llm_object_classifier.thud_q4_repeat --base-url http://172.18.0.2:11434
+python3 -m llm_object_classifier.thud_report
+bash scripts/compile_thud_report.sh
+```
+
+Naslov po potrebi preberi z `docker inspect` projektne Ollame. Revizija pri prisotnih Q4 skupinah preveri tudi ti dve dodatni skupini (skupaj 34 skupin, 820 merjenih odgovorov brez pilota).
