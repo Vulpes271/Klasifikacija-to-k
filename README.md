@@ -1,5 +1,8 @@
 # Opisovanje in razvrščanje objektov za robotsko zaznavanje
 
+**Naloga za Codex na Linuxu:** [cilji, načrt poskusov in poročilo za predstavitev](CODEX_NALOGA.md).
+Dokument loči takojšnji eksperimentalni del od nadaljnje nadgradnje prvega koraka.
+
 Aktivna pot je razdeljena na tri jasne korake. Slike in rezultati ostanejo lokalno;
 Git vsebuje kodo, nastavitve in dokumentacijo.
 
