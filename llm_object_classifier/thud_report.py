@@ -47,7 +47,8 @@ def collect():
         records=[read_json(p) for p in sorted(actual.glob('*/t*/frame-*.json'))]
         if not records:
             continue
-        jobs[path.name]={'records':records,'aggregate':aggregate(records),'complete':(path/'complete.json').exists(),
+        warmups=[read_json(p) for p in actual.glob('*/warmup.json')]
+        jobs[path.name]={'warmups':warmups,'records':records,'aggregate':aggregate(records),'complete':(path/'complete.json').exists(),
                          'end_to_end_seconds':read_json(path/'complete.json').get('end_to_end_seconds') if (path/'complete.json').exists() else None}
     return jobs
 
@@ -60,6 +61,20 @@ def matched_row(rows, digest):
     return next((r for r in rows if r.get('image_sha256')==digest),None)
 
 
+def review_svg(frame):
+    """Single embedded photograph with optional original reference boxes."""
+    w,h=frame['image_size']
+    source='data:'+frame['mime']+';base64,'+base64.b64encode(frame['image']).decode()
+    elements=[f'<svg viewBox="0 0 {w} {h}" style="max-width:900px;width:100%"><image href="{source}" width="{w}" height="{h}"/><g class="regions" style="display:none">']
+    for obj in frame['regions']:
+        x1,y1,x2,y2=obj['bbox_xyxy']
+        label=html.escape(str(obj['id'])+': '+obj['label'])
+        elements.append(f'<rect x="{x1}" y="{y1}" width="{x2-x1}" height="{y2-y1}" fill="none" stroke="#ffca28" stroke-width="2"/><text x="{x1+2}" y="{max(y1+15,15)}" font-size="14" fill="#ffca28" stroke="#111" stroke-width="3" paint-order="stroke">{label}</text>')
+    elements.append('</g></svg>')
+    toggle="<label><input type=checkbox onchange=\"this.closest('section').querySelector('.regions').style.display=this.checked?'block':'none'\"> Prikaži referenčne okvirje (skupinske oznake niso instance)</label><br>"
+    return toggle+''.join(elements)
+
+
 def create_review(jobs, frames, audit):
     rows=[]
     name_rows=[]
@@ -68,8 +83,7 @@ def create_review(jobs, frames, audit):
         for i in audit[ds]['subset_indices_zero_based']:
             f=frames[ds][i]
             fid=f['record']['frame_id']
-            image='data:'+f['mime']+';base64,'+base64.b64encode(f['image']).decode()
-            doc.append(f'<section><h2>{html.escape(ds)} / {html.escape(fid)}</h2><img src="{image}"><details><summary>Referenčne regije in okvirji</summary><pre>{html.escape(json.dumps(f["regions"],indent=2))}</pre></details>')
+            doc.append(f'<section><h2>{html.escape(ds)} / {html.escape(fid)}</h2>{review_svg(f)}<details><summary>Referenčne regije in okvirji</summary><pre>{html.escape(json.dumps(f["regions"],indent=2))}</pre></details>')
             for mode in ('discovery','supplied'):
                 for spec in MODELS:
                     r=matched_row(baseline(jobs,ds,spec['name'],mode),f['image_sha256'])
@@ -136,7 +150,9 @@ def main():
     jobs=collect()
     audit=read_json(REPORT/'data-audit.json')
     frames={ds:load_images(ROOT/'data'/ds/'objects.jsonl',50) for ds in DATASETS}
-    stats=[{'job':name,'complete':j['complete'],'end_to_end_seconds':j['end_to_end_seconds'],**j['aggregate']} for name,j in jobs.items()]
+    stats=[{'job':name,'complete':j['complete'],'end_to_end_seconds':j['end_to_end_seconds'],
+            'warmup_calls':len(j['warmups']),'warmup_seconds':sum(r.get('elapsed_seconds',0) for r in j['warmups']),
+            'warmup_load_seconds':sum(r.get('response',{}).get('load_duration',0)/1e9 for r in j['warmups']),**j['aggregate']} for name,j in jobs.items()]
     write_json(REPORT/'aggregates.json',stats)
     write_csv(REPORT/'aggregates.csv',stats,list(stats[0]) if stats else ['job'])
     create_review(jobs,frames,audit)
@@ -158,7 +174,8 @@ def main():
     extra_rows=[r for name,j in jobs.items() if name.startswith('extra-') for r in j['records']]
     reason_rows=[r for name,j in jobs.items() if name.startswith('reason-') for r in j['records']]
     environment=read_json(REPORT/'environment.json')
-    commit=environment['git_commit']['stdout'].strip()
+    snapshots=sorted((OUT/'source-snapshots').glob('all-*.json'))
+    commit=read_json(snapshots[-1])['git_commit'] if snapshots else environment['git_commit']['stdout'].strip()
     total=aggregate(baseline_rows)
     pages=[]
     model_table=[]
@@ -191,16 +208,21 @@ Točni tagi: \texttt{qwen3.5:4b-bf16}, \texttt{qwen3.5:4b-q4\_K\_M}, \texttt{gem
 VRAM je največja dodelitev modelu v shranjenih merjenih odgovorih API, ne celotna zasedenost kartice. Projektor: GGUF file type iz metapodatkov, F16=1 in BF16=32. Osnova: podroben prompt brez vsebinskih primerov, $T=0$, seed 42, kontekst 16384, izhod do 8192 tokenov, top-p 0.8, top-k 20, presence penalty 1.5. Enaki izvorni bajti slike; notranje predprocesiranje modelov se lahko razlikuje.
 ''')
     timing=[]
+    base_stats=[s for s in stats if s['job'].startswith('baseline-')]
+    warm_seconds=sum(s['warmup_seconds'] for s in base_stats)
+    warm_load_seconds=sum(s['warmup_load_seconds'] for s in base_stats)
+    measured_load_seconds=sum(s['load_seconds'] for s in base_stats)
+    end_seconds=sum(s['end_to_end_seconds'] or 0 for s in base_stats)
     for ds in DATASETS:
         for mode in ('discovery','supplied'):
             for spec in MODELS:
                 a=aggregate(baseline(jobs,ds,spec['name'],mode))
                 timing.append(['trgovina' if ds==DATASETS[0] else 'agtea','samost.' if mode=='discovery' else 'regije',tex(spec['name']),f'{a["ok"]}/{a["attempted"]}',number(a['median_s']),number(a['p90_s']),number(a['mean_s']),number(a['generation_tokens_s'])])
     pilot=read_json(REPORT/'pilot-estimate.json') if (REPORT/'pilot-estimate.json').exists() else {}
-    pages.append(r'\section*{Dejanski obseg in hitrost}'+f'Osnovna primerjava: {len(baseline_rows)}/600 merjenih odgovorov, {total["ok"]} veljavnih, {total["errors"]} napak. Dodatni prvi korak: {len(extra_rows)}/80; drugi korak: {len(reason_rows)}/120. Ogrevalni klici so shranjeni ločeno in izključeni iz teh imenovalcev.\n'+table(['Nabor','Način','Model','OK/vsi','Med.','p90','Povp.','tok/s'],timing,'lllrrrrr')+r'''
+    pages.append(r'\section*{Dejanski obseg in hitrost}'+f'Osnovna primerjava: {len(baseline_rows)}/600 merjenih odgovorov, {total["ok"]} odgovorov ustreza shemi, {total["errors"]} napak; skladen zapis JSON ima {total["json_parse_valid_calls"]} odgovorov. Dodatni prvi korak: {len(extra_rows)}/80; drugi korak: {len(reason_rows)}/120. Ogrevalni klici so shranjeni ločeno in izključeni iz teh imenovalcev.\n'+table(['Nabor','Način','Model','OK/vsi','Med.','p90','Povp.','tok/s'],timing,'lllrrrrr')+r'''
 \begin{center}\includegraphics[width=.94\linewidth]{figures/latency.png}\end{center}
 Časi so sekunde na sliko/klic; p90 uporablja linearno interpolacijo. Čas vključuje vse odgovore z izmerjenim časom, tudi zavrnjeni JSON. Napake prenosa lahko nimajo časa; število takih klicev je v agregatih. Tok/s je vsota izhodnih tokenov deljena z vsoto API časa generiranja. Nalaganje in tokeni so ločeno ohranjeni; end-to-end čas je čas celotne skupine, vključno z ogrevanjem, preverjanjem in zapisovanjem.
-'''+f'Pilot: {pilot.get("pilot_calls","--")} merjenih klicev; linearna ocena osnovnega dela pred polnim zagonom je bila {number((pilot.get("estimated_baseline_seconds") or 0)/3600)} h. Ocena ni meritev celotnega izvajanja.\n'+r'''
+'''+f'Osnovni del: skupni end-to-end čas {number(end_seconds/60)} min; ogrevalni klici {number(warm_seconds)} s, od tega API nalaganje {number(warm_load_seconds)} s; API nalaganje v merjenih klicih {number(measured_load_seconds)} s. Nalaganje je podmnožica časa zahteve, zato teh časov ne seštevamo.\n'+f'Pilot: {pilot.get("pilot_calls","--")} merjenih klicev; linearna ocena osnovnega dela pred polnim zagonom je bila {number((pilot.get("estimated_baseline_seconds") or 0)/3600)} h. Ocena ni meritev celotnega izvajanja.\n'+r'''
 RTX 5090 (32607 MiB), Docker Compose in projektna Ollama. Začetni stari kontejner je izgubil GPU: CPU diagnostika je ohranjena ločeno, kontejner je bil ponovno ustvarjen z GPU override. Veljavni klici preverijo VRAM; delni CPU offload se zavrne. Drug uporabnikov proces je hkrati obremenjeval GPU; ni bil ustavljen. To omejuje primerjavo hitrosti. Različno dolgi odgovori in API predpomnilnik predpon/slikovnega kodiranja dodatno vplivajo na čase; svež HTTP klic ne zagotavlja hladnega predpomnilnika.
 ''')
     extra_table=[]
@@ -251,13 +273,19 @@ F/M/U so števila odločitev fixed/movable/uncertain v veljavnih odgovorih. Spre
             case_meta.append({'dataset':ds,'frame_id':fid,'index':i,'image':image_name,'sha256':f['image_sha256']})
             content+=r'\subsection*{'+tex(('Trgovina' if ds==DATASETS[0] else 'agtea')+' / '+fid)+r'}\begin{center}\includegraphics[height=4.1cm,width=.9\linewidth,keepaspectratio]{'+image_name+r'}\end{center}'
             entries=[]
+            case_errors=[]
             for spec in MODELS:
                 disc=matched_row(baseline(jobs,ds,spec['name'],'discovery'),f['image_sha256'])
                 supplied=matched_row(baseline(jobs,ds,spec['name'],'supplied'),f['image_sha256'])
+                for mode_name, record in [('samostojno',disc),('regije',supplied)]:
+                    if record and record.get('status')=='error':
+                        case_errors.append(spec['name']+' / '+mode_name+': '+record.get('error','')[:130])
                 excerpt=disc.get('parsed',{}).get('scene_description',disc.get('error','')) if disc else 'Še ni izvedeno.'
                 excerpt=' '.join(excerpt.split())[:195]
                 entries.append([tex(spec['name']),tex(f'{disc["status"]}: {len(disc.get("parsed",{}).get("objects",[]))}' if disc else '--'),tex(supplied['status'] if supplied else '--'),tex(excerpt)])
             content+=table(['Model','Samost./št.','Regije','Dejanski izsek opisa (model)'],entries,r'p{2.2cm}p{1.5cm}p{1.2cm}p{10cm}')
+            if case_errors:
+                content+=r'\textbf{Dejanska zavrnitev:} '+tex('; '.join(case_errors))+'\n'
             content+=r'\textbf{Referenčna imena:} '+tex(', '.join(Counter(o['label'] for o in f['regions'])))+'. '
             content+=r'\textbf{Lastna presoja:} '+tex(manual.get(key,'OSNUTEK: prizor še ni ročno potrjen; tabela prikazuje modelove trditve.'))+'\n'
         pages.append(content)

@@ -7,6 +7,7 @@ from __future__ import annotations
 from collections import Counter
 import math
 import statistics
+from .experiment import strict_json
 
 
 def percentile(values, q):
@@ -24,8 +25,20 @@ def aggregate(rows):
     tokens=[r['response']['eval_count'] for r in rows if r.get('response',{}).get('eval_count') is not None]
     durations=[r['response']['eval_duration']/1e9 for r in rows if r.get('response',{}).get('eval_duration',0)>0]
     counts=Counter(r.get('status','unknown') for r in rows)
+    parse_valid=0
+    content_available=0
+    for row in rows:
+        if isinstance(row.get('content'),str):
+            content_available+=1
+            try:
+                strict_json(row['content'])
+                parse_valid+=1
+            except (ValueError, TypeError):
+                pass
     return {'attempted':len(rows),'ok':counts['ok'],'errors':counts['error'],'skipped':counts['skipped'],
-            'json_valid_fraction':len(successes)/len(rows) if rows else None,
+            'schema_valid_fraction':len(successes)/len(rows) if rows else None,
+            'json_text_available_calls':content_available,'json_parse_valid_calls':parse_valid,
+            'json_parse_valid_fraction_all_attempts':parse_valid/len(rows) if rows else None,
             'timed_calls':len(times),'mean_s':statistics.mean(times) if times else None,
             'median_s':statistics.median(times) if times else None,'p90_s':percentile(times,.9),
             'output_tokens':sum(tokens),'mean_output_tokens':statistics.mean(tokens) if tokens else None,

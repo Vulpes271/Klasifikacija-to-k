@@ -19,7 +19,7 @@ class ThudTests(unittest.TestCase):
         result=aggregate([{'status':'ok','elapsed_seconds':1,'parsed':{'objects':[]}},
                           {'status':'error','elapsed_seconds':3}, {'status':'error','error':'timed out'}])
         self.assertEqual(result['attempted'],3)
-        self.assertEqual(result['json_valid_fraction'],1/3)
+        self.assertEqual(result['schema_valid_fraction'],1/3)
         self.assertEqual(result['timed_calls'],2)
         self.assertAlmostEqual(result['p90_s'],2.8)
         self.assertEqual(result['timeouts'],1)
@@ -103,3 +103,8 @@ class ThudTests(unittest.TestCase):
         self.assertEqual(result['http_status'],500)
         self.assertIn('omitted',result['request']['messages'][1]['images'][0])
         self.assertGreaterEqual(result['elapsed_seconds'],0)
+
+    def test_syntax_valid_json_is_distinct_from_schema_success(self):
+        result=aggregate([{'status':'error','content':'{"objects": []}','error':'Missing IDs'}])
+        self.assertEqual(result['json_parse_valid_calls'],1)
+        self.assertEqual(result['schema_valid_fraction'],0)
