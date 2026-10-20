@@ -246,3 +246,5 @@
 
 - Lokalni zaključni commit s kodo in celotnim paketom poročila: `06f42d3`. Push je prvotno zavrnil samodejni varnostni pregled zaradi nepotrjenega oddaljenega cilja. Preverjeno je natančno ujemanje `origin` z repozitorijem in izrecnim navodilom za push v CODEX_NALOGA.md; ponovni pregled je ukaz dovolil.
 - Dejanski `git push -u origin feature/separate-vision-stages` je nato odpovedal z izhodom 128: `fatal: could not read Username for 'https://github.com': terminal prompts disabled`. Za objavo manjkajo GitHub poverilnice s pravico pisanja. Lokalni commiti, poročilo in vsi rezultati so ohranjeni; noben podatek ni bil potisnjen na oddaljeno vejo.
+
+- 2026-10-20T23:50:32+02:00: Po ureditvi GitHub prijave je push vseh petih pripravljenih commitov uspel: oddaljena veja `feature/separate-vision-stages` je napredovala z `624caef` na `2b87ba6`. Koda in paket poročila PDF/LaTeX sta objavljena; surovi rezultati ostajajo lokalno v `results/thud-vmesno/`. Drugi del ni začet.
