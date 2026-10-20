@@ -15,7 +15,7 @@ import shutil
 import os
 import statistics
 import difflib
-from .experiment import read_json, write_json, write_csv, sha256
+from .experiment import read_json, write_json, write_csv, sha256, strict_json
 from .image_dataset import load_images
 from .thud_experiment import OUT, REPORT, ROOT, DATASETS, MODELS
 from .thud_metrics import aggregate, name_overlap
@@ -99,6 +99,13 @@ def create_review(jobs, frames, audit):
                         labels=[o['label'] for o in r.get('parsed',{}).get('objects',[])]
                         name_rows.append({'dataset':ds,'frame_id':fid,'model':spec['name'],'status':r['status'],
                                           **name_overlap(labels,[o['label'] for o in f['regions']])})
+            neutral_id=audit[ds]['frames'][i]['discovery_id']
+            for name,job in jobs.items():
+                if not name.startswith(('extra-','reason-')) or not name.endswith(ds):
+                    continue
+                record=next((r for r in job['records'] if r['frame_id']==neutral_id),None)
+                if record:
+                    doc.append(f'<details><summary>Dodatni test: {html.escape(name)} / {record["status"]}</summary><pre>{html.escape(json.dumps(record.get("parsed",{"error":record.get("error"),"content":record.get("content")}),indent=2,ensure_ascii=False))}</pre></details>')
             doc.append('</section>')
     (OUT/'manual-review.html').write_text('\n'.join(doc))
     # Merge review fields by immutable image/model/mode key; never lose human edits.
@@ -117,6 +124,28 @@ def create_review(jobs, frames, audit):
     write_csv(path,rows,list(rows[0]) if rows else ['review_status'])
     write_json(REPORT/'name-overlap.json',name_rows)
     write_csv(REPORT/'name-overlap.csv',name_rows,list(name_rows[0]) if name_rows else ['status'])
+
+
+def save_rejected_candidates():
+    """Keep parsed rejected JSON separately; never turn a failure into a caption."""
+    rejected=[]
+    for source in sorted(OUT.glob('*/*/t*/frame-*.json')):
+        if not source.relative_to(OUT).parts[0].startswith(('baseline-','extra-','reason-','pilot-')):
+            continue
+        row=read_json(source)
+        if row.get('status')!='error':
+            continue
+        candidate=None
+        parse_error=None
+        try:
+            candidate=strict_json(row.get('content',''))
+        except (TypeError,ValueError) as exc:
+            parse_error=str(exc)
+        rejected.append({'source':str(source),'source_sha256':sha256(source.read_bytes()),
+                         'status':'rejected','schema_error':row.get('error'),
+                         'parsed_candidate':candidate,'parse_error':parse_error})
+    (OUT/'rejected-candidates.jsonl').write_text(''.join(json.dumps(row,ensure_ascii=False)+'\n' for row in rejected))
+    write_json(REPORT/'rejected-index.json',[{k:v for k,v in row.items() if k!='parsed_candidate'} for row in rejected])
 
 
 def reasoning_comparisons(jobs):
@@ -147,7 +176,10 @@ def reasoning_comparisons(jobs):
 def main():
     REPORT.mkdir(parents=True,exist_ok=True)
     (REPORT/'figures').mkdir(exist_ok=True)
+    from .thud_verify import verify
+    verify()
     jobs=collect()
+    save_rejected_candidates()
     audit=read_json(REPORT/'data-audit.json')
     frames={ds:load_images(ROOT/'data'/ds/'objects.jsonl',50) for ds in DATASETS}
     stats=[{'job':name,'complete':j['complete'],'end_to_end_seconds':j['end_to_end_seconds'],
@@ -204,7 +236,7 @@ Poti, mere in SHA256 vseh slik so preverjeni. To so povezani pogledi istih prost
 \item \textbf{Opisovanje danih regij (supplied):} model prejme anotirane regije, vrne njihove iste ID in imena. Kopirano ime ni detekcijski zadetek.\end{itemize}
 \section*{Modeli in nastavitve}
 '''+table(['Točen model','Uteži','Projektor','VRAM [GiB]'],model_table, 'lllr')+r'''
-Točni tagi: \texttt{qwen3.5:4b-bf16}, \texttt{qwen3.5:4b-q4\_K\_M}, \texttt{gemma3:4b-it-q4\_K\_M}. Tagi in slikovna podpora so preverjeni v uradnem katalogu ter z \texttt{/api/show}. Tudi Qwen slikovna projektorja imata različni natančnosti (F16/BF16), zato primerjava ni izoliran poseg samo v besedilne uteži. Družin pri različnih natančnostih ne primerjamo kot čiste arhitekturne razlike.
+Točni tagi: \texttt{qwen3.5:4b-bf16}, \texttt{qwen3.5:4b-q4\_K\_M}, \texttt{gemma3:4b-it-q4\_K\_M}. Tagi in slikovna podpora so preverjeni v uradnem katalogu ter z \texttt{/api/show}. Tudi Qwen slikovna projektorja imata različni natančnosti (F16/BF16). BF16 metapodatki navajajo 33 blokov in nextn\_predict\_layers=1, Q4 pa 32 blokov. Zato to ni strogo izoliran poseg samo v natančnost istih pretvorjenih uteži; vpliv dodatne napovedne plasti ni posebej preverjen. Družin pri različnih natančnostih ne primerjamo kot čiste arhitekturne razlike.
 VRAM je največja dodelitev modelu v shranjenih merjenih odgovorih API, ne celotna zasedenost kartice. Projektor: GGUF file type iz metapodatkov, F16=1 in BF16=32. Osnova: podroben prompt brez vsebinskih primerov, $T=0$, seed 42, kontekst 16384, izhod do 8192 tokenov, top-p 0.8, top-k 20, presence penalty 1.5. Enaki izvorni bajti slike; notranje predprocesiranje modelov se lahko razlikuje.
 ''')
     timing=[]
@@ -217,11 +249,11 @@ VRAM je največja dodelitev modelu v shranjenih merjenih odgovorih API, ne celot
         for mode in ('discovery','supplied'):
             for spec in MODELS:
                 a=aggregate(baseline(jobs,ds,spec['name'],mode))
-                timing.append(['trgovina' if ds==DATASETS[0] else 'agtea','samost.' if mode=='discovery' else 'regije',tex(spec['name']),f'{a["ok"]}/{a["attempted"]}',number(a['median_s']),number(a['p90_s']),number(a['mean_s']),number(a['generation_tokens_s'])])
+                timing.append(['trgovina' if ds==DATASETS[0] else 'agtea','samost.' if mode=='discovery' else 'regije',tex(spec['name']),f'{a["ok"]}/{a["attempted"]}',number(a['median_s']),number(a['p90_s']),number(a['mean_s']),number(a['mean_output_tokens'],0),number(a['generation_tokens_s'])])
     pilot=read_json(REPORT/'pilot-estimate.json') if (REPORT/'pilot-estimate.json').exists() else {}
-    pages.append(r'\section*{Dejanski obseg in hitrost}'+f'Osnovna primerjava: {len(baseline_rows)}/600 merjenih odgovorov, {total["ok"]} odgovorov ustreza shemi, {total["errors"]} napak; skladen zapis JSON ima {total["json_parse_valid_calls"]} odgovorov. Dodatni prvi korak: {len(extra_rows)}/80; drugi korak: {len(reason_rows)}/120. Ogrevalni klici so shranjeni ločeno in izključeni iz teh imenovalcev.\n'+table(['Nabor','Način','Model','OK/vsi','Med.','p90','Povp.','tok/s'],timing,'lllrrrrr')+r'''
+    pages.append(r'\section*{Dejanski obseg in hitrost}'+f'Osnovna primerjava: {len(baseline_rows)}/600 merjenih odgovorov, {total["ok"]} odgovorov ustreza shemi, {total["errors"]} napak; skladen zapis JSON ima {total["json_parse_valid_calls"]} odgovorov. Dodatni prvi korak: {len(extra_rows)}/80; drugi korak: {len(reason_rows)}/120. Ogrevalni klici so shranjeni ločeno in izključeni iz teh imenovalcev.\n'+table(['Nabor','Način','Model','OK/vsi','Med.','p90','Povp.','Izh. tok.','tok/s'],timing,'lllrrrrrr')+r'''
 \begin{center}\includegraphics[width=.94\linewidth]{figures/latency.png}\end{center}
-Časi so sekunde na sliko/klic; p90 uporablja linearno interpolacijo. Čas vključuje vse odgovore z izmerjenim časom, tudi zavrnjeni JSON. Napake prenosa lahko nimajo časa; število takih klicev je v agregatih. Tok/s je vsota izhodnih tokenov deljena z vsoto API časa generiranja. Nalaganje in tokeni so ločeno ohranjeni; end-to-end čas je čas celotne skupine, vključno z ogrevanjem, preverjanjem in zapisovanjem.
+Izh. tok. je povprečno število izhodnih tokenov. Časi so sekunde na sliko/klic; p90 uporablja linearno interpolacijo. Čas vključuje vse odgovore z izmerjenim časom, tudi zavrnjeni JSON. Napake prenosa lahko nimajo časa; število takih klicev je v agregatih. Tok/s je vsota izhodnih tokenov deljena z vsoto API časa generiranja. Nalaganje in tokeni so ločeno ohranjeni; end-to-end čas je čas celotne skupine, vključno z ogrevanjem, preverjanjem in zapisovanjem.
 '''+f'Osnovni del: skupni end-to-end čas {number(end_seconds/60)} min; ogrevalni klici {number(warm_seconds)} s, od tega API nalaganje {number(warm_load_seconds)} s; API nalaganje v merjenih klicih {number(measured_load_seconds)} s. Nalaganje je podmnožica časa zahteve, zato teh časov ne seštevamo.\n'+f'Pilot: {pilot.get("pilot_calls","--")} merjenih klicev; linearna ocena osnovnega dela pred polnim zagonom je bila {number((pilot.get("estimated_baseline_seconds") or 0)/3600)} h. Ocena ni meritev celotnega izvajanja.\n'+r'''
 RTX 5090 (32607 MiB), Docker Compose in projektna Ollama. Začetni stari kontejner je izgubil GPU: CPU diagnostika je ohranjena ločeno, kontejner je bil ponovno ustvarjen z GPU override. Veljavni klici preverijo VRAM; delni CPU offload se zavrne. Drug uporabnikov proces je hkrati obremenjeval GPU; ni bil ustavljen. To omejuje primerjavo hitrosti. Različno dolgi odgovori in API predpomnilnik predpon/slikovnega kodiranja dodatno vplivajo na čase; svež HTTP klic ne zagotavlja hladnega predpomnilnika.
 ''')
@@ -283,7 +315,7 @@ F/M/U so števila odločitev fixed/movable/uncertain v veljavnih odgovorih. Spre
                 excerpt=disc.get('parsed',{}).get('scene_description',disc.get('error','')) if disc else 'Še ni izvedeno.'
                 excerpt=' '.join(excerpt.split())[:195]
                 entries.append([tex(spec['name']),tex(f'{disc["status"]}: {len(disc.get("parsed",{}).get("objects",[]))}' if disc else '--'),tex(supplied['status'] if supplied else '--'),tex(excerpt)])
-            content+=table(['Model','Samost./št.','Regije','Dejanski izsek opisa (model)'],entries,r'p{2.2cm}p{1.5cm}p{1.2cm}p{10cm}')
+            content+=table(['Model','Detekcija','Regije','Dejanski izsek opisa (model)'],entries,r'p{2.2cm}p{1.5cm}p{1.2cm}p{10cm}')
             if case_errors:
                 content+=r'\textbf{Dejanska zavrnitev:} '+tex('; '.join(case_errors))+'\n'
             content+=r'\textbf{Referenčna imena:} '+tex(', '.join(Counter(o['label'] for o in f['regions'])))+'. '
@@ -311,7 +343,7 @@ python3 -m unittest discover -s tests -v
 Zaganjalnik uporablja projektno Ollamo (privzeti omrežni naslov lahko nastavimo z \texttt{--base-url}). Predpogoji: zdrava GPU Ollama, preneseni trije tagi, Python s Pillow. Vsaka dokončana skupina dobi oznako; nadaljevanje preverja nespremenljivost vhodov in ne prepisuje odgovorov. Prekinjeni poskusi drugega koraka ostanejo kot ločeni poskusi.
 Veliki surovi izhodi: \texttt{results/thud-vmesno/}. Majhen paket PDF/LaTeX, slike, agregati, izbor, preglednica in metodologija: \texttt{reports/THUD\_VMESNO/}. Stari NYU poskusi ostanejo ločeni.
 \subsection*{Naslednji utemeljeni poskus}
-Najprej ročno preveriti isti podnabor 20 slik, posebej goste skupinske regije, izpuščene instance ter trditve o pritrditvi. Šele ob primerljivi potrjeni kakovosti je smiselno izbrati krajši prompt ali prompt brez primerov. Nato po izrecnem naročilu začeti 2. del: bogatejši samostojni izhod z ločenimi odnosi in vidnimi dokazi, glede na ugotovljene napake. NVILA zahteva ločeno združljivo okolje in dejanski slikovni API test.
+Najprej ponoviti meritev hitrosti na istem podnaboru ob izključni uporabi GPU in ročno preveriti istih 20 slik, posebej goste skupinske regije, izpuščene instance ter trditve o pritrditvi. Šele ob primerljivi potrjeni kakovosti je smiselno izbrati krajši prompt ali prompt brez primerov. Nato po izrecnem naročilu začeti 2. del: bogatejši samostojni izhod z ločenimi odnosi in vidnimi dokazi, glede na ugotovljene napake. NVILA zahteva ločeno združljivo okolje in dejanski slikovni API test.
 ''')
     header=r'''\documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
@@ -321,6 +353,7 @@ Najprej ročno preveriti isti podnabor 20 slik, posebej goste skupinske regije, 
 \usepackage{graphicx,booktabs,hyperref,array}
 \hypersetup{colorlinks=true,urlcolor=blue}
 \setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{2em}
 \setlength{\parskip}{4pt}
 \renewcommand{\arraystretch}{1.16}
 \begin{document}

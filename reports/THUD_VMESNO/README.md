@@ -21,6 +21,7 @@ Vsaka skupina ima nespremenljivo konfiguracijo in `complete.json` tudi ob nevelj
 Samostojna ponovna generacija poročila iz shranjenih odgovorov:
 
 ```bash
+python3 -m llm_object_classifier.thud_verify --require-complete
 python3 -m llm_object_classifier.thud_report
 bash scripts/compile_thud_report.sh
 ```
@@ -30,3 +31,7 @@ Prevajalnik je izoliran v `Dockerfile.latex`, če lokalni `pdflatex` manjka. `po
 Veliki surovi izhodi, manifesti s prompti in metapodatki, zamrznjeni opisi, ogrevanja in dnevniki ostanejo lokalno v `results/thud-vmesno/`. Samostojni HTML za istih 20 slik je `results/thud-vmesno/manual-review.html`; `manual-review.csv` ima prazna ročna polja in status `pending`. Regeneracija združi ročna polja po ključu SHA256 slike/model/način in ohrani urejene vrednosti. Izbrani vizualni komentarji so posebej v `manual-notes.json`; ne predstavljajo sistematične anotacije kakovosti/stabilnosti.
 
 Prekrivanje imen: male črke, normalizirani presledki, presek unikatnih imen. Brez sinonimov, instance matching, IoU ali razredov stabilnosti. To ni precision/recall/F1/mAP/accuracy. Neuspehi ostanejo v imenovalcih; primerjave odločitev uporabljajo le pare veljavnih odgovorov istega SHA256 opisa in tipiziranega ID.
+
+`verification.json` preveri vseh 32 skupin osnovnih/dodatnih poskusov, enake slikovne SHA256 med modeli in načinoma, nespremenjene opise, odsotnost slike v drugem koraku in GPU dodelitve. Napaka modelove sheme je merjeni izid, ne neuspeh revizije.
+
+Sintaktično berljivi, a po shemi zavrnjeni odgovori imajo ločene razčlenjene kandidate v `results/thud-vmesno/rejected-candidates.jsonl`; indeks je `rejected-index.json`. Prvotni odgovori ostanejo nespremenjeni, status `error` se ohrani in kandidatov drugi korak ne uporabi.
