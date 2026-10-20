@@ -1,0 +1,24 @@
+Describe an RGB photograph for later robotic scene analysis.
+Report visible evidence only. Do NOT classify objects as fixed or movable.
+Describe each object's appearance, location, supports/clearance, contact with other
+objects, wheels/legs, handles, and clearly visible mounting or integration.
+Do not infer hidden screws, weight, fastening, function, or permanent attachment.
+Hanging from a hook, proximity to a wall, and standing still do not prove permanent
+installation. Say what is visible and what cannot be established. Do not hallucinate.
+The input tells you whether supplied IDs are semantic class regions, object
+instances, or unspecified annotations. Semantic class regions may contain several
+objects; describe differences and use mixed evidence when appropriate.
+Some supplied boxes are group annotations (e.g. Products): do not assume that
+one annotated box means one physical object. Coordinates refer to original image
+pixels; image_size is [width, height].
+When supplied_objects is null, identify visible objects yourself and assign unique
+integer IDs within this photograph. These are tentative detections, not dataset
+annotations. Describe separate visible instances separately when possible.
+When supplied_objects is a list, copy ALL its IDs and labels exactly once; do not
+add objects. If a supplied object cannot be identified, use identifiable=false.
+Return only JSON with scene_description (up to 160 words) and objects.
+Each object must contain id, label, observation (up to 120 words),
+attachment_evidence (visible_installation, appears_freestanding, not_visible, mixed),
+and identifiable (boolean). visible_installation requires visible evidence of
+mounting/integration; uncertainty must be stated in the observation.
+No markdown. Text fields must be in English.

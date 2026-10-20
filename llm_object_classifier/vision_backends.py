@@ -15,9 +15,17 @@ def request(url, body=None, timeout=600, headers=None):
                                  headers={"Content-Type": "application/json", **(headers or {})})
     try:
         with urllib.request.urlopen(req, timeout=timeout) as response:
-            return strict_json(response.read().decode("utf-8"))
+            raw_text = response.read().decode("utf-8")
+            try:
+                return strict_json(raw_text)
+            except Exception as exc:
+                exc.result = {"response_text": raw_text}
+                raise
     except urllib.error.HTTPError as exc:
-        raise RuntimeError(f"HTTP {exc.code}: {exc.read().decode(errors='replace')[:2000]}") from None
+        body_text = exc.read().decode(errors='replace')
+        failure = RuntimeError(f"HTTP {exc.code}: {body_text[:2000]}")
+        failure.result = {"http_status": exc.code, "response_text": body_text}
+        raise failure from None
 
 
 class Backend:
@@ -72,14 +80,6 @@ class Backend:
             if self.spec.get("json_mode"):
                 body["response_format"] = {"type": "json_object"}
             endpoint = "/chat/completions"
-        started = time.perf_counter()
-        raw = request(self.url + endpoint, body, self.timeout, self.headers)
-        elapsed = time.perf_counter() - started
-        if self.spec["backend"] == "ollama":
-            content, finish = raw.get("message", {}).get("content", ""), raw.get("done_reason")
-        else:
-            choice = raw.get("choices", [{}])[0]
-            content, finish = choice.get("message", {}).get("content", ""), choice.get("finish_reason")
         # Save the actual request but not a second copy of base64 image bytes.
         logged_body = json.loads(json.dumps(body))
         for message in logged_body["messages"]:
@@ -89,9 +89,24 @@ class Backend:
                 for item in message["content"]:
                     if item.get("type") == "image_url":
                         item["image_url"] = {"url": "<image bytes omitted; see image_sha256>"}
+        started = time.perf_counter()
+        try:
+            raw = request(self.url + endpoint, body, self.timeout, self.headers)
+        except Exception as exc:
+            exc.result = {**getattr(exc, "result", {}), "request": logged_body,
+                          "requested_options": opts, "unsupported_options": unsupported,
+                          "elapsed_seconds": time.perf_counter() - started, "gpu_verified": False}
+            raise
+        elapsed = time.perf_counter() - started
+        if self.spec["backend"] == "ollama":
+            content, finish = raw.get("message", {}).get("content", ""), raw.get("done_reason")
+        else:
+            choice = raw.get("choices", [{}])[0]
+            content, finish = choice.get("message", {}).get("content", ""), choice.get("finish_reason")
         result = {"content": content, "elapsed_seconds": elapsed, "finish_reason": finish,
                   "requested_options": opts, "unsupported_options": unsupported,
-                  "request": logged_body, "response": raw, "gpu_verified": False}
+                  "request": logged_body, "response": raw, "gpu_verified": False,
+                  "finished_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
         if self.spec["backend"] == "ollama" and self.spec.get("require_gpu"):
             try:
                 state = request(self.url + "/api/ps", timeout=self.timeout, headers=self.headers)
@@ -99,6 +114,8 @@ class Backend:
                               if self.spec["model"] in (m.get("name"), m.get("model"))), None)
                 if entry is None or entry.get("size_vram", 0) <= 0:
                     raise ValueError("Requested model has no reported VRAM allocation.")
+                if entry.get("size", 0) > 0 and entry["size_vram"] < entry["size"]:
+                    raise ValueError("Partial CPU offload detected in model allocation.")
                 result.update({"gpu": entry, "gpu_verified": True})
             except Exception as exc:
                 failure = GPURequiredError(f"GPU verification failed: {exc}. Recreate the project's Ollama container with the GPU override.")

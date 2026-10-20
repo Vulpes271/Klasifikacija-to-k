@@ -1,0 +1,39 @@
+{
+  "models": [
+    {
+      "name": "qwen35-bf16",
+      "backend": "ollama",
+      "model": "qwen3.5:4b-bf16",
+      "precision": "BF16",
+      "require_gpu": true
+    },
+    {
+      "name": "qwen35-q4",
+      "backend": "ollama",
+      "model": "qwen3.5:4b-q4_K_M",
+      "precision": "Q4_K_M",
+      "require_gpu": true
+    },
+    {
+      "name": "gemma3-q4",
+      "backend": "ollama",
+      "model": "gemma3:4b-it-q4_K_M",
+      "precision": "Q4_K_M",
+      "require_gpu": true
+    }
+  ],
+  "detail": "detailed",
+  "temperatures": [
+    0.0
+  ],
+  "seeds": [
+    42
+  ],
+  "max_tokens": 8192,
+  "num_ctx": 16384,
+  "top_p": 0.8,
+  "top_k": 20,
+  "presence_penalty": 1.5,
+  "timeout": 600,
+  "system_file": "../prompts/thud-description-long.txt"
+}

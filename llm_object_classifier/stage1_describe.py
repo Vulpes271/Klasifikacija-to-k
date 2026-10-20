@@ -57,7 +57,9 @@ def run(args, config):
     frames = load_images(args.input, args.limit, args.frame_id)
     system = config.get("system_file_text", system_prompt(config["detail"]))
     instruction = config.get("instruction_file_text", "")
-    run_dir = new_run(args.output_dir)
+    resume = getattr(args, "resume", False)
+    warmup = getattr(args, "warmup", False)
+    run_dir = Path(args.output_dir) if resume and Path(args.output_dir).exists() else new_run(args.output_dir)
     manifest = {"stage": 1, "prompt_version": VERSION, "system_prompt": system,
                 "instruction_prefix": instruction, "config": config,
                 "input_sha256": sha256(args.input.read_bytes()),
@@ -65,6 +67,13 @@ def run(args, config):
                             "image_path_resolved": f["path"], "supplied_regions": f["regions"]} for f in frames],
                 "model_metadata": {}, "fresh_inference": True,
                 "note": "No caption cache. Each model sees identical image bytes and prompts. Discovery IDs are local to a model/image."}
+    if (run_dir / "manifest.json").exists() and resume:
+        from .experiment import read_json
+        previous = read_json(run_dir / "manifest.json")
+        for key in ("config", "input_sha256", "system_prompt", "frames"):
+            if previous[key] != manifest[key]:
+                raise ValueError(f"Resume input changed: {key}")
+        manifest = previous
     write_json(run_dir / "manifest.json", manifest)
     results, fatal = [], False
     for spec in config["models"]:
@@ -76,10 +85,27 @@ def run(args, config):
             metadata_error = str(exc)
             manifest["model_metadata"][spec["name"]] = {"error": metadata_error}
         write_json(run_dir / "manifest.json", manifest)
+        if warmup and not metadata_error:
+            warm_path = run_dir / spec["name"] / "warmup.json"
+            if not warm_path.exists():
+                first = next(combinations(config))
+                try:
+                    response = backend.generate(system, user_prompt(frames[0]), options(config, first), frames[0]["image"], frames[0]["mime"])
+                    write_json(warm_path, {"excluded_from_quality": True, **response})
+                except GPURequiredError as exc:
+                    write_json(warm_path, {"excluded_from_quality": True, "error": str(exc), **getattr(exc, "result", {})})
+                    raise
+                except Exception as exc:
+                    write_json(warm_path, {"error": str(exc), "excluded_from_quality": True, **getattr(exc, "result", {})})
         for variant in combinations(config):
             destination = run_dir / spec["name"] / variant["id"]
             for index, frame in enumerate(frames, 1):
                 fid = frame["record"]["frame_id"]
+                saved_path = destination / f"frame-{index:06d}.json"
+                if resume and saved_path.exists():
+                    from .experiment import read_json
+                    results.append(read_json(saved_path))
+                    continue
                 prompt = (instruction + "\n" if instruction else "") + user_prompt(frame)
                 row = {"stage": 1, "frame_id": fid, "source_frame": frame["record"],
                        "model_name": spec["name"], "model": spec["model"], "variant": variant,
@@ -101,6 +127,7 @@ def run(args, config):
                     row.update({"status": "error", "error": str(exc)})
                     fatal = True
                 except Exception as exc:
+                    row.update(getattr(exc, "result", {}))
                     row.update({"status": "error", "error": str(exc)})
                     print(f"  ERROR: {exc}", flush=True)
                 results.append(row)
@@ -131,6 +158,8 @@ def main(argv=None):
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--frame-id", nargs="+", help="Optional exact frame IDs, e.g. one previous photograph.")
+    parser.add_argument("--resume", action="store_true", help="Reuse only identical immutable inputs; retain saved failures.")
+    parser.add_argument("--warmup", action="store_true", help="Save a separate excluded warm-up call per model.")
     parser.add_argument("--list-local-models", action="store_true")
     args = parser.parse_args(argv)
     try:

@@ -43,6 +43,21 @@ def run(args, config):
         except Exception as exc:
             manifest["model_metadata"][spec["name"]] = {"error": str(exc)}
         write_json(run_dir / "manifest.json", manifest)
+        if getattr(args, "warmup", False) and "error" not in manifest["model_metadata"][spec["name"]]:
+            # A separate text-only call warms the same task; excluded from quality/timing rows.
+            saved = next((s for _, s in inputs if s.get("status") == "ok"), None)
+            if saved is not None:
+                caption = validate_description(saved["parsed"])
+                objects = [{"id": o["id"], "label": o["label"]} for o in caption["objects"]]
+                prompt = reason_prompt(saved["frame_id"], objects, caption, instructions)
+                try:
+                    response = backend.generate(system, prompt, options(config, next(combinations(config))))
+                    write_json(run_dir / spec["name"] / "warmup.json", {"excluded_from_quality": True, **response})
+                except GPURequiredError as exc:
+                    write_json(run_dir / spec["name"] / "warmup.json", {"error": str(exc), **getattr(exc, "result", {})})
+                    raise
+                except Exception as exc:
+                    write_json(run_dir / spec["name"] / "warmup.json", {"excluded_from_quality": True, "error": str(exc)})
         for variant in combinations(config):
             for index, (path, saved) in enumerate(inputs, 1):
                 result = {"stage": 2, "frame_id": saved["frame_id"], "caption_source": str(path),
@@ -85,8 +100,8 @@ def run(args, config):
                                          "observation": obs["observation"], "attachment_evidence": obs["attachment_evidence"],
                                          "elapsed_seconds": response["elapsed_seconds"]})
                     except Exception as exc:
+                        result.update(getattr(exc, "result", {}))
                         if isinstance(exc, GPURequiredError):
-                            result.update(getattr(exc, "result", {}))
                             fatal = True
                         result.update({"status": "error", "error": str(exc)})
                         rows.append({**common, "status": "error", "error": str(exc)})
@@ -117,6 +132,7 @@ def main(argv=None):
     parser.add_argument("--captions", type=Path, help="Stage 1 model/variant directory.")
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--limit", type=int)
+    parser.add_argument("--warmup", action="store_true")
     parser.add_argument("--list-local-models", action="store_true")
     args = parser.parse_args(argv)
     try:

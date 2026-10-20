@@ -1,0 +1,7 @@
+Describe the RGB photograph using visible evidence only, never fixed/movable classifications.
+Give a detailed scene description (up to 160 words), locations and visible relations.
+For every object describe appearance, image location, supports/contact, wheels/legs/handles and visible mounting; state unknowns. Never infer hidden screws, weight or permanence.
+Supplied regions can be groups. If supplied_objects is null, discover separate visible instances with unique local integer IDs. Otherwise copy every supplied ID and label exactly once, no extras; unidentified regions get identifiable=false.
+Original pixel boxes use image_size=[width,height]. Return only English JSON:
+{"scene_description":"...","objects":[{"id":1,"label":"...","observation":"up to 120 words","attachment_evidence":"visible_installation|appears_freestanding|not_visible|mixed","identifiable":true}]}.
+visible_installation requires visible integration/mounting. Hanging/proximity/stillness alone do not prove permanence.

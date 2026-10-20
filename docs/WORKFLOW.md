@@ -242,3 +242,15 @@ Modeli in rezultati ostanejo shranjeni. Drugih kontejnerjev ali GPU procesov ne 
 Izhod 0: vsi zahtevani odgovori veljavni. Izhod 2: vsaj en neveljaven odgovor ali preskočen
 vhod; ostali se vseeno izvedejo. Izhod 1: usodna napaka priprave/GPU. Napake niso tiho
 popravljene; tudi podvojeni JSON ključi se v novih korakih zavrnejo, izvorni odgovor ostane.
+
+## THUD vmesna predstavitev: celoten 1. del
+
+Nov ponovljiv zaganjalnik `bash scripts/thud_experiment.sh --phase all` izvede
+preverjanje/izbor → pilot → osnovno ločeno samostojno zaznavanje in opisovanje
+regij (3 modeli × 100 slik × 2 načina) → dodatne teste na zamrznjenih 20 slikah
+→ besedilno presojo shranjenih opisov → vrednotenje → PDF/LaTeX.
+Glej [paket poročila](../reports/THUD_VMESNO/README.md) in
+[vrstni red nastavitev](../configs/THUD_VRSTNI_RED.md). Zaganjalnik ohrani tudi
+neveljavne odgovore, preveri nespremenjene vhode in omogoča nadaljevanje.
+Drugi korak cevovoda je vključen v prvi del naloge; **2. del nadgradnje prvega
+koraka se s tem ne začne**.

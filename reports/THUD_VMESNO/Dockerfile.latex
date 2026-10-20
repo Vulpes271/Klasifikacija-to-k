@@ -1,0 +1,5 @@
+# Isolated report compiler; does not change host packages.
+FROM ubuntu:24.04
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-recommended texlive-fonts-recommended texlive-lang-european poppler-utils && rm -rf /var/lib/apt/lists/*
+WORKDIR /report
+ENTRYPOINT ["pdflatex", "-interaction=nonstopmode", "-halt-on-error", "porocilo.tex"]

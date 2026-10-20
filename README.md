@@ -83,3 +83,10 @@ HTTP testi uporabljajo lokalni simulirani strežnik za oba API-ja; preverjajo de
 zahteve, ločitev slike in besedila, enake vhode med modeli, ohranjanje napak, zavrnitev
 CPU in podvojenih ključev JSON. Docker build in inferenco na NVIDIA GPU je treba
 preveriti na ciljnem Linux računalniku.
+
+## Vmesno poročilo THUD: 1. del
+
+Celoten poskus: `bash scripts/thud_experiment.sh --phase all`.
+[Paket poročila in ponovljivost](reports/THUD_VMESNO/README.md) vključuje
+[PDF](reports/THUD_VMESNO/porocilo.pdf), [LaTeX](reports/THUD_VMESNO/porocilo.tex),
+agregate in [sprotni dnevnik](reports/THUD_VMESNO/NAPREDEK.md).
