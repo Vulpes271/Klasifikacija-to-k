@@ -57,6 +57,12 @@ def verify(jobs, require_complete=False):
         if len(rows) != job['expected']:
             errors.append(name + ': unexpected record count')
         manifest = read_json(path/'manifest.json')
+        reuse_file = path/'reused-pilot.json'
+        if reuse_file.exists():
+            reuse = read_json(reuse_file)
+            for relative, digest in reuse['sha256'].items():
+                if sha256((path/relative).read_bytes()) != digest or sha256((Path(reuse['source'])/relative).read_bytes()) != digest:
+                    errors.append(name + ': reused pilot differs from original')
         is_stage1 = job['kind'] in {'pilot', 'rich'}
         expected_indices = (list(range(2)) if job['kind'] == 'pilot' else list(range(50))) if is_stage1 else audit[ds]['subset_indices_zero_based']
         expected_fids = [audit[ds]['frames'][i]['discovery_id'] for i in expected_indices]
@@ -196,6 +202,29 @@ def decision_pairs(jobs):
     write_json(REPORT/'part2-decision-pairs.json', pairs)
     write_csv(REPORT/'part2-decision-pairs.csv', pairs, list(pairs[0]) if pairs else ['matching'])
     return pairs
+
+
+def rejected_candidates(jobs):
+    candidates, index = [], []
+    for job in jobs:
+        if job['reused']:
+            continue
+        for row in job['records']:
+            if row['status'] != 'error':
+                continue
+            item = {'job':job['name'], 'frame_id':row['frame_id'], 'error':row.get('error'),
+                    'accepted':False, 'content_sha256':sha256(row.get('content','').encode())}
+            try:
+                parsed = strict_json(row.get('content', ''))
+            except (ValueError, TypeError):
+                item['syntax_valid'] = False
+            else:
+                item['syntax_valid'] = True
+                candidates.append({**item, 'rejected_candidate':parsed})
+            index.append(item)
+    (OUT/'rejected-candidates.jsonl').write_text(''.join(json.dumps(c,ensure_ascii=False)+'\n' for c in candidates))
+    write_json(REPORT/'part2-rejected-index.json', index)
+    return dict(Counter(item['error'] for item in index))
 
 
 def review(jobs, frames):
@@ -356,9 +385,14 @@ def generate(require_complete=False):
     main_rows = [r for j in jobs if not j['reused'] and j['kind']!='pilot' for r in j['records']]
     pilot = [r for j in jobs if j['kind']=='pilot' for r in j['records']]
     warmups = [r for j in jobs if not j['reused'] for r in j['warmups']]
+    reused_pilot_rows = [r for j in jobs if j['kind']=='rich' and (j['path']/'reused-pilot.json').exists() for r in j['records'][:2]]
+    unique_warmups = [r for j in jobs if not j['reused'] and not (j['path']/'reused-pilot.json').exists() for r in j['warmups']]
     summary = {'new_main':aggregate(main_rows), 'pilot':aggregate(pilot),
+               'pilot_reused_in_main_slots':len(reused_pilot_rows),
+               'unique_final_prompt_responses':sum('response' in r for r in main_rows+pilot)-sum('response' in r for r in reused_pilot_rows),
                'reused_stage2':aggregate([r for j in jobs if j['reused'] for r in j['records']]),
-               'warmup_calls':len(warmups), 'warmup_gpu_verified':sum(r.get('gpu_verified',False) for r in warmups),
+               'warmup_calls':len(unique_warmups), 'warmup_gpu_verified':sum(r.get('gpu_verified',False) for r in unique_warmups),
+               'warmup_reused_slots':len(warmups)-len(unique_warmups),
                'verification': verification, 'raw_outputs':str(OUT),
                'tests':read_json(REPORT/'part2-tests.json') if (REPORT/'part2-tests.json').exists() else {},
                'initial_pilot_diagnostic':read_json(REPORT/'part2-pilot-revision.json') if (REPORT/'part2-pilot-revision.json').exists() else {},
@@ -369,6 +403,7 @@ def generate(require_complete=False):
     summary['part1_preservation_index'] = {'path':str(provenance), 'sha256':sha256(provenance.read_bytes())} if provenance.exists() else None
     write_json(REPORT/'part2-summary.json', summary)
     pairs = decision_pairs(jobs)
+    write_json(REPORT/'part2-errors.json', rejected_candidates(jobs))
     frames = {ds:load_images(ROOT/'data'/ds/'objects.jsonl',50) for ds in DATASETS}
     review(jobs, frames)
     latex(jobs, stats, summary, pairs)

@@ -61,6 +61,28 @@ def prepare():
                               for p in sorted(PART1.glob('*/*/t*/frame-*.json'))})
 
 
+def reuse_pilot(dest, config):
+    """Reuse identical pilot calls, including errors; do not measure them twice."""
+    pilot = dest.with_name(dest.name.replace('rich-', 'pilot-', 1))
+    if not (pilot/'complete.json').exists():
+        return
+    manifest = read_json(pilot/'manifest.json')
+    if manifest['config'] != config:
+        raise ValueError('Cannot reuse pilot with changed settings/prompt')
+    copied = {}
+    for source in sorted(pilot.glob('*/t*/frame-*.json')) + sorted(pilot.glob('*/warmup.json')):
+        relative = source.relative_to(pilot)
+        target = dest/relative
+        if target.exists() and target.read_bytes() != source.read_bytes():
+            raise ValueError('Conflicting existing pilot reuse')
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if not target.exists():
+            target.write_bytes(source.read_bytes())
+        copied[str(relative)] = sha256(source.read_bytes())
+    immutable_json(dest/'reused-pilot.json', {'source':str(pilot), 'sha256':copied,
+        'note':'These are identical existing calls, including rejected outputs and warmup; not newly measured.'})
+
+
 def configuration(spec, url, stage=1):
     raw = read_json(ROOT / 'configs/stage1/thud-part2.json')
     raw['models'] = [{**spec, 'base_url': url, 'require_gpu': True}]
@@ -99,6 +121,8 @@ def execute(name, raw, stage, source, count):
         if len(job_records(dest)) != count:
             raise ValueError('Completed job has unexpected record count: ' + name)
         return dest
+    if stage == 1 and name.startswith('rich-'):
+        reuse_pilot(dest, config)
     progress('2. del: zagon ' + name)
     start = time.perf_counter()
     args = SimpleNamespace(output_dir=dest, resume=True, warmup=True, limit=count, frame_id=None, input=source, captions=source)

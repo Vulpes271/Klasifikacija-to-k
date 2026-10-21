@@ -120,3 +120,20 @@ class RichDescriptionTests(unittest.TestCase):
             row = {'status':'ok','caption_source':str(path),'parsed':{'objects':[
                 {'id':1,'classification':'movable'}, {'id':2,'classification':'uncertain'}, {'id':3,'classification':'fixed'}]}}
             self.assertEqual(reason_labels(row), {'floor':{'id':3,'classification':'fixed'}})
+
+    def test_pilot_reuse_copies_errors_and_warmup_exactly_without_changing_config(self):
+        from llm_object_classifier.thud_part2 import reuse_pilot
+        from llm_object_classifier.experiment import write_json
+        with tempfile.TemporaryDirectory() as directory:
+            pilot = Path(directory)/'pilot-model-dataset'
+            dest = Path(directory)/'rich-model-dataset'
+            config = {'system_file_text':'frozen prompt'}
+            write_json(pilot/'manifest.json', {'config':config})
+            write_json(pilot/'complete.json', {'exit_code':2})
+            write_json(pilot/'model/t0-s42/frame-000001.json', {'status':'error','content':'not JSON'})
+            write_json(pilot/'model/warmup.json', {'excluded_from_quality':True})
+            reuse_pilot(dest, config)
+            self.assertEqual((dest/'model/t0-s42/frame-000001.json').read_bytes(), (pilot/'model/t0-s42/frame-000001.json').read_bytes())
+            self.assertEqual((dest/'model/warmup.json').read_bytes(), (pilot/'model/warmup.json').read_bytes())
+            with self.assertRaisesRegex(ValueError, 'changed settings'):
+                reuse_pilot(dest, {'system_file_text':'different prompt'})

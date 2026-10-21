@@ -291,3 +291,27 @@
 - 2026-10-21T08:38:57+02:00: 2. del: zagon pilot-qwen35-bf16-thud_agtea_test50
 
 - 2026-10-21T08:39:44+02:00: 2. del: vseh 59 regresijskih testov uspešnih (54 prejšnjih + 5 novih). Preverjeni graf ID-jev, ohranitev dokazov/odnosov v drugem koraku brez fotografij, ponovno nadaljevanje tudi zavrnitev ter konservativno ujemanje imen. Sintaksa vseh skript in diff preverjena. GPU pilot z dopolnjeno tipovno predlogo poteka; nabor in generacijske nastavitve niso spremenjeni.
+
+- 2026-10-21T08:39:59+02:00: 2. del: končano pilot-qwen35-bf16-thud_agtea_test50, izhod 0, 62.7 s
+
+- 2026-10-21T08:39:59+02:00: 2. del: zagon pilot-qwen35-q4-thud_dense_test50
+
+- 2026-10-21T08:40:59+02:00: 2. del: končano pilot-qwen35-q4-thud_dense_test50, izhod 0, 59.2 s
+
+- 2026-10-21T08:40:59+02:00: 2. del: zagon pilot-qwen35-q4-thud_agtea_test50
+
+- 2026-10-21T08:41:16+02:00: 2. del: končano pilot-qwen35-q4-thud_agtea_test50, izhod 0, 17.1 s
+
+- 2026-10-21T08:41:16+02:00: 2. del: zagon pilot-gemma3-q4-thud_dense_test50
+
+- 2026-10-21T08:41:35+02:00: 2. del: končano pilot-gemma3-q4-thud_dense_test50, izhod 0, 19.0 s
+
+- 2026-10-21T08:41:35+02:00: 2. del: zagon pilot-gemma3-q4-thud_agtea_test50
+
+- 2026-10-21T08:41:51+02:00: 2. del: končano pilot-gemma3-q4-thud_agtea_test50, izhod 2, 16.0 s
+
+- 2026-10-21T08:41:51+02:00: 2. del: pilot shranjen, ocena osnovnih opisov 58.6 min
+
+- 2026-10-21T08:41:51+02:00: 2. del: zahtevana faza pilot zaključena; surovi odgovori so v results/thud-part2/
+
+- 2026-10-21T08:43:32+02:00: 2. del: dopolnjeni pilot 10/12 po shemi, vseh 12 odgovorov na GPU. Ocena 300 opisov 58,6 min; deljen GPU omejuje napoved. Za polno primerjavo se prekopira vseh 12 nespremenjenih pilotnih odgovorov (tudi 2 zavrnitvi) ter 6 ogrevanj; sledi samo 288 manjkajočih slikovnih klicev. Politika v pilot-reuse-policy.json; šest novih regresijskih testov uspešnih.
