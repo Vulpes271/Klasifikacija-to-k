@@ -1,0 +1,25 @@
+{
+  "description": "Offline annotated-region coverage, not complete object detection accuracy. Literal normalized aliases fixed before inspecting full results. Dense phrases are not reduced to nouns. Unknown labels and group Products/Fruits are excluded from semantic coverage; all predictions remain available for review.",
+  "normalization": "lowercase, strip whitespace, collapse internal whitespace; no substring matching",
+  "iou_threshold": 0.5,
+  "matching": "maximum-cardinality one-to-one bipartite matching within image and canonical label; candidates visited by descending IoU, prediction index breaks ties",
+  "aliases": {
+    "person": "People", "people": "People", "man": "People", "woman": "People",
+    "chair": "Chair", "chairs": "Chair", "table": "Table", "dining table": "Table",
+    "refrigerator": "Fridge", "fridge": "Fridge", "bottle": "Bottle",
+    "laptop": "Laptop", "tv": "TV", "television": "TV", "cup": "Cup",
+    "sofa": "Sofa", "couch": "Sofa", "bench": "Bench", "stool": "Stool",
+    "window": "Window", "door": "Door", "shelf": "Shelf", "shelves": "Shelf",
+    "bookshelf": "Shelf", "book": "Book", "plant": "Plants", "potted plant": "Plants",
+    "bag": "Bag", "handbag": "Bag", "backpack": "Bag", "lamp": "Lamp",
+    "light": "Lamp", "trash can": "Trashcan", "fire extinguisher": "FireExtinguisher",
+    "shopping cart": "Shopping Cart", "basket": "Basket", "glass": "Glass"
+  },
+  "limitations": [
+    "Related views are not independent scenes.",
+    "THUD labels and model vocabulary/granularity differ; group annotations are not single instances.",
+    "A matched annotated box does not verify a region caption, material, contact, relation or stability.",
+    "Unmatched predictions are not automatically hallucinations: annotations may be incomplete.",
+    "No mAP: native tasks do not provide comparable calibrated class confidence scores here."
+  ]
+}

@@ -138,7 +138,9 @@ def save_run_summary(jobs):
         'warmup_calls_excluded':len(warmups),'verified_warmup_calls':sum(r.get('gpu_verified',False) for r in warmups),
         'raw_outputs':str(OUT),'initial_cpu_diagnostic':str(OUT/'diagnostic-cpu-initial-pilot'),
         'second_part_executed': (REPORT/'part2-summary.json').exists() and read_json(REPORT/'part2-summary.json')['verification']['complete'],
-        'second_part_summary': 'part2-summary.json' if (REPORT/'part2-summary.json').exists() else None})
+        'second_part_summary': 'part2-summary.json' if (REPORT/'part2-summary.json').exists() else None,
+        'native_comparison_summary': 'extended-summary.json' if (REPORT/'extended-summary.json').exists() else None,
+        'native_comparison_complete': (REPORT/'extended-verification.json').exists() and read_json(REPORT/'extended-verification.json')['all_stage1_complete']})
 
 
 def save_rejected_candidates():
@@ -191,6 +193,9 @@ def reasoning_comparisons(jobs):
 def main():
     REPORT.mkdir(parents=True,exist_ok=True)
     (REPORT/'figures').mkdir(exist_ok=True)
+    if (REPORT/'extended-summary.json').exists():
+        from .thud_extended_report import main as extended_report
+        extended_report()
     if (REPORT/'part2-summary.json').exists():
         from .thud_part2_report import generate
         generate()
@@ -385,8 +390,8 @@ Vrstice so BF16, dodatna vrstica Q4 je ponovitev istega prompta in opisov. F/M/U
 Naslednji izseki so besedni razlogi modela; niso lastna potrditev vidnih dokazov. Primeri so izbrani iz vrat, slik, polic in pohištva, kjer so te vrste dejansko vrnjene. Hladilnih vrat ne enačimo z vrati prostora. Če slik/umetniških del opisovalnik ne izloči, njihovega razvrščanja ne prikazujemo kot izmerjenega. Celotni pari z imenom poskusa in SHA256 so v \texttt{reasoning-comparisons.csv}.
 '''+table(['Objekt',r'Osnova $\rightarrow$ različica','Dejanski modelov razlog'],example_table,r'p{3.3cm}p{3.1cm}p{8.7cm}')+r'''
 '''+tex(error_findings)+r'''
-\subsection*{NVILA 8B}
-Dodatni model ni izveden. Omejena začetna diagnostika: uradna validacijska shema ne vključuje \texttt{NVILA-8B}, izolirani venv pa je odpovedal zaradi manjkajočega ensurepip. Uteži niso prenesene in slikovni API ni preverjen; 8B ni preimenovan v 15B. Celotne ovire in viri so v \texttt{nvila-diagnostic.json}.
+\subsection*{NVILA 8B: zgodovinsko stanje ob koncu 1. dela}
+Ob koncu 1. dela dodatni model še ni bil izveden. Omejena začetna diagnostika: uradna validacijska shema ne vključuje \texttt{NVILA-8B}, izolirani venv pa je odpovedal zaradi manjkajočega ensurepip. Takrat uteži še niso bile prenesene in slikovni API ni bil preverjen; 8B ni preimenovan v 15B. Celotne začetne ovire so v \texttt{nvila-diagnostic.json}; dejanski kasnejši GPU zagon je opisan v dodatku NVILA/Florence, kadar je prisoten.
 \subsection*{Ponovljivost in izvor}
 '''+tex(validation_sentence)+r' Izhodiščni Git commit: \texttt{'+tex(commit[:12])+r'}. Različice, gonilnik in slika Docker so v \texttt{environment.json}; točna natančnost, slikovni projektor in zmožnosti v manifestih posameznih poskusov. Konfiguracije vsebujejo vse nastavitve, shranjeni odgovori pa prompte, SHA256 slike/opisa, čas, možnosti, GPU stanje in surovi API odgovor.'+r'''
 \begin{verbatim}
@@ -421,6 +426,8 @@ Veliki surovi izhodi: \texttt{results/thud-vmesno/}. Majhen paket PDF/LaTeX, sli
     sources=r'''\vfill{\footnotesize Uradni viri: \href{https://ollama.com/library/qwen3.5:4b-bf16}{Qwen BF16}, \href{https://ollama.com/library/qwen3.5:4b-q4_K_M}{Qwen Q4}, \href{https://ollama.com/library/gemma3:4b-it-q4_K_M}{Gemma Q4}, \href{https://huggingface.co/Efficient-Large-Model/NVILA-8B}{NVILA uteži}, \href{https://github.com/NVlabs/VILA/blob/main/server.py}{NVILA strežnik}. Preverjeno 20. 10. 2026.}
 '''
     appendix = '\n\\newpage\n' + (REPORT/'part2.tex').read_text() if (REPORT/'part2-summary.json').exists() else ''
+    if (REPORT/'extended-summary.json').exists():
+        appendix += '\n\\newpage\n' + (REPORT/'extended.tex').read_text()
     (REPORT/'porocilo.tex').write_text(header+('\n\\newpage\n'.join(pages))+sources+appendix+'\n\\end{document}\n')
     print(f'Generated {len(pages)} intended pages; {len(baseline_rows)} baseline, {len(extra_rows)} extra, {len(reason_rows)} core reasoning responses, {len(q4_reason_rows)} optional Q4.')
 

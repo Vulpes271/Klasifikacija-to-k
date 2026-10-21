@@ -95,3 +95,9 @@ Nadaljevanje z bogatejšimi samostojnimi opisi, vidnimi dokazi in odnosi:
 `bash scripts/thud_part2.sh --phase all`. Uporabi shranjene stare rezultate,
 nove ohrani v `results/thud-part2/` ter dopolni isti PDF/LaTeX.
 [Podrobnosti 2. dela](reports/THUD_VMESNO/README.md#2-del-bogatejši-samostojni-opis).
+
+Nadaljevanje z dejanskima ločenima GPU izvajalnikoma NVILA-8B in Florence-2-large:
+[namestitev, meritve in ponovitev](docs/THUD_EXTENDED.md).
+`bash scripts/thud_extended.sh prepare`, nato faze `nvila`, `florence`, `reason`,
+`report`; že shranjeni odgovori ostanejo. Novi surovi izhodi so lokalno v
+`results/thud-extended/`, primerjava pa dopolni isti PDF in LaTeX.
