@@ -306,10 +306,10 @@ Nadaljevanje uporablja obstoječe izhode 1. dela (objavljen commit \texttt{75096
 Položaji opisujejo levo/desno v sliki, ne svetovnih koordinat. Skritih vijakov, teže ali trajnosti ne zahtevamo; bližina ali negibnost ni namestitev. ID so lokalni, brez sledenja skozi čas. Napovedanih okvirjev ni; besedni položaj ni meritev natančne lokalizacije. Zato ni IoU ali mAP in na teh rezultatih še ni podlage za uvedbo posebnega detektorja.
 \subsection*{Primerjava časa in oblike izhoda}
 '''+table(['Opisovalnik','Različica','OK/vsi','Med.','p90','Povp.','Tok.','tok/s','GiB'], comparisons, 'llrrrrrrr')+r'''
-Časi so sekunde na sliko, tudi za zavrnjene odgovore z izmerjenim časom. GiB je največja API dodelitev VRAM. Ogrevanje in nalaganje sta ločena v \texttt{part2-aggregates.json}. GPU je deljen; obremenitev in dolžina odgovora omejujeta vzročno primerjavo hitrosti. Stari prompt je podroben, novi je drugačen prompt s strožjo shemo; razlike ne pripisujemo samo strukturiranju.
+Časi so sekunde na sliko, tudi za zavrnjene odgovore z izmerjenim časom. Tok. je povprečje izhodnih tokenov, tok/s pa hitrost API generiranja. GiB je največja API dodelitev VRAM. Ogrevanje in nalaganje sta ločena v \texttt{part2-aggregates.json}. GPU je deljen; obremenitev in dolžina odgovora omejujeta vzročno primerjavo hitrosti. Stari prompt je podroben, novi je drugačen prompt s strožjo shemo; razlike ne pripisujemo samo strukturiranju.
 Prekopirano pilotno ogrevanje ne pomeni ogretega modela po novem nalaganju. Prvi novi klic (indeks 3) posamezne skupine lahko vključuje nalaganje; celotni čas ostane v tabeli, API \texttt{load\_duration} je ohranjen ločeno. To je dodatna omejitev neposredne primerjave hitrosti, ne prikrita izločitev počasnih klicev.
 '''+table(['Model','Objekti','Odnosi','Opisi z odnosi','Namest. unknown','Podpora unknown'], structures, 'lrrrrr')+r'''
-Število odnosov/objektov in prisotnost polj merita strukturo, ne pravilnosti, priklica ali vidnih dokazov. Neznano šteje le dobesedni \texttt{unknown}, ne vseh izrazov negotovosti. Vsi sprejeti odnosi imajo veljavne sklice in neprazno besedilo dokaza; ta pogoj ne potrdi vsebine fotografije.
+Objekti in odnosi so šteti le v sprejetih opisih; zavrnitve ostanejo v imenovalcih zgornje tabele. Število odnosov/objektov in prisotnost polj merita strukturo, ne pravilnosti, priklica ali vidnih dokazov. Neznano šteje le dobesedni \texttt{unknown}, ne vseh izrazov negotovosti. Vsi sprejeti odnosi imajo veljavne sklice in neprazno besedilo dokaza; ta pogoj ne potrdi vsebine fotografije.
 ''')
     reasoning = []
     for spec in MODELS:
@@ -323,6 +323,7 @@ Prekopirano pilotno ogrevanje ne pomeni ogretega modela po novem nalaganju. Prvi
     t = summary.get('tests', {})
     diagnostic = summary.get('initial_pilot_diagnostic', {})
     initial = diagnostic.get('first_pilot', {})
+    pages[0] += '\n' + tex(f'Predhodna diagnostika prvega prompta: {initial.get("ok",0)}/{initial.get("attempted",0)} po shemi, {diagnostic.get("warmup_calls",0)} ločenih ogrevanj. Zaradi izpuščenih tipov je dodana izrecna JSON tipovna predloga brez vsebinskih primerov; validator in generacijske nastavitve niso razrahljani. Diagnostični odgovori so ohranjeni ločeno in niso prišteti končni primerjavi; ne gre za prikrito popravljanje izhodov.') + '\n'
     control = []
     for label, rows in [('1. del kratek', [r for ds in DATASETS for r in job_records(PART1/f'extra-short-t0-{ds}')]),
                         ('2. del bogati', [r for j in jobs if j['kind']=='rich' and j['caption_model']==MODELS[0]['name'] for r in j['records'] if int(r['frame_id'].split('-')[-1])-1 in read_json(REPORT/'data-audit.json')[j['dataset']]['subset_indices_zero_based']])]:
@@ -338,8 +339,7 @@ Pari so le enolična, natančno enaka imena po pretvorbi v male črke in normali
 '''+table(['Različica opisa BF16','OK/vsi','Med. [s]','Objekti'], control, 'lrrr')+r'''
 Oba prompta sta brez vsebinskih primerov in pri T=0, seed 42. Kratki stari opis se ponovno uporabi iz 1. dela. Nova shema in besedilo se še vedno spreminjata skupaj, zato to ni izolirana ablacija sheme. Za Q4/Gemma primerljivega starega kratkega opisa ni; dodatnih starih klicev za to ne izvajamo.
 \subsection*{Obseg, revizija in ponovljivost}
-'''+tex(f'Položajev glavne primerjave: {summary["new_main"]["attempted"]}; odgovorov {summary["new_main"]["json_text_available_calls"]}; preskokov {summary["new_main"]["skipped"]}. Pilot: {summary["pilot"]["attempted"]} odgovorov, od tega {summary["pilot_reused_in_main_slots"]} prekopiranih v glavno primerjavo, brez ponovnega klica. Enkratnih novih odgovorov končnega prompta: {summary["unique_final_prompt_responses"]}. Ločena nova ogrevanja: {summary["warmup_calls"]}; {summary["warmup_reused_slots"]} njihovih kopij se ne šteje ponovno. Revizija {v["complete_jobs"]}/{v["expected_jobs"]} skupin, kršitev {len(v["invariant_errors"])}; nespremenjenih starih odgovorov {v["preserved_part1_responses"]}. Testi: {t.get("tests", "--")} ({t.get("result", "še ni izvedeno")}).')+r'''
-'''+tex(f'Predhodna diagnostika prvega prompta: {initial.get("ok",0)}/{initial.get("attempted",0)} po shemi, {diagnostic.get("warmup_calls",0)} ločenih ogrevanj. Zaradi izpuščenih tipov je dodana izrecna JSON tipovna predloga brez vsebinskih primerov; validator in generacijske nastavitve niso razrahljani. Diagnostični odgovori so ohranjeni ločeno in niso prišteti končni primerjavi; ne gre za prikrito popravljanje izhodov.')+r'''
+'''+tex(f'Položajev glavne primerjave: {summary["new_main"]["attempted"]}; odgovorov {summary["new_main"]["json_text_available_calls"]}; preskokov {summary["new_main"]["skipped"]}. Pilot: {summary["pilot"]["attempted"]} odgovorov, od tega {summary["pilot_reused_in_main_slots"]} prekopiranih v glavno primerjavo, brez ponovnega klica. Enkratnih novih merjenih odgovorov brez prve diagnostike: {summary["unique_final_prompt_responses"]}. Ločena nova ogrevanja: {summary["warmup_calls"]}; {summary["warmup_reused_slots"]} njihovih kopij se ne šteje ponovno. Revizija {v["complete_jobs"]}/{v["expected_jobs"]} skupin, kršitev {len(v["invariant_errors"])}; nespremenjenih starih odgovorov {v["preserved_part1_responses"]}. Testi: {t.get("tests", "--")} ({t.get("result", "še ni izvedeno")}).')+r'''
 '''+tex(f'End-to-end čas novih faz brez predhodne diagnostike: {number(summary["new_end_to_end_seconds"]/60)} min; pilotne kopije in 20 starih presoj niso šteti ponovno. Nalaganje in ogrevanje sta podrobno ločena v agregatih; warmup_reused_from_pilot označi kopijo ogrevanja, new_warmup_calls pa dejanske nove klice. Za prihodnje sveže zagone je kopiranje ogrevanja odpravljeno; izvirne meritve in njihov nalagalni strošek ostanejo nespremenjeni.')+r'''
 \begin{verbatim}
 bash scripts/thud_part2.sh --phase all
@@ -370,19 +370,21 @@ Surovi izhodi: \texttt{results/thud-part2/}; izvorni 1. del ostane v \texttt{res
                 entries.append([tex(spec['name']), tex(count_text), tex(text[:210])])
             page += table(['Model','Obj./odnosi','Dejanski prvi modelov odnos ali napaka'], entries, r'p{2.2cm}p{2.1cm}p{10.7cm}')
             page += r'\textbf{Lastna presoja:} '+tex(notes.get(ds+'/'+case['frame_id'], 'Delni vizualni pregled še ni zapisan.'))+'\n'
-        if offset == 2:
+        if offset == 0:
             examples = []
             for spec in MODELS:
                 choices = [p for p in pairs if p['caption_model']==spec['name']]
                 chosen = next((p for p in choices if p['changed']), choices[0] if choices else None)
                 if chosen:
-                    examples.append([tex(spec['name']+' / '+chosen['frame_id']+' / '+chosen['normalized_label']),
+                    scene = 'trgovina' if chosen['dataset']==DATASETS[0] else 'agtea'
+                    examples.append([tex(spec['name']+' / '+scene+' / '+chosen['frame_id']+' / '+chosen['normalized_label']),
                                      tex(chosen['old_class']+' -> '+chosen['rich_class']), tex(chosen['rich_reason'])])
             if examples:
                 page += r'\subsection*{Dejanski besedni razlogi pri parih imen}' + table(
                     ['Opisovalnik / slika / ime','Staro -> bogato','Razlog modela na bogatem opisu'], examples,
                     r'p{5.6cm}p{2.8cm}p{6.5cm}')
                 page += 'To so modelove utemeljitve, ne potrjena referenca; ujemanje imena ne potrdi iste instance.\n'
+        if offset == 2:
             conclusion = read_json(REPORT/'part2-conclusion.json') if (REPORT/'part2-conclusion.json').exists() else {}
             page += r'\subsection*{Sklep in naslednji poskus}'+tex(conclusion.get('text', 'Strukturiran izhod omogoča pregled podpor, zakritosti in izrecnih odnosov. Vsebinska prednost še ni potrjena; sistematični ročni pregled ostane pending. Brez referenc stabilnosti ne poročamo o accuracy. Pred končno izbiro prompta je potreben ročni pregled istega podnabora.'))
         pages.append(page)

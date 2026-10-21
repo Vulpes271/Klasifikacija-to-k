@@ -420,7 +420,7 @@ Veliki surovi izhodi: \texttt{results/thud-vmesno/}. Majhen paket PDF/LaTeX, sli
 '''
     sources=r'''\vfill{\footnotesize Uradni viri: \href{https://ollama.com/library/qwen3.5:4b-bf16}{Qwen BF16}, \href{https://ollama.com/library/qwen3.5:4b-q4_K_M}{Qwen Q4}, \href{https://ollama.com/library/gemma3:4b-it-q4_K_M}{Gemma Q4}, \href{https://huggingface.co/Efficient-Large-Model/NVILA-8B}{NVILA uteži}, \href{https://github.com/NVlabs/VILA/blob/main/server.py}{NVILA strežnik}. Preverjeno 20. 10. 2026.}
 '''
-    appendix = '\n\\newpage\n\\input{part2.tex}\n' if (REPORT/'part2-summary.json').exists() else ''
+    appendix = '\n\\newpage\n' + (REPORT/'part2.tex').read_text() if (REPORT/'part2-summary.json').exists() else ''
     (REPORT/'porocilo.tex').write_text(header+('\n\\newpage\n'.join(pages))+sources+appendix+'\n\\end{document}\n')
     print(f'Generated {len(pages)} intended pages; {len(baseline_rows)} baseline, {len(extra_rows)} extra, {len(reason_rows)} core reasoning responses, {len(q4_reason_rows)} optional Q4.')
 

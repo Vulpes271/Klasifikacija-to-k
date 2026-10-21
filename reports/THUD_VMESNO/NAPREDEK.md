@@ -329,3 +329,67 @@
 - 2026-10-21T08:57:14+02:00: 2. del: BF16 trgovina zaključena 39/50 po shemi. Odkrita časovna omejitev: prekopirano pilotno ogrevanje ni novo fizično ogrevanje po unload/reload. Prvi manjkajoči klic (indeks 3) vključuje API nalaganje (trgovina 2,342 s, agtea 3,094 s); podatki ostanejo izvirni, brez ponavljanja odgovorov. Končna analiza loči nalaganje in označi te klice; pred prihodnjim svežim poskusom mora zaganjalnik ponovno uporabiti le merjene odgovore, fizično ogrevanje pa izvesti na novo.
 
 - 2026-10-21T08:59:40+02:00: 2. del: popravek fizičnega ogrevanja za prihodnje sveže skupine preverjen z 61/61 testi ter 7 ciljnimi testi združljivosti starih markerjev. Trenutni celotni poskus še vedno teče iz nespremenjenega izvora b8e5d14; njegove meritve, API nalaganje in prekopirani pilotni markerji ostanejo nespremenjeni. Popravek ne sproža ponovitev že shranjenih odzivov.
+
+- 2026-10-21T09:04:21+02:00: 2. del: končano rich-qwen35-bf16-thud_agtea_test50, izhod 2, 582.3 s
+
+- 2026-10-21T09:04:21+02:00: 2. del: zagon rich-qwen35-q4-thud_dense_test50
+
+- 2026-10-21T09:07:33+02:00: 2. del: končano rich-qwen35-q4-thud_dense_test50, izhod 2, 192.8 s
+
+- 2026-10-21T09:07:33+02:00: 2. del: zagon rich-qwen35-q4-thud_agtea_test50
+
+- 2026-10-21T09:12:17+02:00: 2. del: končano rich-qwen35-q4-thud_agtea_test50, izhod 2, 283.1 s
+
+- 2026-10-21T09:12:17+02:00: 2. del: zagon rich-gemma3-q4-thud_dense_test50
+
+- 2026-10-21T09:15:33+02:00: 2. del: končano rich-gemma3-q4-thud_dense_test50, izhod 2, 196.0 s
+
+- 2026-10-21T09:15:33+02:00: 2. del: zagon rich-gemma3-q4-thud_agtea_test50
+
+- 2026-10-21T09:18:59+02:00: 2. del: končano rich-gemma3-q4-thud_agtea_test50, izhod 2, 206.9 s
+
+- 2026-10-21T09:18:59+02:00: 2. del: zagon reason-rich-qwen35-bf16-thud_dense_test50
+
+- 2026-10-21T09:19:14+02:00: 2. del: končano reason-rich-qwen35-bf16-thud_dense_test50, izhod 2, 15.0 s
+
+- 2026-10-21T09:19:14+02:00: 2. del: zagon reason-rich-qwen35-bf16-thud_agtea_test50
+
+- 2026-10-21T09:19:24+02:00: 2. del: končano reason-rich-qwen35-bf16-thud_agtea_test50, izhod 2, 9.6 s
+
+- 2026-10-21T09:19:24+02:00: 2. del: zagon reason-rich-qwen35-q4-thud_dense_test50
+
+- 2026-10-21T09:19:41+02:00: 2. del: končano reason-rich-qwen35-q4-thud_dense_test50, izhod 2, 16.6 s
+
+- 2026-10-21T09:19:41+02:00: 2. del: zagon reason-legacy-qwen35-q4-thud_dense_test50
+
+- 2026-10-21T09:19:54+02:00: 2. del: končano reason-legacy-qwen35-q4-thud_dense_test50, izhod 2, 13.5 s
+
+- 2026-10-21T09:19:54+02:00: 2. del: zagon reason-rich-qwen35-q4-thud_agtea_test50
+
+- 2026-10-21T09:20:10+02:00: 2. del: končano reason-rich-qwen35-q4-thud_agtea_test50, izhod 2, 15.7 s
+
+- 2026-10-21T09:20:10+02:00: 2. del: zagon reason-legacy-qwen35-q4-thud_agtea_test50
+
+- 2026-10-21T09:20:25+02:00: 2. del: končano reason-legacy-qwen35-q4-thud_agtea_test50, izhod 2, 15.6 s
+
+- 2026-10-21T09:20:25+02:00: 2. del: zagon reason-rich-gemma3-q4-thud_dense_test50
+
+- 2026-10-21T09:20:40+02:00: 2. del: končano reason-rich-gemma3-q4-thud_dense_test50, izhod 2, 14.2 s
+
+- 2026-10-21T09:20:40+02:00: 2. del: zagon reason-legacy-gemma3-q4-thud_dense_test50
+
+- 2026-10-21T09:20:54+02:00: 2. del: končano reason-legacy-gemma3-q4-thud_dense_test50, izhod 2, 13.8 s
+
+- 2026-10-21T09:20:54+02:00: 2. del: zagon reason-rich-gemma3-q4-thud_agtea_test50
+
+- 2026-10-21T09:21:14+02:00: 2. del: končano reason-rich-gemma3-q4-thud_agtea_test50, izhod 0, 20.4 s
+
+- 2026-10-21T09:21:14+02:00: 2. del: zagon reason-legacy-gemma3-q4-thud_agtea_test50
+
+- 2026-10-21T09:21:29+02:00: 2. del: končano reason-legacy-gemma3-q4-thud_agtea_test50, izhod 0, 15.0 s
+
+- 2026-10-21T09:21:29+02:00: 2. del: zahtevana faza all zaključena; surovi odgovori so v results/thud-part2/
+
+- 2026-10-21T09:25:26+02:00: 2. del zaključen: vseh 300 novih opisov na GPU (12 nespremenjenih pilotnih odgovorov ponovno uporabljenih); po shemi BF16 69/100, Q4 82/100, Gemma 89/100. Glavna primerjava 400 položajev: 388 enkratnih GPU odgovorov, 314 po shemi, 74 zavrnitev in 12 preskokov. Ločena prva diagnostika 12 dodatnih GPU odgovorov; skupaj 400 enkratnih novih merjenih GPU odgovorov v 2. delu. Ločeno 22 fizičnih ogrevanj z diagnostiko. Ponovno uporabljenih 20 starih presoj BF16. Brez popravljanja ali ponovitve zavrnjenih odgovorov.
+
+- 2026-10-21T09:25:26+02:00: Končna revizija 24/24 skupin uspešna, 0 kršitev, ohranjenih vseh 846 starih odgovorov. 61 testov ter 7 ciljnih preverjanj uspešnih. PDF/LaTeX dopolnjen na 10 strani, vizualno pregledan, 0 prelivanj, vektorske pisave in kopirljivi šumniki. Surovi novi izhodi v results/thud-part2/; HTML manual-review.html. Sistemski ročni pregled 60 vrstic ostane pending; štirje vizualni primeri so izrecno delni. NVILA lokalni API na predvidenem portu ne posluša; novih namestitev ni. Omejitev hladnega prvega manjkajočega klica je dokumentirana, koda za prihodnje sveže skupine popravljena brez spreminjanja meritev. Vsi projektni modeli po poskusu razloženi; GPU vzorčenje končano.
