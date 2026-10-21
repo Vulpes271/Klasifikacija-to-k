@@ -121,7 +121,7 @@ class RichDescriptionTests(unittest.TestCase):
                 {'id':1,'classification':'movable'}, {'id':2,'classification':'uncertain'}, {'id':3,'classification':'fixed'}]}}
             self.assertEqual(reason_labels(row), {'floor':{'id':3,'classification':'fixed'}})
 
-    def test_pilot_reuse_copies_errors_and_warmup_exactly_without_changing_config(self):
+    def test_pilot_reuse_preserves_errors_but_does_not_reuse_physical_warmup(self):
         from llm_object_classifier.thud_part2 import reuse_pilot
         from llm_object_classifier.experiment import write_json
         with tempfile.TemporaryDirectory() as directory:
@@ -134,6 +134,27 @@ class RichDescriptionTests(unittest.TestCase):
             write_json(pilot/'model/warmup.json', {'excluded_from_quality':True})
             reuse_pilot(dest, config)
             self.assertEqual((dest/'model/t0-s42/frame-000001.json').read_bytes(), (pilot/'model/t0-s42/frame-000001.json').read_bytes())
-            self.assertEqual((dest/'model/warmup.json').read_bytes(), (pilot/'model/warmup.json').read_bytes())
+            self.assertFalse((dest/'model/warmup.json').exists())
+            self.assertTrue((pilot/'model/warmup.json').exists())
+            reuse_pilot(dest, config)
             with self.assertRaisesRegex(ValueError, 'changed settings'):
                 reuse_pilot(dest, {'system_file_text':'different prompt'})
+
+    def test_new_group_warms_gpu_even_when_all_pilot_measurements_are_reused(self):
+        from llm_object_classifier import stage1_describe
+        from llm_object_classifier.thud_part2 import reuse_pilot
+        from llm_object_classifier.experiment import write_json
+        fixture = self.fixture()
+        config = fixture.config(both=False)
+        _, pilot = fixture.describe(config, name='pilot-model-data')
+        write_json(pilot/'complete.json', {'exit_code':0})
+        write_json(pilot/'a/warmup.json', {'excluded_from_quality':True})
+        dest = fixture.root/'rich-model-data'
+        reuse_pilot(dest, config)
+        fixture.calls.clear()
+        args = Namespace(input=fixture.input, output_dir=dest, limit=2, frame_id=None, resume=True, warmup=True)
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(stage1_describe.run(args, config), 0)
+        self.assertEqual(len([body for path,body in fixture.calls if path=='/api/chat']), 1)
+        self.assertTrue((dest/'a/warmup.json').exists())
+        self.assertEqual((dest/'a/t0-s42/frame-000001.json').read_bytes(), (pilot/'a/t0-s42/frame-000001.json').read_bytes())

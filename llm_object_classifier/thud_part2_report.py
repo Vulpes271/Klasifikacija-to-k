@@ -45,6 +45,11 @@ def collect():
     return jobs
 
 
+def copied_warmup(job):
+    path = job['path']/'reused-pilot.json'
+    return path.exists() and any(p.endswith('/warmup.json') for p in read_json(path)['sha256'])
+
+
 def verify(jobs, require_complete=False):
     errors, missing = [], []
     audit = read_json(REPORT/'data-audit.json')
@@ -302,6 +307,7 @@ Položaji opisujejo levo/desno v sliki, ne svetovnih koordinat. Skritih vijakov,
 \subsection*{Primerjava časa in oblike izhoda}
 '''+table(['Opisovalnik','Različica','OK/vsi','Med.','p90','Povp.','Tok.','tok/s','GiB'], comparisons, 'llrrrrrrr')+r'''
 Časi so sekunde na sliko, tudi za zavrnjene odgovore z izmerjenim časom. GiB je največja API dodelitev VRAM. Ogrevanje in nalaganje sta ločena v \texttt{part2-aggregates.json}. GPU je deljen; obremenitev in dolžina odgovora omejujeta vzročno primerjavo hitrosti. Stari prompt je podroben, novi je drugačen prompt s strožjo shemo; razlike ne pripisujemo samo strukturiranju.
+Prekopirano pilotno ogrevanje ne pomeni ogretega modela po novem nalaganju. Prvi novi klic (indeks 3) posamezne skupine lahko vključuje nalaganje; celotni čas ostane v tabeli, API \texttt{load\_duration} je ohranjen ločeno. To je dodatna omejitev neposredne primerjave hitrosti, ne prikrita izločitev počasnih klicev.
 '''+table(['Model','Objekti','Odnosi','Opisi z odnosi','Namest. unknown','Podpora unknown'], structures, 'lrrrrr')+r'''
 Število odnosov/objektov in prisotnost polj merita strukturo, ne pravilnosti, priklica ali vidnih dokazov. Neznano šteje le dobesedni \texttt{unknown}, ne vseh izrazov negotovosti. Vsi sprejeti odnosi imajo veljavne sklice in neprazno besedilo dokaza; ta pogoj ne potrdi vsebine fotografije.
 ''')
@@ -315,6 +321,8 @@ Položaji opisujejo levo/desno v sliki, ne svetovnih koordinat. Skritih vijakov,
     paired = [[tex(s['name']), sum(p['caption_model']==s['name'] for p in pairs), sum(p['changed'] for p in pairs if p['caption_model']==s['name'])] for s in MODELS]
     v = summary['verification']
     t = summary.get('tests', {})
+    diagnostic = summary.get('initial_pilot_diagnostic', {})
+    initial = diagnostic.get('first_pilot', {})
     control = []
     for label, rows in [('1. del kratek', [r for ds in DATASETS for r in job_records(PART1/f'extra-short-t0-{ds}')]),
                         ('2. del bogati', [r for j in jobs if j['kind']=='rich' and j['caption_model']==MODELS[0]['name'] for r in j['records'] if int(r['frame_id'].split('-')[-1])-1 in read_json(REPORT/'data-audit.json')[j['dataset']]['subset_indices_zero_based']])]:
@@ -330,7 +338,9 @@ Pari so le enolična, natančno enaka imena po pretvorbi v male črke in normali
 '''+table(['Različica opisa BF16','OK/vsi','Med. [s]','Objekti'], control, 'lrrr')+r'''
 Oba prompta sta brez vsebinskih primerov in pri T=0, seed 42. Kratki stari opis se ponovno uporabi iz 1. dela. Nova shema in besedilo se še vedno spreminjata skupaj, zato to ni izolirana ablacija sheme. Za Q4/Gemma primerljivega starega kratkega opisa ni; dodatnih starih klicev za to ne izvajamo.
 \subsection*{Obseg, revizija in ponovljivost}
-'''+tex(f'Novih položajev brez pilota: {summary["new_main"]["attempted"]}; dejanskih zahtev z odgovorom {summary["new_main"]["json_text_available_calls"]}; preskokov {summary["new_main"]["skipped"]}. Pilot: {summary["pilot"]["attempted"]} novih odgovorov. Ločena nova ogrevanja: {summary["warmup_calls"]}. Revizija {v["complete_jobs"]}/{v["expected_jobs"]} skupin, kršitev {len(v["invariant_errors"])}; nespremenjenih starih odgovorov {v["preserved_part1_responses"]}. Novi testi: {t.get("tests", "--")} ({t.get("result", "še ni izvedeno")}).')+r'''
+'''+tex(f'Položajev glavne primerjave: {summary["new_main"]["attempted"]}; odgovorov {summary["new_main"]["json_text_available_calls"]}; preskokov {summary["new_main"]["skipped"]}. Pilot: {summary["pilot"]["attempted"]} odgovorov, od tega {summary["pilot_reused_in_main_slots"]} prekopiranih v glavno primerjavo, brez ponovnega klica. Enkratnih novih odgovorov končnega prompta: {summary["unique_final_prompt_responses"]}. Ločena nova ogrevanja: {summary["warmup_calls"]}; {summary["warmup_reused_slots"]} njihovih kopij se ne šteje ponovno. Revizija {v["complete_jobs"]}/{v["expected_jobs"]} skupin, kršitev {len(v["invariant_errors"])}; nespremenjenih starih odgovorov {v["preserved_part1_responses"]}. Testi: {t.get("tests", "--")} ({t.get("result", "še ni izvedeno")}).')+r'''
+'''+tex(f'Predhodna diagnostika prvega prompta: {initial.get("ok",0)}/{initial.get("attempted",0)} po shemi, {diagnostic.get("warmup_calls",0)} ločenih ogrevanj. Zaradi izpuščenih tipov je dodana izrecna JSON tipovna predloga brez vsebinskih primerov; validator in generacijske nastavitve niso razrahljani. Diagnostični odgovori so ohranjeni ločeno in niso prišteti končni primerjavi; ne gre za prikrito popravljanje izhodov.')+r'''
+'''+tex(f'End-to-end čas novih faz brez predhodne diagnostike: {number(summary["new_end_to_end_seconds"]/60)} min; pilotne kopije in 20 starih presoj niso šteti ponovno. Nalaganje in ogrevanje sta podrobno ločena v agregatih; warmup_reused_from_pilot označi kopijo ogrevanja, new_warmup_calls pa dejanske nove klice. Za prihodnje sveže zagone je kopiranje ogrevanja odpravljeno; izvirne meritve in njihov nalagalni strošek ostanejo nespremenjeni.')+r'''
 \begin{verbatim}
 bash scripts/thud_part2.sh --phase all
 python3 -m llm_object_classifier.thud_part2_report --require-complete
@@ -356,10 +366,23 @@ Surovi izhodi: \texttt{results/thud-part2/}; izvorni 1. del ostane v \texttt{res
                 labels = {o['id']: o['label'] for o in parsed.get('objects', [])}
                 relation = next(iter(parsed.get('relations', [])), None)
                 text = (labels[relation['subject_id']]+' '+relation['predicate']+' '+labels[relation['object_id']]+': '+relation['evidence']) if relation else row.get('error', 'Brez odnosov.')
-                entries.append([tex(spec['name']), tex(row['status']+': '+str(len(parsed.get('objects', [])))+'/'+str(len(parsed.get('relations', [])))), tex(text[:210])])
-            page += table(['Model','Objekti/odnosi','Dejanski prvi modelov odnos ali napaka'], entries, r'p{2.2cm}p{2.1cm}p{10.7cm}')
+                count_text = str(len(parsed.get('objects', [])))+'/'+str(len(parsed.get('relations', []))) if row['status']=='ok' else 'zavrnjeno'
+                entries.append([tex(spec['name']), tex(count_text), tex(text[:210])])
+            page += table(['Model','Obj./odnosi','Dejanski prvi modelov odnos ali napaka'], entries, r'p{2.2cm}p{2.1cm}p{10.7cm}')
             page += r'\textbf{Lastna presoja:} '+tex(notes.get(ds+'/'+case['frame_id'], 'Delni vizualni pregled še ni zapisan.'))+'\n'
         if offset == 2:
+            examples = []
+            for spec in MODELS:
+                choices = [p for p in pairs if p['caption_model']==spec['name']]
+                chosen = next((p for p in choices if p['changed']), choices[0] if choices else None)
+                if chosen:
+                    examples.append([tex(spec['name']+' / '+chosen['frame_id']+' / '+chosen['normalized_label']),
+                                     tex(chosen['old_class']+' -> '+chosen['rich_class']), tex(chosen['rich_reason'])])
+            if examples:
+                page += r'\subsection*{Dejanski besedni razlogi pri parih imen}' + table(
+                    ['Opisovalnik / slika / ime','Staro -> bogato','Razlog modela na bogatem opisu'], examples,
+                    r'p{5.6cm}p{2.8cm}p{6.5cm}')
+                page += 'To so modelove utemeljitve, ne potrjena referenca; ujemanje imena ne potrdi iste instance.\n'
             conclusion = read_json(REPORT/'part2-conclusion.json') if (REPORT/'part2-conclusion.json').exists() else {}
             page += r'\subsection*{Sklep in naslednji poskus}'+tex(conclusion.get('text', 'Strukturiran izhod omogoča pregled podpor, zakritosti in izrecnih odnosov. Vsebinska prednost še ni potrjena; sistematični ročni pregled ostane pending. Brez referenc stabilnosti ne poročamo o accuracy. Pred končno izbiro prompta je potreben ročni pregled istega podnabora.'))
         pages.append(page)
@@ -376,6 +399,9 @@ def generate(require_complete=False):
                       'warmup_calls': len(job['warmups']), 'warmup_seconds': sum(r.get('elapsed_seconds',0) for r in job['warmups']),
                       'warmup_load_seconds': sum(r.get('response',{}).get('load_duration',0)/1e9 for r in job['warmups']),
                       **a}
+        record['pilot_reused'] = (job['path']/'reused-pilot.json').exists()
+        record['warmup_reused_from_pilot'] = copied_warmup(job)
+        record['new_warmup_calls'] = 0 if record['warmup_reused_from_pilot'] or job['reused'] else len(job['warmups'])
         if job['kind'] in {'pilot','rich'}:
             record.update({'structure_'+k:v for k,v in structure(job['records']).items()})
         stats.append(record)
@@ -386,7 +412,7 @@ def generate(require_complete=False):
     pilot = [r for j in jobs if j['kind']=='pilot' for r in j['records']]
     warmups = [r for j in jobs if not j['reused'] for r in j['warmups']]
     reused_pilot_rows = [r for j in jobs if j['kind']=='rich' and (j['path']/'reused-pilot.json').exists() for r in j['records'][:2]]
-    unique_warmups = [r for j in jobs if not j['reused'] and not (j['path']/'reused-pilot.json').exists() for r in j['warmups']]
+    unique_warmups = [r for j in jobs if not j['reused'] and not copied_warmup(j) for r in j['warmups']]
     summary = {'new_main':aggregate(main_rows), 'pilot':aggregate(pilot),
                'pilot_reused_in_main_slots':len(reused_pilot_rows),
                'unique_final_prompt_responses':sum('response' in r for r in main_rows+pilot)-sum('response' in r for r in reused_pilot_rows),
@@ -401,6 +427,16 @@ def generate(require_complete=False):
                'new_end_to_end_seconds':sum(j['end_to_end_seconds'] or 0 for j in jobs if not j['reused'])}
     provenance = OUT/'part1-results-index.json'
     summary['part1_preservation_index'] = {'path':str(provenance), 'sha256':sha256(provenance.read_bytes())} if provenance.exists() else None
+    summary['pilot_reuse_policy'] = read_json(OUT/'pilot-reuse-policy.json') if (OUT/'pilot-reuse-policy.json').exists() else None
+    snapshots = sorted((OUT/'source-snapshots').glob('all-*.json'))
+    snapshot = read_json(snapshots[0]) if snapshots else {}
+    write_json(REPORT/'part2-provenance.json', {'inference_source_snapshot':snapshot,
+        'report_generator_sha256':sha256(Path(__file__).read_bytes()),
+        'initial_part1_commit':'7509607', 'raw_outputs':str(OUT)})
+    write_json(REPORT/'part2-model-metadata.json', {
+        spec['name']: {j['dataset']:read_json(j['path']/'manifest.json')['model_metadata'][spec['name']] for j in jobs
+                       if j['kind']=='rich' and j['caption_model']==spec['name'] and (j['path']/'manifest.json').exists()}
+        for spec in MODELS})
     write_json(REPORT/'part2-summary.json', summary)
     pairs = decision_pairs(jobs)
     write_json(REPORT/'part2-errors.json', rejected_candidates(jobs))

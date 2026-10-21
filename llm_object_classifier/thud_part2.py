@@ -62,15 +62,26 @@ def prepare():
 
 
 def reuse_pilot(dest, config):
-    """Reuse identical pilot calls, including errors; do not measure them twice."""
+    """Reuse measured calls, including errors; a new group still needs warming."""
     pilot = dest.with_name(dest.name.replace('rich-', 'pilot-', 1))
     if not (pilot/'complete.json').exists():
         return
     manifest = read_json(pilot/'manifest.json')
     if manifest['config'] != config:
         raise ValueError('Cannot reuse pilot with changed settings/prompt')
+    marker = dest/'reused-pilot.json'
+    if marker.exists():
+        previous = read_json(marker)
+        if previous['source'] != str(pilot):
+            raise ValueError('Pilot source changed')
+        for relative, digest in previous['sha256'].items():
+            if sha256((dest/relative).read_bytes()) != digest or sha256((pilot/relative).read_bytes()) != digest:
+                raise ValueError('Reused pilot response changed')
+        # Preserve historical markers, including the reported warmup-copy policy.
+        # Do not rewrite an interrupted experiment's history.
+        return
     copied = {}
-    for source in sorted(pilot.glob('*/t*/frame-*.json')) + sorted(pilot.glob('*/warmup.json')):
+    for source in sorted(pilot.glob('*/t*/frame-*.json')):
         relative = source.relative_to(pilot)
         target = dest/relative
         if target.exists() and target.read_bytes() != source.read_bytes():
@@ -80,7 +91,8 @@ def reuse_pilot(dest, config):
             target.write_bytes(source.read_bytes())
         copied[str(relative)] = sha256(source.read_bytes())
     immutable_json(dest/'reused-pilot.json', {'source':str(pilot), 'sha256':copied,
-        'note':'These are identical existing calls, including rejected outputs and warmup; not newly measured.'})
+        'pilot_warmup_origin':{str(p.relative_to(pilot)):sha256(p.read_bytes()) for p in pilot.glob('*/warmup.json')},
+        'note':'Measured calls (including rejections) are reused. Pilot warmup stays at its source; a fresh physical warmup is required after unloading.'})
 
 
 def configuration(spec, url, stage=1):

@@ -315,3 +315,17 @@
 - 2026-10-21T08:41:51+02:00: 2. del: zahtevana faza pilot zaključena; surovi odgovori so v results/thud-part2/
 
 - 2026-10-21T08:43:32+02:00: 2. del: dopolnjeni pilot 10/12 po shemi, vseh 12 odgovorov na GPU. Ocena 300 opisov 58,6 min; deljen GPU omejuje napoved. Za polno primerjavo se prekopira vseh 12 nespremenjenih pilotnih odgovorov (tudi 2 zavrnitvi) ter 6 ogrevanj; sledi samo 288 manjkajočih slikovnih klicev. Politika v pilot-reuse-policy.json; šest novih regresijskih testov uspešnih.
+
+- 2026-10-21T08:43:37+02:00: 2. del: pilot shranjen, ocena osnovnih opisov 58.6 min
+
+- 2026-10-21T08:43:37+02:00: 2. del: zagon rich-qwen35-bf16-thud_dense_test50
+
+- 2026-10-21T08:49:50+02:00: 2. del: končno 60/60 regresijskih testov uspešnih (8,513 s), sintaksa vseh skript in Python modulov preverjena. Nadaljnje spremembe omejene na generirano poročilo in komentarje primerov. Polna GPU primerjava poteka; zavrnitve in truncation ostajajo v rezultatih.
+
+- 2026-10-21T08:54:38+02:00: 2. del: končano rich-qwen35-bf16-thud_dense_test50, izhod 2, 661.1 s
+
+- 2026-10-21T08:54:38+02:00: 2. del: zagon rich-qwen35-bf16-thud_agtea_test50
+
+- 2026-10-21T08:57:14+02:00: 2. del: BF16 trgovina zaključena 39/50 po shemi. Odkrita časovna omejitev: prekopirano pilotno ogrevanje ni novo fizično ogrevanje po unload/reload. Prvi manjkajoči klic (indeks 3) vključuje API nalaganje (trgovina 2,342 s, agtea 3,094 s); podatki ostanejo izvirni, brez ponavljanja odgovorov. Končna analiza loči nalaganje in označi te klice; pred prihodnjim svežim poskusom mora zaganjalnik ponovno uporabiti le merjene odgovore, fizično ogrevanje pa izvesti na novo.
+
+- 2026-10-21T08:59:40+02:00: 2. del: popravek fizičnega ogrevanja za prihodnje sveže skupine preverjen z 61/61 testi ter 7 ciljnimi testi združljivosti starih markerjev. Trenutni celotni poskus še vedno teče iz nespremenjenega izvora b8e5d14; njegove meritve, API nalaganje in prekopirani pilotni markerji ostanejo nespremenjeni. Popravek ne sproža ponovitev že shranjenih odzivov.

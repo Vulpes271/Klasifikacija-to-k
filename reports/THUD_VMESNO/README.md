@@ -60,6 +60,13 @@ tudi ob zavrnitvi. Spremenjen prompt ali vhod se zavrne; nova različica zahteva
 ločen poskus. Prvi neuspešni pilot je ohranjen v `diagnostic-pilot-v1/`, dopolnitev
 promptov pa pojasnjena v `part2-pilot-revision.json`.
 
+Meritve iz vira `b8e5d14` ponovno uporabijo tudi kopije pilotnega ogrevanja.
+To ne ogreje fizično razloženega modela: prvi novi klic (indeks 3) lahko vključuje
+nalaganje. Čas ostane v meritvi, API `load_duration` pa je shranjen posebej.
+Za prihodnje sveže skupine je to popravljeno: ponovno se uporabijo merjeni
+odgovori, fizično ogrevanje se izvede na novo. Stari markerji ostanejo nespremenjeni;
+njihove kopije ogrevanj so v agregatih označene `warmup_reused_from_pilot`.
+
 `configs/stage1/thud-part2.json` in `thud-description-rich.txt` določata shemo
 `rich-description-v2`: poleg starih polj še videz, položaj v sliki, zakritost,
 podpore/stike, vidne dokaze namestitve in odnose med lokalnimi ID-ji. Besedilna
@@ -94,3 +101,10 @@ slikovne bajte, celotno besedilo dokazov/odnosov, SHA256 zamrznjenih opisov,
 GPU dodelitve in nespremenjenost vseh starih odgovorov iz lokalnega indeksa.
 Več odnosov ali veljavna shema ne pomenita pravilnosti; brez stabilnostnih
 referenc ni accuracy, brez napovedanih okvirjev ni IoU/mAP.
+
+Pri poznejšem ročnem pregledu v opombo zapiši lokalni ID objekta/odnosa in loči
+vidno potrjeno, vidno ovrženo ter nedoločljivo. Preveri videz, stran slike,
+zakritost in dejanske stike; pri namestitvi zahtevaj viden dokaz, ne zgolj velikosti
+ali bližine stene. Za odnos morata biti določljiva oba navedena objekta.
+Neoznačen viden objekt ni samodejno halucinacija, `Products` pa ni ena instanca.
+Delni komentarji štirih ilustracij ne nadomeščajo sistematične anotacije 60 vrstic.
