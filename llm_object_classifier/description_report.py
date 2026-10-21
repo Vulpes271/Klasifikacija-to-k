@@ -34,7 +34,12 @@ ID-jev različnih modelov pri takih slikah ne primerjajte kot iste objekte.</p>'
                 parts.append(f'<p>{escape(result["parsed"]["scene_description"])}</p><table><tr><th>Objekt</th><th>Opis</th><th>Dokazi</th></tr>')
                 for obj in result["parsed"]["objects"]:
                     parts.append(f'<tr><td>{escape(obj["label"])} [{escape(obj["id"])}]</td><td>{escape(obj["observation"])}</td><td>{escape(obj["attachment_evidence"])}<br>identifiable={obj["identifiable"]}</td></tr>')
+                    if result["parsed"].get("schema_version") == "rich-description-v2":
+                        evidence = {k: obj[k] for k in ("appearance", "image_location", "occlusion", "support_contacts", "installation_evidence")}
+                        parts.append('<tr><td colspan="3"><pre>' + escape(json.dumps(evidence, ensure_ascii=False, indent=2)) + '</pre></td></tr>')
                 parts.append('</table>')
+                if "relations" in result["parsed"]:
+                    parts.append('<h4>Odnosi med lokalnimi ID-ji (trditve modela)</h4><pre>' + escape(json.dumps(result["parsed"]["relations"], ensure_ascii=False, indent=2)) + '</pre>')
             if result.get("unsupported_options"):
                 parts.append('<p class="error">Parametri, ki niso poslani temu API-ju: ' + escape(', '.join(result['unsupported_options'])) + '</p>')
             parts.append('<details><summary>Nastavitve zahteve</summary><pre>' + escape(json.dumps(result.get('requested_options', {}), indent=2)) + '</pre></details></article>')

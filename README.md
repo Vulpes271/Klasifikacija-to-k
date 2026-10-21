@@ -90,3 +90,8 @@ Celoten poskus: `bash scripts/thud_experiment.sh --phase all`.
 [Paket poročila in ponovljivost](reports/THUD_VMESNO/README.md) vključuje
 [PDF](reports/THUD_VMESNO/porocilo.pdf), [LaTeX](reports/THUD_VMESNO/porocilo.tex),
 agregate in [sprotni dnevnik](reports/THUD_VMESNO/NAPREDEK.md).
+
+Nadaljevanje z bogatejšimi samostojnimi opisi, vidnimi dokazi in odnosi:
+`bash scripts/thud_part2.sh --phase all`. Uporabi shranjene stare rezultate,
+nove ohrani v `results/thud-part2/` ter dopolni isti PDF/LaTeX.
+[Podrobnosti 2. dela](reports/THUD_VMESNO/README.md#2-del-bogatejši-samostojni-opis).

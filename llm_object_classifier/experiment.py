@@ -71,7 +71,7 @@ def finite_number(value, name, lower=0, upper=None, integer=False):
 def load_config(path, stage):
     config = read_json(path)
     allowed = {"models", "temperatures", "seeds", "max_tokens", "num_ctx", "top_p", "top_k",
-               "presence_penalty", "timeout", "detail", "system_file", "instruction_file"}
+               "presence_penalty", "timeout", "detail", "system_file", "instruction_file", "description_schema"}
     if not isinstance(config, dict) or set(config) - allowed:
         raise ValueError("Configuration must contain documented keys only.")
     defaults = {"temperatures": [0.0] if stage == 1 else [0.0, 0.3, 0.7], "seeds": [42],
@@ -79,6 +79,8 @@ def load_config(path, stage):
                 "top_p": 0.8, "top_k": 20, "presence_penalty": 1.5,
                 "timeout": 600, "detail": "detailed"}
     config = {**defaults, **config}
+    if config.get("description_schema", "legacy") not in {"legacy", "rich-v2"}:
+        raise ValueError("description_schema must be legacy or rich-v2.")
     for key in ("temperatures", "seeds"):
         values = config[key]
         if not isinstance(values, list) or not values:

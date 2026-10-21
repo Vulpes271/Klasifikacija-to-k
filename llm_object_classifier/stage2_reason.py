@@ -13,6 +13,21 @@ FIELDS = ["frame_id", "caption_model", "caption_variant", "model", "variant", "s
           "classification", "reason", "observation", "attachment_evidence", "elapsed_seconds", "error"]
 
 
+def saved_rows(common, result, caption):
+    """Rebuild CSV for a resumed call; never request it again, even if rejected."""
+    if result["status"] != "ok":
+        return [{**common, "status": result["status"], "error": result.get("error", "")}]
+    by_id = {(type(o["id"]), o["id"]): o for o in caption["objects"]}
+    rows = []
+    for prediction in result["parsed"]["objects"]:
+        obj = by_id[(type(prediction["id"]), prediction["id"])]
+        rows.append({**common, "status": "ok", "object_id": prediction["id"], "label": obj["label"],
+                     "classification": prediction["classification"], "reason": prediction["reason"],
+                     "observation": obj["observation"], "attachment_evidence": obj["attachment_evidence"],
+                     "elapsed_seconds": result.get("elapsed_seconds")})
+    return rows
+
+
 def run(args, config):
     paths = sorted(args.captions.glob("frame-*.json"))
     if args.limit is not None:
@@ -28,10 +43,17 @@ def run(args, config):
     # Freeze file bytes before any model calls. Images referenced in source_frame are never opened.
     system = config.get("system_file_text", REASON_SYSTEM)
     instructions = config.get("instruction_file_text", REASON_INSTRUCTION)
-    run_dir = new_run(args.output_dir)
+    resume = getattr(args, "resume", False)
+    run_dir = Path(args.output_dir) if resume and Path(args.output_dir).exists() else new_run(args.output_dir)
     manifest = {"stage": 2, "system_prompt": system, "instructions": instructions, "config": config,
                 "source_captions": [{"path": str(p), "sha256": sha256(data)} for p, data in frozen],
                 "model_metadata": {}, "note": "All reasoners receive the same saved descriptions. No images sent."}
+    if resume and (run_dir / "manifest.json").exists():
+        previous = read_json(run_dir / "manifest.json")
+        for key in ("system_prompt", "instructions", "config", "source_captions"):
+            if previous[key] != manifest[key]:
+                raise ValueError(f"Resume input changed: {key}")
+        manifest = previous
     write_json(run_dir / "manifest.json", manifest)
     rows, summary = [], {"stage": 2, "models": {}}
     fatal = False
@@ -43,7 +65,7 @@ def run(args, config):
         except Exception as exc:
             manifest["model_metadata"][spec["name"]] = {"error": str(exc)}
         write_json(run_dir / "manifest.json", manifest)
-        if getattr(args, "warmup", False) and "error" not in manifest["model_metadata"][spec["name"]]:
+        if getattr(args, "warmup", False) and "error" not in manifest["model_metadata"][spec["name"]] and not (run_dir / spec["name"] / "warmup.json").exists():
             # A separate text-only call warms the same task; excluded from quality/timing rows.
             saved = next((s for _, s in inputs if s.get("status") == "ok"), None)
             if saved is not None:
@@ -66,6 +88,12 @@ def run(args, config):
                           "system_prompt": system}
                 common = {"frame_id": saved["frame_id"], "caption_model": saved["model_name"],
                           "caption_variant": saved["variant"]["id"], "model": spec["name"], "variant": variant["id"]}
+                saved_path = run_dir / spec["name"] / variant["id"] / f"frame-{index:06d}.json"
+                if resume and saved_path.exists():
+                    result = read_json(saved_path)
+                    counts[result["status"]] += 1
+                    rows.extend(saved_rows(common, result, saved.get("parsed", {})))
+                    continue
                 if saved.get("status") != "ok":
                     result.update({"status": "skipped", "error": "Invalid stage 1 description."})
                     rows.append({**common, "status": "skipped", "error": result["error"]})
@@ -114,6 +142,8 @@ def run(args, config):
                     break
             if fatal:
                 break
+        write_json(run_dir / "summary.json", summary)
+        write_csv(run_dir / "classifications.csv", rows, FIELDS)
         if spec["backend"] == "ollama" and spec["base_url"].rstrip("/") == "http://ollama:11434" and not fatal:
             try:
                 backend.unload()
@@ -133,6 +163,7 @@ def main(argv=None):
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--limit", type=int)
     parser.add_argument("--warmup", action="store_true")
+    parser.add_argument("--resume", action="store_true", help="Reuse immutable saved calls, including errors.")
     parser.add_argument("--list-local-models", action="store_true")
     args = parser.parse_args(argv)
     try:

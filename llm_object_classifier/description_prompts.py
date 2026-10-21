@@ -42,7 +42,7 @@ def user_prompt(frame):
         "supplied_objects": frame["regions"]}, ensure_ascii=False)
 
 
-def validate_description(parsed, supplied=None):
+def validate_description(parsed, supplied=None, expected_schema=None):
     if not isinstance(parsed, dict) or not isinstance(parsed.get("scene_description"), str) or not parsed["scene_description"].strip():
         raise ValueError("Missing scene_description.")
     objects = parsed.get("objects")
@@ -68,4 +68,12 @@ def validate_description(parsed, supplied=None):
             raise ValueError("A supplied label was changed.")
         if obj.get("attachment_evidence") not in ATTACHMENTS or type(obj.get("identifiable")) is not bool:
             raise ValueError("Invalid evidence or identifiable field.")
+    rich = parsed.get("schema_version") == "rich-description-v2"
+    if expected_schema == "rich-v2" and not rich:
+        raise ValueError("Missing rich-description-v2 schema_version.")
+    if "schema_version" in parsed or "relations" in parsed:
+        if not rich:
+            raise ValueError("Unknown or missing description schema_version.")
+        from .rich_description import validate_rich
+        validate_rich(parsed)
     return parsed

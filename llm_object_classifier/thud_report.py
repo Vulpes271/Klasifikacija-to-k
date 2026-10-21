@@ -137,7 +137,8 @@ def save_run_summary(jobs):
         'verified_measured_gpu_calls':sum(g['gpu_verified_calls'] for g in groups.values()),
         'warmup_calls_excluded':len(warmups),'verified_warmup_calls':sum(r.get('gpu_verified',False) for r in warmups),
         'raw_outputs':str(OUT),'initial_cpu_diagnostic':str(OUT/'diagnostic-cpu-initial-pilot'),
-        'second_part_executed':False})
+        'second_part_executed': (REPORT/'part2-summary.json').exists() and read_json(REPORT/'part2-summary.json')['verification']['complete'],
+        'second_part_summary': 'part2-summary.json' if (REPORT/'part2-summary.json').exists() else None})
 
 
 def save_rejected_candidates():
@@ -190,6 +191,9 @@ def reasoning_comparisons(jobs):
 def main():
     REPORT.mkdir(parents=True,exist_ok=True)
     (REPORT/'figures').mkdir(exist_ok=True)
+    if (REPORT/'part2-summary.json').exists():
+        from .thud_part2_report import generate
+        generate()
     from .thud_verify import verify
     verification=verify()
     jobs=collect()
@@ -416,7 +420,8 @@ Veliki surovi izhodi: \texttt{results/thud-vmesno/}. Majhen paket PDF/LaTeX, sli
 '''
     sources=r'''\vfill{\footnotesize Uradni viri: \href{https://ollama.com/library/qwen3.5:4b-bf16}{Qwen BF16}, \href{https://ollama.com/library/qwen3.5:4b-q4_K_M}{Qwen Q4}, \href{https://ollama.com/library/gemma3:4b-it-q4_K_M}{Gemma Q4}, \href{https://huggingface.co/Efficient-Large-Model/NVILA-8B}{NVILA uteži}, \href{https://github.com/NVlabs/VILA/blob/main/server.py}{NVILA strežnik}. Preverjeno 20. 10. 2026.}
 '''
-    (REPORT/'porocilo.tex').write_text(header+('\n\\newpage\n'.join(pages))+sources+'\n\\end{document}\n')
+    appendix = '\n\\newpage\n\\input{part2.tex}\n' if (REPORT/'part2-summary.json').exists() else ''
+    (REPORT/'porocilo.tex').write_text(header+('\n\\newpage\n'.join(pages))+sources+appendix+'\n\\end{document}\n')
     print(f'Generated {len(pages)} intended pages; {len(baseline_rows)} baseline, {len(extra_rows)} extra, {len(reason_rows)} core reasoning responses, {len(q4_reason_rows)} optional Q4.')
 
 if __name__=='__main__':main()

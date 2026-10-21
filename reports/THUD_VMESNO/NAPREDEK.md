@@ -248,3 +248,46 @@
 - Dejanski `git push -u origin feature/separate-vision-stages` je nato odpovedal z izhodom 128: `fatal: could not read Username for 'https://github.com': terminal prompts disabled`. Za objavo manjkajo GitHub poverilnice s pravico pisanja. Lokalni commiti, poročilo in vsi rezultati so ohranjeni; noben podatek ni bil potisnjen na oddaljeno vejo.
 
 - 2026-10-20T23:50:32+02:00: Po ureditvi GitHub prijave je push vseh petih pripravljenih commitov uspel: oddaljena veja `feature/separate-vision-stages` je napredovala z `624caef` na `2b87ba6`. Koda in paket poročila PDF/LaTeX sta objavljena; surovi rezultati ostajajo lokalno v `results/thud-vmesno/`. Drugi del ni začet.
+
+## 2. del — bogatejši samostojni opis
+
+- 2026-10-21T08:31:49+02:00: Uporabnik izrecno naročil 2. del, izhodiščni commit 7509607. Prebrana naloga in dnevnik; obstoječi rezultati in poročilo ohranjeni (lokalni part1-snapshot). GPU Ollama zdrava, trije isti tagi že nameščeni, NVILA slikovni API še ni pripravljen. Uspešni prejšnji klici se ne ponavljajo.
+- Načrt: 300 novih samostojnih bogatih opisov na istih 100 slikah, T=0, seed42, brez primerov; 60 novih BF16 besedilnih presoj na bogatih opisih istih 20 slik za vse tri opisovalnike. Za kontrolo starih opisov ponovno uporabiti 20 BF16 presoj kratkega prompta in dodati manjkajočih 40 presoj opisov Q4/Gemma. Polni starejši opis ni isto navodilo; čistejša primerjava BF16 na 20 starih kratkih opisih se poroča posebej. Brez napovedanih okvirjev in brez mAP/accuracy.
+
+- 2026-10-21T08:34:03+02:00: 2. del: zagon pilot-qwen35-bf16-thud_dense_test50
+
+- 2026-10-21T08:34:36+02:00: 2. del: končano pilot-qwen35-bf16-thud_dense_test50, izhod 2, 32.9 s
+
+- 2026-10-21T08:34:36+02:00: 2. del: zagon pilot-qwen35-bf16-thud_agtea_test50
+
+- 2026-10-21T08:35:03+02:00: 2. del: končano pilot-qwen35-bf16-thud_agtea_test50, izhod 2, 26.7 s
+
+- 2026-10-21T08:35:03+02:00: 2. del: zagon pilot-qwen35-q4-thud_dense_test50
+
+- 2026-10-21T08:36:31+02:00: 2. del: končano pilot-qwen35-q4-thud_dense_test50, izhod 2, 88.1 s
+
+- 2026-10-21T08:36:31+02:00: 2. del: zagon pilot-qwen35-q4-thud_agtea_test50
+
+- 2026-10-21T08:36:41+02:00: 2. del: končano pilot-qwen35-q4-thud_agtea_test50, izhod 2, 10.1 s
+
+- 2026-10-21T08:36:41+02:00: 2. del: zagon pilot-gemma3-q4-thud_dense_test50
+
+- 2026-10-21T08:37:05+02:00: 2. del: končano pilot-gemma3-q4-thud_dense_test50, izhod 2, 24.0 s
+
+- 2026-10-21T08:37:05+02:00: 2. del: zagon pilot-gemma3-q4-thud_agtea_test50
+
+- 2026-10-21T08:37:22+02:00: 2. del: končano pilot-gemma3-q4-thud_agtea_test50, izhod 2, 17.1 s
+
+- 2026-10-21T08:37:22+02:00: 2. del: pilot shranjen, ocena osnovnih opisov 43.1 min
+
+- 2026-10-21T08:37:22+02:00: 2. del: zahtevana faza pilot zaključena; surovi odgovori so v results/thud-part2/
+
+- 2026-10-21T08:37:57+02:00: 2. del: prvi pilot 1/12 po shemi; vseh 12 GPU odgovorov in 6 ogrevanj ohranjenih v diagnostic-pilot-v1. Prompt dopolnjen samo z eksplicitnimi tipi/JSON predlogo brez vsebinskih objektnih primerov. Pred polnim zagonom ponoviti pilot z novo različico.
+
+- 2026-10-21T08:37:59+02:00: 2. del: zagon pilot-qwen35-bf16-thud_dense_test50
+
+- 2026-10-21T08:38:57+02:00: 2. del: končano pilot-qwen35-bf16-thud_dense_test50, izhod 2, 57.4 s
+
+- 2026-10-21T08:38:57+02:00: 2. del: zagon pilot-qwen35-bf16-thud_agtea_test50
+
+- 2026-10-21T08:39:44+02:00: 2. del: vseh 59 regresijskih testov uspešnih (54 prejšnjih + 5 novih). Preverjeni graf ID-jev, ohranitev dokazov/odnosov v drugem koraku brez fotografij, ponovno nadaljevanje tudi zavrnitev ter konservativno ujemanje imen. Sintaksa vseh skript in diff preverjena. GPU pilot z dopolnjeno tipovno predlogo poteka; nabor in generacijske nastavitve niso spremenjeni.

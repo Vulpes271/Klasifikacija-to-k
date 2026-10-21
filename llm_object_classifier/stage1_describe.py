@@ -12,7 +12,8 @@ from .vision_backends import Backend
 from .vision_pipeline import GPURequiredError
 
 CSV_FIELDS = ["frame_id", "model", "variant", "status", "object_id", "label", "observation",
-              "attachment_evidence", "identifiable", "elapsed_seconds", "gpu_verified", "error"]
+              "attachment_evidence", "identifiable", "elapsed_seconds", "gpu_verified", "error",
+              "appearance", "image_location", "occlusion", "support_contacts", "installation_evidence"]
 
 
 def summarize(results):
@@ -43,7 +44,8 @@ def save_tables(run_dir, frames, results):
         if row["status"] == "ok":
             for obj in row["parsed"]["objects"]:
                 rows.append({**common, "object_id": obj["id"], **{k: obj[k] for k in
-                             ("label", "observation", "attachment_evidence", "identifiable")}})
+                             ("label", "observation", "attachment_evidence", "identifiable")},
+                             **{k: obj.get(k, "") for k in ("appearance", "image_location", "occlusion", "support_contacts", "installation_evidence")}})
         else:
             rows.append(common)
     write_csv(run_dir / "descriptions.csv", rows, CSV_FIELDS)
@@ -60,7 +62,7 @@ def run(args, config):
     resume = getattr(args, "resume", False)
     warmup = getattr(args, "warmup", False)
     run_dir = Path(args.output_dir) if resume and Path(args.output_dir).exists() else new_run(args.output_dir)
-    manifest = {"stage": 1, "prompt_version": VERSION, "system_prompt": system,
+    manifest = {"stage": 1, "prompt_version": "rich-description-v2" if config.get("description_schema") == "rich-v2" else VERSION, "system_prompt": system,
                 "instruction_prefix": instruction, "config": config,
                 "input_sha256": sha256(args.input.read_bytes()),
                 "frames": [{"record": f["record"], "image_sha256": f["image_sha256"],
@@ -119,7 +121,7 @@ def run(args, config):
                     row.update(response)
                     if response["finish_reason"] in {"length", "max_tokens"}:
                         raise ValueError("Output truncated; increase max_tokens or reduce description detail.")
-                    parsed = validate_description(strict_json(response["content"]), frame["regions"])
+                    parsed = validate_description(strict_json(response["content"]), frame["regions"], config.get("description_schema"))
                     row.update({"status": "ok", "parsed": parsed})
                     print(f"  OK: {len(parsed['objects'])} objects, {response['elapsed_seconds']:.2f} s", flush=True)
                 except GPURequiredError as exc:

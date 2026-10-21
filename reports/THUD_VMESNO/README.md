@@ -1,6 +1,7 @@
 # Vmesno poročilo THUD (1. del naloge)
 
-Poročilo je osnutek za poznejši ročni pregled. Drugi del naloge se ne izvaja.
+Poročilo je osnutek za poznejši ročni pregled. Prvih šest strani opisuje 1. del;
+nadaljevanje 2. dela je ločen dodatek, ustvarjen iz novih shranjenih rezultatov.
 
 Celoten ponovljiv zagon (potrebuje GPU Docker, tri nameščene tage in Python s Pillow/Matplotlib):
 
@@ -45,3 +46,51 @@ bash scripts/compile_thud_report.sh
 ```
 
 Naslov po potrebi preberi z `docker inspect` projektne Ollame. Revizija pri prisotnih Q4 skupinah preveri tudi ti dve dodatni skupini (skupaj 34 skupin, 820 merjenih odgovorov brez pilota).
+
+## 2. del: bogatejši samostojni opis
+
+```bash
+bash scripts/thud_part2.sh --phase all
+```
+
+Zagon uporabi že nameščene tri iste modele in nespremenjene slikovne manifeste.
+Faze `prepare|pilot|describe|reason|all` imajo ločene rezultate v
+`results/thud-part2/`. Dokončane skupine in posamezni odgovori se ponovno uporabijo,
+tudi ob zavrnitvi. Spremenjen prompt ali vhod se zavrne; nova različica zahteva
+ločen poskus. Prvi neuspešni pilot je ohranjen v `diagnostic-pilot-v1/`, dopolnitev
+promptov pa pojasnjena v `part2-pilot-revision.json`.
+
+`configs/stage1/thud-part2.json` in `thud-description-rich.txt` določata shemo
+`rich-description-v2`: poleg starih polj še videz, položaj v sliki, zakritost,
+podpore/stike, vidne dokaze namestitve in odnose med lokalnimi ID-ji. Besedilna
+polja uporabljajo `unknown`, če podatek ni razviden. Tipovna JSON predloga nima
+vsebinskih primerov objektov. Napovedanih okvirjev ni. Stari opisi ostanejo
+združljivi; stara izhodna drevesa se ne spreminjajo.
+
+Vseh 100 slik se uporabi za nove opise treh modelov. Drugi korak uporabi isti
+podnabor 20 slik, BF16 razvrščevalnik in obstoječi kratki prompt brez primerov pri
+T=.3, seed42. Vsi strukturirani dokazi in odnosi se prenesejo v celoti; slike se
+ne odpirajo. Starih 20 BF16 presoj se uporabi ponovno, manjkajočih 40 kontrol na
+starih opisih Q4/Gemma se doda enkrat. Zavrnjeni opisi ostanejo eksplicitni preskoki.
+
+Pregled: `python3 scripts/thud_part2_status.py`. Lokalni
+`results/thud-part2/manual-review.html` prikaže stare/nove opise, slike,
+preklopne referenčne okvirje, odnose in odločitve. Sistematična ročna polja v
+`part2-manual-review.csv` so osnutek; delne vizualne pripombe so posebej označene.
+Enako ime ni potrjeno ujemanje instance, skupinske regije pa niso število predmetov.
+
+Poročilo iz obstoječih odgovorov, brez GPU klicev:
+
+```bash
+python3 -m llm_object_classifier.thud_part2_report --require-complete
+python3 -m llm_object_classifier.thud_report
+bash scripts/compile_thud_report.sh
+```
+
+Dodatek `part2.tex` je vključen v glavni PDF/LaTeX. Tabele `part2-aggregates.*`,
+`part2-image-comparisons.*`, `part2-decision-pairs.*`, `part2-summary.json` in
+`part2-verification.json` se izračunajo iz odgovorov. Preverjanje vključuje enake
+slikovne bajte, celotno besedilo dokazov/odnosov, SHA256 zamrznjenih opisov,
+GPU dodelitve in nespremenjenost vseh starih odgovorov iz lokalnega indeksa.
+Več odnosov ali veljavna shema ne pomenita pravilnosti; brez stabilnostnih
+referenc ni accuracy, brez napovedanih okvirjev ni IoU/mAP.

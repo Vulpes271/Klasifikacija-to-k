@@ -254,3 +254,13 @@ Glej [paket poročila](../reports/THUD_VMESNO/README.md) in
 neveljavne odgovore, preveri nespremenjene vhode in omogoča nadaljevanje.
 Drugi korak cevovoda je vključen v prvi del naloge; **2. del nadgradnje prvega
 koraka se s tem ne začne**.
+
+## THUD: izrecno naročeno nadaljevanje (2. del)
+
+`bash scripts/thud_part2.sh --phase all` uporabi iste tri nameščene modele in
+slike, izvede samo nove bogate opise ter manjkajoče besedilne primerjave.
+Stari uspešni klici se ne ponavljajo. `description_schema: rich-v2` v konfiguraciji
+vključi strogo preverjanje novih polj in grafa lokalnih ID-jev; stare konfiguracije
+in opisi ostanejo združljivi. Besedilni korak sam prepozna verzionirano shemo in
+prejme vse shranjene dokaze/odnose, brez slik. Oba koraka podpirata `--resume`.
+Glej [navodila, rezultate in omejitve](../reports/THUD_VMESNO/README.md#2-del-bogatejši-samostojni-opis).
