@@ -100,6 +100,23 @@ Ni mAP brez ustreznih detekcijskih ocen; ni accuracy stabilnosti brez referenc.
 
 ## Izhodi
 
+Dejanski zagon 21. 10. 2026 je zaključen: NVILA 100 GPU odgovorov, od tega
+0/100 veljavnih rich-v2; Florence caption 100/100, OD 100/100, dense 99/100.
+To so veljavnosti zapisov, ne pravilnosti vsebine. Florencejev kombinirani
+postopek je za 100 slik porabil 94,97 s, NVILA 2918,15 s (tudi zavrnitve).
+Na istih 20 položajih je Qwen BF16 po NVILA transportu vrnil 14 veljavnih
+odgovorov, 2 napaki in 4 preskoke; po Florence 20 veljavnih. Podrobni časi
+razvrščanja so v `extended-reasoning-timing.csv`. Brez referenc stabilnosti
+to ni accuracy. Preverjenih 1258 predhodnih odgovorov je nespremenjenih.
+
+Procesne ovire in nadaljevanja so shranjeni ločeno: Florence SIGILL po 37
+slikah in napaka lupine po uspešnem koncu NVILA kontejnerja. Launcher sedaj
+razčleni celotno funkcijo pred zagonom otroških procesov. GPU vzorčenje ima
+374 veljavnih vrstic in poškodovan zaključek 125 ničelnih bajtov; izvirnik
+ostane shranjen, veljavne vrstice so v `gpu-samples-valid.jsonl`, revizija
+v `setup/gpu-sampling-audit.json`. Inferenčni vrhovi CUDA v odgovorih ostajajo
+primarni vir za tabele VRAM. Uspešnih klicev zaradi teh ovir nismo ponavljali.
+
 - `results/thud-extended/{nvila,florence}/`: manifesti, odgovori, okolja,
   ogrevanja, source snapshots; Florence tudi `overlays/` in `combined/`.
 - `results/thud-extended/{models,vendor,setup,logs}/`: uteži, koda, popravki,

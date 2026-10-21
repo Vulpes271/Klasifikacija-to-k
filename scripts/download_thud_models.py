@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import subprocess
 import urllib.request
+import hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'results/thud-extended'
@@ -48,6 +49,14 @@ def main():
             files.append((model, info['sha'], name, OUT / 'models' / key / name))
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         list(pool.map(download, files))
+    index={}
+    for _,_,_,path in files:
+        digest=hashlib.sha256()
+        with path.open('rb') as stream:
+            for chunk in iter(lambda:stream.read(16*1024*1024),b''):
+                digest.update(chunk)
+        index[str(path.relative_to(OUT/'models'))]={'bytes':path.stat().st_size,'sha256':digest.hexdigest()}
+    (OUT/'setup/model-files.json').write_text(json.dumps(index,indent=2)+'\n')
 
 
 if __name__ == '__main__':

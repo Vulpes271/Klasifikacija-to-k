@@ -397,3 +397,447 @@
 - 2026-10-21T09:30:09+02:00: Commit rezultatov 2. dela: d7d091e. Dejanski push odpovedal z izhodom 128: Git ne more prebrati uporabniškega imena za github.com (terminal prompts disabled). Lokalni predpomnilnik nima GitHub prijave, SSH agent nima ključev; drugih shranjenih poverilnic nismo uporabili. Potrebna je obnovljena lokalna GitHub prijava s pravico pisanja, nato običajni push iste veje. Vsi lokalni commiti, PDF/LaTeX in surovi izhodi so ohranjeni; nič ni izgubljeno. Status: results/thud-part2/push-status.json.
 
 - 2026-10-21T09:49:29+02:00: Po obnovljeni lokalni GitHub prijavi je običajni push uspešen (izhod 0): veja feature/separate-vision-stages je objavljena do e3ba38a, vključno z rezultati d7d091e in vsemi petimi pripravljenimi commiti. PDF, LaTeX, koda in povzetki rezultatov so na GitHubu. Surovi izhodi ostajajo lokalno v results/thud-part2/. GPU testov nismo ponavljali.
+
+- 2026-10-21T10:02:57+02:00: Začetek nadaljevanja NVILA-8B in Florence-2-large po naročilu uporabnika. GPU RTX 5090/32 GB in Docker potrjena; starih meritev ne ponavljamo. Nova izolirana okolja, diagnostika, surovi odgovori in izrisi bodo v results/thud-extended/.
+
+- 2026-10-21T10:07:27+02:00: Florence: fizično ogrevanje treh nalog na GPU uspešno; začetek merjenih slik.
+
+- 2026-10-21T10:07:28+02:00: Florence: thud_dense_test50 1/50, tri naloge shranjene.
+
+- 2026-10-21T10:10:25+02:00: NVILA: prva dejanska slika na GPU uspešno obdelana; veljavnost sheme error.
+
+- 2026-10-21T10:12:35+02:00: NVILA: thud_dense_test50 1/50, error, 129.91 s.
+
+- 2026-10-21T10:12:52+02:00: NVILA: dejanski prvi pilot in ogrevanje dosegla 8192 tokenov s ponavljajočimi JSON; ohranjeno v diagnostic-nvila-rp1. Odkrita razlika uradnega wrapperja proti checkpoint generation_config (repetition_penalty 1.0 proti 1.05); naslednji ločen pilot uporabi checkpoint 1.05. Florence zdaj obdeluje vseh 100 slik, prva shranjena slika se ne ponovi.
+
+- 2026-10-21T10:12:54+02:00: Florence: fizično ogrevanje treh nalog na GPU uspešno; začetek merjenih slik.
+
+- 2026-10-21T10:12:55+02:00: Florence: thud_dense_test50 2/50, tri naloge shranjene.
+
+- 2026-10-21T10:12:55+02:00: Florence: thud_dense_test50 3/50, tri naloge shranjene.
+
+- 2026-10-21T10:12:56+02:00: Florence: thud_dense_test50 4/50, tri naloge shranjene.
+
+- 2026-10-21T10:12:57+02:00: Florence: thud_dense_test50 5/50, tri naloge shranjene.
+
+- 2026-10-21T10:12:58+02:00: Florence: thud_dense_test50 6/50, tri naloge shranjene.
+
+- 2026-10-21T10:12:59+02:00: Florence: thud_dense_test50 7/50, tri naloge shranjene.
+
+- 2026-10-21T10:12:59+02:00: Florence: thud_dense_test50 8/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:00+02:00: Florence: thud_dense_test50 9/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:01+02:00: Florence: thud_dense_test50 10/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:02+02:00: Florence: thud_dense_test50 11/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:02+02:00: Florence: thud_dense_test50 12/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:03+02:00: Florence: thud_dense_test50 13/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:04+02:00: Florence: thud_dense_test50 14/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:04+02:00: Florence: thud_dense_test50 15/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:05+02:00: Florence: thud_dense_test50 16/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:06+02:00: Florence: thud_dense_test50 17/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:07+02:00: Florence: thud_dense_test50 18/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:07+02:00: Florence: thud_dense_test50 19/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:08+02:00: Florence: thud_dense_test50 20/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:09+02:00: Florence: thud_dense_test50 21/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:09+02:00: Florence: thud_dense_test50 22/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:10+02:00: Florence: thud_dense_test50 23/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:11+02:00: Florence: thud_dense_test50 24/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:11+02:00: Florence: thud_dense_test50 25/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:12+02:00: Florence: thud_dense_test50 26/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:13+02:00: Florence: thud_dense_test50 27/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:13+02:00: Florence: thud_dense_test50 28/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:14+02:00: Florence: thud_dense_test50 29/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:15+02:00: Florence: thud_dense_test50 30/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:16+02:00: Florence: thud_dense_test50 31/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:16+02:00: Florence: thud_dense_test50 32/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:17+02:00: Florence: thud_dense_test50 33/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:18+02:00: Florence: thud_dense_test50 34/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:18+02:00: Florence: thud_dense_test50 35/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:19+02:00: Florence: thud_dense_test50 36/50, tri naloge shranjene.
+
+- 2026-10-21T10:13:20+02:00: Florence: thud_dense_test50 37/50, tri naloge shranjene.
+
+- 2026-10-21T10:15:54+02:00: Florence: po 37 shranjenih slikah proces končan s SIGILL/132 brez Python izjeme. Ponovni zagon z vključeno sledjo faulthandler nadaljuje pri naslednji sliki, brez ponovitve uspešnih 111 merjenih odgovorov.
+
+- 2026-10-21T10:15:56+02:00: Florence: fizično ogrevanje treh nalog na GPU uspešno; začetek merjenih slik.
+
+- 2026-10-21T10:15:57+02:00: Florence: thud_dense_test50 38/50, tri naloge shranjene.
+
+- 2026-10-21T10:15:58+02:00: Florence: thud_dense_test50 39/50, tri naloge shranjene.
+
+- 2026-10-21T10:15:58+02:00: Florence: thud_dense_test50 40/50, tri naloge shranjene.
+
+- 2026-10-21T10:15:59+02:00: Florence: thud_dense_test50 41/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:00+02:00: Florence: thud_dense_test50 42/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:00+02:00: Florence: thud_dense_test50 43/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:01+02:00: Florence: thud_dense_test50 44/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:02+02:00: Florence: thud_dense_test50 45/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:03+02:00: Florence: thud_dense_test50 46/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:04+02:00: Florence: thud_dense_test50 47/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:04+02:00: Florence: thud_dense_test50 48/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:05+02:00: Florence: thud_dense_test50 49/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:06+02:00: Florence: thud_dense_test50 50/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:07+02:00: Florence: thud_agtea_test50 1/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:08+02:00: Florence: thud_agtea_test50 2/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:09+02:00: Florence: thud_agtea_test50 3/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:10+02:00: Florence: thud_agtea_test50 4/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:10+02:00: Florence: thud_agtea_test50 5/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:11+02:00: Florence: thud_agtea_test50 6/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:13+02:00: Florence: thud_agtea_test50 7/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:14+02:00: Florence: thud_agtea_test50 8/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:14+02:00: Florence: thud_agtea_test50 9/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:15+02:00: Florence: thud_agtea_test50 10/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:16+02:00: Florence: thud_agtea_test50 11/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:17+02:00: Florence: thud_agtea_test50 12/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:19+02:00: Florence: thud_agtea_test50 13/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:20+02:00: Florence: thud_agtea_test50 14/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:22+02:00: Florence: thud_agtea_test50 15/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:23+02:00: Florence: thud_agtea_test50 16/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:25+02:00: Florence: thud_agtea_test50 17/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:26+02:00: Florence: thud_agtea_test50 18/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:28+02:00: Florence: thud_agtea_test50 19/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:29+02:00: Florence: thud_agtea_test50 20/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:30+02:00: Florence: thud_agtea_test50 21/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:32+02:00: Florence: thud_agtea_test50 22/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:33+02:00: Florence: thud_agtea_test50 23/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:37+02:00: Florence: thud_agtea_test50 24/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:38+02:00: Florence: thud_agtea_test50 25/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:39+02:00: Florence: thud_agtea_test50 26/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:40+02:00: Florence: thud_agtea_test50 27/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:41+02:00: Florence: thud_agtea_test50 28/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:42+02:00: Florence: thud_agtea_test50 29/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:43+02:00: Florence: thud_agtea_test50 30/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:43+02:00: Florence: thud_agtea_test50 31/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:44+02:00: Florence: thud_agtea_test50 32/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:45+02:00: Florence: thud_agtea_test50 33/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:47+02:00: Florence: thud_agtea_test50 34/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:49+02:00: Florence: thud_agtea_test50 35/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:51+02:00: Florence: thud_agtea_test50 36/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:53+02:00: Florence: thud_agtea_test50 37/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:54+02:00: Florence: thud_agtea_test50 38/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:56+02:00: Florence: thud_agtea_test50 39/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:57+02:00: Florence: thud_agtea_test50 40/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:59+02:00: Florence: thud_agtea_test50 41/50, tri naloge shranjene.
+
+- 2026-10-21T10:16:59+02:00: Florence: thud_agtea_test50 42/50, tri naloge shranjene.
+
+- 2026-10-21T10:17:00+02:00: Florence: thud_agtea_test50 43/50, tri naloge shranjene.
+
+- 2026-10-21T10:17:01+02:00: Florence: thud_agtea_test50 44/50, tri naloge shranjene.
+
+- 2026-10-21T10:17:02+02:00: Florence: thud_agtea_test50 45/50, tri naloge shranjene.
+
+- 2026-10-21T10:17:03+02:00: Florence: thud_agtea_test50 46/50, tri naloge shranjene.
+
+- 2026-10-21T10:17:05+02:00: Florence: thud_agtea_test50 47/50, tri naloge shranjene.
+
+- 2026-10-21T10:17:06+02:00: Florence: thud_agtea_test50 48/50, tri naloge shranjene.
+
+- 2026-10-21T10:17:07+02:00: Florence: thud_agtea_test50 49/50, tri naloge shranjene.
+
+- 2026-10-21T10:17:09+02:00: Florence: thud_agtea_test50 50/50, tri naloge shranjene.
+
+- 2026-10-21T10:17:45+02:00: NVILA: prva dejanska slika na GPU uspešno obdelana; veljavnost sheme error.
+
+- 2026-10-21T10:17:49+02:00: NVILA: thud_dense_test50 1/50, error, 4.24 s.
+
+- 2026-10-21T10:18:20+02:00: Florence končano vseh 100 slik / 300 odgovorov: caption 100 OK, OD 100 OK, dense 99 OK + 1 napaka. NVILA ločeni pilot s checkpoint repetition_penalty=1.05: 272 tokenov / 4.24 s, brez ponavljanja do limita, vendar Extra data in manjkajoča obvezna polja. Prvi odgovor ohranjen, groba linearna ocena glavnega zagona 7.1 min; nadaljujemo preostalih 99 brez popravljanja zavrnitev.
+
+- 2026-10-21T10:18:56+02:00: NVILA: prva dejanska slika na GPU uspešno obdelana; veljavnost sheme error.
+
+- 2026-10-21T10:19:01+02:00: NVILA: thud_dense_test50 2/50, error, 4.72 s.
+
+- 2026-10-21T10:19:04+02:00: NVILA: thud_dense_test50 3/50, error, 3.24 s.
+
+- 2026-10-21T10:21:14+02:00: NVILA: thud_dense_test50 4/50, error, 129.84 s.
+
+- 2026-10-21T10:21:21+02:00: NVILA: thud_dense_test50 5/50, error, 6.87 s.
+
+- 2026-10-21T10:21:28+02:00: NVILA: thud_dense_test50 6/50, error, 6.80 s.
+
+- 2026-10-21T10:21:32+02:00: NVILA: thud_dense_test50 7/50, error, 4.94 s.
+
+- 2026-10-21T10:21:40+02:00: NVILA: thud_dense_test50 8/50, error, 7.93 s.
+
+- 2026-10-21T10:21:55+02:00: NVILA: thud_dense_test50 9/50, error, 14.55 s.
+
+- 2026-10-21T10:21:59+02:00: NVILA: thud_dense_test50 10/50, error, 4.54 s.
+
+- 2026-10-21T10:22:05+02:00: NVILA: thud_dense_test50 11/50, error, 5.98 s.
+
+- 2026-10-21T10:22:16+02:00: NVILA: thud_dense_test50 12/50, error, 10.54 s.
+
+- 2026-10-21T10:22:23+02:00: NVILA: thud_dense_test50 13/50, error, 7.45 s.
+
+- 2026-10-21T10:22:29+02:00: NVILA: thud_dense_test50 14/50, error, 5.21 s.
+
+- 2026-10-21T10:22:37+02:00: NVILA: thud_dense_test50 15/50, error, 7.83 s.
+
+- 2026-10-21T10:22:44+02:00: NVILA: thud_dense_test50 16/50, error, 6.99 s.
+
+- 2026-10-21T10:25:31+02:00: NVILA: thud_dense_test50 17/50, error, 167.28 s.
+
+- 2026-10-21T10:25:39+02:00: NVILA: thud_dense_test50 18/50, error, 7.93 s.
+
+- 2026-10-21T10:25:48+02:00: NVILA: thud_dense_test50 19/50, error, 9.41 s.
+
+- 2026-10-21T10:25:58+02:00: NVILA: thud_dense_test50 20/50, error, 10.14 s.
+
+- 2026-10-21T10:26:08+02:00: NVILA: thud_dense_test50 21/50, error, 9.27 s.
+
+- 2026-10-21T10:26:14+02:00: NVILA: thud_dense_test50 22/50, error, 6.54 s.
+
+- 2026-10-21T10:26:31+02:00: NVILA: thud_dense_test50 23/50, error, 16.99 s.
+
+- 2026-10-21T10:29:15+02:00: NVILA: thud_dense_test50 24/50, error, 164.26 s.
+
+- 2026-10-21T10:29:21+02:00: NVILA: thud_dense_test50 25/50, error, 5.71 s.
+
+- 2026-10-21T10:29:29+02:00: NVILA: thud_dense_test50 26/50, error, 8.27 s.
+
+- 2026-10-21T10:29:34+02:00: NVILA: thud_dense_test50 27/50, error, 4.25 s.
+
+- 2026-10-21T10:29:45+02:00: NVILA: thud_dense_test50 28/50, error, 11.57 s.
+
+- 2026-10-21T10:29:52+02:00: NVILA: thud_dense_test50 29/50, error, 6.41 s.
+
+- 2026-10-21T10:29:57+02:00: NVILA: thud_dense_test50 30/50, error, 5.87 s.
+
+- 2026-10-21T10:30:11+02:00: Koda ločenih GPU izvajalnikov shranjena v commit 36790f9; končna zbirka 69 testov uspešna (9.065 s). Florence merilni popravek za prihodnje zagone izračuna combined VRAM kot maksimum treh nalog; izvirne meritve niso spremenjene in poročilo uporabi vrhove posameznih nalog. Preverjenih 1258 starih odgovorov, SHA256 brez sprememb.
+
+- 2026-10-21T10:30:12+02:00: NVILA: thud_dense_test50 31/50, error, 14.35 s.
+
+- 2026-10-21T10:30:17+02:00: NVILA: thud_dense_test50 32/50, error, 5.12 s.
+
+- 2026-10-21T10:30:20+02:00: NVILA: thud_dense_test50 33/50, error, 3.53 s.
+
+- 2026-10-21T10:32:32+02:00: NVILA: thud_dense_test50 34/50, error, 131.09 s.
+
+- 2026-10-21T10:32:50+02:00: NVILA: thud_dense_test50 35/50, error, 18.24 s.
+
+- 2026-10-21T10:32:58+02:00: NVILA: thud_dense_test50 36/50, error, 8.53 s.
+
+- 2026-10-21T10:35:51+02:00: NVILA: thud_dense_test50 37/50, error, 172.82 s.
+
+- 2026-10-21T10:35:57+02:00: NVILA: thud_dense_test50 38/50, error, 6.22 s.
+
+- 2026-10-21T10:36:08+02:00: NVILA: thud_dense_test50 39/50, error, 10.16 s.
+
+- 2026-10-21T10:36:21+02:00: NVILA: thud_dense_test50 40/50, error, 13.61 s.
+
+- 2026-10-21T10:36:28+02:00: NVILA: thud_dense_test50 41/50, error, 6.83 s.
+
+- 2026-10-21T10:36:37+02:00: NVILA: thud_dense_test50 42/50, error, 9.06 s.
+
+- 2026-10-21T10:36:47+02:00: NVILA: thud_dense_test50 43/50, error, 10.43 s.
+
+- 2026-10-21T10:36:53+02:00: NVILA: thud_dense_test50 44/50, error, 5.91 s.
+
+- 2026-10-21T10:37:01+02:00: NVILA: thud_dense_test50 45/50, error, 7.85 s.
+
+- 2026-10-21T10:37:07+02:00: NVILA: thud_dense_test50 46/50, error, 5.48 s.
+
+- 2026-10-21T10:40:06+02:00: NVILA: thud_dense_test50 47/50, error, 178.99 s.
+
+- 2026-10-21T10:40:14+02:00: NVILA: thud_dense_test50 48/50, error, 8.59 s.
+
+- 2026-10-21T10:40:21+02:00: NVILA: thud_dense_test50 49/50, error, 6.51 s.
+
+- 2026-10-21T10:42:33+02:00: NVILA: thud_dense_test50 50/50, error, 132.27 s.
+
+- 2026-10-21T10:42:44+02:00: NVILA: thud_agtea_test50 1/50, error, 11.37 s.
+
+- 2026-10-21T10:42:57+02:00: NVILA: thud_agtea_test50 2/50, error, 12.22 s.
+
+- 2026-10-21T10:43:09+02:00: NVILA: thud_agtea_test50 3/50, error, 12.15 s.
+
+- 2026-10-21T10:43:23+02:00: NVILA: thud_agtea_test50 4/50, error, 14.32 s.
+
+- 2026-10-21T10:43:31+02:00: NVILA: thud_agtea_test50 5/50, error, 7.36 s.
+
+- 2026-10-21T10:43:37+02:00: NVILA: thud_agtea_test50 6/50, error, 6.63 s.
+
+- 2026-10-21T10:43:48+02:00: NVILA: thud_agtea_test50 7/50, error, 11.26 s.
+
+- 2026-10-21T10:46:21+02:00: NVILA: thud_agtea_test50 8/50, error, 152.63 s.
+
+- 2026-10-21T10:46:30+02:00: NVILA: thud_agtea_test50 9/50, error, 9.00 s.
+
+- 2026-10-21T10:46:37+02:00: NVILA: thud_agtea_test50 10/50, error, 7.13 s.
+
+- 2026-10-21T10:46:48+02:00: NVILA: thud_agtea_test50 11/50, error, 10.31 s.
+
+- 2026-10-21T10:46:56+02:00: NVILA: thud_agtea_test50 12/50, error, 8.95 s.
+
+- 2026-10-21T10:47:03+02:00: NVILA: thud_agtea_test50 13/50, error, 6.98 s.
+
+- 2026-10-21T10:47:14+02:00: NVILA: thud_agtea_test50 14/50, error, 10.79 s.
+
+- 2026-10-21T10:47:21+02:00: NVILA: thud_agtea_test50 15/50, error, 6.66 s.
+
+- 2026-10-21T10:47:32+02:00: NVILA: thud_agtea_test50 16/50, error, 11.10 s.
+
+- 2026-10-21T10:50:23+02:00: NVILA: thud_agtea_test50 17/50, error, 170.86 s.
+
+- 2026-10-21T10:50:28+02:00: NVILA: thud_agtea_test50 18/50, error, 4.79 s.
+
+- 2026-10-21T10:52:36+02:00: NVILA: thud_agtea_test50 19/50, error, 128.55 s.
+
+- 2026-10-21T10:52:46+02:00: NVILA: thud_agtea_test50 20/50, error, 10.06 s.
+
+- 2026-10-21T10:52:54+02:00: NVILA: thud_agtea_test50 21/50, error, 7.75 s.
+
+- 2026-10-21T10:52:59+02:00: NVILA: thud_agtea_test50 22/50, error, 4.67 s.
+
+- 2026-10-21T10:53:11+02:00: NVILA: thud_agtea_test50 23/50, error, 11.99 s.
+
+- 2026-10-21T10:53:17+02:00: NVILA: thud_agtea_test50 24/50, error, 5.81 s.
+
+- 2026-10-21T10:53:33+02:00: NVILA: thud_agtea_test50 25/50, error, 15.74 s.
+
+- 2026-10-21T10:53:39+02:00: NVILA: thud_agtea_test50 26/50, error, 6.20 s.
+
+- 2026-10-21T10:53:43+02:00: NVILA: thud_agtea_test50 27/50, error, 4.66 s.
+
+- 2026-10-21T10:53:49+02:00: NVILA: thud_agtea_test50 28/50, error, 5.85 s.
+
+- 2026-10-21T10:53:59+02:00: NVILA: thud_agtea_test50 29/50, error, 9.51 s.
+
+- 2026-10-21T10:54:13+02:00: NVILA: thud_agtea_test50 30/50, error, 14.05 s.
+
+- 2026-10-21T10:54:26+02:00: NVILA: thud_agtea_test50 31/50, error, 13.44 s.
+
+- 2026-10-21T10:54:34+02:00: NVILA: thud_agtea_test50 32/50, error, 7.34 s.
+
+- 2026-10-21T10:54:38+02:00: NVILA: thud_agtea_test50 33/50, error, 4.09 s.
+
+- 2026-10-21T10:54:48+02:00: NVILA: thud_agtea_test50 34/50, error, 10.62 s.
+
+- 2026-10-21T10:54:55+02:00: NVILA: thud_agtea_test50 35/50, error, 7.04 s.
+
+- 2026-10-21T10:57:40+02:00: NVILA: thud_agtea_test50 36/50, error, 164.47 s.
+
+- 2026-10-21T10:57:51+02:00: NVILA: thud_agtea_test50 37/50, error, 11.13 s.
+
+- 2026-10-21T11:00:18+02:00: NVILA: thud_agtea_test50 38/50, error, 146.92 s.
+
+- 2026-10-21T11:00:29+02:00: NVILA: thud_agtea_test50 39/50, error, 11.32 s.
+
+- 2026-10-21T11:00:39+02:00: NVILA: thud_agtea_test50 40/50, error, 9.25 s.
+
+- 2026-10-21T11:00:53+02:00: NVILA: thud_agtea_test50 41/50, error, 14.81 s.
+
+- 2026-10-21T11:01:09+02:00: NVILA: thud_agtea_test50 42/50, error, 15.28 s.
+
+- 2026-10-21T11:01:19+02:00: NVILA: thud_agtea_test50 43/50, error, 10.17 s.
+
+- 2026-10-21T11:01:36+02:00: NVILA: thud_agtea_test50 44/50, error, 16.94 s.
+
+- 2026-10-21T11:01:48+02:00: NVILA: thud_agtea_test50 45/50, error, 12.00 s.
+
+- 2026-10-21T11:02:00+02:00: NVILA: thud_agtea_test50 46/50, error, 12.22 s.
+
+- 2026-10-21T11:02:18+02:00: NVILA: thud_agtea_test50 47/50, error, 17.47 s.
+
+- 2026-10-21T11:04:46+02:00: NVILA: thud_agtea_test50 48/50, error, 148.93 s.
+
+- 2026-10-21T11:04:51+02:00: NVILA: thud_agtea_test50 49/50, error, 4.61 s.
+
+- 2026-10-21T11:07:31+02:00: NVILA: thud_agtea_test50 50/50, error, 159.54 s.
+
+- 2026-10-21T11:07:34+02:00: Razvrščanje novih opisov: nvila, thud_dense_test50, isti Qwen BF16, T0.3/seed42.
+
+- 2026-10-21T11:07:44+02:00: Razvrščanje novih opisov: nvila, thud_agtea_test50, isti Qwen BF16, T0.3/seed42.
+
+- 2026-10-21T11:08:14+02:00: Razvrščanje novih opisov: florence, thud_dense_test50, isti Qwen BF16, T0.3/seed42.
+
+- 2026-10-21T11:08:32+02:00: Razvrščanje novih opisov: florence, thud_agtea_test50, isti Qwen BF16, T0.3/seed42.
+
+- 2026-10-21T13:55:07+02:00: Končna revizija: vseh 100 NVILA in 300 Florence odgovorov je shranjenih z GPU potrditvijo in tokeni. NVILA rich-v2 0/100 veljavnih (povprečje 29,18 s), Florence caption 100/100, OD 100/100, dense 99/100; kombinirano 94,97 s za 100 slik. NVILA ni več blokiran pri zagonu, omejitev je kakovost/formalna skladnost odgovorov. Prejšnjih 1258 odgovorov SHA256 nespremenjenih.
+
+- Razvrščanje Qwen BF16 je končano na istih 20 položajih za vsak model: NVILA 14 OK / 2 napaki / 4 preskoki (16 dejanskih klicev), Florence 20 OK (20 klicev). Vseh 36 klicev in 4 izključena ogrevanja potrjeno GPU; največ vhodnih tokenov 8857 oziroma 9913, kontekst 16384. Preskoki ostanejo v imenovalcu. Števila razredov niso accuracy stabilnosti.
+
+- Ohranjena dodatna napaka: po zaključku NVILA kontejnerja z izhodom 0 je lupinski zaganjalnik javil sintaktično napako; datoteka je bila med čakanjem na GPU urejena (verjeten vzrok, ne potrjena reprodukcija). Ločeno razvrščanje je uspelo. Zaganjalnik sedaj razčleni telo funkcije pred izvajanjem. Po koncu meritev ima GPU vzorčni dnevnik 374 veljavnih vrstic in 125 ničelnih zaključnih bajtov; izvirnik ohranjen, veljavne vrstice ločeno v gpu-samples-valid.jsonl, revizija v setup/gpu-sampling-audit.json. To ne vpliva na merjene čase in inferenčne vrhove CUDA VRAM.
+
+- 2026-10-21T13:57:37+02:00: Končano: samostojen PDF/LaTeX ima 17 strani (prvotnih 10 + 7 novih). Vseh 17 strani pregledanih v pregledu, nove strani 11–17 posamično; brez overfull opozoril in Type3 pisav, ščž se pravilno kopirajo. PDF SHA256 in revizija sta v pdf-validation.json. Vključene 4 dejanske primerjave s fotografijami, OD/dense izrisi ter dobesednimi presojami Qwen BF16.
+
+- Končne preverbe: celotna zbirka 69/69 uspešnih (9,065 s), dodatna ciljna zbirka 8/8; bash -n, py_compile in git diff --check uspešni. Revizija potrdi 400 novih merjenih odgovorov prvega koraka, 36 dejanskih klicev razvrščanja + 4 preskoke, SHA vseh zamrznjenih opisov ter drugi korak brez slik. Vseh 1258 prejšnjih odgovorov ostaja nespremenjenih. Surove rezultate, diagnostiko in uteži ohranimo lokalno v results/thud-extended/; paketu Git dodamo le kodo, navodila, agregate, uporabljene slike in PDF/LaTeX.
+
+- Pri končnem dodajanju novih CSV tabel je Git opozoril na standardne CRLF zaključke vrstic. Novi offline izvoz uporablja LF; vsebina celic, surovi odgovori, ustvarjeni LaTeX in PDF so ostali nespremenjeni. Ponovna generacija iz shranjenih rezultatov in preverba celotne razlike sta uspešni.

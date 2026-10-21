@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Separate native-model environments; one GPU model at a time, resumable outputs.
 set -euo pipefail
+# Parse the complete launcher before a long-running child starts. This also
+# avoids resuming halfway through a file edited while a GPU process was running.
+main() {
 cd "$(dirname "$0")/.."
 phase=${1:-all}
 limit=${2:-100}
@@ -54,3 +57,5 @@ if [[ "$phase" == report || "$phase" == all ]]; then
   bash scripts/compile_thud_report.sh
 fi
 case "$phase" in prepare|nvila|florence|reason|report|all) ;; *) echo 'Use prepare|nvila|florence|reason|report|all [limit]' >&2; exit 1;; esac
+}
+main "$@"

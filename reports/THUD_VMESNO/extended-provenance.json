@@ -1,0 +1,2739 @@
+{
+  "model_revisions": {
+    "nvila": {
+      "repo": "Efficient-Large-Model/NVILA-8B",
+      "revision": "049743cc51bdd8872cdf696a1a58b03fef2c367e"
+    },
+    "florence": {
+      "repo": "microsoft/Florence-2-large",
+      "revision": "21a599d414c4d928c9032694c424fb94458e3594"
+    }
+  },
+  "report_git_commit": "a82939e2d37eaaa4c332cb5725c66f7c3b11d6d8",
+  "report_generator_sha256": "7769143ebe8a96387efcd904cc45dfa6686ff2dd739aebae23d23341fd1eca6a",
+  "inference_source_snapshots": {
+    "nvila": [
+      {
+        "path": "nvila/source-snapshots/1792570631071060984.json",
+        "sha256": "864cf5a34ea8def1fedeb0bbf8e4a38b903a8499e9ebf708d3449fc94282a19c",
+        "git_commit": "30165df2acee47d9983ed7d0249e103f15148229"
+      },
+      {
+        "path": "nvila/source-snapshots/1792570701589992240.json",
+        "sha256": "69e712f4c58f12dd3fb333bb2d751c536527c3fb41b94a893ad1383848fb0dfb",
+        "git_commit": "30165df2acee47d9983ed7d0249e103f15148229"
+      }
+    ],
+    "florence": [
+      {
+        "path": "florence/source-snapshots/1792570046076289463.json",
+        "sha256": "d1fc43e70b6fc3c8be9d59a887ea46469f719230f09eb3947c559f3a1326fbc0",
+        "git_commit": "30165df2acee47d9983ed7d0249e103f15148229"
+      },
+      {
+        "path": "florence/source-snapshots/1792570372932258645.json",
+        "sha256": "003277142429f95621a9c070dde836e7103a8a4a19ce83207e654708492b5688",
+        "git_commit": "30165df2acee47d9983ed7d0249e103f15148229"
+      },
+      {
+        "path": "florence/source-snapshots/1792570555188873195.json",
+        "sha256": "d0407b03041886a2c366f02cf6e1fc6dd43992798b76ad2af851eb8445a644db",
+        "git_commit": "30165df2acee47d9983ed7d0249e103f15148229"
+      }
+    ],
+    "reason": [
+      {
+        "path": "reason/source-snapshots/1792573654397380449.json",
+        "sha256": "75ab74965d22a4eebdd7730950f4e8fe976831e27cbe036a7906723f53029680",
+        "git_commit": "5f8318bcb50e12a6454a0e86b831fbdd9e09b59e"
+      }
+    ]
+  },
+  "inference_manifests": {
+    "nvila": {
+      "config": {
+        "model": "Efficient-Large-Model/NVILA-8B",
+        "revision": "049743cc51bdd8872cdf696a1a58b03fef2c367e",
+        "vila_commit": "57ecbfb904b99b563db69ef7916f6390eecea516",
+        "system_prompt": "Describe this RGB photograph using visible evidence only. Never classify stability or fixed/movable classes. No examples are provided.\nGive a detailed scene_description (up to 160 words). Discover separate visible instances with unique positive integer IDs local to this image; IDs do not track objects across images. Prefer individually identifiable objects; explicitly name a group when individual separation is impossible. Include relevant visible supports as objects when reporting relations to them.\nFor each object report label, appearance, image_location (image-relative left/right/top/bottom, never world coordinates), occlusion (none/partial/heavy/unknown), support_contacts, installation_evidence, and observation (a compact synthesis of these visible facts). Use the literal text \"unknown\" when evidence cannot be established. Do not infer hidden screws, weight, permanence or unseen supports. Proximity, hanging or stillness does not establish permanent installation. Do not invent objects to complete a relation.\nAlso retain attachment_evidence: visible_installation requires visible mounting/integration; appears_freestanding requires visible support/clearance; otherwise not_visible or mixed. identifiable is a boolean. Each object's total textual description should be concise, around 80 words or fewer.\nList relations only between two different listed object IDs with predicate on/under/beside/in_front_of/behind/attached_to/inside/supports/overlapping, plus a short visible evidence phrase. attached_to requires visible attachment. No relation is better than an unsupported one. No coordinates or bbox fields. A location description is not precise localization.\nReturn only English JSON, with exactly these fields:\nschema_version: \"rich-description-v2\"\nscene_description: nonempty string\nobjects: list of objects with id, label, appearance, image_location, occlusion, support_contacts, installation_evidence, observation, attachment_evidence, identifiable\nrelations: list of objects with subject_id, predicate, object_id, evidence\nAll evidence fields (including support_contacts and installation_evidence) are nonempty JSON STRINGS, never arrays, objects or null. Use the string \"unknown\" if undetermined. Only objects and relations are arrays. Include schema_version even if few objects are found. Do not repeat schema keys or pad the response. Keep descriptions concise enough to finish the whole JSON.\nFollow this JSON TYPE TEMPLATE; angle-bracket text is a field description, not scene content. It is not an example of objects to find. Fill each field from the photograph. Repeat the object record for each visible instance, with distinct integer IDs. Relations may be an empty array; every relation endpoint must be an actual listed object ID.\n{\"schema_version\":\"rich-description-v2\",\"scene_description\":\"<visible scene>\",\"objects\":[{\"id\":1,\"label\":\"<object type>\",\"appearance\":\"<visible appearance>\",\"image_location\":\"<image-relative location>\",\"occlusion\":\"unknown\",\"support_contacts\":\"unknown\",\"installation_evidence\":\"unknown\",\"observation\":\"<synthesis of visible evidence>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}],\"relations\":[]}\nocclusion must be one of none/partial/heavy/unknown, attachment_evidence must be one of visible_installation/appears_freestanding/not_visible/mixed; choose the value justified by the photograph. A nonempty relation record has exactly {\"subject_id\":1,\"predicate\":\"beside\",\"object_id\":2,\"evidence\":\"<visible spatial evidence>\"}; use actual existing IDs and the appropriate allowed predicate, not these template IDs automatically.\nThe object and relation fields above are mandatory, no extra fields, no markdown. Do not report classifications or reasons for stability. Unknown evidence must stay explicit.\n",
+        "system_sha256": "75acd9d5febf63588cd0621c3abcaa35b15d1e9bd6fa3ef471359bc5c3f83f00",
+        "precision_requested": "FP16",
+        "attention": "sdpa",
+        "seed": 42,
+        "do_sample": false,
+        "max_new_tokens": 8192,
+        "model_max_length": 16384,
+        "num_beams": 1,
+        "top_p": 0.8,
+        "top_k": 20,
+        "repetition_penalty": 1.05,
+        "unsupported_comparison_options": [
+          "presence_penalty"
+        ],
+        "note": "Greedy temperature-zero equivalent; top_p/top_k inactive, no JSON grammar constraint."
+      },
+      "frames": [
+        {
+          "dataset": "thud_dense_test50",
+          "index": 0,
+          "frame_id": "image-000001",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000007.color.png",
+          "image_sha256": "b278392d99b9db044d7191682c14b20adf22b072cdb35096d215a36105e2c5db",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 1,
+          "frame_id": "image-000002",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000010.color.png",
+          "image_sha256": "1886e38980294cce7bc645e8dc7ea21bf63c1f5e50398bc4dee812251cd61672",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 2,
+          "frame_id": "image-000003",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000015.color.png",
+          "image_sha256": "1421f77b979d654839a2af84f05147c89cf819042b38887454ab168a9e2006c5",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 3,
+          "frame_id": "image-000004",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000019.color.png",
+          "image_sha256": "b1620042cba0fd7bb16e4ddaaac5ed87eda8860ffeaa47f2fd75602011ea2a7a",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 4,
+          "frame_id": "image-000005",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000025.color.png",
+          "image_sha256": "ff74125e3448fb8772ae015f651182e16759286e08fc861d779238190d5ca23b",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 5,
+          "frame_id": "image-000006",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000030.color.png",
+          "image_sha256": "e1667ff86bdf6f8e6bcb0a439446ecc5a9139180448998d1081d219d27c87313",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 6,
+          "frame_id": "image-000007",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000061.color.png",
+          "image_sha256": "8946c2834223d420b6e6e350de6ec57dff708eff206c208bed9ad088620083a8",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 7,
+          "frame_id": "image-000008",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000064.color.png",
+          "image_sha256": "a00922ee1e79c376b58ab61175952cf7079e1a0dd270bcf999bf72ed42e08ccc",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 8,
+          "frame_id": "image-000009",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000068.color.png",
+          "image_sha256": "1a170e045885fef91952ff1042c7000ccea0603edd80f48973125d80b67669d7",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 9,
+          "frame_id": "image-000010",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000072.color.png",
+          "image_sha256": "7ea5942c6250d913f061893586a8f3398d5772dd460b8601a34fc63e99c0f3cc",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 10,
+          "frame_id": "image-000011",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000078.color.png",
+          "image_sha256": "31311b4f7a48c37ada5bb80ab72eabc44357ba7d6efbb4a1efb00a582080b9af",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 11,
+          "frame_id": "image-000012",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000081.color.png",
+          "image_sha256": "fe160e0947cdef0178d8a7eda19406f25455993d35dc7f2014b1d823fef813f7",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 12,
+          "frame_id": "image-000013",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000084.color.png",
+          "image_sha256": "c0aa5b67d1b8ab95502d7a5b9abc3c4ba2b8f754c8eb70c1e9f2462269d8c354",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 13,
+          "frame_id": "image-000014",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000097.color.png",
+          "image_sha256": "43e3294f346b23e35132c727fa345636ab2d92cd189b3a5dba9ef2247ff2a485",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 14,
+          "frame_id": "image-000015",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000100.color.png",
+          "image_sha256": "f9febbb8f04c17b8191b06e18aac472f424db76f8ead8956696feb07ef24a13b",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 15,
+          "frame_id": "image-000016",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000104.color.png",
+          "image_sha256": "10a810d732ab91fdc0825beb82dd7f3a00deb6341ca1ad0cdd65028c18a950f0",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 16,
+          "frame_id": "image-000017",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000107.color.png",
+          "image_sha256": "b4e7ef01d83819400007b78f602b77801e0c8ae513eddceae691424c9578f730",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 17,
+          "frame_id": "image-000018",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000111.color.png",
+          "image_sha256": "3c94c4f60efde88066e1e03cea32e70144401fc9c9b0678a27f91cdacb0bd275",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 18,
+          "frame_id": "image-000019",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000116.color.png",
+          "image_sha256": "3d4438694b0e79c36302df40089378e7897c2dcded9d65c367a74d8631e10d12",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 19,
+          "frame_id": "image-000020",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000119.color.png",
+          "image_sha256": "2c3e610dd2c6c46a130795e17882f258e61fdf7464821876f2a7d161eab9cfc1",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 20,
+          "frame_id": "image-000021",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000122.color.png",
+          "image_sha256": "3d41844adb92ae442ae599d04a7ddbe62531ae808a2626ee05970265cc4b8593",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 21,
+          "frame_id": "image-000022",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000125.color.png",
+          "image_sha256": "188e67cd224ec1cc92ee98cde736d6a778acb16af1fd183017622f5dd3e4a841",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 22,
+          "frame_id": "image-000023",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000128.color.png",
+          "image_sha256": "7b19eebd86cc61ae3fa357b48230a4b197d561bc4e129d1110cada4137261a5d",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 23,
+          "frame_id": "image-000024",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000132.color.png",
+          "image_sha256": "6616f119c979dce84cb3c2a56a6d367b9a74ce08dc86a127314c9ee1c10cda2c",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 24,
+          "frame_id": "image-000025",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000136.color.png",
+          "image_sha256": "f35a932ee20d02bcbf50e95b8825ca3c4e3d789383f79079f512acc81c19f2c0",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 25,
+          "frame_id": "image-000026",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000140.color.png",
+          "image_sha256": "3930b6893a94d16ed815af40fb61c8f267c5280e9714079afef50da037f19783",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 26,
+          "frame_id": "image-000027",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000147.color.png",
+          "image_sha256": "5fcfb975fff71d73938c085380854e45cf0fd81e0243d4c59c1cc3fd805526af",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 27,
+          "frame_id": "image-000028",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000150.color.png",
+          "image_sha256": "4c5c4f79b2dc709159d9ad83338394984699e87b6cd9c98d2732bbbfe564f448",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 28,
+          "frame_id": "image-000029",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000153.color.png",
+          "image_sha256": "8b26ee61e9c88c2f6584616ca18e28bde46b3df645d7099b598f8f38189ee8a8",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 29,
+          "frame_id": "image-000030",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000156.color.png",
+          "image_sha256": "ffa1226ae3bedf3201ffadd4834727fd9427913ca41df930582db031cd70500c",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 30,
+          "frame_id": "image-000031",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000162.color.png",
+          "image_sha256": "116f3112f0fd6e72ca1651c0be22ac87e905ea7bfa9eb4d6aeeb82ab05200f9c",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 31,
+          "frame_id": "image-000032",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000175.color.png",
+          "image_sha256": "70239c47991125836a68ef81b4b2da545ccdac8a26ea2f16c2ef0a9773f1a919",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 32,
+          "frame_id": "image-000033",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000179.color.png",
+          "image_sha256": "79fc9b90b27697dd8fffa1df77ddc3c7c60a9c7ebb1b6a3ebbe0cc014adb9330",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 33,
+          "frame_id": "image-000034",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000182.color.png",
+          "image_sha256": "81774ccb453bb0390c4b6f16d3c9ce9a950e41a4d9aab7f3d3f77ce44102dead",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 34,
+          "frame_id": "image-000035",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000186.color.png",
+          "image_sha256": "1a55cce4982115285406e046a549704b00db04f001f3f7b17eb1760888f1f334",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 35,
+          "frame_id": "image-000036",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000191.color.png",
+          "image_sha256": "cbade94ed8c61549456c4a5925369608b5be303372947acabaad0bf17840f2ce",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 36,
+          "frame_id": "image-000037",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000232.color.png",
+          "image_sha256": "21771fac2e6fa14f0b3395b317d801a61169c7a9ddffb9137e39190c71f52bcc",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 37,
+          "frame_id": "image-000038",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000237.color.png",
+          "image_sha256": "7e7e5727f5298a9936f671e43de40f1c46dd23da11101f274238110c88d93e0c",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 38,
+          "frame_id": "image-000039",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000242.color.png",
+          "image_sha256": "79e4426d290d5f22bff08dbecd0b4c6c25396fa4bf35fdcd4053c1e4b7e5d4ee",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 39,
+          "frame_id": "image-000040",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000245.color.png",
+          "image_sha256": "648bdff67ee4b60ca7d219c4079aaa86216bcf1746d7d361e70270081d7ae60a",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 40,
+          "frame_id": "image-000041",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000257.color.png",
+          "image_sha256": "18a2740245ad3e049a5eff646ef58f5f8cde2ba018cb18334fec7079cd0af52b",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 41,
+          "frame_id": "image-000042",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000297.color.png",
+          "image_sha256": "9329d0ad54684a5d33bc1047bc45ab49a244f0bdc4090b602c36f01178cdc2b3",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 42,
+          "frame_id": "image-000043",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000313.color.png",
+          "image_sha256": "2ec9482b6eb051e5a919ba4be00b7b62b64e9cd54a7aaa4aedd4d5eec24069bc",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 43,
+          "frame_id": "image-000044",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000318.color.png",
+          "image_sha256": "8676ca8732242bb0d10e112e4738d0e3e423c1988ac36d7aca4299cd61243f9d",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 44,
+          "frame_id": "image-000045",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000324.color.png",
+          "image_sha256": "7aeb26d7f88e05ba37652087f79b9fe392a9df789852e94ced2c52fc3fe47132",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 45,
+          "frame_id": "image-000046",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000335.color.png",
+          "image_sha256": "f5127088954414c35482e7350c4704fa797778f23e7d230b406baa4f2b5fb492",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 46,
+          "frame_id": "image-000047",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000338.color.png",
+          "image_sha256": "6ae9c5fbbacb25e98e5459d03630da1b7d6259896566563b13b5e437a1f19c01",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 47,
+          "frame_id": "image-000048",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000343.color.png",
+          "image_sha256": "c83e93bf43ca6af6d77a62ea5ca0e2ccb484398f81022abc96214270a94f06c5",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 48,
+          "frame_id": "image-000049",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000349.color.png",
+          "image_sha256": "c75607763bc0a1a070e55b01af8fbdaeedf58f8b9bba1b8fc35029e4036769cd",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 49,
+          "frame_id": "image-000050",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000355.color.png",
+          "image_sha256": "a7c08131665e6cfb5b56372f366609165607528feaf008b912563821d7b68f98",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 0,
+          "frame_id": "image-000001",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000002.color.png",
+          "image_sha256": "c4dc99ba53c617df06a69d20c4538f13f45e8fbff66d495e12ab9439a50febca",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 1,
+          "frame_id": "image-000002",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000006.color.png",
+          "image_sha256": "bcc11c06dde1389713168c30103f644007645548091e516b3745325f3ff1a9c3",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 2,
+          "frame_id": "image-000003",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000011.color.png",
+          "image_sha256": "593c6d253ce4964dbde7ee7781bf32a17fb74fdecc9174b8f72cff277e014c52",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 3,
+          "frame_id": "image-000004",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000016.color.png",
+          "image_sha256": "3a826bcd80e43a90118269322257e9f269d4b071dcf9ea115a2982919e6aa728",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 4,
+          "frame_id": "image-000005",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000021.color.png",
+          "image_sha256": "ba6a072882b31036c53b4b1bdd7ea5fe72b5750530d8e72b97e22e9f5d4e9611",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 5,
+          "frame_id": "image-000006",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000026.color.png",
+          "image_sha256": "920b1724a6170405b38462568f546262239a3d44d873e2f76b0425e0499ce1c3",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 6,
+          "frame_id": "image-000007",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000030.color.png",
+          "image_sha256": "d7066e88f522c739031315b87a2e03dbd7e259ee154e3f7d570a6a3fe8805a4b",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 7,
+          "frame_id": "image-000008",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000035.color.png",
+          "image_sha256": "02302186010b7b382917b16a57ec8386f048f6d4bff5bf540ba87466d6d5c296",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 8,
+          "frame_id": "image-000009",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000040.color.png",
+          "image_sha256": "8f15ab247862e5a59ea374cd1f8f507ff074eb0cbffaff3126e07d66270d6983",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 9,
+          "frame_id": "image-000010",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000053.color.png",
+          "image_sha256": "82f054905f3c83ad3ef8810b15d8a1458b20bb78017d364595aa0ccb56d49d15",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 10,
+          "frame_id": "image-000011",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000057.color.png",
+          "image_sha256": "31c457808ddace784ea87ee6bb70db6b01f3616cc2d8ff68e9b87c40c1f6254e",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 11,
+          "frame_id": "image-000012",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000064.color.png",
+          "image_sha256": "76370dcf21d3d0751f5a67dd900fd2528416c398c53ff0dc421b92e7b00578e0",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 12,
+          "frame_id": "image-000013",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000068.color.png",
+          "image_sha256": "39e18a6e3de8368d58e80bb33450e7f48e90b83d24c3aebedc189521bda20def",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 13,
+          "frame_id": "image-000014",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000074.color.png",
+          "image_sha256": "b5934e84dded6d8fa8888bf09a415e6eb066a164fd96d7125f747b91bc6ce19e",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 14,
+          "frame_id": "image-000015",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000080.color.png",
+          "image_sha256": "58e3a5995fbb961816984f788661d34fb84a8c0802babaae140d6da527b192b0",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 15,
+          "frame_id": "image-000016",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000084.color.png",
+          "image_sha256": "921ac00a3097c40366742509ff2966de1ad20a6fe02ef73cf225f81d255d6e06",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 16,
+          "frame_id": "image-000017",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000088.color.png",
+          "image_sha256": "3db28461779e7530367058d426c9a38be31d06c9776043abb5bd3a8aef1128df",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 17,
+          "frame_id": "image-000018",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000094.color.png",
+          "image_sha256": "da2b35b34d55720902439c1dc11034e8cad21bbb795c721bebcab0dd71d8c8c7",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 18,
+          "frame_id": "image-000019",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000099.color.png",
+          "image_sha256": "b7b95de6a51029533eda34c6b8269f4d46ede55f88916b803a18f8e5a7d20add",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 19,
+          "frame_id": "image-000020",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000105.color.png",
+          "image_sha256": "a251028eafca262ef9bb98301e74b8f62f2e969ddbf5f3c55ff307ba65daedc8",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 20,
+          "frame_id": "image-000021",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000111.color.png",
+          "image_sha256": "0b26ef7b11d18f058bbd8a4cf369d6dc3704cbba5c7a3ab4ac0f833ceec0f2db",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 21,
+          "frame_id": "image-000022",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000116.color.png",
+          "image_sha256": "90a73848de688db0a7138dfc041652aef35a6d6f435e5c7fc32558678821fb23",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 22,
+          "frame_id": "image-000023",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000121.color.png",
+          "image_sha256": "4bd6dc672e94217cf1f89299869ce73a715610edd0bfd72ad264d7180da7770c",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 23,
+          "frame_id": "image-000024",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000127.color.png",
+          "image_sha256": "8ac8db9980b8a70f1b089e372f8992df4ab30e18763ebad05b43b9c31797fd5a",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 24,
+          "frame_id": "image-000025",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000138.color.png",
+          "image_sha256": "1c595c5adadbefe7c483d534e80951218a59fbfb6254488044f153c0b7104570",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 25,
+          "frame_id": "image-000026",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000169.color.png",
+          "image_sha256": "f7acd63789928aa6a474aa816f9c3bf3f6f786b97598f5bf0f0eba50c29bb031",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 26,
+          "frame_id": "image-000027",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000174.color.png",
+          "image_sha256": "291e0a6424f915829e9e6911823c612cc9eeef7baedc700b0c320e77af3bf437",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 27,
+          "frame_id": "image-000028",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000178.color.png",
+          "image_sha256": "bb12e4e694b4d820b1c73eef369f977ba6c630e977b37b89a959cfb8f70af19b",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 28,
+          "frame_id": "image-000029",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000183.color.png",
+          "image_sha256": "0f542aa91bb3e6f2f04f615d42c17d5b702cebdebfde32369e439bdfa16ff342",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 29,
+          "frame_id": "image-000030",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000190.color.png",
+          "image_sha256": "baafba58600aea138a67ae1e2fb45e098078d0859d83dc0a1f866aff317e9c9d",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 30,
+          "frame_id": "image-000031",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000195.color.png",
+          "image_sha256": "c4be752eae91d876d7e1faba73483f20428d2d90c0f9fcc93622ac220e8c01a8",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 31,
+          "frame_id": "image-000032",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000202.color.png",
+          "image_sha256": "42bd3cb8b9bfe6a45413c5c518053c28c61ddc80de2860bf3c117372d1948439",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 32,
+          "frame_id": "image-000033",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000216.color.png",
+          "image_sha256": "b140a47a7a0df36260129003d308afc513a18b230bdc84d4dd6bf0a56d8aa0f0",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 33,
+          "frame_id": "image-000034",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000262.color.png",
+          "image_sha256": "d7062368deea981f342f2f3b80a43d5129eb9da8156d7a4b1f94ad93fc289b62",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 34,
+          "frame_id": "image-000035",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000268.color.png",
+          "image_sha256": "19af192cc8da423fff70761527883238f84dbbc8ac25e8b343089b71c0a3f955",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 35,
+          "frame_id": "image-000036",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000274.color.png",
+          "image_sha256": "b317e9e455df84e6cf9cc6dbaf4ab88ebc23dae363ab48e460f2d50d33b0e856",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 36,
+          "frame_id": "image-000037",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000279.color.png",
+          "image_sha256": "74dcf684c4f8dc361fd579ddbd86d124070433cbfb5169f67a0ea9ac5cac2373",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 37,
+          "frame_id": "image-000038",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000284.color.png",
+          "image_sha256": "cb756e7e416bc3b329e8eb9195204c906dada93e953615e652afed4e45e64435",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 38,
+          "frame_id": "image-000039",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000288.color.png",
+          "image_sha256": "1fc11521d7e6a888aa6419e3f954485a16cc1e0edb9045b22757e67289f6b4f0",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 39,
+          "frame_id": "image-000040",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000292.color.png",
+          "image_sha256": "0b021b7d516f389cbdb714266736fcd0aea45e0b78df4f1955bcab5166e99a9a",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 40,
+          "frame_id": "image-000041",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000297.color.png",
+          "image_sha256": "f503652d1c685c472e4e5545104e097ce582f529009fc8a53b09c394b7cd90f6",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 41,
+          "frame_id": "image-000042",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000302.color.png",
+          "image_sha256": "4a64cdb6fb26c5fbf5dabc78580980aab48704a37a39e26bf60520ef1c0e517c",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 42,
+          "frame_id": "image-000043",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000310.color.png",
+          "image_sha256": "42de0b109e22709ab8ee4e3270a690379e6e82d7ab9a77928dae91ab1878dcb1",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 43,
+          "frame_id": "image-000044",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000316.color.png",
+          "image_sha256": "59fbdf6bffbbf81eea508c648aab00c61324fda8e112af7d47c05de6c4a94d84",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 44,
+          "frame_id": "image-000045",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000320.color.png",
+          "image_sha256": "5dc0946cb7303d5cda5086605c61398712b409c68fed061704b020198aed89c3",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 45,
+          "frame_id": "image-000046",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000324.color.png",
+          "image_sha256": "7133607659cfcad73c98d450a756f7f5d6b72686c5b9d85e31481d21183ca4ff",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 46,
+          "frame_id": "image-000047",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000328.color.png",
+          "image_sha256": "217e466486b67ea22a2f4c3698a61ce857bc6c3787932b6da04f683618c5d642",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 47,
+          "frame_id": "image-000048",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000335.color.png",
+          "image_sha256": "d80883a6f789c589bd3d1ae8a9623720e6b89bfdb4d8a6f4cfccef351e69024f",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 48,
+          "frame_id": "image-000049",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000342.color.png",
+          "image_sha256": "6092de04eb6d93c08a09f4777a26561a93ca7e9797aecb5e495fc166b235a810",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 49,
+          "frame_id": "image-000050",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000351.color.png",
+          "image_sha256": "277169e32f4240b797dadb80a2d73fddda74536e55b3273e985816c992070251",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        }
+      ]
+    },
+    "florence": {
+      "config": {
+        "model": "microsoft/Florence-2-large",
+        "revision": "21a599d414c4d928c9032694c424fb94458e3594",
+        "tasks": {
+          "caption": "<MORE_DETAILED_CAPTION>",
+          "od": "<OD>",
+          "dense": "<DENSE_REGION_CAPTION>"
+        },
+        "precision_requested": "FP16",
+        "num_beams": 3,
+        "do_sample": false,
+        "seed": 42,
+        "max_new_tokens": 1024,
+        "attention": "eager",
+        "bbox_coordinates": "original image pixels, xyxy",
+        "unsupported_comparison_options": [
+          "rich JSON prompt",
+          "16384 context",
+          "8192 output",
+          "top_k",
+          "top_p",
+          "presence_penalty"
+        ]
+      },
+      "frames": [
+        {
+          "dataset": "thud_dense_test50",
+          "index": 0,
+          "frame_id": "image-000001",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000007.color.png",
+          "image_sha256": "b278392d99b9db044d7191682c14b20adf22b072cdb35096d215a36105e2c5db",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 1,
+          "frame_id": "image-000002",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000010.color.png",
+          "image_sha256": "1886e38980294cce7bc645e8dc7ea21bf63c1f5e50398bc4dee812251cd61672",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 2,
+          "frame_id": "image-000003",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000015.color.png",
+          "image_sha256": "1421f77b979d654839a2af84f05147c89cf819042b38887454ab168a9e2006c5",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 3,
+          "frame_id": "image-000004",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000019.color.png",
+          "image_sha256": "b1620042cba0fd7bb16e4ddaaac5ed87eda8860ffeaa47f2fd75602011ea2a7a",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 4,
+          "frame_id": "image-000005",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000025.color.png",
+          "image_sha256": "ff74125e3448fb8772ae015f651182e16759286e08fc861d779238190d5ca23b",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 5,
+          "frame_id": "image-000006",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000030.color.png",
+          "image_sha256": "e1667ff86bdf6f8e6bcb0a439446ecc5a9139180448998d1081d219d27c87313",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 6,
+          "frame_id": "image-000007",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000061.color.png",
+          "image_sha256": "8946c2834223d420b6e6e350de6ec57dff708eff206c208bed9ad088620083a8",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 7,
+          "frame_id": "image-000008",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000064.color.png",
+          "image_sha256": "a00922ee1e79c376b58ab61175952cf7079e1a0dd270bcf999bf72ed42e08ccc",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 8,
+          "frame_id": "image-000009",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000068.color.png",
+          "image_sha256": "1a170e045885fef91952ff1042c7000ccea0603edd80f48973125d80b67669d7",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 9,
+          "frame_id": "image-000010",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000072.color.png",
+          "image_sha256": "7ea5942c6250d913f061893586a8f3398d5772dd460b8601a34fc63e99c0f3cc",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 10,
+          "frame_id": "image-000011",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000078.color.png",
+          "image_sha256": "31311b4f7a48c37ada5bb80ab72eabc44357ba7d6efbb4a1efb00a582080b9af",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 11,
+          "frame_id": "image-000012",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000081.color.png",
+          "image_sha256": "fe160e0947cdef0178d8a7eda19406f25455993d35dc7f2014b1d823fef813f7",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 12,
+          "frame_id": "image-000013",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000084.color.png",
+          "image_sha256": "c0aa5b67d1b8ab95502d7a5b9abc3c4ba2b8f754c8eb70c1e9f2462269d8c354",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 13,
+          "frame_id": "image-000014",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000097.color.png",
+          "image_sha256": "43e3294f346b23e35132c727fa345636ab2d92cd189b3a5dba9ef2247ff2a485",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 14,
+          "frame_id": "image-000015",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000100.color.png",
+          "image_sha256": "f9febbb8f04c17b8191b06e18aac472f424db76f8ead8956696feb07ef24a13b",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 15,
+          "frame_id": "image-000016",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000104.color.png",
+          "image_sha256": "10a810d732ab91fdc0825beb82dd7f3a00deb6341ca1ad0cdd65028c18a950f0",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 16,
+          "frame_id": "image-000017",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000107.color.png",
+          "image_sha256": "b4e7ef01d83819400007b78f602b77801e0c8ae513eddceae691424c9578f730",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 17,
+          "frame_id": "image-000018",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000111.color.png",
+          "image_sha256": "3c94c4f60efde88066e1e03cea32e70144401fc9c9b0678a27f91cdacb0bd275",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 18,
+          "frame_id": "image-000019",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000116.color.png",
+          "image_sha256": "3d4438694b0e79c36302df40089378e7897c2dcded9d65c367a74d8631e10d12",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 19,
+          "frame_id": "image-000020",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000119.color.png",
+          "image_sha256": "2c3e610dd2c6c46a130795e17882f258e61fdf7464821876f2a7d161eab9cfc1",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 20,
+          "frame_id": "image-000021",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000122.color.png",
+          "image_sha256": "3d41844adb92ae442ae599d04a7ddbe62531ae808a2626ee05970265cc4b8593",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 21,
+          "frame_id": "image-000022",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000125.color.png",
+          "image_sha256": "188e67cd224ec1cc92ee98cde736d6a778acb16af1fd183017622f5dd3e4a841",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 22,
+          "frame_id": "image-000023",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000128.color.png",
+          "image_sha256": "7b19eebd86cc61ae3fa357b48230a4b197d561bc4e129d1110cada4137261a5d",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 23,
+          "frame_id": "image-000024",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000132.color.png",
+          "image_sha256": "6616f119c979dce84cb3c2a56a6d367b9a74ce08dc86a127314c9ee1c10cda2c",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 24,
+          "frame_id": "image-000025",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000136.color.png",
+          "image_sha256": "f35a932ee20d02bcbf50e95b8825ca3c4e3d789383f79079f512acc81c19f2c0",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 25,
+          "frame_id": "image-000026",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000140.color.png",
+          "image_sha256": "3930b6893a94d16ed815af40fb61c8f267c5280e9714079afef50da037f19783",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 26,
+          "frame_id": "image-000027",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000147.color.png",
+          "image_sha256": "5fcfb975fff71d73938c085380854e45cf0fd81e0243d4c59c1cc3fd805526af",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 27,
+          "frame_id": "image-000028",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000150.color.png",
+          "image_sha256": "4c5c4f79b2dc709159d9ad83338394984699e87b6cd9c98d2732bbbfe564f448",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 28,
+          "frame_id": "image-000029",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000153.color.png",
+          "image_sha256": "8b26ee61e9c88c2f6584616ca18e28bde46b3df645d7099b598f8f38189ee8a8",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 29,
+          "frame_id": "image-000030",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000156.color.png",
+          "image_sha256": "ffa1226ae3bedf3201ffadd4834727fd9427913ca41df930582db031cd70500c",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 30,
+          "frame_id": "image-000031",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000162.color.png",
+          "image_sha256": "116f3112f0fd6e72ca1651c0be22ac87e905ea7bfa9eb4d6aeeb82ab05200f9c",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 31,
+          "frame_id": "image-000032",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000175.color.png",
+          "image_sha256": "70239c47991125836a68ef81b4b2da545ccdac8a26ea2f16c2ef0a9773f1a919",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 32,
+          "frame_id": "image-000033",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000179.color.png",
+          "image_sha256": "79fc9b90b27697dd8fffa1df77ddc3c7c60a9c7ebb1b6a3ebbe0cc014adb9330",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 33,
+          "frame_id": "image-000034",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000182.color.png",
+          "image_sha256": "81774ccb453bb0390c4b6f16d3c9ce9a950e41a4d9aab7f3d3f77ce44102dead",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 34,
+          "frame_id": "image-000035",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000186.color.png",
+          "image_sha256": "1a55cce4982115285406e046a549704b00db04f001f3f7b17eb1760888f1f334",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 35,
+          "frame_id": "image-000036",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000191.color.png",
+          "image_sha256": "cbade94ed8c61549456c4a5925369608b5be303372947acabaad0bf17840f2ce",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 36,
+          "frame_id": "image-000037",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000232.color.png",
+          "image_sha256": "21771fac2e6fa14f0b3395b317d801a61169c7a9ddffb9137e39190c71f52bcc",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 37,
+          "frame_id": "image-000038",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000237.color.png",
+          "image_sha256": "7e7e5727f5298a9936f671e43de40f1c46dd23da11101f274238110c88d93e0c",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 38,
+          "frame_id": "image-000039",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000242.color.png",
+          "image_sha256": "79e4426d290d5f22bff08dbecd0b4c6c25396fa4bf35fdcd4053c1e4b7e5d4ee",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 39,
+          "frame_id": "image-000040",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000245.color.png",
+          "image_sha256": "648bdff67ee4b60ca7d219c4079aaa86216bcf1746d7d361e70270081d7ae60a",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 40,
+          "frame_id": "image-000041",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000257.color.png",
+          "image_sha256": "18a2740245ad3e049a5eff646ef58f5f8cde2ba018cb18334fec7079cd0af52b",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 41,
+          "frame_id": "image-000042",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000297.color.png",
+          "image_sha256": "9329d0ad54684a5d33bc1047bc45ab49a244f0bdc4090b602c36f01178cdc2b3",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 42,
+          "frame_id": "image-000043",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000313.color.png",
+          "image_sha256": "2ec9482b6eb051e5a919ba4be00b7b62b64e9cd54a7aaa4aedd4d5eec24069bc",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 43,
+          "frame_id": "image-000044",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000318.color.png",
+          "image_sha256": "8676ca8732242bb0d10e112e4738d0e3e423c1988ac36d7aca4299cd61243f9d",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 44,
+          "frame_id": "image-000045",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000324.color.png",
+          "image_sha256": "7aeb26d7f88e05ba37652087f79b9fe392a9df789852e94ced2c52fc3fe47132",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 45,
+          "frame_id": "image-000046",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000335.color.png",
+          "image_sha256": "f5127088954414c35482e7350c4704fa797778f23e7d230b406baa4f2b5fb492",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 46,
+          "frame_id": "image-000047",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000338.color.png",
+          "image_sha256": "6ae9c5fbbacb25e98e5459d03630da1b7d6259896566563b13b5e437a1f19c01",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 47,
+          "frame_id": "image-000048",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000343.color.png",
+          "image_sha256": "c83e93bf43ca6af6d77a62ea5ca0e2ccb484398f81022abc96214270a94f06c5",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 48,
+          "frame_id": "image-000049",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000349.color.png",
+          "image_sha256": "c75607763bc0a1a070e55b01af8fbdaeedf58f8b9bba1b8fc35029e4036769cd",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_dense_test50",
+          "index": 49,
+          "frame_id": "image-000050",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_dense_test50/images/frame-000355.color.png",
+          "image_sha256": "a7c08131665e6cfb5b56372f366609165607528feaf008b912563821d7b68f98",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 0,
+          "frame_id": "image-000001",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000002.color.png",
+          "image_sha256": "c4dc99ba53c617df06a69d20c4538f13f45e8fbff66d495e12ab9439a50febca",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 1,
+          "frame_id": "image-000002",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000006.color.png",
+          "image_sha256": "bcc11c06dde1389713168c30103f644007645548091e516b3745325f3ff1a9c3",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 2,
+          "frame_id": "image-000003",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000011.color.png",
+          "image_sha256": "593c6d253ce4964dbde7ee7781bf32a17fb74fdecc9174b8f72cff277e014c52",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 3,
+          "frame_id": "image-000004",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000016.color.png",
+          "image_sha256": "3a826bcd80e43a90118269322257e9f269d4b071dcf9ea115a2982919e6aa728",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 4,
+          "frame_id": "image-000005",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000021.color.png",
+          "image_sha256": "ba6a072882b31036c53b4b1bdd7ea5fe72b5750530d8e72b97e22e9f5d4e9611",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 5,
+          "frame_id": "image-000006",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000026.color.png",
+          "image_sha256": "920b1724a6170405b38462568f546262239a3d44d873e2f76b0425e0499ce1c3",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 6,
+          "frame_id": "image-000007",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000030.color.png",
+          "image_sha256": "d7066e88f522c739031315b87a2e03dbd7e259ee154e3f7d570a6a3fe8805a4b",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 7,
+          "frame_id": "image-000008",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000035.color.png",
+          "image_sha256": "02302186010b7b382917b16a57ec8386f048f6d4bff5bf540ba87466d6d5c296",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 8,
+          "frame_id": "image-000009",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000040.color.png",
+          "image_sha256": "8f15ab247862e5a59ea374cd1f8f507ff074eb0cbffaff3126e07d66270d6983",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 9,
+          "frame_id": "image-000010",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000053.color.png",
+          "image_sha256": "82f054905f3c83ad3ef8810b15d8a1458b20bb78017d364595aa0ccb56d49d15",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 10,
+          "frame_id": "image-000011",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000057.color.png",
+          "image_sha256": "31c457808ddace784ea87ee6bb70db6b01f3616cc2d8ff68e9b87c40c1f6254e",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 11,
+          "frame_id": "image-000012",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000064.color.png",
+          "image_sha256": "76370dcf21d3d0751f5a67dd900fd2528416c398c53ff0dc421b92e7b00578e0",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 12,
+          "frame_id": "image-000013",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000068.color.png",
+          "image_sha256": "39e18a6e3de8368d58e80bb33450e7f48e90b83d24c3aebedc189521bda20def",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 13,
+          "frame_id": "image-000014",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000074.color.png",
+          "image_sha256": "b5934e84dded6d8fa8888bf09a415e6eb066a164fd96d7125f747b91bc6ce19e",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 14,
+          "frame_id": "image-000015",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000080.color.png",
+          "image_sha256": "58e3a5995fbb961816984f788661d34fb84a8c0802babaae140d6da527b192b0",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 15,
+          "frame_id": "image-000016",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000084.color.png",
+          "image_sha256": "921ac00a3097c40366742509ff2966de1ad20a6fe02ef73cf225f81d255d6e06",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 16,
+          "frame_id": "image-000017",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000088.color.png",
+          "image_sha256": "3db28461779e7530367058d426c9a38be31d06c9776043abb5bd3a8aef1128df",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 17,
+          "frame_id": "image-000018",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000094.color.png",
+          "image_sha256": "da2b35b34d55720902439c1dc11034e8cad21bbb795c721bebcab0dd71d8c8c7",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 18,
+          "frame_id": "image-000019",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000099.color.png",
+          "image_sha256": "b7b95de6a51029533eda34c6b8269f4d46ede55f88916b803a18f8e5a7d20add",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 19,
+          "frame_id": "image-000020",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000105.color.png",
+          "image_sha256": "a251028eafca262ef9bb98301e74b8f62f2e969ddbf5f3c55ff307ba65daedc8",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 20,
+          "frame_id": "image-000021",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000111.color.png",
+          "image_sha256": "0b26ef7b11d18f058bbd8a4cf369d6dc3704cbba5c7a3ab4ac0f833ceec0f2db",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 21,
+          "frame_id": "image-000022",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000116.color.png",
+          "image_sha256": "90a73848de688db0a7138dfc041652aef35a6d6f435e5c7fc32558678821fb23",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 22,
+          "frame_id": "image-000023",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000121.color.png",
+          "image_sha256": "4bd6dc672e94217cf1f89299869ce73a715610edd0bfd72ad264d7180da7770c",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 23,
+          "frame_id": "image-000024",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000127.color.png",
+          "image_sha256": "8ac8db9980b8a70f1b089e372f8992df4ab30e18763ebad05b43b9c31797fd5a",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 24,
+          "frame_id": "image-000025",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000138.color.png",
+          "image_sha256": "1c595c5adadbefe7c483d534e80951218a59fbfb6254488044f153c0b7104570",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 25,
+          "frame_id": "image-000026",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000169.color.png",
+          "image_sha256": "f7acd63789928aa6a474aa816f9c3bf3f6f786b97598f5bf0f0eba50c29bb031",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 26,
+          "frame_id": "image-000027",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000174.color.png",
+          "image_sha256": "291e0a6424f915829e9e6911823c612cc9eeef7baedc700b0c320e77af3bf437",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 27,
+          "frame_id": "image-000028",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000178.color.png",
+          "image_sha256": "bb12e4e694b4d820b1c73eef369f977ba6c630e977b37b89a959cfb8f70af19b",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 28,
+          "frame_id": "image-000029",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000183.color.png",
+          "image_sha256": "0f542aa91bb3e6f2f04f615d42c17d5b702cebdebfde32369e439bdfa16ff342",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 29,
+          "frame_id": "image-000030",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000190.color.png",
+          "image_sha256": "baafba58600aea138a67ae1e2fb45e098078d0859d83dc0a1f866aff317e9c9d",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 30,
+          "frame_id": "image-000031",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000195.color.png",
+          "image_sha256": "c4be752eae91d876d7e1faba73483f20428d2d90c0f9fcc93622ac220e8c01a8",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 31,
+          "frame_id": "image-000032",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000202.color.png",
+          "image_sha256": "42bd3cb8b9bfe6a45413c5c518053c28c61ddc80de2860bf3c117372d1948439",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 32,
+          "frame_id": "image-000033",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000216.color.png",
+          "image_sha256": "b140a47a7a0df36260129003d308afc513a18b230bdc84d4dd6bf0a56d8aa0f0",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 33,
+          "frame_id": "image-000034",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000262.color.png",
+          "image_sha256": "d7062368deea981f342f2f3b80a43d5129eb9da8156d7a4b1f94ad93fc289b62",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 34,
+          "frame_id": "image-000035",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000268.color.png",
+          "image_sha256": "19af192cc8da423fff70761527883238f84dbbc8ac25e8b343089b71c0a3f955",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 35,
+          "frame_id": "image-000036",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000274.color.png",
+          "image_sha256": "b317e9e455df84e6cf9cc6dbaf4ab88ebc23dae363ab48e460f2d50d33b0e856",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 36,
+          "frame_id": "image-000037",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000279.color.png",
+          "image_sha256": "74dcf684c4f8dc361fd579ddbd86d124070433cbfb5169f67a0ea9ac5cac2373",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 37,
+          "frame_id": "image-000038",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000284.color.png",
+          "image_sha256": "cb756e7e416bc3b329e8eb9195204c906dada93e953615e652afed4e45e64435",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 38,
+          "frame_id": "image-000039",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000288.color.png",
+          "image_sha256": "1fc11521d7e6a888aa6419e3f954485a16cc1e0edb9045b22757e67289f6b4f0",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 39,
+          "frame_id": "image-000040",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000292.color.png",
+          "image_sha256": "0b021b7d516f389cbdb714266736fcd0aea45e0b78df4f1955bcab5166e99a9a",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 40,
+          "frame_id": "image-000041",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000297.color.png",
+          "image_sha256": "f503652d1c685c472e4e5545104e097ce582f529009fc8a53b09c394b7cd90f6",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 41,
+          "frame_id": "image-000042",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000302.color.png",
+          "image_sha256": "4a64cdb6fb26c5fbf5dabc78580980aab48704a37a39e26bf60520ef1c0e517c",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 42,
+          "frame_id": "image-000043",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000310.color.png",
+          "image_sha256": "42de0b109e22709ab8ee4e3270a690379e6e82d7ab9a77928dae91ab1878dcb1",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 43,
+          "frame_id": "image-000044",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000316.color.png",
+          "image_sha256": "59fbdf6bffbbf81eea508c648aab00c61324fda8e112af7d47c05de6c4a94d84",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 44,
+          "frame_id": "image-000045",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000320.color.png",
+          "image_sha256": "5dc0946cb7303d5cda5086605c61398712b409c68fed061704b020198aed89c3",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 45,
+          "frame_id": "image-000046",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000324.color.png",
+          "image_sha256": "7133607659cfcad73c98d450a756f7f5d6b72686c5b9d85e31481d21183ca4ff",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 46,
+          "frame_id": "image-000047",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000328.color.png",
+          "image_sha256": "217e466486b67ea22a2f4c3698a61ce857bc6c3787932b6da04f683618c5d642",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 47,
+          "frame_id": "image-000048",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000335.color.png",
+          "image_sha256": "d80883a6f789c589bd3d1ae8a9623720e6b89bfdb4d8a6f4cfccef351e69024f",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 48,
+          "frame_id": "image-000049",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000342.color.png",
+          "image_sha256": "6092de04eb6d93c08a09f4777a26561a93ca7e9797aecb5e495fc166b235a810",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": false
+        },
+        {
+          "dataset": "thud_agtea_test50",
+          "index": 49,
+          "frame_id": "image-000050",
+          "image_path": "/home/student/jakob/Klasifikacija-to-k/data/thud_agtea_test50/images/frame-000351.color.png",
+          "image_sha256": "277169e32f4240b797dadb80a2d73fddda74536e55b3273e985816c992070251",
+          "image_size": [
+            960,
+            540
+          ],
+          "subset20": true
+        }
+      ]
+    }
+  },
+  "model_files": {
+    "nvila/README.md": {
+      "bytes": 4290,
+      "sha256": "78b3f400655da22a6a8ce25d73db992027cf05b17e9463359272bda6fda987a1"
+    },
+    "nvila/.gitattributes": {
+      "bytes": 1519,
+      "sha256": "11ad7efa24975ee4b0c3c3a38ed18737f0658a5f75a0a96787b576a78a023361"
+    },
+    "nvila/config.json": {
+      "bytes": 7672,
+      "sha256": "8da573b9e58fcfbc5a2d6588306edaeca737d970b74895745d03a0790f7b6888"
+    },
+    "florence/SECURITY.md": {
+      "bytes": 2656,
+      "sha256": "7b6976eec43edfa68b79a459dd089c56b7a395916dbf1a01bd11e6d86e12128f"
+    },
+    "florence/processing_florence2.py": {
+      "bytes": 48674,
+      "sha256": "c655782a9e4347965c735ea54cbc4e98fdbc02155ffd1ce2ecd61f42c45eda28"
+    },
+    "florence/modeling_florence2.py": {
+      "bytes": 127455,
+      "sha256": "5162bf465e61b6e29cc113a467630ec3cb56ed8e4d46eb6207157f10fb9b8a24"
+    },
+    "florence/README.md": {
+      "bytes": 16315,
+      "sha256": "16212f1929e4992649d18b812e0ebf7ebbbaffd90a5ba23dfdc5c78df2f92ac2"
+    },
+    "florence/model.safetensors": {
+      "bytes": 1553563458,
+      "sha256": "4f38ce741c6b71188fe2b3419a55e11917a8a7b321ae2e63c61da0191b0ebad7"
+    },
+    "florence/.gitattributes": {
+      "bytes": 1560,
+      "sha256": "28aac17b0f70983ef58c18a7ee355503e454ce3178fce77a7b50503906df0635"
+    },
+    "florence/vocab.json": {
+      "bytes": 1099884,
+      "sha256": "394fdc63c71aabe0a9b97117f5d62fb5fcc4d59b2b3ea929a3929e6a53217b3c"
+    },
+    "florence/SUPPORT.md": {
+      "bytes": 1244,
+      "sha256": "149773411caf2c59cb1a6bfb2c6f070d1d054f1f018e7a80be319a8c384eeaf5"
+    },
+    "florence/tokenizer.json": {
+      "bytes": 1355863,
+      "sha256": "847bbeab6174d66a88898f729d52fa8d355fafe1bea101cf960dd404581df70e"
+    },
+    "florence/preprocessor_config.json": {
+      "bytes": 806,
+      "sha256": "2f5921bbc53c7cc04251e1027b45b1cec726276be6db23d1bb40641bfbe2cf29"
+    },
+    "florence/tokenizer_config.json": {
+      "bytes": 34,
+      "sha256": "79ffcf43af8ebda99d165f61d243180da2e2639952e41e71e11611c18770489c"
+    },
+    "florence/config.json": {
+      "bytes": 2445,
+      "sha256": "6f8a8f92a74ce18b5c1e5646b4a8222477dd1ac49f31b953e75d6fc3e0f8583a"
+    },
+    "florence/configuration_florence2.py": {
+      "bytes": 15119,
+      "sha256": "de2e45a975b3582de05d2f4d963a3e9f9a3d20dccf78d28e0052932a0be93bdf"
+    },
+    "florence/CODE_OF_CONDUCT.md": {
+      "bytes": 444,
+      "sha256": "9daeae709a0bd71bcfd1c96dc5822ecec5210327eff929da64b0ae7f8faf1444"
+    },
+    "florence/generation_config.json": {
+      "bytes": 51,
+      "sha256": "30e9865458ecc8ee931eeeb43f44f1d169c5ab95be39e0072142a7a6b8f31990"
+    },
+    "florence/LICENSE": {
+      "bytes": 1141,
+      "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+    },
+    "nvila/vision_tower/model.safetensors": {
+      "bytes": 826707904,
+      "sha256": "e458fab87985bc2e937f0f170d08e04173d0b3ea990a897a463a7c2f03157746"
+    },
+    "nvila/vision_tower/preprocessor_config.json": {
+      "bytes": 394,
+      "sha256": "4c85fdac96f2ce697f4d633dbc8469a7e5b80dc0d38af284cf4da9ff2330abc3"
+    },
+    "nvila/vision_tower/config.json": {
+      "bytes": 634,
+      "sha256": "4aa802bd3674f3cd7789a113a505cb7c7520454906345fd710e77dd5ddcdda0e"
+    },
+    "nvila/llm/model-00002-of-00004.safetensors": {
+      "bytes": 4932751008,
+      "sha256": "851febe6a6a1a7ed7d2013e733e0533dc37981a2e195dce1228c2bb231639b28"
+    },
+    "nvila/llm/added_tokens.json": {
+      "bytes": 118,
+      "sha256": "58f8999ab488c092791f0b1cf65d8085f719e59e7f96b3d7a8801a2ce5a5f29e"
+    },
+    "nvila/llm/model-00001-of-00004.safetensors": {
+      "bytes": 4874678888,
+      "sha256": "b08c52f10c7c69b80e0988dfc5b2e0818af553cefffe570f9b1e06f539b4092a"
+    },
+    "nvila/llm/vocab.json": {
+      "bytes": 3383407,
+      "sha256": "87a257b04b17642a0688c98cd1df89c398bda4fee532d6f88b38a659ecb4ac8d"
+    },
+    "nvila/llm/special_tokens_map.json": {
+      "bytes": 497,
+      "sha256": "0bbf5ad7e87a2de32653b693bf54eb651ee66a777ab4cb3f76f386bfaa5eca77"
+    },
+    "nvila/llm/model-00004-of-00004.safetensors": {
+      "bytes": 1087012992,
+      "sha256": "f4f3ef1377b511ff4b9b4a5998413fb9de9e456d92b65bef60bbd9656aaabbab"
+    },
+    "nvila/llm/tokenizer_config.json": {
+      "bytes": 1708,
+      "sha256": "07515119597bf24893162d5c5e2f4b69813f23a49460c84824a4958b05e72d7b"
+    },
+    "nvila/llm/config.json": {
+      "bytes": 874,
+      "sha256": "0069096f3ee056f99294f7598d1e5bd37daa2ee6d440dd87090da49a66988971"
+    },
+    "nvila/llm/generation_config.json": {
+      "bytes": 243,
+      "sha256": "7d0feffe1eab2b4a681aeb9f03dad1d7a470bc6aa844fa40ff6e5e64d9ae224a"
+    },
+    "nvila/llm/merges.txt": {
+      "bytes": 1671853,
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+    },
+    "nvila/llm/model.safetensors.index.json": {
+      "bytes": 27752,
+      "sha256": "b5c3f2414c3d7a205281b62776f8c7e4f3c3bb6ffec4177d166396ce67183f48"
+    },
+    "nvila/llm/model-00003-of-00004.safetensors": {
+      "bytes": 4330865200,
+      "sha256": "0fd349fa3280f2654ef76e6ccb8c24bdb9248d595bf5e66740da90aee43cfbda"
+    },
+    "nvila/mm_projector/model.safetensors": {
+      "bytes": 124850712,
+      "sha256": "7e3a0c1de0b4f41ea89d33f9fe8572bdee42d1e072f850d3b0d318ceaea7301f"
+    },
+    "nvila/mm_projector/config.json": {
+      "bytes": 289,
+      "sha256": "ed32a757b0857fd29c86e288f3b8412f95c237c9b866946861cb61a86cb39c8a"
+    }
+  },
+  "docker_images": [
+    {
+      "Id": "sha256:6ec17614d425835d22dd8e1a78847ca83f5e47557f48c5765d627d9ba45c2850",
+      "RepoTags": [
+        "thud-nvila:local"
+      ],
+      "Created": "2026-10-21T10:07:09.493877476+02:00",
+      "Architecture": "amd64"
+    },
+    {
+      "Id": "sha256:c638ba3c2321b36901bbb9b37304814224c4148f8734b2372f19dc80af62cb5f",
+      "RepoTags": [
+        "thud-florence:local"
+      ],
+      "Created": "2026-10-21T10:06:50.169618112+02:00",
+      "Architecture": "amd64"
+    }
+  ],
+  "vila_patch": "diff --git a/llava/model/__init__.py b/llava/model/__init__.py\nindex 26d1661..6193725 100755\n--- a/llava/model/__init__.py\n+++ b/llava/model/__init__.py\n@@ -2,8 +2,7 @@ from .language_model.llava_llama import LlavaLlamaConfig, LlavaLlamaModel\n \n # FP8 related comments, development in progress (PI: ligeng zhu, haochen xi)\n # NOTE: VLM + LLM\n-# from .language_model.qllava_qllama import QLlavaLlamaConfig, QLlavaLlamaModel\n-# NOTE: Linear -> fp8, similar to transformer engine\n+# # NOTE: Linear -> fp8, similar to transformer engine\n # from .language_model.qllama import QLlamaConfig, QLlamaForCausalLM, QLlamaModel\n # NOTE: Linear + Activation -> fp8, haochen's iclr version\n # from .language_model.qmemllama import QMemLlamaConfig, QMemLlamaForCausalLM, QMemLlamaModel\n@@ -25,7 +24,5 @@ TODO:\n 3. fp8 infernce example (load directly from a fp8 and fwd)\n 4. bind fp8 related configs to QLlamaConfig {\"coat_fp8_args\": {}}\n \"\"\"\n-from .language_model.fp8linearqwen2 import FP8LinearQwen2Config, FP8LinearQwen2Model\n-from .language_model.qllava_qllama import QLlavaLlamaConfig, QLlavaLlamaModel\n \n \ndiff --git a/llava/model/multimodal_encoder/builder.py b/llava/model/multimodal_encoder/builder.py\nindex 1c7acfc..88197fe 100755\n--- a/llava/model/multimodal_encoder/builder.py\n+++ b/llava/model/multimodal_encoder/builder.py\n@@ -21,8 +21,8 @@ import os\n from transformers import AutoConfig, PretrainedConfig, PreTrainedModel\n \n from .clip_encoder import CLIPVisionTower, CLIPVisionTowerS2\n-from .intern_encoder import InternVisionTower, InternVisionTowerS2\n-from .radio_encoder import RADIOVisionTower\n+\n+\n from .siglip_encoder import SiglipVisionTower, SiglipVisionTowerDynamicS2, SiglipVisionTowerS2\n \n \ndiff --git a/llava/model/multimodal_encoder/siglip_encoder.py b/llava/model/multimodal_encoder/siglip_encoder.py\nindex ddb7383..a1b5b14 100755\n--- a/llava/model/multimodal_encoder/siglip_encoder.py\n+++ b/llava/model/multimodal_encoder/siglip_encoder.py\n@@ -28,7 +28,7 @@ class SiglipVisionTower(VisionTower):\n         # TODO(ligengl): why pass config here leading to errors?\n         self.vision_tower = SiglipVisionModel.from_pretrained(\n             model_name_or_path,\n-            attn_implementation=\"flash_attention_2\",\n+            attn_implementation=\"sdpa\",\n             torch_dtype=eval(config.model_dtype),\n         )\n         self.image_processor = SiglipImageProcessor.from_pretrained(model_name_or_path)\n@@ -40,7 +40,7 @@ class SiglipVisionTowerS2(VisionTowerS2):\n         super().__init__(model_name_or_path, config)\n         self.vision_tower = SiglipVisionModel.from_pretrained(\n             model_name_or_path,\n-            attn_implementation=\"flash_attention_2\",\n+            attn_implementation=\"sdpa\",\n             torch_dtype=eval(config.model_dtype),\n         )\n         self.image_processor = SiglipImageProcessor.from_pretrained(model_name_or_path)\n@@ -54,7 +54,7 @@ class SiglipVisionTowerDynamicS2(VisionTowerDynamicS2):\n         super().__init__(model_name_or_path, config)\n         self.vision_tower = SiglipVisionModel.from_pretrained(\n             model_name_or_path,\n-            attn_implementation=\"flash_attention_2\",\n+            attn_implementation=\"sdpa\",\n             torch_dtype=eval(config.model_dtype),\n         )\n         self.image_processor = SiglipImageProcessor.from_pretrained(model_name_or_path)\ndiff --git a/llava/model/multimodal_encoder/vision_encoder.py b/llava/model/multimodal_encoder/vision_encoder.py\nindex fd04df5..3e11775 100755\n--- a/llava/model/multimodal_encoder/vision_encoder.py\n+++ b/llava/model/multimodal_encoder/vision_encoder.py\n@@ -23,7 +23,7 @@ import torch.nn as nn\n import torch.nn.functional as F\n from accelerate.hooks import add_hook_to_module\n from einops import rearrange\n-from s2wrapper import forward as multiscale_forward\n+# Static S2 is unused; dynamic S2 below has its own implementation.\n from transformers import AutoConfig, PreTrainedModel\n from transformers.image_processing_utils import BaseImageProcessor\n from transformers.integrations.deepspeed import is_deepspeed_zero3_enabled\ndiff --git a/llava/train/sequence_parallel/globals.py b/llava/train/sequence_parallel/globals.py\nindex 9854cf9..f9a4b66 100755\n--- a/llava/train/sequence_parallel/globals.py\n+++ b/llava/train/sequence_parallel/globals.py\n@@ -19,7 +19,7 @@\n \n import os\n \n-import deepspeed.comm as dist\n+import torch.distributed as dist\n import torch\n \n \n",
+  "raw_outputs": "/home/student/jakob/Klasifikacija-to-k/results/thud-extended",
+  "tests": {
+    "count": 69,
+    "seconds": 9.065,
+    "passed": true,
+    "log": "results/thud-extended/logs/tests-final.log",
+    "log_sha256": "c0c715c42cdc09116ea5d9fd0d5d0eb1a16ded2a33df634aae22ca8b0fa33c12"
+  },
+  "generation_revision": {
+    "initial": "Official VILA wrapper defaults repetition_penalty=1.0, unlike checkpoint llm/generation_config.json (1.05).",
+    "observed": "Both excluded warmup and first measured image reached 8192 tokens and emitted repeated JSON objects. Both retained unchanged in diagnostic-nvila-rp1.",
+    "next": "Use exact checkpoint repetition_penalty=1.05; keep temperature-zero greedy decoding, same image/prompt/8192 cap. This is a separately named pilot/protocol, not a repaired response.",
+    "unchanged": "No old successful Qwen/Gemma requests rerun."
+  },
+  "measurement_notes": {
+    "florence_combined_time": "Correct direct synchronized wall-clock measurement of all three tasks plus JSON writes; unaffected by memory counter resets.",
+    "historical_combined_memory": "Each task reset CUDA peak counters. Historical raw combined peak fields therefore represent the last task, not necessarily the maximum of all three. Preserve these original records. Report procedure VRAM uses maximum across all per-task measurements.",
+    "future_fix": "thud_florence now explicitly takes maximum task allocated/reserved peaks when saving a new combined row. No old raw record rewritten, no successful GPU call rerun."
+  },
+  "florence_process_recovery": {
+    "initial_process_exit": 132,
+    "completed_before_exit": 37,
+    "resumed_at_index_zero_based": 37,
+    "resume_exit": 0,
+    "all_100_images_completed": true,
+    "successful_calls_repeated": false,
+    "cause": "SIGILL without traceback; did not recur with PYTHONFAULTHANDLER=1. Root cause unconfirmed; no causal fix claim."
+  },
+  "nvila_launcher_recovery": {
+    "container_exit_code": 0,
+    "saved_responses": 100,
+    "launcher_error": "scripts/thud_extended.sh: line 39: syntax error near unexpected token `fi'",
+    "likely_cause": "Launcher file was edited while Bash was waiting for the long GPU child. This can change the resumed file read offset; no independent reproduction performed. Current script passes bash -n.",
+    "recovery": "Queued command waited for NVILA container exit 0 and ran the reason phase separately; all four stage2 groups completed. No successful GPU inference repeated.",
+    "future_change": "Wrap launcher body in a function so Bash parses it before invoking long-running children.",
+    "logs": [
+      "logs/nvila-full.log",
+      "logs/nvila-full-exit.txt",
+      "logs/reason-full.log"
+    ]
+  },
+  "gpu_sampling_audit": {
+    "file": "results/thud-extended/gpu-samples.jsonl",
+    "bytes": 47983,
+    "valid_samples": 374,
+    "invalid_lines": [
+      {
+        "line": 375,
+        "bytes": 125,
+        "nul_bytes": 125
+      }
+    ],
+    "nul_bytes": 125,
+    "first": {
+      "sampled_at_utc": "2026-10-21T08:07:09Z",
+      "gpu": "2026/10/21 10:07:09.734, 1, 964, 37.12, 44",
+      "exit_code": 0,
+      "error": ""
+    },
+    "last": {
+      "sampled_at_utc": "2026-10-21T09:40:37Z",
+      "gpu": "2026/10/21 11:40:37.157, 0, 958, 31.55, 49",
+      "exit_code": 0,
+      "error": ""
+    },
+    "note": "Original file preserved; valid JSON lines only exported separately. Periodic shared GPU samples are not guaranteed memory peaks."
+  }
+}

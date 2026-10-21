@@ -86,6 +86,7 @@ def main():
     for frame in pending:
         combined_tick = begin_measure(torch)
         performed = []
+        measured_rows = []
         for name, task in TASKS.items():
             path = saved_path(destination, frame, name)
             if check_saved(path, frame):
@@ -93,9 +94,14 @@ def main():
             row = infer(frame, task)
             write_json(path, row)
             performed.append(name)
+            measured_rows.append(row)
         timing = {**frame, **end_measure(torch, combined_tick), 'tasks_executed': performed,
                   'complete_three_task_measurement': len(performed) == 3,
                   'scope': 'image load, 3 preprocessing/generation/postprocess calls, JSON writes; excludes overlays'}
+        # Each task resets CUDA peak counters. The procedure peak must therefore
+        # be the maximum of its task peaks, not only the final task's counter.
+        timing['peak_allocated_bytes'] = max(r['peak_allocated_bytes'] for r in measured_rows)
+        timing['peak_reserved_bytes'] = max(r['peak_reserved_bytes'] for r in measured_rows)
         write_json(saved_path(destination, frame, 'combined'), timing)
         # Drawing is offline output preparation, outside combined inference time.
         for name in ('od', 'dense'):

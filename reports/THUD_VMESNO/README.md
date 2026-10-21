@@ -1,7 +1,9 @@
-# Vmesno poročilo THUD (1. del naloge)
+# Vmesno poročilo THUD (1. del, 2. del ter NVILA/Florence)
 
 Poročilo je osnutek za poznejši ročni pregled. Prvih šest strani opisuje 1. del;
-nadaljevanje 2. dela je ločen dodatek, ustvarjen iz novih shranjenih rezultatov.
+nadaljevanje 2. dela in primerjava NVILA/Florence sta dodatka, ustvarjena iz
+shranjenih rezultatov. Novi izvajalniki in ponovljivi ukazi so opisani v
+[`docs/THUD_EXTENDED.md`](../../docs/THUD_EXTENDED.md).
 
 Celoten ponovljiv zagon (potrebuje GPU Docker, tri nameščene tage in Python s Pillow/Matplotlib):
 
@@ -108,3 +110,42 @@ zakritost in dejanske stike; pri namestitvi zahtevaj viden dokaz, ne zgolj velik
 ali bližine stene. Za odnos morata biti določljiva oba navedena objekta.
 Neoznačen viden objekt ni samodejno halucinacija, `Products` pa ni ena instanca.
 Delni komentarji štirih ilustracij ne nadomeščajo sistematične anotacije 60 vrstic.
+
+## Nadaljevanje: NVILA-8B in Florence-2-large
+
+[Navodila za ločeni Docker okolji, parametre in ponovitev](../../docs/THUD_EXTENDED.md).
+Prvih 10 strani ostaja zgodovinska primerjava 1./2. dela; novi dodatek v istem
+PDF in samostojnem LaTeX vsebuje native GPU merjenja, dokumentirano ujemanje
+Florence okvirjev, besedilne presoje na istem20 in štiri delno pregledane primere.
+Stare izjave o nedelujočem NVILA so izrecno označene kot zgodovinsko stanje.
+
+```bash
+bash scripts/thud_extended.sh prepare
+bash scripts/thud_extended.sh nvila 1
+bash scripts/thud_extended.sh nvila 100
+bash scripts/thud_extended.sh florence 1
+bash scripts/thud_extended.sh florence 100
+bash scripts/thud_extended.sh reason
+bash scripts/thud_extended.sh report
+```
+
+Surovi novi odgovori, tokeni/ID-ji, uteži, predelava uradne kode, dnevniki napak,
+izvorni SHA, GPU vzorci in vsi izrisi so lokalno v `results/thud-extended/`.
+`manual-review.html` tam prikazuje isti20, vse stare/nove izhode in reference.
+Velike lokalne datoteke niso vključene v Git. Prejšnji paket je dodatno ohranjen
+v `results/thud-extended/report-before/`.
+
+Git vsebuje `extended-aggregates.*`, `extended-summary.json`,
+`extended-model-metadata.json`, `extended-provenance.json`,
+`extended-box-summary.*`, `extended-box-matches.json`,
+`extended-reasoning-summary.json`, `extended-reasoning-timing.csv`, `extended-decisions.*`,
+`extended-errors.json`, `extended-verification.json`,
+`extended-manual-notes.json`, `extended-manual-review.csv`,
+`extended.tex` in uporabljene slike pod `figures/extended-*`.
+
+Bogata JSON validacija NVILA ostaja ločena od besedilnega transporta njegovih
+zavrnjenih izhodov; originalne napake niso popravljene. Florence obdrži tri
+izvorne naloge brez vsiljene JSON sheme. Metrika je pokritost izrecno ujemanih
+anotiranih regij pri IoU >= 0.5 v fiksnem slovarju, ne celotna accuracy.
+Povprečni IoU velja samo za ujemane pare. Brez referenc stabilnosti ne poročamo
+accuracy razvrščanja. Preglednica pending ni ročno potrjena resnica.

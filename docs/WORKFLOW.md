@@ -163,6 +163,10 @@ instance iz baze.
 
 ## 4. NVILA: pripravljena povezava, ločen zagon strežnika
 
+Za novi neposredni GPU izvajalnik NVILA-8B in namenske naloge Florence glej
+[ločeno nadaljevanje THUD](THUD_EXTENDED.md). Spodnji odsek opisuje zgodovinsko
+API predlogo; novi native izvajalnik ne potrebuje tega strežnika.
+
 `configs/stage1/nvila-server.example.json` je API predloga za primerjavo Qwen/NVILA.
 **Ni namestitev ali že preverjen zagon NVILA na RTX 5090.** Najprej je treba postaviti
 uradni VILA/NVILA strežnik v svojem okolju ter preveriti CUDA/PyTorch, natančnost in VRAM.

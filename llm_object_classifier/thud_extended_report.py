@@ -11,16 +11,38 @@ from pathlib import Path
 import shutil
 import statistics
 import base64
+import re
+import subprocess
 
-from .experiment import read_json, write_json, write_csv, sha256
+from .experiment import read_json, write_json, sha256
 from .thud_box_metrics import match_regions
 from .thud_extended_common import ROOT, OUT, REPORT, DATASETS, frames, saved_path
 from .thud_florence import TASKS
 from .thud_metrics import percentile
 
 
+def write_csv(path, rows, fields):
+    """Use LF for versioned report tables; preserve all literal cell content."""
+    with path.open('w', encoding='utf-8', newline='') as stream:
+        writer=csv.DictWriter(stream,fieldnames=fields,lineterminator='\n')
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 def native_rows(model, task):
     return [read_json(p) for p in sorted((OUT/model).glob(f'*/{task}/frame-*.json'))]
+
+
+def combined_rows():
+    rows=native_rows('florence','combined')
+    for row in rows:
+        row['status']='ok' if all(read_json(saved_path(OUT/'florence',row,t))['status']=='ok' for t in TASKS) else 'error'
+    return rows
+
+
+def optional_setup(name):
+    path=OUT/'setup'/name
+    return read_json(path) if path.exists() else None
 
 
 def stats(rows):
@@ -93,6 +115,23 @@ def tex(value):
     return ''.join({'\\':r'\textbackslash{}','&':r'\&','%':r'\%','$':r'\$','#':r'\#','_':r'\_','{':r'\{','}':r'\}','~':r'\textasciitilde{}','^':r'\textasciicircum{}'}.get(c,c) for c in str(value))
 
 
+def literal_scene(row):
+    """Quote a model string even when its enclosing JSON failed validation."""
+    scene=row.get('parsed',{}).get('scene_description')
+    if scene:
+        return scene
+    content=row.get('content','')
+    match=re.search(r'"scene_description"\s*:\s*',content)
+    if match:
+        try:
+            value,_=json.JSONDecoder().raw_decode(content[match.end():])
+            if isinstance(value,str):
+                return value
+        except ValueError:
+            pass
+    return row.get('error','')
+
+
 def table(headers, rows, columns):
     return '\\begin{center}\\small\\begin{tabular}{'+columns+'}\\toprule\n'+' & '.join(headers)+r' \\ \midrule'+'\n'+ '\n'.join(' & '.join(map(str,row))+r' \\' for row in rows)+'\n\\bottomrule\\end{tabular}\\end{center}\n'
 
@@ -103,10 +142,17 @@ def reasoning_summary():
     for model in ('nvila','florence'):
         paths=sorted((OUT/'reason'/model).glob('*/*/t*/frame-*.json'))
         records=[read_json(p) for p in paths]
+        measured=[r for r in records if r.get('response')]
+        warmups=[read_json(p) for p in sorted((OUT/'reason'/model).glob('*/*/warmup.json'))]
         counts=Counter(o['classification'] for r in records if r['status']=='ok' for o in r['parsed']['objects'])
         summary.append({'caption_model':model,'positions':len(records),
                         **dict(Counter(r['status'] for r in records)),
-                        'classifications':dict(counts)})
+                        'classifications':dict(counts),
+                        'measured_calls':stats(measured),
+                        'max_prompt_eval_tokens':max((r['response'].get('prompt_eval_count',0) for r in measured),default=0),
+                        'warmup_calls':len(warmups),
+                        'warmup_gpu_verified':sum(r.get('gpu_verified',False) for r in warmups),
+                        'warmup_seconds':sum(r.get('elapsed_seconds',0) for r in warmups)})
         for p,r in zip(paths,records):
             for o in r.get('parsed',{}).get('objects',[]):
                 decisions.append({'caption_model':model,'dataset':p.parents[2].name,
@@ -114,6 +160,9 @@ def reasoning_summary():
                                   'classification':o['classification'],'reason':o['reason'],
                                   'source_record':str(p.relative_to(ROOT))})
     write_json(REPORT/'extended-reasoning-summary.json',summary)
+    timing=[{'caption_model':r['caption_model'],**r['measured_calls'],
+             'max_prompt_eval_tokens':r['max_prompt_eval_tokens']} for r in summary]
+    write_csv(REPORT/'extended-reasoning-timing.csv',timing,list(timing[0]))
     write_json(REPORT/'extended-decisions.json',decisions)
     if decisions:
         write_csv(REPORT/'extended-decisions.csv',decisions,list(decisions[0]))
@@ -190,6 +239,39 @@ def rejected_overlays():
             image.save(target)
 
 
+def save_provenance():
+    models={name:read_json(OUT/f'setup/{name}-api.txt') for name in ('nvila','florence')}
+    log=OUT/'logs/tests-final.log'
+    text=log.read_text() if log.exists() else ''
+    tested=re.search(r'Ran (\d+) tests in ([\d.]+)s',text)
+    snapshots={name:[{'path':str(p.relative_to(OUT)),'sha256':sha256(p.read_bytes()),
+                     'git_commit':read_json(p)['git_commit']}
+                    for p in sorted((OUT/name/'source-snapshots').glob('*.json'))]
+               for name in ('nvila','florence','reason')}
+    write_json(REPORT/'extended-provenance.json',{
+        'model_revisions':{name:{'repo':data['id'],'revision':data['sha']} for name,data in models.items()},
+        'report_git_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
+        'report_generator_sha256':sha256(Path(__file__).read_bytes()),
+        'inference_source_snapshots':snapshots,
+        'inference_manifests':{name:read_json(OUT/name/'manifest.json') for name in models},
+        'model_files':optional_setup('model-files.json'),
+        'docker_images':[
+            {k:r[k] for k in ('Id','RepoTags','Created','Architecture')}
+            for r in (json.loads(line) for line in (OUT/'setup/docker-images.jsonl').read_text().splitlines())
+        ] if (OUT/'setup/docker-images.jsonl').exists() else [],
+        'vila_patch':(OUT/'setup/vila-inference.patch').read_text(),
+        'raw_outputs':str(OUT),
+        'tests':{'count':int(tested[1]) if tested else None,
+                 'seconds':float(tested[2]) if tested else None,
+                 'passed':text.strip().endswith('OK'),
+                 'log':str(log.relative_to(ROOT)), 'log_sha256':sha256(log.read_bytes()) if log.exists() else None},
+        'generation_revision':optional_setup('nvila-generation-revision.json'),
+        'measurement_notes':optional_setup('measurement-notes.json'),
+        'florence_process_recovery':optional_setup('florence-process-recovery.json'),
+        'nvila_launcher_recovery':optional_setup('nvila-launcher-recovery.json'),
+        'gpu_sampling_audit':optional_setup('gpu-sampling-audit.json')})
+
+
 def make_latex(rows, boxes, reason, selected):
     number=lambda x: '--' if x is None else f'{x:.2f}'
     labels={'nvila':'NVILA-8B FP16','florence':'Florence-2-large FP16',
@@ -197,7 +279,7 @@ def make_latex(rows, boxes, reason, selected):
     timing=[]
     for r in rows:
         timing.append([tex(labels[r['model']]),tex(r['task'].replace(' (existing, reused)','')),
-                       f"{r['ok']}/{r['positions']}" if r['task']!='combined' else str(r['positions']),
+                       f"{r['ok']}/{r['positions']}",
                        number(r['mean_s']),number(r['median_s']),number(r['p90_s'])])
     environments=read_json(REPORT/'extended-model-metadata.json')
     memory=[]
@@ -233,6 +315,9 @@ Florence combined je neposredno merjen celotni postopek treh zaporednih nalog na
         c=r['classifications']
         reasonrows.append([tex(r['caption_model']),f"{r.get('ok',0)}/{r.get('error',0)}/{r.get('skipped',0)}",
                            str(c.get('fixed',0)),str(c.get('movable',0)),str(c.get('uncertain',0))])
+    reason_timing='; '.join(f"{r['caption_model']}: {r['measured_calls']['positions']} merjenih klicev, "
+                           f"povprečje {number(r['measured_calls']['mean_s'])} s, "
+                           f"največ {r['max_prompt_eval_tokens']} vhodnih tokenov" for r in reason)
     pages.append(r'''\section*{Pomnilnik, lokalizacija in besedilna presoja}
 '''+table(['Model','Dejanski tipi','Alloc. GiB','Reserv. GiB','Nalag. s'],memory,r'p{4cm}p{3.8cm}rrr')+r'''
 Allocated/reserved sta procesna vrhova PyTorch, ne isti podatek kot Ollama size\_vram. Skupna poraba iz nvidia-smi vključuje namizje in tuje procese; surovi časovni vzorci so shranjeni. Nalaganje je ločeno; tabela kaže zadnjo sejo. Fizično ogrevanje po vsakem nalaganju je izključeno iz glavnih 100 slik: '''+tex(warmtext)+r'''. Začetna diagnostika NVILA je dodatna in ločena. Shranjeni prvi merjeni odgovori se ob nadaljevanju ponovno uporabijo.
@@ -245,13 +330,13 @@ NVILA veljavni rich opisi ostanejo v celoti nespremenjeni. Pri zavrnjenem rich i
 
 Florencejev opis ter OD oznake in dense fraze pretvorimo dobesedno: vsaka izvirna regija dobi lokalni ID in izvirno oznako/frazo ter okvir v besedilu. Regij med nalogama ne združujemo kot isto instanco. Ne dodamo materialov, stikov, namestitev ali odnosov. Transportni not\_visible pomeni nepodan/neveljaven dokaz namestitve; identifiable=true označi modelovo imenovano regijo, ne ročne potrditve. NVILA izvirne veljavne oznake dokazov ohranimo; ostale izvirne trditve ostanejo v opazovanju kot modelove trditve. Izhodi in izvorni SHA so zamrznjeni; drugi korak ne bere ali pošilja slik.
 '''+table(['Opisovalnik','OK/napaka/preskok','fixed','movable','uncertain'],reasonrows,r'p{3cm}p{4cm}rrr')+r'''
-Razvrščanje uporabi prejšnji short-no-examples prompt, T=0,3, seed 42. Zavrnjeni opisi ostanejo preskočeni; napake razvrščanja niso popravljene. Različna granularnost regij pomeni, da števila razredov niso accuracy ali strinjanje istih instanc. Referenc stabilnosti ni; razlogi so modelove trditve, ne potrditev dejanskega pritrjevanja.
+Razvrščanje uporabi prejšnji short-no-examples prompt, T=0,3, seed 42. Opisi brez veljavnega dobesednega prenosa ostanejo preskočeni; napake razvrščanja niso popravljene. '''+tex(reason_timing)+r'''. Vseh 36 merjenih klicev in štiri izključena ogrevanja imajo potrjen GPU; kontekst je 16384. Različna granularnost regij pomeni, da števila razredov niso accuracy ali strinjanje istih instanc. Referenc stabilnosti ni; razlogi so modelove trditve, ne potrditev dejanskega pritrjevanja.
 ''')
     notes=read_json(REPORT/'extended-manual-notes.json') if (REPORT/'extended-manual-notes.json').exists() else {}
     cases=[f for f in selected if f['index'] in (0,5)]
-    for offset in (0,2):
+    for offset in range(len(cases)):
         page=r'\section*{Dejanski primeri: fotografija in Florence regije}'
-        for frame in cases[offset:offset+2]:
+        for frame in cases[offset:offset+1]:
             ds=frame['dataset']; index=frame['index']; key=f'{ds}/{index}'
             page+=r'\subsection*{'+tex(('Trgovina' if ds==DATASETS[0] else 'agtea')+f' / indeks {index+1}')+'}\n'
             picture_paths=[]
@@ -272,21 +357,41 @@ Razvrščanje uporabi prejšnji short-no-examples prompt, T=0,3, seed 42. Zavrnj
                 path=(saved_path(OUT/model,frame,'rich' if model=='nvila' else 'caption') if model in ('nvila','florence') else ROOT/'results/thud-part2'/f'rich-{model}-{ds}'/model/'t0-s42'/f'frame-{index+1:06d}.json')
                 if path.exists():
                     r=read_json(path)
-                    text=(r.get('parsed',{}).get(TASKS['caption'],'') if model=='florence' else r.get('parsed',{}).get('scene_description','')) or r.get('error','')
+                    text=(r.get('parsed',{}).get(TASKS['caption'],'') if model=='florence' else literal_scene(r)) or r.get('error','')
                     text=' '.join(text.split())
                     snippets.append([tex(labels[model]),tex(r.get('status','')),tex(text[:210]+('...' if len(text)>210 else ''))])
             page+=table(['Model','Zapis','Dejanski izsek / napaka'],snippets,r'p{3.2cm}p{1.1cm}p{11cm}')
             page+=r'\textbf{Lastni delni vizualni pregled:} '+tex(notes.get(key,'Pregled še ni potrjen; glej lokalni HTML.'))+'\n'
+            reason_examples=[]
+            for model in ('nvila','florence'):
+                matches=[read_json(p) for p in sorted((OUT/'reason'/model/ds).glob('*/t*/frame-*.json'))]
+                record=next((r for r in matches if r['frame_id']==frame['frame_id']),None)
+                if record and record['status']=='ok':
+                    caption=read_json(Path(record['caption_source']))['parsed']
+                    by_id={o['id']:o['label'] for o in caption['objects']}
+                    for obj in record['parsed']['objects'][:2]:
+                        reason_examples.append([tex(model),tex(by_id[obj['id']]),tex(obj['classification']),tex(obj['reason'])])
+                elif record:
+                    reason_examples.append([tex(model),'--',tex(record['status']),tex(record.get('error',''))])
+            if reason_examples:
+                page+=r'\subsection*{Dejanske besedilne presoje novih opisov}'
+                page+=table(['Opis','Dobesedni objekt','Razred','Modelov razlog'],reason_examples,r'p{1.6cm}p{4.2cm}p{1.8cm}p{7.6cm}')
+                page+=r'Različna imena niso potrjeno iste instance. To so modelove presoje; brez referenc stabilnosti jih ne štejemo kot accuracy.'+'\n'
         pages.append(page)
+    tests=read_json(REPORT/'extended-provenance.json')['tests']
+    test_note=f"Celotna zbirka: {tests['count']} testov, {tests['seconds']:.3f} s, " + ('vsi uspešni.' if tests['passed'] else 'glej shranjeni dnevnik napak.')
     pages.append(r'''\section*{Sklep nadaljevanja in ponovljivost}
 \subsection*{Konkretne ohranjene napake in rešitve}
 Florence se je po 37 shranjenih slikah končal s procesnim izhodom 132 (SIGILL), brez Python izjeme. Nadaljevanje z vključeno sledjo faulthandler je dokončalo vseh 100 slik brez ponovitve že shranjenih odgovorov. Vzrok ni potrjen; ponovnega zagona ne predstavljamo kot dokazanega popravka odvisnosti. En dense izhod agtea, indeks 24, vsebuje obrnjen okvir [0,48; 31,05; 87,84; 0,27]. Celoten izhod ostane zavrnjen; ločen rdeč diagnostični izris ohrani prvotni vrstni red koordinat. Ne obrnemo ga v veljaven okvir in ne vključimo v ujemanje.
 
 NVILA začetno ogrevanje in merjeni pilot z repetition\_penalty=1,0 oba dosežeta 8192 tokenov s ponavljanjem JSON. Pri 1,05 je prvi merjeni odgovor kratek, vendar se zanke pri nekaterih drugih slikah še pojavijo. Pogoste so tudi dodatno besedilo za JSON, manjkajoča polja in napačna sintaksa. To so izmerjene omejitve formata modela, ne več nedelujoč GPU. Celotni odgovori, tudi zavrnitve in odmevi navodil, ostanejo shranjeni. Besedilni transport za razvrščanje ne spremeni teh rezultatov validacije.
 
+Po uspešnem zaključku NVILA kontejnerja (izhod 0, vseh 100 odgovorov) je lupinski zaganjalnik javil sintaktično napako. Datoteka je bila med izvajanjem urejena; to je verjetna, ne dokazana razlaga. Razvrščanje je bilo nato uspešno izvedeno ločeno. Novi zaganjalnik najprej razčleni celotno funkcijo. GPU dnevnik ima 374 veljavnih vzorcev in poškodovan zaključek 125 ničelnih bajtov po meritvah; izvirnik ostane shranjen, veljavne vrstice so izvožene ločeno. Vrhovi VRAM v tabelah izhajajo iz inferenčnih zapisov.
+
 Obe zahtevani novi okolji sta pripravljeni za dejansko slikovno inferenco na RTX 5090. Priročnost formata, uspešen GPU zagon in veljavnost izhoda so ločene ugotovitve od vizualne kakovosti. Primerjava vključuje tudi zavrnjene odgovore in razliko med splošnim opisom, detekcijo in regionalnim opisovanjem. Celoten pregled istih 20 fotografij z vsemi starimi/novimi odgovori, referencami in presojami je lokalno v manual-review.html. Preglednica 40 novih model/slika vrstic ostane pending; štirje prikazani primeri so samo delni pregled, ne izmišljena celotna referenca.
 
 Surovi novi izhodi: \texttt{results/thud-extended/}; tam so originalni tokeni, razčlenjeni odgovori, konfiguracije, izvorne kode/SHA, pripete uteži, Docker dnevniki, diagnostika in vsi izrisi. Obstoječi odgovori so preverjeni proti indeksu SHA256 pred nadaljevanjem. Git vsebuje kodo, Dockerfile, navodila, agregate, izbrane slike, PDF in LaTeX. Točne revizije modelov in dejanski tipi parametrov so v extended-model-metadata.json in manifestih; dolgi izhodi ostanejo lokalno.
+'''+tex(test_note)+r'''
 \begin{verbatim}
 bash scripts/thud_extended.sh prepare
 bash scripts/thud_extended.sh nvila 1
@@ -309,7 +414,7 @@ def main():
     selected = frames()
     rows = [{'model':'nvila','task':'rich',**stats(native_rows('nvila','rich'))}]
     rows += [{'model':'florence','task':name,**stats(native_rows('florence',name))} for name in TASKS]
-    combined = native_rows('florence','combined')
+    combined = combined_rows()
     rows.append({'model':'florence','task':'combined',**stats(combined)})
     rows += previous_comparison()
     write_json(REPORT/'extended-aggregates.json', rows)
@@ -334,8 +439,11 @@ def main():
     # Full original observations are kept locally; report contains compact tables.
     summary={'stage1':rows,'box_metrics':boxes,'verification':verification,
              'reasoning':reason,
+             'process_failures':[read_json(p) for p in sorted((OUT/'setup').glob('*process-exit-*.json'))],
+             'denominator_note':'Tables count final image/task positions after resume, including saved schema errors. One SIGILL process failure is separately recorded; its in-flight task/elapsed time are unknown, so no fabricated response or latency is included. This is not a zero-failure claim about physical attempts.',
              'note':'JSON/native parse validity is not visual correctness. No stability ground truth. Large raw results remain local.'}
     write_json(REPORT/'extended-summary.json',summary)
+    save_provenance()
     rejected_overlays()
     make_review(selected)
     make_latex(rows,boxes,reason,selected)
