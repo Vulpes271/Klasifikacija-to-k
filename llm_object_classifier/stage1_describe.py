@@ -77,7 +77,7 @@ def run(args, config):
                 raise ValueError(f"Resume input changed: {key}")
         manifest = previous
     write_json(run_dir / "manifest.json", manifest)
-    results, fatal = [], False
+    results, fatal, stopped, calls = [], False, False, 0
     for spec in config["models"]:
         backend = Backend(spec, config["timeout"])
         metadata_error = None
@@ -89,6 +89,9 @@ def run(args, config):
         write_json(run_dir / "manifest.json", manifest)
         if warmup and not metadata_error:
             warm_path = run_dir / spec["name"] / "warmup.json"
+            if getattr(args,'fresh_warmup',False):
+                import time
+                warm_path=run_dir/spec['name']/'warmups'/f'{time.time_ns()}.json'
             if not warm_path.exists():
                 first = next(combinations(config))
                 try:
@@ -108,20 +111,28 @@ def run(args, config):
                     from .experiment import read_json
                     results.append(read_json(saved_path))
                     continue
+                if getattr(args,'max_new_calls',None) is not None and calls >= args.max_new_calls:
+                    stopped=True
+                    break
                 prompt = (instruction + "\n" if instruction else "") + user_prompt(frame)
                 row = {"stage": 1, "frame_id": fid, "source_frame": frame["record"],
                        "model_name": spec["name"], "model": spec["model"], "variant": variant,
                        "image_sha256": frame["image_sha256"], "system_prompt": system, "user_prompt": prompt,
+                       'syntax_valid':False,'schema_valid':False,
                        "annotation_mode": "supplied" if frame["regions"] is not None else "model_discovery"}
                 print(f"[{spec['name']} / {variant['id']}] {index}/{len(frames)} {fid}: describing...", flush=True)
                 try:
                     if metadata_error:
                         raise ValueError("Model preparation failed: " + metadata_error)
+                    calls+=1
                     response = backend.generate(system, prompt, options(config, variant), frame["image"], frame["mime"])
                     row.update(response)
+                    candidate = strict_json(response['content'])
+                    row.update(candidate_parsed=candidate,syntax_valid=True)
                     if response["finish_reason"] in {"length", "max_tokens"}:
                         raise ValueError("Output truncated; increase max_tokens or reduce description detail.")
-                    parsed = validate_description(strict_json(response["content"]), frame["regions"], config.get("description_schema"))
+                    parsed = validate_description(candidate, frame["regions"], config.get("description_schema"))
+                    row['schema_valid']=True
                     row.update({"status": "ok", "parsed": parsed})
                     print(f"  OK: {len(parsed['objects'])} objects, {response['elapsed_seconds']:.2f} s", flush=True)
                 except GPURequiredError as exc:
@@ -138,7 +149,7 @@ def run(args, config):
                 write_json(run_dir / "summary.json", summarize(results))
                 if fatal:
                     break
-            if fatal:
+            if fatal or stopped:
                 break
         if spec["backend"] == "ollama" and spec["base_url"].rstrip("/") == "http://ollama:11434" and not fatal:
             try:
@@ -146,7 +157,7 @@ def run(args, config):
             except Exception as exc:
                 manifest.setdefault("unload_warnings", []).append(str(exc))
                 write_json(run_dir / "manifest.json", manifest)
-        if fatal:
+        if fatal or stopped:
             break
     save_tables(run_dir, frames, results)
     print(f"Results: {run_dir}\nOpen {run_dir / 'comparison.html'}", flush=True)

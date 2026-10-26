@@ -1,0 +1,146 @@
+{
+  "review_status": "reviewed",
+  "selection_reason": "Gost in zamegljen prizor z delno zakritimi policami ter napako sheme in spremembami poimenovanj.",
+  "visible_confirmed": [
+    "Oseba v svetlem pletenem oblačilu delno zakriva desno stran; zameglitev omejuje fine lastnosti.",
+    "Vidni so številni lončki instant rezancev, police, stropne luči in moder/bel balonski okrasek. Zgoraj desno je viden bel element kamere z nosilcem."
+  ],
+  "unsupported_model_claims": [
+    "Florence canned goods ni dovolj natančen opis pretežnega instant-noodle blaga; dense shopping cart in NVILA pushing a cart nista dokazano potiskanje vozička. Spodaj je delno viden črn nakupovalni koš, koles ni mogoče potrditi.",
+    "NVILA prevod napisa in modelove trditve o spolu/dejavnosti niso ročno potrjeni. Gemmina oznaka concrete floor ni podprta: tla so zakrita oziroma izven vidnega dela."
+  ],
+  "repetition_observations": [
+    "NVILA r2 ima neubežane narekovaje v opisu; seznam za prikaz zato ni razčlenjen. To ne pomeni odsotnosti objektov.",
+    "Qwen navaja shelf/shelves in cup/cups ter dodaja/izpušča balonski okrasek. Besedna sprememba števila ni dokaz spremembe števila fizičnih predmetov.",
+    "Gemma r2 je formalno zavrnjena, čeprav je vsebina scene še dostopna; ločujem napako enum/bool od vidne pravilnosti."
+  ],
+  "classification_review": {
+    "frozen_sha256": "262ce5cd4c6c20338c6e2b60bd336b8634ee9541cc64622b38e6a734ab0b9f65",
+    "valid_calls": 10,
+    "errors": [
+      {
+        "model": "qwen35-bf16",
+        "prompt": "long",
+        "repeat": "r1",
+        "error": "Object 4 has missing reason."
+      },
+      {
+        "model": "qwen35-bf16",
+        "prompt": "long",
+        "repeat": "r3",
+        "error": "Object 4 has missing reason."
+      }
+    ],
+    "objects": [
+      {
+        "id": 1,
+        "id_type": "int",
+        "label": "person",
+        "states": {
+          "movable": {
+            "count": 10,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r2",
+              "reason": "Person walks through the scene and can move freely."
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "id_type": "int",
+        "label": "shelf unit",
+        "states": {
+          "movable": {
+            "count": 1,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r2",
+              "reason": "Shelf units are standard retail fixtures that can be repositioned."
+            }
+          },
+          "fixed": {
+            "count": 9,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r1",
+              "reason": "Shelf unit is structural element requiring dismantling to relocate."
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "id_type": "int",
+        "label": "instant noodle cup",
+        "states": {
+          "movable": {
+            "count": 8,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r2",
+              "reason": "Noodle cups are small items easily carried or restocked."
+            }
+          },
+          "fixed": {
+            "count": 2,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r1",
+              "reason": "Noodle cups are integrated into shelf structure, not permanent installation."
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "id_type": "int",
+        "label": "light fixture",
+        "states": {
+          "fixed": {
+            "count": 10,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r2",
+              "reason": "Light fixtures are permanently mounted to the ceiling structure."
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "id_type": "int",
+        "label": "signage",
+        "states": {
+          "movable": {
+            "count": 3,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r2",
+              "reason": "Signage is typically mounted on walls or stands and can be moved."
+            }
+          },
+          "uncertain": {
+            "count": 7,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r2",
+              "reason": "Signage attachment not visible; could be fixed or portable."
+            }
+          }
+        }
+      }
+    ],
+    "own_assessment": "Oseba je v vseh10 veljavnih izhodih movable. BF16 long r1/r3 nimata zahtevanega reason pri svetilki (namesto njega je description); ničesar ne popravljam. Noodle cup fixed z razlogom integrated into shelf structure, not permanent installation je neutemeljena oziroma notranje protislovna razlaga. Police se tudi brez vidnega pritrjevanja razglasijo za structural."
+  },
+  "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+}

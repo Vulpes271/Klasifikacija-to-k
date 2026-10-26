@@ -1,0 +1,225 @@
+{
+  "review_status": "reviewed",
+  "selection_reason": "Odsevi/modra zasteklitev, delno odrezana delovna površina in vidni majhni predmeti, ki med ponovitvami izginejo iz seznama.",
+  "visible_confirmed": [
+    "Oseba v temnem zgornjem delu oblačila sedi pri levem delovnem mestu; modrikaste odsevne/zastekljene ploskve so zadaj, krožne police s knjigami desno.",
+    "Vidni so talna lončnica v belem loncu, samostoječ oglasni pano ter rjava papirnata vrečka na nižjem desnem delu police."
+  ],
+  "unsupported_model_claims": [
+    "Florence blue curtains ni potrjen: videti je predvsem modre odsevne navpične ploskve. Leather jacket in coffee cup sta nepotrjeni podrobnosti pri odrezanem levem območju.",
+    "Gemma postavi lončnico na mizo, čeprav vidni beli lonec stoji na tleh; counter supporting several small tables ni razviden stik.",
+    "Gemma vertical metal poles kot razlaga modrih pasov ni potrjena. Material marble in točno štirje nosilci odrezane mize nista vidno potrjena."
+  ],
+  "repetition_observations": [
+    "Qwen Q4 r1 navede rjavo vrečko, r2/r3 pa jo izpustita. BF16 r1 navede stoječi pano, r2/r3 ga ne ohranita kot ločen objekt. To sta konkretni spremembi pokritosti iste fotografije.",
+    "NVILA menjavanje suit/dark jacket je opis oblačila, ne dokaz identitete ali aktivnosti; vse3 oblike ostanejo formalno zavrnjene.",
+    "Florence dobro omeji osebe v več regijah, vendar ne poda primerljivega inventarja vidne police, rastline in panoa. Gemma ima v vseh3 ponovitvah napako sheme."
+  ],
+  "classification_review": {
+    "frozen_sha256": "0752ebeca6571d391a81289728ef46552e045c863918198962bf7c3d73a0e9e6",
+    "valid_calls": 12,
+    "errors": [],
+    "objects": [
+      {
+        "id": 0,
+        "id_type": "int",
+        "label": "person",
+        "states": {
+          "movable": {
+            "count": 12,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Persons are mobile entities that move between locations."
+            }
+          }
+        }
+      },
+      {
+        "id": 1,
+        "id_type": "int",
+        "label": "desk",
+        "states": {
+          "movable": {
+            "count": 6,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Desks can be pushed or repositioned in normal use."
+            }
+          },
+          "fixed": {
+            "count": 5,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r1",
+              "reason": "Desk implies structural integration or permanent installation."
+            }
+          },
+          "uncertain": {
+            "count": 1,
+            "example": {
+              "model": "qwen35-q4",
+              "prompt": "short",
+              "repeat": "r2",
+              "reason": "Desk attachment not visible, evidence insufficient"
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "id_type": "int",
+        "label": "chair",
+        "states": {
+          "movable": {
+            "count": 12,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Chairs can be easily carried, pushed, or repositioned."
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "id_type": "int",
+        "label": "potted plant",
+        "states": {
+          "movable": {
+            "count": 12,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Potted plants are objects that can be moved by hand."
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "id_type": "int",
+        "label": "A-frame sign",
+        "states": {
+          "movable": {
+            "count": 11,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "A-frame signs stand on the floor and can be relocated."
+            }
+          },
+          "uncertain": {
+            "count": 1,
+            "example": {
+              "model": "qwen35-q4",
+              "prompt": "short",
+              "repeat": "r1",
+              "reason": "Sign attachment method not visible in image."
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "id_type": "int",
+        "label": "person",
+        "states": {
+          "movable": {
+            "count": 12,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Persons are mobile entities that move between locations."
+            }
+          }
+        }
+      },
+      {
+        "id": 6,
+        "id_type": "int",
+        "label": "table",
+        "states": {
+          "movable": {
+            "count": 7,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Tables can be pushed or repositioned in normal use."
+            }
+          },
+          "fixed": {
+            "count": 4,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r1",
+              "reason": "Table implies structural integration or permanent installation."
+            }
+          },
+          "uncertain": {
+            "count": 1,
+            "example": {
+              "model": "qwen35-q4",
+              "prompt": "short",
+              "repeat": "r2",
+              "reason": "Table attachment not visible, evidence insufficient"
+            }
+          }
+        }
+      },
+      {
+        "id": 7,
+        "id_type": "int",
+        "label": "person",
+        "states": {
+          "movable": {
+            "count": 12,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Persons are mobile entities that move between locations."
+            }
+          }
+        }
+      },
+      {
+        "id": 8,
+        "id_type": "int",
+        "label": "bookshelf",
+        "states": {
+          "fixed": {
+            "count": 5,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Bookshelves are structural elements requiring dismantling to move."
+            }
+          },
+          "movable": {
+            "count": 7,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r2",
+              "reason": "Bookshelf is large furniture that can be moved with effort."
+            }
+          }
+        }
+      }
+    ],
+    "own_assessment": "Vseh12 veljavnih klicev ohrani movable za osebe, stol in lončnico. Desk prehaja med6 movable/5 fixed/1 uncertain; Table med7/4/1, bookshelf med7 movable/5 fixed. Structural integration v kratkih razlogih ni podprta z vidno pritrditvijo. ID0 za prvo osebo je ohranjen; ne preštevilčim ga med modeli/prompti."
+  },
+  "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+}

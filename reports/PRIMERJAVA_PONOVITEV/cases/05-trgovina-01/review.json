@@ -1,0 +1,164 @@
+{
+  "review_status": "reviewed",
+  "selection_reason": "Stabilen uspeh splošne prostorske razlage levo/desno, a omejena granularnost in lažne časovne/materialne podrobnosti.",
+  "visible_confirmed": [
+    "Hladilne zastekljene enote levo, odprte police desno, odsevna tla, črn strop z belimi lučmi in več balonskih okraskov.",
+    "V spodnjem desnem delu so vidne plastenke z rožnatimi pokrovčki; na desnih policah je pakirano pecivo/blago."
+  ],
+  "unsupported_model_claims": [
+    "NVILA sklep daytime hours in Gemma nighttime setting sta nasprotujoči si domnevi; ura dneva iz te fotografije ni ugotovljena.",
+    "Vseh balonskih okraskov je vidno več kot dva, medtem ko Gemma v vseh ponovitvah opis omeji na two hot air balloons.",
+    "Les/kovina polic ter natančna vsebina zaprtih pijač niso kemično ali vsebinsko potrjeni samo z videzom. Izraz hot air balloon lights ne dokazuje, da so okraski samostojne svetilke."
+  ],
+  "repetition_observations": [
+    "Qwen BF16/Q4 v vseh3 scenah pravilno ohranita prostorsko razmerje hlajenje levo in police desno ter stropne okraske.",
+    "Poimenovanja display case/unit, packaged bread/goods in sign/light se med semeni zamenjujejo. To ni potrjena izguba fizične instance.",
+    "Florence OD/dense vrneta skoraj celoten prizor kot convenience store/aisle, zato njegov uspešen opis ni uspešna lokalizacija posameznih izdelkov.",
+    "NVILA 4/1/1 razčlenjenih imen ne opisuje celotnega števila predmetov; opisi vsebujejo več omemb."
+  ],
+  "stable_success_scope": "Makro prostorski opis levo/desno pri Qwen v vseh3 ponovitvah je vidno podprt; ta uspeh ne potrdi vsake lastnosti izdelka ali števila instanc.",
+  "classification_review": {
+    "frozen_sha256": "de606e9263dd12a6b8e87a983266a3c00edf96b80efbb2466b218e409fbd1a7f",
+    "valid_calls": 9,
+    "errors": [
+      {
+        "model": "qwen35-bf16",
+        "prompt": "long",
+        "repeat": "r2",
+        "error": "Object 3 has missing reason."
+      },
+      {
+        "model": "qwen35-bf16",
+        "prompt": "long",
+        "repeat": "r3",
+        "error": "Object 3 has missing reason."
+      },
+      {
+        "model": "qwen35-bf16",
+        "prompt": "short",
+        "repeat": "r2",
+        "error": "Object 3 has missing reason."
+      }
+    ],
+    "objects": [
+      {
+        "id": 1,
+        "id_type": "int",
+        "label": "refrigerated display unit",
+        "states": {
+          "fixed": {
+            "count": 8,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Integrated into store wall structure; moving requires dismantling."
+            }
+          },
+          "movable": {
+            "count": 1,
+            "example": {
+              "model": "qwen35-q4",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Display units can be moved or restocked by staff."
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "id_type": "int",
+        "label": "hot air balloon decoration",
+        "states": {
+          "movable": {
+            "count": 9,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Hanging decoration suspended by string or wire."
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "id_type": "int",
+        "label": "wire shelving unit",
+        "states": {
+          "movable": {
+            "count": 8,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Standalone shelving unit that can be pushed or repositioned."
+            }
+          },
+          "uncertain": {
+            "count": 1,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r3",
+              "reason": "Metal grid-style shelf holding packaged goods, attachment not visible."
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "id_type": "int",
+        "label": "packaged bread",
+        "states": {
+          "movable": {
+            "count": 6,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Packaged item on shelf; easily carried or removed."
+            }
+          },
+          "uncertain": {
+            "count": 3,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r1",
+              "reason": "Product placement implies temporary or uncertain status."
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "id_type": "int",
+        "label": "bottled water",
+        "states": {
+          "movable": {
+            "count": 6,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Bottled water item; easily carried or removed."
+            }
+          },
+          "uncertain": {
+            "count": 3,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r1",
+              "reason": "Product placement implies temporary or uncertain status."
+            }
+          }
+        }
+      }
+    ],
+    "own_assessment": "BF16 long r2/r3 in short r2 ostanejo napake z manjkajočim reason pri wire shelf. Med9 veljavnimi odgovori je dekoracija vedno movable; hladilna enota je8 fixed/1 movable, packaged bread in bottled water pa6 movable/3 uncertain. Integrated into wall za hladilnik ni ročno potrjen dokaz. Ne popravljam nejasne identifikacije pijače v novo dejstvo."
+  },
+  "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+}

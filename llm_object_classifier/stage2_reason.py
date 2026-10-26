@@ -56,7 +56,7 @@ def run(args, config):
         manifest = previous
     write_json(run_dir / "manifest.json", manifest)
     rows, summary = [], {"stage": 2, "models": {}}
-    fatal = False
+    fatal, stopped, calls = False, False, 0
     for spec in config["models"]:
         backend = Backend(spec, config["timeout"])
         counts = summary["models"][spec["name"]] = {"ok": 0, "error": 0, "skipped": 0}
@@ -65,7 +65,11 @@ def run(args, config):
         except Exception as exc:
             manifest["model_metadata"][spec["name"]] = {"error": str(exc)}
         write_json(run_dir / "manifest.json", manifest)
-        if getattr(args, "warmup", False) and "error" not in manifest["model_metadata"][spec["name"]] and not (run_dir / spec["name"] / "warmup.json").exists():
+        warm_path=run_dir/spec['name']/'warmup.json'
+        if getattr(args,'fresh_warmup',False):
+            import time
+            warm_path=run_dir/spec['name']/'warmups'/f'{time.time_ns()}.json'
+        if getattr(args, "warmup", False) and "error" not in manifest["model_metadata"][spec["name"]] and not warm_path.exists():
             # A separate text-only call warms the same task; excluded from quality/timing rows.
             saved = next((s for _, s in inputs if s.get("status") == "ok"), None)
             if saved is not None:
@@ -74,18 +78,18 @@ def run(args, config):
                 prompt = reason_prompt(saved["frame_id"], objects, caption, instructions)
                 try:
                     response = backend.generate(system, prompt, options(config, next(combinations(config))))
-                    write_json(run_dir / spec["name"] / "warmup.json", {"excluded_from_quality": True, **response})
+                    write_json(warm_path, {"excluded_from_quality": True, **response})
                 except GPURequiredError as exc:
-                    write_json(run_dir / spec["name"] / "warmup.json", {"error": str(exc), **getattr(exc, "result", {})})
+                    write_json(warm_path, {"error": str(exc), **getattr(exc, "result", {})})
                     raise
                 except Exception as exc:
-                    write_json(run_dir / spec["name"] / "warmup.json", {"excluded_from_quality": True, "error": str(exc)})
+                    write_json(warm_path, {"excluded_from_quality": True, "error": str(exc)})
         for variant in combinations(config):
             for index, (path, saved) in enumerate(inputs, 1):
                 result = {"stage": 2, "frame_id": saved["frame_id"], "caption_source": str(path),
                           "caption_sha256": manifest["source_captions"][index - 1]["sha256"],
                           "model": spec["model"], "model_name": spec["name"], "variant": variant,
-                          "system_prompt": system}
+                          "system_prompt": system,'syntax_valid':False,'schema_valid':False}
                 common = {"frame_id": saved["frame_id"], "caption_model": saved["model_name"],
                           "caption_variant": saved["variant"]["id"], "model": spec["name"], "variant": variant["id"]}
                 saved_path = run_dir / spec["name"] / variant["id"] / f"frame-{index:06d}.json"
@@ -94,6 +98,9 @@ def run(args, config):
                     counts[result["status"]] += 1
                     rows.extend(saved_rows(common, result, saved.get("parsed", {})))
                     continue
+                if getattr(args,'max_new_calls',None) is not None and calls >= args.max_new_calls:
+                    stopped=True
+                    break
                 if saved.get("status") != "ok":
                     result.update({"status": "skipped", "error": "Invalid stage 1 description."})
                     rows.append({**common, "status": "skipped", "error": result["error"]})
@@ -108,16 +115,19 @@ def run(args, config):
                         print(f"[{spec['name']} / {variant['id']}] {index}/{len(inputs)} {frame['frame_id']}: reasoning...", flush=True)
                         if "error" in manifest["model_metadata"][spec["name"]]:
                             raise ValueError("Model preparation failed: " + manifest["model_metadata"][spec["name"]]["error"])
+                        calls+=1
                         response = backend.generate(system, prompt, options(config, variant))
                         result.update(response)
                         if response["finish_reason"] in {"length", "max_tokens"}:
                             raise ValueError("Truncated reasoning response.")
                         parsed = strict_json(response["content"])
+                        result['candidate_parsed']=parsed
+                        result['syntax_valid']=True
                         if not isinstance(parsed, dict):
                             raise ValueError("Reasoning response must be an object.")
                         exact_items(objects, parsed.get("objects"))
                         predictions = validate_classifications(validate_frame(frame), parsed)
-                        result.update({"status": "ok", "parsed": parsed})
+                        result.update({"status": "ok", "parsed": parsed,'schema_valid':True})
                         counts["ok"] += 1
                         # typed IDs are kept distinct throughout matching.
                         by_id = {(type(o["id"]), o["id"]): o for o in caption["objects"]}
@@ -140,7 +150,7 @@ def run(args, config):
                 write_csv(run_dir / "classifications.csv", rows, FIELDS)
                 if fatal:
                     break
-            if fatal:
+            if fatal or stopped:
                 break
         write_json(run_dir / "summary.json", summary)
         write_csv(run_dir / "classifications.csv", rows, FIELDS)
@@ -150,7 +160,7 @@ def run(args, config):
             except Exception as exc:
                 manifest.setdefault("unload_warnings", []).append(str(exc))
                 write_json(run_dir / "manifest.json", manifest)
-        if fatal:
+        if fatal or stopped:
             break
     print(f"Results: {run_dir}", flush=True)
     return 1 if fatal else (2 if any(c["error"] or c["skipped"] for c in summary["models"].values()) else 0)

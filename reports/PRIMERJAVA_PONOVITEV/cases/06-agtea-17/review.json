@@ -1,0 +1,132 @@
+{
+  "review_status": "reviewed",
+  "selection_reason": "Stabilna lokalizacija številnih stolov/oseb, a močno semantično razhajanje o osrednjem knjižnem elementu in materialih.",
+  "visible_confirmed": [
+    "Velika knjižna stena je levo/zadaj, modrikasta zasteklitev desno; vidni so oranžni sedeži, majhne mize in več delno zakritih ljudi.",
+    "Osrednji valjasti element ima osvetljene krožne police z vidnimi knjigami. Zgornje stropne površine odsevajo opremo.",
+    "Zaobljena lesu podobna površina zapolni sprednji levi del; višina in funkcija pulta/platforme iz ene projekcije nista določljivi."
+  ],
+  "unsupported_model_claims": [
+    "Florence spiral staircase with glass railing in NVILA/Qwen r2 spiral staircase nista podprta: viden je knjižni element, ne prehodna stopniščna pot. Tudi zgolj light fixture ne zajame vidnih knjig.",
+    "Gemma velika knjižna polica desno ter stropni Screen z modro-belo sliko nista skladna z jasno levo knjižno steno; stropni odsev ni potrjen elektronski zaslon.",
+    "Florence/NVILA polished wooden floor posploši del lesenega videza na vsa tla; pod stoli je drugačna sivkasta površina. Material sedežev plastic/upholstered ter točen tip podnožja ostaneta domnevi.",
+    "Wall-mounted bookshelves ne dokazuje načina sidranja, če se pritrditve ne vidijo."
+  ],
+  "repetition_observations": [
+    "NVILA r2 zamenja osrednji element s stopniščem, r3 ga poimenuje cylindrical bookcase; to je vsebinska razlika, ne zgolj sinonim.",
+    "Qwen BF16 med r1/r2/r3 spreminja hanging structure/staircase/light fixture; Q4 r2 tudi staircase.",
+    "Florence ima 29 OD regij (različne vrste), Qwen/NVILA pa večinoma skupinske zapise pohištva. Teh števil ne primerjam kot enake instance."
+  ],
+  "stable_success_scope": "Florence OD v vseh3 ponovitvah enako lokalizira dejansko stoječo osebo levo pri niši (ID18) in več fizičnih sedečih oseb/stolov v ospredju. To ni potrditev vseh29 regij ali celotnega captiona.",
+  "classification_review": {
+    "frozen_sha256": "0692d0507d12d202203db327b83862c5dfe2552179c875e3d31a546f82ad069f",
+    "valid_calls": 10,
+    "errors": [
+      {
+        "model": "qwen35-bf16",
+        "prompt": "long",
+        "repeat": "r2",
+        "error": "Duplicate JSON key: classification"
+      },
+      {
+        "model": "qwen35-q4",
+        "prompt": "short",
+        "repeat": "r1",
+        "error": "Duplicate JSON key: classification"
+      }
+    ],
+    "objects": [
+      {
+        "id": 1,
+        "id_type": "int",
+        "label": "curved wooden counter",
+        "states": {
+          "movable": {
+            "count": 10,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Counter can be moved or removed without dismantling structure."
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "id_type": "int",
+        "label": "wall-mounted bookshelves",
+        "states": {
+          "fixed": {
+            "count": 10,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Wall-mounted shelves require wall removal to move."
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "id_type": "int",
+        "label": "spiral hanging structure",
+        "states": {
+          "movable": {
+            "count": 7,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Hanging decoration can be detached and repositioned."
+            }
+          },
+          "uncertain": {
+            "count": 3,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r3",
+              "reason": "Hanging attachment not visible; could be fixed or removable."
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "id_type": "int",
+        "label": "orange chairs",
+        "states": {
+          "movable": {
+            "count": 10,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Chairs are designed to be carried or pushed."
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "id_type": "int",
+        "label": "round tables",
+        "states": {
+          "movable": {
+            "count": 10,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Tables are designed to be moved by people."
+            }
+          }
+        }
+      }
+    ],
+    "own_assessment": "Podvojeni classification v BF16 long r2 in Q4 short r1 sta zavrnjena brez izbire zadnje vrednosti. Chairs/tables/counter so v10 veljavnih klicih movable, wall-mounted bookshelves fixed. To povzema modelovo poimenovanje wall-mounted; sidranje police ostaja vizualno nepotrjeno. Spiral hanging structure niha7 movable/3 uncertain, čeprav je izhodiščna identifikacija knjižnega elementa nepopolna."
+  },
+  "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+}

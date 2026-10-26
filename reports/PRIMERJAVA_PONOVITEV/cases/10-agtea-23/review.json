@@ -1,0 +1,159 @@
+{
+  "review_status": "reviewed",
+  "selection_reason": "Dobro vidna oseba ob desnem robu, več zakritih oseb in jasno knjižno oblikovan valj; primer semantične zamenjave s stopniščem ter neutemeljene aktivnosti.",
+  "visible_confirmed": [
+    "Cilindrični element ima na osvetljenih krožnih nivojih knjige; velika knjižna stena z nišami je levo/zadaj.",
+    "Oseba z očali in belim zgornjim delom z grafiko stoji desno, drži temen predmet; več ljudi sedi pri mizah ali je ob zadnjih nišah. Oranžni sedeži so v ospredju."
+  ],
+  "unsupported_model_claims": [
+    "Florence explaining something to a group ni potrjena aktivnost. Tracksuit/Adidas je podrobnejša razlaga oblačila od tega, kar brez preverjanja znamke potrjujem.",
+    "Qwen BF16 r2 spiral staircase je zamenjava s knjižnim prikaznim elementom, ne prehodna stopniščna struktura.",
+    "Gemma uniform ni dokaz poklica ali uniforme; r2 seated at counter je v nasprotju z vidno stoječo osebo pri levi niši. Material plastic/wood stolov in nevidna konstrukcija se ne potrdita samo iz te slike."
+  ],
+  "repetition_observations": [
+    "NVILA v vseh3 scenah pravilno prepozna osvetljeno valjasto knjižno polico, čeprav je celotna JSON oblika neveljavna. To je uporabna vsebina zavrnjenega odgovora.",
+    "Qwen Q4 ohranja book display/tower opis, BF16 r2 pa preide v staircase: jasen vsebinski primer variabilnosti med semeni.",
+    "Posamezni people/other people zapisi in ločeni person okvirji imajo različno granularnost; ista številka ID ne vzpostavi identitete med modeli."
+  ],
+  "classification_review": {
+    "frozen_sha256": "e0cc2e2203547f6e806772519ce9ba3bc663ff9150148f0b8f743e8c001e8a38",
+    "valid_calls": 11,
+    "errors": [
+      {
+        "model": "qwen35-q4",
+        "prompt": "short",
+        "repeat": "r1",
+        "error": "Duplicate JSON key: classification"
+      }
+    ],
+    "objects": [
+      {
+        "id": 1,
+        "id_type": "int",
+        "label": "bookshelf",
+        "states": {
+          "movable": {
+            "count": 10,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Tall freestanding unit that can be pushed or repositioned."
+            }
+          },
+          "fixed": {
+            "count": 1,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r3",
+              "reason": "Structural shelving unit integrated into the building wall."
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "id_type": "int",
+        "label": "spiral display unit",
+        "states": {
+          "movable": {
+            "count": 8,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Central shelving structure not visibly attached to walls."
+            }
+          },
+          "uncertain": {
+            "count": 3,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r1",
+              "reason": "Central placement and lighting integration suggest fixed status."
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "id_type": "int",
+        "label": "orange chair",
+        "states": {
+          "movable": {
+            "count": 11,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Chair designed for sitting and easy relocation by users."
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "id_type": "int",
+        "label": "person standing",
+        "states": {
+          "uncertain": {
+            "count": 7,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Person is a dynamic entity whose position changes constantly."
+            }
+          },
+          "movable": {
+            "count": 4,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r1",
+              "reason": "Human entity is inherently movable by definition."
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "id_type": "int",
+        "label": "desk alcove",
+        "states": {
+          "fixed": {
+            "count": 9,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Alcove is an architectural recess in the building structure."
+            }
+          },
+          "uncertain": {
+            "count": 1,
+            "example": {
+              "model": "qwen35-q4",
+              "prompt": "short",
+              "repeat": "r2",
+              "reason": "Alcove structure integration unclear."
+            }
+          },
+          "movable": {
+            "count": 1,
+            "example": {
+              "model": "qwen35-q4",
+              "prompt": "short",
+              "repeat": "r3",
+              "reason": "Alcove structure is part of the building wall and fixed."
+            }
+          }
+        }
+      }
+    ],
+    "own_assessment": "Q4 short r1 ima podvojen classification in ostane napaka. Orange chair je11/11 movable, person standing pa7 uncertain/4 movable kljub razlogu o stalnem gibanju. Q4 short r3 za desk alcove vrne movable, a razlog izrecno pravi part of building wall and fixed: notranje nasprotje je vidno brez referenčne oznake. Bookshelf je10 movable/1 fixed in spiral display 8 movable/3 uncertain; iz teh klasifikacij ne potrjujem nevidne montaže."
+  },
+  "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+}

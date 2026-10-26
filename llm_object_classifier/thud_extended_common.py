@@ -26,8 +26,29 @@ DATASETS = ('thud_dense_test50', 'thud_agtea_test50')
 def progress(message):
     timestamp = datetime.now(ZoneInfo('Europe/Ljubljana')).isoformat(timespec='seconds')
     print(timestamp, message, flush=True)
-    with (REPORT / 'NAPREDEK.md').open('a') as stream:
+    target = Path(os.environ.get('THUD_PROGRESS_FILE', str(REPORT / 'NAPREDEK.md')))
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with target.open('a') as stream:
         stream.write(f'\n- {timestamp}: {message}\n')
+
+
+def native_selection(path=None):
+    """Optional reference-free selection; old experiments keep their defaults."""
+    if path is None:
+        return prepare()
+    selected = read_json(path)
+    allowed = {'dataset','index','frame_id','image_path','image_sha256',
+               'image_size','subset20','source_frame_id'}
+    if not isinstance(selected,list) or not selected:
+        raise ValueError('Empty native selection')
+    for row in selected:
+        if set(row)-allowed or not allowed-{'source_frame_id'} <= set(row):
+            raise ValueError('Unexpected fields / annotation leak in native selection')
+        if sha256(Path(row['image_path']).read_bytes()) != row['image_sha256']:
+            raise ValueError('Selected RGB changed')
+    if len({r['frame_id'] for r in selected}) != len(selected):
+        raise ValueError('Duplicate selection frame ID')
+    return selected
 
 
 def frames():

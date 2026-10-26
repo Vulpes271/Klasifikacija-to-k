@@ -1,0 +1,226 @@
+{
+  "review_status": "reviewed",
+  "selection_reason": "Gost prizor s tremi fizičnimi osebami, delno zakrito glavo, sadjem, plakatom in mnogimi okraski; razlika med številom imen in instanc.",
+  "visible_confirmed": [
+    "Glavna oseba v beli majici levo, delno skrita glava za njo in tretja oseba zadaj pri rdečem hladilnem elementu. Plakat desno prikazuje še obraz, ki ni dodatna fizična oseba.",
+    "Večbarvni balonski okraski, rdeči viseči okraski, stropne luči, zložene škatle ter osrednji plodovi z izrazitimi rožnatimi/luskastimi deli."
+  ],
+  "unsupported_model_claims": [
+    "Florence black apron/sorting dejavnost ni potrjena: viden je bel zgornji del oblačila, predel trupa je zakrit s škatlami.",
+    "Gemma primarily apples and pears kot razlaga osrednjega sadja ni potrjena; vidni so tudi izraziti plodovi z izrastki, podobni pitaji. Materiali les/kovina prikaznih binov ostajajo modelove možnosti.",
+    "NVILA r1/r2 in številni opisi Qwen/Gemma omenjajo dve osebi ter prezrejo delno zakrito tretjo; odsotnost imena ne dokazuje odsotnosti človeka."
+  ],
+  "repetition_observations": [
+    "Qwen Q4 r1 loči tudi delno vidno osebo; r2/r3 spreminjata poimenovanja in granularnost, ne nujno dejanskih instanc.",
+    "Qwen BF16 ima 8/6/5 zapisov; zamenjave man/person in shelf/shelves so besedne spremembe, ne potrjeno sledenje.",
+    "Florence lahko zazna delno zakrito glavo in hkrati obraz na plakatu napačno šteje kot človeka; ti napovedi je treba presojati ločeno."
+  ],
+  "stable_success_scope": "Florence OD pravilno omeji glavno osebo (ID3), delno zakrito glavo (ID5) in osebo pri hladilniku (ID4). Vse3 ponovitve so enake. Dodatni ID6/obraz na plakatu je ločena napaka, ne četrta fizična oseba.",
+  "classification_review": {
+    "frozen_sha256": "19c9f5cdc919511095ff8bad842b21b40e2e0878b8502264e8d435f6596e9cc2",
+    "valid_calls": 11,
+    "errors": [
+      {
+        "model": "qwen35-bf16",
+        "prompt": "long",
+        "repeat": "r3",
+        "error": "Object 7 has missing reason."
+      }
+    ],
+    "objects": [
+      {
+        "id": 1,
+        "id_type": "int",
+        "label": "person",
+        "states": {
+          "movable": {
+            "count": 8,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "People move frequently between visits."
+            }
+          },
+          "uncertain": {
+            "count": 3,
+            "example": {
+              "model": "qwen35-q4",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "People move frequently between visits."
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "id_type": "int",
+        "label": "produce boxes",
+        "states": {
+          "movable": {
+            "count": 11,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Boxes can be stacked or moved by staff."
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "id_type": "int",
+        "label": "ceiling light fixture",
+        "states": {
+          "fixed": {
+            "count": 11,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Ceiling fixtures are permanently mounted."
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "id_type": "int",
+        "label": "hanging decoration",
+        "states": {
+          "uncertain": {
+            "count": 6,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Hanging decorations may be removable or temporary."
+            }
+          },
+          "movable": {
+            "count": 4,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r2",
+              "reason": "Hanging decoration can be removed and rehung."
+            }
+          },
+          "fixed": {
+            "count": 1,
+            "example": {
+              "model": "qwen35-q4",
+              "prompt": "long",
+              "repeat": "r3",
+              "reason": "Decoration is suspended and requires dismantling to move."
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "id_type": "int",
+        "label": "refrigerated display unit",
+        "states": {
+          "fixed": {
+            "count": 10,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Refrigerated units are permanent store installations."
+            }
+          },
+          "movable": {
+            "count": 1,
+            "example": {
+              "model": "qwen35-q4",
+              "prompt": "long",
+              "repeat": "r2",
+              "reason": "Display units can be pushed or relocated."
+            }
+          }
+        }
+      },
+      {
+        "id": 6,
+        "id_type": "int",
+        "label": "person",
+        "states": {
+          "movable": {
+            "count": 8,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "People move frequently between visits."
+            }
+          },
+          "uncertain": {
+            "count": 3,
+            "example": {
+              "model": "qwen35-q4",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "People move frequently between visits."
+            }
+          }
+        }
+      },
+      {
+        "id": 7,
+        "id_type": "int",
+        "label": "shelf",
+        "states": {
+          "fixed": {
+            "count": 7,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Shelves are permanently installed structural elements."
+            }
+          },
+          "movable": {
+            "count": 2,
+            "example": {
+              "model": "qwen35-q4",
+              "prompt": "long",
+              "repeat": "r3",
+              "reason": "Shelves can be repositioned or removed by staff."
+            }
+          },
+          "uncertain": {
+            "count": 2,
+            "example": {
+              "model": "qwen35-q4",
+              "prompt": "short",
+              "repeat": "r2",
+              "reason": "Shelf attachment evidence missing; may be movable or fixed."
+            }
+          }
+        }
+      },
+      {
+        "id": 8,
+        "id_type": "int",
+        "label": "produce display bin",
+        "states": {
+          "movable": {
+            "count": 11,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Display bins can be repositioned by staff."
+            }
+          }
+        }
+      }
+    ],
+    "own_assessment": "Zložljive škatle/razstavni bin so v vseh11 veljavnih klicih movable, svetilke fixed; to je strinjanje modelov. Viseči okraski prehajajo med vse3 razrede, obe osebi pa v Q4 long postaneta uncertain ob razlogu People move frequently. To kaže neskladnost razloga z razredom glede na podane definicije, ne novo referenčno anotacijo stabilnosti."
+  },
+  "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+}

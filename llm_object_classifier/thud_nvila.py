@@ -7,31 +7,47 @@ import argparse
 import copy
 import time
 import traceback
+from pathlib import Path
+import uuid
 
 from .description_prompts import user_prompt, validate_description
 from .experiment import read_json, strict_json, write_json, sha256
 from .thud_extended_common import (OUT, ROOT, prepare, snapshot, environment, progress,
-    begin_measure, end_measure, saved_path, check_saved)
+    begin_measure, end_measure, saved_path, check_saved, native_selection)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--limit', type=int, default=100)
+    parser.add_argument('--selection', type=Path)
+    parser.add_argument('--output-dir', type=Path)
+    parser.add_argument('--system-file', type=Path, default=ROOT/'configs/prompts/thud-description-rich.txt')
+    parser.add_argument('--schema', choices=['legacy','rich-v2'], default='rich-v2')
+    parser.add_argument('--temperature', type=float, default=0)
+    parser.add_argument('--seed', type=int, default=42)
+    parser.add_argument('--repeat', default='original')
+    parser.add_argument('--max-new-tokens', type=int, default=8192)
     args = parser.parse_args()
     import torch
     import llava
-    selected = prepare()
-    destination = OUT / 'nvila'
-    system = (ROOT / 'configs/prompts/thud-description-rich.txt').read_text()
+    selected = native_selection(args.selection)
+    destination = args.output_dir or OUT / 'nvila'
+    system = args.system_file.read_text()
+    if args.selection is not None: system=system.strip()
     config = {'model': 'Efficient-Large-Model/NVILA-8B',
               'revision': read_json(OUT / 'setup/nvila-api.txt')['sha'],
               'vila_commit': '57ecbfb904b99b563db69ef7916f6390eecea516',
               'system_prompt': system, 'system_sha256': sha256(system.encode()),
-              'precision_requested': 'FP16', 'attention': 'sdpa', 'seed': 42,
-              'do_sample': False, 'max_new_tokens': 8192, 'model_max_length': 16384,
+              'precision_requested': 'FP16', 'attention': 'sdpa', 'seed': args.seed,
+              'do_sample': args.temperature>0, 'temperature':args.temperature,
+              'repeat':args.repeat, 'description_schema':args.schema,
+              'max_new_tokens': args.max_new_tokens, 'model_max_length': 16384,
               'num_beams': 1, 'top_p': .8, 'top_k': 20, 'repetition_penalty': 1.05,
               'unsupported_comparison_options': ['presence_penalty'],
-              'note': 'Greedy temperature-zero equivalent; top_p/top_k inactive, no JSON grammar constraint.'}
+              'note': 'Sampling only when temperature>0; no JSON grammar constraint.'}
+    if args.selection is None and args.repeat=='original' and args.temperature==0 and args.schema=='rich-v2':
+        for key in ('temperature','repeat','description_schema'): config.pop(key)
+        config['note']='Greedy temperature-zero equivalent; top_p/top_k inactive, no JSON grammar constraint.'
     snapshot(destination, config, selected)
     pending = [f for f in selected[:args.limit] if not check_saved(saved_path(destination, f, 'rich'), f)]
     if not pending:
@@ -39,41 +55,67 @@ def main():
         return
     if not torch.cuda.is_available():
         raise RuntimeError('CUDA required')
-    torch.manual_seed(42)
+    # HF expands the tokenizer embeddings at load time. Keep those new weights
+    # constant across repeats; only sampling inside infer() uses 42/43/44.
+    initialization_seed=42 if args.selection is not None else args.seed
+    torch.manual_seed(initialization_seed)
     start = time.perf_counter()
     model = llava.load(str(OUT / 'models/nvila'), device_map='cuda:0',
                        attn_implementation='sdpa', model_max_length=16384)
     torch.cuda.synchronize()
+    embedding_tails={}
+    if args.selection is not None:
+        for name,layer in [('input',model.get_llm().get_input_embeddings()),
+                           ('output',model.get_llm().get_output_embeddings())]:
+            embedding_tails[name]=sha256(layer.weight[-64:].detach().float().cpu().numpy().tobytes())
     write_json(destination / 'environments' / f'{time.time_ns()}.json', {
         **environment(torch, model), 'load_seconds': time.perf_counter()-start,
+        'initialization_seed':initialization_seed,'embedding_tail_sha256':embedding_tails,
         'config': model.config.to_dict(), 'generation_config': model.default_generation_config.to_dict()})
     generation = copy.deepcopy(model.default_generation_config)
-    generation.do_sample = False
-    generation.max_new_tokens = 8192
+    generation.do_sample = args.temperature>0
+    generation.max_new_tokens = args.max_new_tokens
     generation.num_beams = 1
     generation.top_p = .8
     generation.top_k = 20
     # This is the official checkpoint's documented value, unlike the wrapper's
     # default 1.0. Initial repetition failure is retained as a separate diagnostic.
     generation.repetition_penalty = 1.05
-    generation.temperature = 1.0  # inactive under greedy decoding
+    generation.temperature = args.temperature or 1.0  # inactive under greedy
     captured = {}
     original_generate = model.generate
 
     def capture_generate(*args, **kwargs):
         captured['input_tokens_before_image_expansion'] = int(kwargs['input_ids'].shape[-1])
+        if args_selection:
+            captured['input_token_ids_before_image_expansion']=kwargs['input_ids'][0].tolist()
         captured['image_tiles'] = len(kwargs.get('media', {}).get('image', []))
-        output = original_generate(*args, **kwargs)
+        try:
+            output = original_generate(*args, **kwargs)
+        except ValueError as exc:
+            # Upstream silently changes sampling to greedy on ValueError. A
+            # comparison must save the failure instead of changing its protocol.
+            if args_selection: raise RuntimeError('Native generation failed; greedy fallback disabled: '+str(exc)) from exc
+            raise
         captured['token_ids'] = output[0].tolist()
         return output
 
+    args_selection=args.selection is not None
     model.generate = capture_generate
 
     def infer(frame):
+        # Reset each image to its declared sampling seed, independent of resume.
+        torch.manual_seed(args.seed)
         prompt = user_prompt({'record': {'frame_id': frame['frame_id']},
                               'image_size': frame['image_size'], 'regions': None})
         result = {**frame, 'model': config['model'], 'system_prompt': system,
-                  'user_prompt': prompt, 'generation_config': generation.to_dict()}
+                  'user_prompt': prompt, 'generation_config': generation.to_dict(),
+                  'repeat':args.repeat,'seed':args.seed,'call_id':uuid.uuid4().hex,
+                  'syntax_valid':False,'schema_valid':False}
+        if args.selection is not None:
+            result['native_user_prompt']='<image>'+system+'\n\n'+prompt
+            result['native_chat_prompt_text']=model.tokenizer.apply_chat_template(
+                [{'role':'user','content':result['native_user_prompt']}],add_generation_prompt=True,tokenize=False)
         captured.clear()
         tick = begin_measure(torch)
         try:
@@ -83,13 +125,16 @@ def main():
             result['output_tokens'] = len(captured['token_ids'])
             candidate = strict_json(text)
             result['candidate_parsed'] = candidate
-            if result['output_tokens'] >= 8192:
+            result['syntax_valid'] = True
+            if result['output_tokens'] >= args.max_new_tokens:
                 raise ValueError('Output reached token limit; potential truncation')
-            result['parsed'] = validate_description(candidate, expected_schema='rich-v2')
+            result['parsed'] = validate_description(candidate, expected_schema=args.schema)
+            result['schema_valid'] = True
             result['status'] = 'ok'
         except Exception as exc:
             result.update(status='error', error=str(exc), traceback=traceback.format_exc())
         result.update(end_measure(torch, tick))
+        result['finished_at_utc']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
         return result
 
     warmup = infer(pending[0])

@@ -8,10 +8,11 @@ import argparse
 from pathlib import Path
 import time
 import traceback
+import uuid
 
 from .experiment import read_json, write_json
 from .thud_extended_common import (OUT, ROOT, prepare, snapshot, environment, progress,
-    begin_measure, end_measure, saved_path, check_saved, validate_boxes, draw_boxes)
+    begin_measure, end_measure, saved_path, check_saved, validate_boxes, draw_boxes, native_selection)
 
 TASKS = {'caption': '<MORE_DETAILED_CAPTION>', 'od': '<OD>', 'dense': '<DENSE_REGION_CAPTION>'}
 
@@ -19,20 +20,25 @@ TASKS = {'caption': '<MORE_DETAILED_CAPTION>', 'od': '<OD>', 'dense': '<DENSE_RE
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--limit', type=int, default=100)
+    parser.add_argument('--selection', type=Path)
+    parser.add_argument('--output-dir', type=Path)
+    parser.add_argument('--seed', type=int, default=42)
+    parser.add_argument('--repeat', default='original')
     args = parser.parse_args()
     import torch
     from PIL import Image
     from transformers import AutoModelForCausalLM, AutoProcessor
-    selected = prepare()
-    destination = OUT / 'florence'
+    selected = native_selection(args.selection)
+    destination = args.output_dir or OUT / 'florence'
     model_path = OUT / 'models/florence'
     config = {'model': 'microsoft/Florence-2-large',
               'revision': read_json(OUT / 'setup/florence-api.txt')['sha'],
               'tasks': TASKS, 'precision_requested': 'FP16', 'num_beams': 3,
-              'do_sample': False, 'seed': 42, 'max_new_tokens': 1024,
+              'do_sample': False, 'seed': args.seed, 'repeat':args.repeat,'max_new_tokens': 1024,
               'attention': 'eager', 'bbox_coordinates': 'original image pixels, xyxy',
               'unsupported_comparison_options': ['rich JSON prompt', '16384 context', '8192 output',
                                                   'top_k', 'top_p', 'presence_penalty']}
+    if args.selection is None and args.repeat=='original': config.pop('repeat')
     snapshot(destination, config, selected)
     pending = [f for f in selected[:args.limit] if any(not check_saved(saved_path(destination, f, t), f) for t in TASKS)]
     if not pending:
@@ -40,7 +46,7 @@ def main():
         return
     if not torch.cuda.is_available():
         raise RuntimeError('CUDA required')
-    torch.manual_seed(42)
+    torch.manual_seed(args.seed)
     start = time.perf_counter()
     model = AutoModelForCausalLM.from_pretrained(str(model_path), trust_remote_code=True,
         torch_dtype=torch.float16, attn_implementation='eager', local_files_only=True).cuda().eval()
@@ -51,7 +57,10 @@ def main():
                 'generation_config': model.generation_config.to_dict()})
 
     def infer(frame, task):
+        torch.manual_seed(args.seed)
         result = {**frame, 'model': config['model'], 'task': task, 'prompt': task,
+                  'system_prompt':'','user_prompt':task,'repeat':args.repeat,'seed':args.seed,
+                  'call_id':uuid.uuid4().hex,
                   'generation': {k: config[k] for k in ('num_beams', 'do_sample', 'max_new_tokens', 'seed')}}
         tick = begin_measure(torch)
         try:
@@ -73,6 +82,7 @@ def main():
         except Exception as exc:
             result.update(status='error', error=str(exc), traceback=traceback.format_exc())
         result.update(end_measure(torch, tick))
+        result['finished_at_utc']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
         return result
 
     # Physical warmup for every task after this model load, even on resume.

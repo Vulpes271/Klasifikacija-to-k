@@ -1,0 +1,1662 @@
+{
+  "thud_dense_test50/image-000050": {
+    "review_status": "reviewed",
+    "selection_reason": "Stabilen, jasno viden vhod/vrata, hkrati zanesljiv primer napačne detekcije človeka na plakatu in razhajanj imen med semeni.",
+    "visible_confirmed": [
+      "Dvojna steklena vrata z navpičnima ročajema, zelena izhodna oznaka, police desno, miza in sedež levo, zunaj klop ter palme.",
+      "Človeški obraz spodaj levo je del tiskanega oglasa, ne nova fizična oseba v trgovini."
+    ],
+    "unsupported_model_claims": [
+      "Florence dense trditve woman working on laptop, coffee machine in coffee cup niso podprte; OD person/human face na oglasu ni nova fizična oseba.",
+      "Florence Chinese New Year napis nad vrati in mize/stoli kot kavarniški kontekst niso potrjeni. Odpiranje vrat se razlikuje med opisi; iz fotografije ga ne potrjujem.",
+      "Qwen BF16 mounted fire extinguisher in NVILA red trash can sta različni razlagi delno vidnega rdečega predmeta; identitete in pritrditve ne potrjujem. Les/kovina pri mizi ali polici nista dokazana samo z videzom."
+    ],
+    "repetition_observations": [
+      "Florence je v vseh treh ponovitvah enak, vključno z napako o osebi na plakatu.",
+      "NVILA se med glass door, double glass doors in dodatnimi predmeti spreminja; vsi izvirni odgovori ostajajo zavrnjeni po formatu.",
+      "Qwen BF16 navaja 4/5/3 objekte; Q4 4/4/4, a s spremembami imen in izborov. Gemma loči tudi ročaj/izhodni pogled; to ni enaka granularnost instanc."
+    ],
+    "stable_success_scope": "Florence OD lokalizira steklena vrata (ID3) in polico desno na ustreznih vidnih območjih; ista okvirja in oznaki se ponovijo v vseh3 svežih generacijah. Napoved osebe na plakatu in celoten opis s tem nista potrjena.",
+    "classification_review": {
+      "frozen_sha256": "9ca3591df8d6b76d35bcc3869901fa6d2a1cc35f1cd1dfd00ad678fd85d74503",
+      "valid_calls": 12,
+      "errors": [],
+      "objects": [
+        {
+          "id": 1,
+          "id_type": "int",
+          "label": "glass doors",
+          "states": {
+            "fixed": {
+              "count": 5,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Structural building element integrated into the building."
+              }
+            },
+            "movable": {
+              "count": 7,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Double glass doors can be opened or removed from frame."
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "id_type": "int",
+          "label": "wooden table",
+          "states": {
+            "movable": {
+              "count": 8,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Freestanding table that can be carried or repositioned."
+              }
+            },
+            "fixed": {
+              "count": 4,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Wooden table is a structural element of the retail space."
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "id_type": "int",
+          "label": "fire extinguisher",
+          "states": {
+            "fixed": {
+              "count": 7,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Mounted on wall; removal requires dismantling the installation."
+              }
+            },
+            "movable": {
+              "count": 2,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r2",
+                "reason": "Fire extinguisher is a handheld object that can be moved."
+              }
+            },
+            "uncertain": {
+              "count": 3,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r3",
+                "reason": "Mounted but attachment evidence not visible reliably."
+              }
+            }
+          }
+        },
+        {
+          "id": 4,
+          "id_type": "int",
+          "label": "shelves",
+          "states": {
+            "movable": {
+              "count": 5,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Shelving unit can be moved or repositioned in normal use."
+              }
+            },
+            "uncertain": {
+              "count": 4,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r3",
+                "reason": "Attachment evidence missing; shelves could be bolted or freestanding."
+              }
+            },
+            "fixed": {
+              "count": 3,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r3",
+                "reason": "Stocked shelving unit requires dismantling to relocate."
+              }
+            }
+          }
+        }
+      ],
+      "own_assessment": "Pri istem vhodu se glass doors med fixed/movable menjajo; razlog can be opened zamenjuje odpiranje z relokacijo. Table kot structural element ni podprta s prvim opisom appears_freestanding. Fire extinguisher menja vse3 razrede; trditev mounted izvira že iz negotovega slikovnega opisa, ne iz ročno potrjenega nosilca."
+    },
+    "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+  },
+  "thud_dense_test50/image-000039": {
+    "review_status": "reviewed",
+    "selection_reason": "Gost in zamegljen prizor z delno zakritimi policami ter napako sheme in spremembami poimenovanj.",
+    "visible_confirmed": [
+      "Oseba v svetlem pletenem oblačilu delno zakriva desno stran; zameglitev omejuje fine lastnosti.",
+      "Vidni so številni lončki instant rezancev, police, stropne luči in moder/bel balonski okrasek. Zgoraj desno je viden bel element kamere z nosilcem."
+    ],
+    "unsupported_model_claims": [
+      "Florence canned goods ni dovolj natančen opis pretežnega instant-noodle blaga; dense shopping cart in NVILA pushing a cart nista dokazano potiskanje vozička. Spodaj je delno viden črn nakupovalni koš, koles ni mogoče potrditi.",
+      "NVILA prevod napisa in modelove trditve o spolu/dejavnosti niso ročno potrjeni. Gemmina oznaka concrete floor ni podprta: tla so zakrita oziroma izven vidnega dela."
+    ],
+    "repetition_observations": [
+      "NVILA r2 ima neubežane narekovaje v opisu; seznam za prikaz zato ni razčlenjen. To ne pomeni odsotnosti objektov.",
+      "Qwen navaja shelf/shelves in cup/cups ter dodaja/izpušča balonski okrasek. Besedna sprememba števila ni dokaz spremembe števila fizičnih predmetov.",
+      "Gemma r2 je formalno zavrnjena, čeprav je vsebina scene še dostopna; ločujem napako enum/bool od vidne pravilnosti."
+    ],
+    "classification_review": {
+      "frozen_sha256": "262ce5cd4c6c20338c6e2b60bd336b8634ee9541cc64622b38e6a734ab0b9f65",
+      "valid_calls": 10,
+      "errors": [
+        {
+          "model": "qwen35-bf16",
+          "prompt": "long",
+          "repeat": "r1",
+          "error": "Object 4 has missing reason."
+        },
+        {
+          "model": "qwen35-bf16",
+          "prompt": "long",
+          "repeat": "r3",
+          "error": "Object 4 has missing reason."
+        }
+      ],
+      "objects": [
+        {
+          "id": 1,
+          "id_type": "int",
+          "label": "person",
+          "states": {
+            "movable": {
+              "count": 10,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r2",
+                "reason": "Person walks through the scene and can move freely."
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "id_type": "int",
+          "label": "shelf unit",
+          "states": {
+            "movable": {
+              "count": 1,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r2",
+                "reason": "Shelf units are standard retail fixtures that can be repositioned."
+              }
+            },
+            "fixed": {
+              "count": 9,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Shelf unit is structural element requiring dismantling to relocate."
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "id_type": "int",
+          "label": "instant noodle cup",
+          "states": {
+            "movable": {
+              "count": 8,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r2",
+                "reason": "Noodle cups are small items easily carried or restocked."
+              }
+            },
+            "fixed": {
+              "count": 2,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Noodle cups are integrated into shelf structure, not permanent installation."
+              }
+            }
+          }
+        },
+        {
+          "id": 4,
+          "id_type": "int",
+          "label": "light fixture",
+          "states": {
+            "fixed": {
+              "count": 10,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r2",
+                "reason": "Light fixtures are permanently mounted to the ceiling structure."
+              }
+            }
+          }
+        },
+        {
+          "id": 5,
+          "id_type": "int",
+          "label": "signage",
+          "states": {
+            "movable": {
+              "count": 3,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r2",
+                "reason": "Signage is typically mounted on walls or stands and can be moved."
+              }
+            },
+            "uncertain": {
+              "count": 7,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r2",
+                "reason": "Signage attachment not visible; could be fixed or portable."
+              }
+            }
+          }
+        }
+      ],
+      "own_assessment": "Oseba je v vseh10 veljavnih izhodih movable. BF16 long r1/r3 nimata zahtevanega reason pri svetilki (namesto njega je description); ničesar ne popravljam. Noodle cup fixed z razlogom integrated into shelf structure, not permanent installation je neutemeljena oziroma notranje protislovna razlaga. Police se tudi brez vidnega pritrjevanja razglasijo za structural."
+    },
+    "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+  },
+  "thud_dense_test50/image-000006": {
+    "review_status": "reviewed",
+    "selection_reason": "Gost prizor s tremi fizičnimi osebami, delno zakrito glavo, sadjem, plakatom in mnogimi okraski; razlika med številom imen in instanc.",
+    "visible_confirmed": [
+      "Glavna oseba v beli majici levo, delno skrita glava za njo in tretja oseba zadaj pri rdečem hladilnem elementu. Plakat desno prikazuje še obraz, ki ni dodatna fizična oseba.",
+      "Večbarvni balonski okraski, rdeči viseči okraski, stropne luči, zložene škatle ter osrednji plodovi z izrazitimi rožnatimi/luskastimi deli."
+    ],
+    "unsupported_model_claims": [
+      "Florence black apron/sorting dejavnost ni potrjena: viden je bel zgornji del oblačila, predel trupa je zakrit s škatlami.",
+      "Gemma primarily apples and pears kot razlaga osrednjega sadja ni potrjena; vidni so tudi izraziti plodovi z izrastki, podobni pitaji. Materiali les/kovina prikaznih binov ostajajo modelove možnosti.",
+      "NVILA r1/r2 in številni opisi Qwen/Gemma omenjajo dve osebi ter prezrejo delno zakrito tretjo; odsotnost imena ne dokazuje odsotnosti človeka."
+    ],
+    "repetition_observations": [
+      "Qwen Q4 r1 loči tudi delno vidno osebo; r2/r3 spreminjata poimenovanja in granularnost, ne nujno dejanskih instanc.",
+      "Qwen BF16 ima 8/6/5 zapisov; zamenjave man/person in shelf/shelves so besedne spremembe, ne potrjeno sledenje.",
+      "Florence lahko zazna delno zakrito glavo in hkrati obraz na plakatu napačno šteje kot človeka; ti napovedi je treba presojati ločeno."
+    ],
+    "stable_success_scope": "Florence OD pravilno omeji glavno osebo (ID3), delno zakrito glavo (ID5) in osebo pri hladilniku (ID4). Vse3 ponovitve so enake. Dodatni ID6/obraz na plakatu je ločena napaka, ne četrta fizična oseba.",
+    "classification_review": {
+      "frozen_sha256": "19c9f5cdc919511095ff8bad842b21b40e2e0878b8502264e8d435f6596e9cc2",
+      "valid_calls": 11,
+      "errors": [
+        {
+          "model": "qwen35-bf16",
+          "prompt": "long",
+          "repeat": "r3",
+          "error": "Object 7 has missing reason."
+        }
+      ],
+      "objects": [
+        {
+          "id": 1,
+          "id_type": "int",
+          "label": "person",
+          "states": {
+            "movable": {
+              "count": 8,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "People move frequently between visits."
+              }
+            },
+            "uncertain": {
+              "count": 3,
+              "example": {
+                "model": "qwen35-q4",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "People move frequently between visits."
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "id_type": "int",
+          "label": "produce boxes",
+          "states": {
+            "movable": {
+              "count": 11,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Boxes can be stacked or moved by staff."
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "id_type": "int",
+          "label": "ceiling light fixture",
+          "states": {
+            "fixed": {
+              "count": 11,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Ceiling fixtures are permanently mounted."
+              }
+            }
+          }
+        },
+        {
+          "id": 4,
+          "id_type": "int",
+          "label": "hanging decoration",
+          "states": {
+            "uncertain": {
+              "count": 6,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Hanging decorations may be removable or temporary."
+              }
+            },
+            "movable": {
+              "count": 4,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r2",
+                "reason": "Hanging decoration can be removed and rehung."
+              }
+            },
+            "fixed": {
+              "count": 1,
+              "example": {
+                "model": "qwen35-q4",
+                "prompt": "long",
+                "repeat": "r3",
+                "reason": "Decoration is suspended and requires dismantling to move."
+              }
+            }
+          }
+        },
+        {
+          "id": 5,
+          "id_type": "int",
+          "label": "refrigerated display unit",
+          "states": {
+            "fixed": {
+              "count": 10,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Refrigerated units are permanent store installations."
+              }
+            },
+            "movable": {
+              "count": 1,
+              "example": {
+                "model": "qwen35-q4",
+                "prompt": "long",
+                "repeat": "r2",
+                "reason": "Display units can be pushed or relocated."
+              }
+            }
+          }
+        },
+        {
+          "id": 6,
+          "id_type": "int",
+          "label": "person",
+          "states": {
+            "movable": {
+              "count": 8,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "People move frequently between visits."
+              }
+            },
+            "uncertain": {
+              "count": 3,
+              "example": {
+                "model": "qwen35-q4",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "People move frequently between visits."
+              }
+            }
+          }
+        },
+        {
+          "id": 7,
+          "id_type": "int",
+          "label": "shelf",
+          "states": {
+            "fixed": {
+              "count": 7,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Shelves are permanently installed structural elements."
+              }
+            },
+            "movable": {
+              "count": 2,
+              "example": {
+                "model": "qwen35-q4",
+                "prompt": "long",
+                "repeat": "r3",
+                "reason": "Shelves can be repositioned or removed by staff."
+              }
+            },
+            "uncertain": {
+              "count": 2,
+              "example": {
+                "model": "qwen35-q4",
+                "prompt": "short",
+                "repeat": "r2",
+                "reason": "Shelf attachment evidence missing; may be movable or fixed."
+              }
+            }
+          }
+        },
+        {
+          "id": 8,
+          "id_type": "int",
+          "label": "produce display bin",
+          "states": {
+            "movable": {
+              "count": 11,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Display bins can be repositioned by staff."
+              }
+            }
+          }
+        }
+      ],
+      "own_assessment": "Zložljive škatle/razstavni bin so v vseh11 veljavnih klicih movable, svetilke fixed; to je strinjanje modelov. Viseči okraski prehajajo med vse3 razrede, obe osebi pa v Q4 long postaneta uncertain ob razlogu People move frequently. To kaže neskladnost razloga z razredom glede na podane definicije, ne novo referenčno anotacijo stabilnosti."
+    },
+    "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+  },
+  "thud_dense_test50/image-000028": {
+    "review_status": "reviewed",
+    "selection_reason": "Ozka, zamegljena pot med policami, ena vidna oseba in popolnoma neveljaven NVILA JSON v vseh3 ponovitvah.",
+    "visible_confirmed": [
+      "Visoke police na obeh straneh, ena oseba v temnih oblačilih na sredini, pravokotne stropne luči in viseči okraski.",
+      "Modri pano je v globini prednjega dela opreme/razstavne enote, ne jasno samostojen napis na tleh."
+    ],
+    "unsupported_model_claims": [
+      "NVILA branje/prevod kitajskih napisov, potovalna smer osebe ter razlaga talnih oznak kot varnostnih smernic niso vizualno potrjeni.",
+      "Checkout/service counter je modelova funkcijska razlaga ozadja; iz samega pogleda funkcije blagajne ne potrjujem.",
+      "Gemma osvetljen lantern ne dokazuje, da je papirnati okrasek sam vir svetlobe.",
+      "Florence appears to be in a hurry ni potrjeno iz zamegljene ene slike; jeans je nepotrjena vrsta tkanine."
+    ],
+    "repetition_observations": [
+      "NVILA neubežani narekovaji in napačni nizi v objektih povzročijo zavrnitev vseh3 JSON; raw besedilo ostane v celoti. Prazna razčlenjena imena pomenijo neuspešno razčlenitev, ne praznega prizora.",
+      "BF16 med r1/r2/r3 menja levo/desno poimenovanje polic in skupinski/separatni zapis okraskov; Q4 v r3 združi obe polici v en zapis.",
+      "Gemma isto fotografijo med semeni različno opisuje kot dim ali brightly lit; subjektivni opis ni meritev osvetljenosti.",
+      "Dense oznaki empty aisle pokrivata stranski regiji polic; ne berem ju kot trditev, da v celotni fotografiji ni človeka. Dve skoraj prekrivajoči se person regiji ne pomenita dveh ljudi."
+    ],
+    "classification_review": {
+      "frozen_sha256": "f2ce26b83db64bd96769ecd60381076941337a8de53601ac5852d7ba65959dd4",
+      "valid_calls": 12,
+      "errors": [],
+      "objects": [
+        {
+          "id": 1,
+          "id_type": "int",
+          "label": "left shelving unit",
+          "states": {
+            "movable": {
+              "count": 3,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Retail shelving units are standard fixtures that can be moved or reconfigured."
+              }
+            },
+            "fixed": {
+              "count": 9,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Structural shelving unit integrated into store layout."
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "id_type": "int",
+          "label": "right shelving unit",
+          "states": {
+            "movable": {
+              "count": 3,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Retail shelving units are standard fixtures that can be moved or reconfigured."
+              }
+            },
+            "fixed": {
+              "count": 9,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Structural shelving unit integrated into store layout."
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "id_type": "int",
+          "label": "person",
+          "states": {
+            "movable": {
+              "count": 12,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "A person is a biological entity capable of independent movement."
+              }
+            }
+          }
+        },
+        {
+          "id": 4,
+          "id_type": "int",
+          "label": "hanging lanterns",
+          "states": {
+            "movable": {
+              "count": 6,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Decorative lanterns suspended from the ceiling can be removed and relocated."
+              }
+            },
+            "uncertain": {
+              "count": 6,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Hanging lanterns attachment method not reliably visible."
+              }
+            }
+          }
+        },
+        {
+          "id": 5,
+          "id_type": "int",
+          "label": "checkout counter area",
+          "states": {
+            "uncertain": {
+              "count": 6,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Counter area status varies by store layout and operational changes over time."
+              }
+            },
+            "fixed": {
+              "count": 6,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Checkout counter appears as permanent structural installation."
+              }
+            }
+          }
+        }
+      ],
+      "own_assessment": "Za osebo je12/12 movable, za obe polici 3 movable proti9 fixed kljub not_visible. Viseči okraski se delijo6 movable/6 uncertain. Counter area 6 fixed/6 uncertain dodatno temelji na že nepotrjeni funkcijski razlagi ozadja; navidezno razmerje v prostoru ni dokaz pritrditve."
+    },
+    "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+  },
+  "thud_dense_test50/image-000001": {
+    "review_status": "reviewed",
+    "selection_reason": "Stabilen uspeh splošne prostorske razlage levo/desno, a omejena granularnost in lažne časovne/materialne podrobnosti.",
+    "visible_confirmed": [
+      "Hladilne zastekljene enote levo, odprte police desno, odsevna tla, črn strop z belimi lučmi in več balonskih okraskov.",
+      "V spodnjem desnem delu so vidne plastenke z rožnatimi pokrovčki; na desnih policah je pakirano pecivo/blago."
+    ],
+    "unsupported_model_claims": [
+      "NVILA sklep daytime hours in Gemma nighttime setting sta nasprotujoči si domnevi; ura dneva iz te fotografije ni ugotovljena.",
+      "Vseh balonskih okraskov je vidno več kot dva, medtem ko Gemma v vseh ponovitvah opis omeji na two hot air balloons.",
+      "Les/kovina polic ter natančna vsebina zaprtih pijač niso kemično ali vsebinsko potrjeni samo z videzom. Izraz hot air balloon lights ne dokazuje, da so okraski samostojne svetilke."
+    ],
+    "repetition_observations": [
+      "Qwen BF16/Q4 v vseh3 scenah pravilno ohranita prostorsko razmerje hlajenje levo in police desno ter stropne okraske.",
+      "Poimenovanja display case/unit, packaged bread/goods in sign/light se med semeni zamenjujejo. To ni potrjena izguba fizične instance.",
+      "Florence OD/dense vrneta skoraj celoten prizor kot convenience store/aisle, zato njegov uspešen opis ni uspešna lokalizacija posameznih izdelkov.",
+      "NVILA 4/1/1 razčlenjenih imen ne opisuje celotnega števila predmetov; opisi vsebujejo več omemb."
+    ],
+    "stable_success_scope": "Makro prostorski opis levo/desno pri Qwen v vseh3 ponovitvah je vidno podprt; ta uspeh ne potrdi vsake lastnosti izdelka ali števila instanc.",
+    "classification_review": {
+      "frozen_sha256": "de606e9263dd12a6b8e87a983266a3c00edf96b80efbb2466b218e409fbd1a7f",
+      "valid_calls": 9,
+      "errors": [
+        {
+          "model": "qwen35-bf16",
+          "prompt": "long",
+          "repeat": "r2",
+          "error": "Object 3 has missing reason."
+        },
+        {
+          "model": "qwen35-bf16",
+          "prompt": "long",
+          "repeat": "r3",
+          "error": "Object 3 has missing reason."
+        },
+        {
+          "model": "qwen35-bf16",
+          "prompt": "short",
+          "repeat": "r2",
+          "error": "Object 3 has missing reason."
+        }
+      ],
+      "objects": [
+        {
+          "id": 1,
+          "id_type": "int",
+          "label": "refrigerated display unit",
+          "states": {
+            "fixed": {
+              "count": 8,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Integrated into store wall structure; moving requires dismantling."
+              }
+            },
+            "movable": {
+              "count": 1,
+              "example": {
+                "model": "qwen35-q4",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Display units can be moved or restocked by staff."
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "id_type": "int",
+          "label": "hot air balloon decoration",
+          "states": {
+            "movable": {
+              "count": 9,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Hanging decoration suspended by string or wire."
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "id_type": "int",
+          "label": "wire shelving unit",
+          "states": {
+            "movable": {
+              "count": 8,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Standalone shelving unit that can be pushed or repositioned."
+              }
+            },
+            "uncertain": {
+              "count": 1,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r3",
+                "reason": "Metal grid-style shelf holding packaged goods, attachment not visible."
+              }
+            }
+          }
+        },
+        {
+          "id": 4,
+          "id_type": "int",
+          "label": "packaged bread",
+          "states": {
+            "movable": {
+              "count": 6,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Packaged item on shelf; easily carried or removed."
+              }
+            },
+            "uncertain": {
+              "count": 3,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Product placement implies temporary or uncertain status."
+              }
+            }
+          }
+        },
+        {
+          "id": 5,
+          "id_type": "int",
+          "label": "bottled water",
+          "states": {
+            "movable": {
+              "count": 6,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Bottled water item; easily carried or removed."
+              }
+            },
+            "uncertain": {
+              "count": 3,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Product placement implies temporary or uncertain status."
+              }
+            }
+          }
+        }
+      ],
+      "own_assessment": "BF16 long r2/r3 in short r2 ostanejo napake z manjkajočim reason pri wire shelf. Med9 veljavnimi odgovori je dekoracija vedno movable; hladilna enota je8 fixed/1 movable, packaged bread in bottled water pa6 movable/3 uncertain. Integrated into wall za hladilnik ni ročno potrjen dokaz. Ne popravljam nejasne identifikacije pijače v novo dejstvo."
+    },
+    "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+  },
+  "thud_agtea_test50/image-000017": {
+    "review_status": "reviewed",
+    "selection_reason": "Stabilna lokalizacija številnih stolov/oseb, a močno semantično razhajanje o osrednjem knjižnem elementu in materialih.",
+    "visible_confirmed": [
+      "Velika knjižna stena je levo/zadaj, modrikasta zasteklitev desno; vidni so oranžni sedeži, majhne mize in več delno zakritih ljudi.",
+      "Osrednji valjasti element ima osvetljene krožne police z vidnimi knjigami. Zgornje stropne površine odsevajo opremo.",
+      "Zaobljena lesu podobna površina zapolni sprednji levi del; višina in funkcija pulta/platforme iz ene projekcije nista določljivi."
+    ],
+    "unsupported_model_claims": [
+      "Florence spiral staircase with glass railing in NVILA/Qwen r2 spiral staircase nista podprta: viden je knjižni element, ne prehodna stopniščna pot. Tudi zgolj light fixture ne zajame vidnih knjig.",
+      "Gemma velika knjižna polica desno ter stropni Screen z modro-belo sliko nista skladna z jasno levo knjižno steno; stropni odsev ni potrjen elektronski zaslon.",
+      "Florence/NVILA polished wooden floor posploši del lesenega videza na vsa tla; pod stoli je drugačna sivkasta površina. Material sedežev plastic/upholstered ter točen tip podnožja ostaneta domnevi.",
+      "Wall-mounted bookshelves ne dokazuje načina sidranja, če se pritrditve ne vidijo."
+    ],
+    "repetition_observations": [
+      "NVILA r2 zamenja osrednji element s stopniščem, r3 ga poimenuje cylindrical bookcase; to je vsebinska razlika, ne zgolj sinonim.",
+      "Qwen BF16 med r1/r2/r3 spreminja hanging structure/staircase/light fixture; Q4 r2 tudi staircase.",
+      "Florence ima 29 OD regij (različne vrste), Qwen/NVILA pa večinoma skupinske zapise pohištva. Teh števil ne primerjam kot enake instance."
+    ],
+    "stable_success_scope": "Florence OD v vseh3 ponovitvah enako lokalizira dejansko stoječo osebo levo pri niši (ID18) in več fizičnih sedečih oseb/stolov v ospredju. To ni potrditev vseh29 regij ali celotnega captiona.",
+    "classification_review": {
+      "frozen_sha256": "0692d0507d12d202203db327b83862c5dfe2552179c875e3d31a546f82ad069f",
+      "valid_calls": 10,
+      "errors": [
+        {
+          "model": "qwen35-bf16",
+          "prompt": "long",
+          "repeat": "r2",
+          "error": "Duplicate JSON key: classification"
+        },
+        {
+          "model": "qwen35-q4",
+          "prompt": "short",
+          "repeat": "r1",
+          "error": "Duplicate JSON key: classification"
+        }
+      ],
+      "objects": [
+        {
+          "id": 1,
+          "id_type": "int",
+          "label": "curved wooden counter",
+          "states": {
+            "movable": {
+              "count": 10,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Counter can be moved or removed without dismantling structure."
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "id_type": "int",
+          "label": "wall-mounted bookshelves",
+          "states": {
+            "fixed": {
+              "count": 10,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Wall-mounted shelves require wall removal to move."
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "id_type": "int",
+          "label": "spiral hanging structure",
+          "states": {
+            "movable": {
+              "count": 7,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Hanging decoration can be detached and repositioned."
+              }
+            },
+            "uncertain": {
+              "count": 3,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r3",
+                "reason": "Hanging attachment not visible; could be fixed or removable."
+              }
+            }
+          }
+        },
+        {
+          "id": 4,
+          "id_type": "int",
+          "label": "orange chairs",
+          "states": {
+            "movable": {
+              "count": 10,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Chairs are designed to be carried or pushed."
+              }
+            }
+          }
+        },
+        {
+          "id": 5,
+          "id_type": "int",
+          "label": "round tables",
+          "states": {
+            "movable": {
+              "count": 10,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Tables are designed to be moved by people."
+              }
+            }
+          }
+        }
+      ],
+      "own_assessment": "Podvojeni classification v BF16 long r2 in Q4 short r1 sta zavrnjena brez izbire zadnje vrednosti. Chairs/tables/counter so v10 veljavnih klicih movable, wall-mounted bookshelves fixed. To povzema modelovo poimenovanje wall-mounted; sidranje police ostaja vizualno nepotrjeno. Spiral hanging structure niha7 movable/3 uncertain, čeprav je izhodiščna identifikacija knjižnega elementa nepopolna."
+    },
+    "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+  },
+  "thud_agtea_test50/image-000039": {
+    "review_status": "reviewed",
+    "selection_reason": "Jasno ločena prava ravna stopnica desno in krožna knjižna polica levo: dober preizkus semantične zamenjave ter stabilnega uspeha Qwen.",
+    "visible_confirmed": [
+      "Valjasta osvetljena polica s knjigami levo ob oknih, več oranžnih sedežev, mize, velik dejanski zaslon z obrazom na desni in ravno stopnišče skrajno desno.",
+      "Vijolična zgornja ploskev je ločena od spodnjega zaslona; odsevna tla so vidna, sestave kamna ne potrjujem."
+    ],
+    "unsupported_model_claims": [
+      "Florence escalator ni potrjen: viden je sklop ravnih osvetljenih stopnic brez dokaza premičnega traku. Dense spiral staircase lahko napačno zamenja knjižni valj s stopnicami.",
+      "NVILA engaged in conversation/using phones in upscale cafe/hotel kontekst sta funkcijska sklepa, ne potrjeni aktivnosti ali vrsta ustanove.",
+      "Qwen Q4 wheels visible pri sedežih ni potrjeno; vidna so predvsem kovinsko delujoča podnožja, ne jasni koleščki.",
+      "Gemma r3 cilindrično polico postavi na desno, čeprav je jasno levo. Pri zaslonu in vijoličnem ozadju se opis deloma meša."
+    ],
+    "repetition_observations": [
+      "Qwen BF16 v vseh3 ponovitvah jasno loči knjižno polico ob levih oknih in stopnice desno; Q4 prav tako ohrani osnovno postavitev.",
+      "Gemma ima v vseh3 ponovitvah napako evidence/identifiable, zato njena uporabna prostorska opažanja niso avtomatično veljavna shema.",
+      "Skupinsko orange armchair in 21 OD regij nimata iste granularnosti; ne sklepam o številu zadetkov iz števila objektov."
+    ],
+    "stable_success_scope": "Stabilen, vizualno podprt makro opis Qwen BF16: cilindrična knjižna polica levo, ločene stopnice desno in dejanski zaslon. Ni trditev o popolni detekciji ali stabilnosti pohištva.",
+    "classification_review": {
+      "frozen_sha256": "1f79509b7aca490d3b16c115208de683089bffa90840d7e451b4f6c6b4f1a88a",
+      "valid_calls": 10,
+      "errors": [
+        {
+          "model": "qwen35-bf16",
+          "prompt": "long",
+          "repeat": "r1",
+          "error": "Duplicate JSON key: classification"
+        },
+        {
+          "model": "qwen35-q4",
+          "prompt": "short",
+          "repeat": "r2",
+          "error": "Object 3 has missing reason."
+        }
+      ],
+      "objects": [
+        {
+          "id": 1,
+          "id_type": "int",
+          "label": "spiral bookshelf",
+          "states": {
+            "movable": {
+              "count": 10,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r2",
+                "reason": "Bookshelf is freestanding and can be moved without dismantling."
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "id_type": "int",
+          "label": "orange armchair",
+          "states": {
+            "movable": {
+              "count": 10,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r2",
+                "reason": "Armchair has a base and is designed to be repositioned easily."
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "id_type": "int",
+          "label": "table",
+          "states": {
+            "movable": {
+              "count": 8,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r2",
+                "reason": "Table is a standard furniture item that can be pushed or carried."
+              }
+            },
+            "uncertain": {
+              "count": 2,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r2",
+                "reason": "Table attachment evidence missing; implies uncertain."
+              }
+            }
+          }
+        },
+        {
+          "id": 4,
+          "id_type": "int",
+          "label": "large screen",
+          "states": {
+            "fixed": {
+              "count": 6,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r2",
+                "reason": "Screen is mounted on a wall structure requiring dismantling to move."
+              }
+            },
+            "uncertain": {
+              "count": 4,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r3",
+                "reason": "Mounting method not visible; screen could be wall-mounted or freestanding."
+              }
+            }
+          }
+        },
+        {
+          "id": 5,
+          "id_type": "int",
+          "label": "stairs",
+          "states": {
+            "fixed": {
+              "count": 10,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r2",
+                "reason": "Stairs are an architectural element integral to the building structure."
+              }
+            }
+          }
+        }
+      ],
+      "own_assessment": "Pravo ravno stopnišče je v10 veljavnih klicih fixed, stol in spiral bookshelf pa movable. Freestanding bookshelf je modelov sklep, ne potrjena odsotnost pritrditve. Zaslon se deli6 fixed/4 uncertain; vidna zaslonska ploskev ne potrdi načina montaže. BF16 long r1 ima podvojen classification, Q4 short r2 pa manjkajoč reason."
+    },
+    "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+  },
+  "thud_agtea_test50/image-000028": {
+    "review_status": "reviewed",
+    "selection_reason": "Odsevi/modra zasteklitev, delno odrezana delovna površina in vidni majhni predmeti, ki med ponovitvami izginejo iz seznama.",
+    "visible_confirmed": [
+      "Oseba v temnem zgornjem delu oblačila sedi pri levem delovnem mestu; modrikaste odsevne/zastekljene ploskve so zadaj, krožne police s knjigami desno.",
+      "Vidni so talna lončnica v belem loncu, samostoječ oglasni pano ter rjava papirnata vrečka na nižjem desnem delu police."
+    ],
+    "unsupported_model_claims": [
+      "Florence blue curtains ni potrjen: videti je predvsem modre odsevne navpične ploskve. Leather jacket in coffee cup sta nepotrjeni podrobnosti pri odrezanem levem območju.",
+      "Gemma postavi lončnico na mizo, čeprav vidni beli lonec stoji na tleh; counter supporting several small tables ni razviden stik.",
+      "Gemma vertical metal poles kot razlaga modrih pasov ni potrjena. Material marble in točno štirje nosilci odrezane mize nista vidno potrjena."
+    ],
+    "repetition_observations": [
+      "Qwen Q4 r1 navede rjavo vrečko, r2/r3 pa jo izpustita. BF16 r1 navede stoječi pano, r2/r3 ga ne ohranita kot ločen objekt. To sta konkretni spremembi pokritosti iste fotografije.",
+      "NVILA menjavanje suit/dark jacket je opis oblačila, ne dokaz identitete ali aktivnosti; vse3 oblike ostanejo formalno zavrnjene.",
+      "Florence dobro omeji osebe v več regijah, vendar ne poda primerljivega inventarja vidne police, rastline in panoa. Gemma ima v vseh3 ponovitvah napako sheme."
+    ],
+    "classification_review": {
+      "frozen_sha256": "0752ebeca6571d391a81289728ef46552e045c863918198962bf7c3d73a0e9e6",
+      "valid_calls": 12,
+      "errors": [],
+      "objects": [
+        {
+          "id": 0,
+          "id_type": "int",
+          "label": "person",
+          "states": {
+            "movable": {
+              "count": 12,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Persons are mobile entities that move between locations."
+              }
+            }
+          }
+        },
+        {
+          "id": 1,
+          "id_type": "int",
+          "label": "desk",
+          "states": {
+            "movable": {
+              "count": 6,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Desks can be pushed or repositioned in normal use."
+              }
+            },
+            "fixed": {
+              "count": 5,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Desk implies structural integration or permanent installation."
+              }
+            },
+            "uncertain": {
+              "count": 1,
+              "example": {
+                "model": "qwen35-q4",
+                "prompt": "short",
+                "repeat": "r2",
+                "reason": "Desk attachment not visible, evidence insufficient"
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "id_type": "int",
+          "label": "chair",
+          "states": {
+            "movable": {
+              "count": 12,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Chairs can be easily carried, pushed, or repositioned."
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "id_type": "int",
+          "label": "potted plant",
+          "states": {
+            "movable": {
+              "count": 12,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Potted plants are objects that can be moved by hand."
+              }
+            }
+          }
+        },
+        {
+          "id": 4,
+          "id_type": "int",
+          "label": "A-frame sign",
+          "states": {
+            "movable": {
+              "count": 11,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "A-frame signs stand on the floor and can be relocated."
+              }
+            },
+            "uncertain": {
+              "count": 1,
+              "example": {
+                "model": "qwen35-q4",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Sign attachment method not visible in image."
+              }
+            }
+          }
+        },
+        {
+          "id": 5,
+          "id_type": "int",
+          "label": "person",
+          "states": {
+            "movable": {
+              "count": 12,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Persons are mobile entities that move between locations."
+              }
+            }
+          }
+        },
+        {
+          "id": 6,
+          "id_type": "int",
+          "label": "table",
+          "states": {
+            "movable": {
+              "count": 7,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Tables can be pushed or repositioned in normal use."
+              }
+            },
+            "fixed": {
+              "count": 4,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Table implies structural integration or permanent installation."
+              }
+            },
+            "uncertain": {
+              "count": 1,
+              "example": {
+                "model": "qwen35-q4",
+                "prompt": "short",
+                "repeat": "r2",
+                "reason": "Table attachment not visible, evidence insufficient"
+              }
+            }
+          }
+        },
+        {
+          "id": 7,
+          "id_type": "int",
+          "label": "person",
+          "states": {
+            "movable": {
+              "count": 12,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Persons are mobile entities that move between locations."
+              }
+            }
+          }
+        },
+        {
+          "id": 8,
+          "id_type": "int",
+          "label": "bookshelf",
+          "states": {
+            "fixed": {
+              "count": 5,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Bookshelves are structural elements requiring dismantling to move."
+              }
+            },
+            "movable": {
+              "count": 7,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r2",
+                "reason": "Bookshelf is large furniture that can be moved with effort."
+              }
+            }
+          }
+        }
+      ],
+      "own_assessment": "Vseh12 veljavnih klicev ohrani movable za osebe, stol in lončnico. Desk prehaja med6 movable/5 fixed/1 uncertain; Table med7/4/1, bookshelf med7 movable/5 fixed. Structural integration v kratkih razlogih ni podprta z vidno pritrditvijo. ID0 za prvo osebo je ohranjen; ne preštevilčim ga med modeli/prompti."
+    },
+    "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+  },
+  "thud_agtea_test50/image-000050": {
+    "review_status": "reviewed",
+    "selection_reason": "Velika okna, steber in le delno viden rdeč element; primer za izmišljene stopnice, različne tipe iste površine in kasnejšo napako LLM.",
+    "visible_confirmed": [
+      "Velik temen valjast steber levo, visoka zasteklitev z vidno zunanjo stavbo/drevjem, modri sedeži, mize in ozke bele razstavne police pri stebru.",
+      "Rdeč ukrivljen navpičen element je odrezan na levem robu; notranjih fizičnih oseb na vidnem delu ne prepoznam."
+    ],
+    "unsupported_model_claims": [
+      "Florence red spiral staircase leading to second floor ni podprt; vidi se le rdeča ukrivljena ploskev, brez razvidnih stopnic ali dostopa v nadstropje.",
+      "Florence betonska tla in carpet sta nepotrjeni razlagi; vidna je gladka odsevna površina, ne preproga. Tudi skylight ni jasno razviden.",
+      "Gemma white tablecloth ni potrjen: vidne bele gladke mize nimajo jasnih gub ali visečega prta. Column/wall in red chair/partition se med semeni semantično menjajo.",
+      "Qwen bags/papers scattered on floor posplošuje: črna torba in papirnato blago sta prepoznavna ob opremi, raztresenost po tleh ni potrjena. Material clear plastic za leve modre sedeže ni potrjen; desno je nekaj prozornih/odsevnih delov stolov."
+    ],
+    "repetition_observations": [
+      "Qwen BF16 r2 izpusti ločen window/red-structure zapis ter dodaja bags/papers; Q4 spreminja counter/bench/table skupinske izraze.",
+      "NVILA ohrani osnovno postavitev, a razčlenjenih imen je 5/4/1; to niso vsa poimenovanja, prisotna v celotnih opisih.",
+      "Gemma r3 je zavrnjena zaradi evidence/identifiable, ne zaradi fotografskega pregleda; dejansko napako besedilnega LLM obravnavam ločeno."
+    ],
+    "classification_review": {
+      "frozen_sha256": "2e82ccdaf375ac373879733901c8eef68c55ab0a5c723308fcd19bad395383c5",
+      "valid_calls": 9,
+      "errors": [
+        {
+          "model": "qwen35-q4",
+          "prompt": "long",
+          "repeat": "r1",
+          "error": "Object 6 has invalid classification None."
+        },
+        {
+          "model": "qwen35-q4",
+          "prompt": "long",
+          "repeat": "r2",
+          "error": "Object 6 has invalid classification None."
+        },
+        {
+          "model": "qwen35-q4",
+          "prompt": "long",
+          "repeat": "r3",
+          "error": "Object 6 has invalid classification None."
+        }
+      ],
+      "objects": [
+        {
+          "id": 1,
+          "id_type": "int",
+          "label": "cylindrical column",
+          "states": {
+            "fixed": {
+              "count": 9,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Structural pillar requiring dismantling to move."
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "id_type": "int",
+          "label": "white shelving unit",
+          "states": {
+            "movable": {
+              "count": 9,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Shelving unit can be pushed or repositioned easily."
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "id_type": "int",
+          "label": "round table",
+          "states": {
+            "movable": {
+              "count": 9,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Table with thin legs can be moved in normal use."
+              }
+            }
+          }
+        },
+        {
+          "id": 4,
+          "id_type": "int",
+          "label": "chair with blue seat",
+          "states": {
+            "movable": {
+              "count": 9,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Chairs are designed to be carried and repositioned."
+              }
+            }
+          }
+        },
+        {
+          "id": 5,
+          "id_type": "int",
+          "label": "window frame",
+          "states": {
+            "fixed": {
+              "count": 9,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Window frame is a permanent structural building element."
+              }
+            }
+          }
+        },
+        {
+          "id": 6,
+          "id_type": "int",
+          "label": "wooden counter",
+          "states": {
+            "movable": {
+              "count": 6,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Counter structure can likely be pushed or dismantled."
+              }
+            },
+            "fixed": {
+              "count": 1,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Counter is integrated into the wall structure."
+              }
+            },
+            "uncertain": {
+              "count": 2,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r2",
+                "reason": "Counter appears fixed but could be a heavy movable unit."
+              }
+            }
+          }
+        },
+        {
+          "id": 7,
+          "id_type": "int",
+          "label": "red curved structure",
+          "states": {
+            "uncertain": {
+              "count": 9,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Partial visibility prevents reliable assessment of attachment."
+              }
+            }
+          }
+        }
+      ],
+      "own_assessment": "Q4 long v vseh3 odgovorih za ID6 vrne napačen ključ construction namesto classification; izvirno polje je ohranjeno in odgovor zavrnjen. Med9 veljavnimi klici sta column/window frame fixed, stoli/miza/bele police movable, odrezani red curved structure pa uncertain. Counter variira6 movable/1 fixed/2 uncertain; razstavne enote ob oknu zato ne dobijo ročne reference stabilnosti."
+    },
+    "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+  },
+  "thud_agtea_test50/image-000023": {
+    "review_status": "reviewed",
+    "selection_reason": "Dobro vidna oseba ob desnem robu, več zakritih oseb in jasno knjižno oblikovan valj; primer semantične zamenjave s stopniščem ter neutemeljene aktivnosti.",
+    "visible_confirmed": [
+      "Cilindrični element ima na osvetljenih krožnih nivojih knjige; velika knjižna stena z nišami je levo/zadaj.",
+      "Oseba z očali in belim zgornjim delom z grafiko stoji desno, drži temen predmet; več ljudi sedi pri mizah ali je ob zadnjih nišah. Oranžni sedeži so v ospredju."
+    ],
+    "unsupported_model_claims": [
+      "Florence explaining something to a group ni potrjena aktivnost. Tracksuit/Adidas je podrobnejša razlaga oblačila od tega, kar brez preverjanja znamke potrjujem.",
+      "Qwen BF16 r2 spiral staircase je zamenjava s knjižnim prikaznim elementom, ne prehodna stopniščna struktura.",
+      "Gemma uniform ni dokaz poklica ali uniforme; r2 seated at counter je v nasprotju z vidno stoječo osebo pri levi niši. Material plastic/wood stolov in nevidna konstrukcija se ne potrdita samo iz te slike."
+    ],
+    "repetition_observations": [
+      "NVILA v vseh3 scenah pravilno prepozna osvetljeno valjasto knjižno polico, čeprav je celotna JSON oblika neveljavna. To je uporabna vsebina zavrnjenega odgovora.",
+      "Qwen Q4 ohranja book display/tower opis, BF16 r2 pa preide v staircase: jasen vsebinski primer variabilnosti med semeni.",
+      "Posamezni people/other people zapisi in ločeni person okvirji imajo različno granularnost; ista številka ID ne vzpostavi identitete med modeli."
+    ],
+    "classification_review": {
+      "frozen_sha256": "e0cc2e2203547f6e806772519ce9ba3bc663ff9150148f0b8f743e8c001e8a38",
+      "valid_calls": 11,
+      "errors": [
+        {
+          "model": "qwen35-q4",
+          "prompt": "short",
+          "repeat": "r1",
+          "error": "Duplicate JSON key: classification"
+        }
+      ],
+      "objects": [
+        {
+          "id": 1,
+          "id_type": "int",
+          "label": "bookshelf",
+          "states": {
+            "movable": {
+              "count": 10,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Tall freestanding unit that can be pushed or repositioned."
+              }
+            },
+            "fixed": {
+              "count": 1,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r3",
+                "reason": "Structural shelving unit integrated into the building wall."
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "id_type": "int",
+          "label": "spiral display unit",
+          "states": {
+            "movable": {
+              "count": 8,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Central shelving structure not visibly attached to walls."
+              }
+            },
+            "uncertain": {
+              "count": 3,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Central placement and lighting integration suggest fixed status."
+              }
+            }
+          }
+        },
+        {
+          "id": 3,
+          "id_type": "int",
+          "label": "orange chair",
+          "states": {
+            "movable": {
+              "count": 11,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Chair designed for sitting and easy relocation by users."
+              }
+            }
+          }
+        },
+        {
+          "id": 4,
+          "id_type": "int",
+          "label": "person standing",
+          "states": {
+            "uncertain": {
+              "count": 7,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Person is a dynamic entity whose position changes constantly."
+              }
+            },
+            "movable": {
+              "count": 4,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "short",
+                "repeat": "r1",
+                "reason": "Human entity is inherently movable by definition."
+              }
+            }
+          }
+        },
+        {
+          "id": 5,
+          "id_type": "int",
+          "label": "desk alcove",
+          "states": {
+            "fixed": {
+              "count": 9,
+              "example": {
+                "model": "qwen35-bf16",
+                "prompt": "long",
+                "repeat": "r1",
+                "reason": "Alcove is an architectural recess in the building structure."
+              }
+            },
+            "uncertain": {
+              "count": 1,
+              "example": {
+                "model": "qwen35-q4",
+                "prompt": "short",
+                "repeat": "r2",
+                "reason": "Alcove structure integration unclear."
+              }
+            },
+            "movable": {
+              "count": 1,
+              "example": {
+                "model": "qwen35-q4",
+                "prompt": "short",
+                "repeat": "r3",
+                "reason": "Alcove structure is part of the building wall and fixed."
+              }
+            }
+          }
+        }
+      ],
+      "own_assessment": "Q4 short r1 ima podvojen classification in ostane napaka. Orange chair je11/11 movable, person standing pa7 uncertain/4 movable kljub razlogu o stalnem gibanju. Q4 short r3 za desk alcove vrne movable, a razlog izrecno pravi part of building wall and fixed: notranje nasprotje je vidno brez referenčne oznake. Bookshelf je10 movable/1 fixed in spiral display 8 movable/3 uncertain; iz teh klasifikacij ne potrjujem nevidne montaže."
+    },
+    "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+  }
+}

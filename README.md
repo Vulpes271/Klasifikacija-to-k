@@ -105,3 +105,6 @@ Nadaljevanje z dejanskima ločenima GPU izvajalnikoma NVILA-8B in Florence-2-lar
 `bash scripts/thud_extended.sh prepare`, nato faze `nvila`, `florence`, `reason`,
 `report`; že shranjeni odgovori ostanejo. Novi surovi izhodi so lokalno v
 `results/thud-extended/`, primerjava pa dopolni isti PDF in LaTeX.
+
+Tri sveže ponovitve na istem20 ter ločeno razvrščanje BF16/Q4 s kratkim/dolgim promptom:
+`bash scripts/thud_ponovitve.sh all`. [Paket vseh odgovorov in deset primerov](reports/PRIMERJAVA_PONOVITEV/README.md).

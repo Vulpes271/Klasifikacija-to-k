@@ -1,0 +1,177 @@
+{
+  "review_status": "reviewed",
+  "selection_reason": "Velika okna, steber in le delno viden rdeč element; primer za izmišljene stopnice, različne tipe iste površine in kasnejšo napako LLM.",
+  "visible_confirmed": [
+    "Velik temen valjast steber levo, visoka zasteklitev z vidno zunanjo stavbo/drevjem, modri sedeži, mize in ozke bele razstavne police pri stebru.",
+    "Rdeč ukrivljen navpičen element je odrezan na levem robu; notranjih fizičnih oseb na vidnem delu ne prepoznam."
+  ],
+  "unsupported_model_claims": [
+    "Florence red spiral staircase leading to second floor ni podprt; vidi se le rdeča ukrivljena ploskev, brez razvidnih stopnic ali dostopa v nadstropje.",
+    "Florence betonska tla in carpet sta nepotrjeni razlagi; vidna je gladka odsevna površina, ne preproga. Tudi skylight ni jasno razviden.",
+    "Gemma white tablecloth ni potrjen: vidne bele gladke mize nimajo jasnih gub ali visečega prta. Column/wall in red chair/partition se med semeni semantično menjajo.",
+    "Qwen bags/papers scattered on floor posplošuje: črna torba in papirnato blago sta prepoznavna ob opremi, raztresenost po tleh ni potrjena. Material clear plastic za leve modre sedeže ni potrjen; desno je nekaj prozornih/odsevnih delov stolov."
+  ],
+  "repetition_observations": [
+    "Qwen BF16 r2 izpusti ločen window/red-structure zapis ter dodaja bags/papers; Q4 spreminja counter/bench/table skupinske izraze.",
+    "NVILA ohrani osnovno postavitev, a razčlenjenih imen je 5/4/1; to niso vsa poimenovanja, prisotna v celotnih opisih.",
+    "Gemma r3 je zavrnjena zaradi evidence/identifiable, ne zaradi fotografskega pregleda; dejansko napako besedilnega LLM obravnavam ločeno."
+  ],
+  "classification_review": {
+    "frozen_sha256": "2e82ccdaf375ac373879733901c8eef68c55ab0a5c723308fcd19bad395383c5",
+    "valid_calls": 9,
+    "errors": [
+      {
+        "model": "qwen35-q4",
+        "prompt": "long",
+        "repeat": "r1",
+        "error": "Object 6 has invalid classification None."
+      },
+      {
+        "model": "qwen35-q4",
+        "prompt": "long",
+        "repeat": "r2",
+        "error": "Object 6 has invalid classification None."
+      },
+      {
+        "model": "qwen35-q4",
+        "prompt": "long",
+        "repeat": "r3",
+        "error": "Object 6 has invalid classification None."
+      }
+    ],
+    "objects": [
+      {
+        "id": 1,
+        "id_type": "int",
+        "label": "cylindrical column",
+        "states": {
+          "fixed": {
+            "count": 9,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Structural pillar requiring dismantling to move."
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "id_type": "int",
+        "label": "white shelving unit",
+        "states": {
+          "movable": {
+            "count": 9,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Shelving unit can be pushed or repositioned easily."
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "id_type": "int",
+        "label": "round table",
+        "states": {
+          "movable": {
+            "count": 9,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Table with thin legs can be moved in normal use."
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "id_type": "int",
+        "label": "chair with blue seat",
+        "states": {
+          "movable": {
+            "count": 9,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Chairs are designed to be carried and repositioned."
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "id_type": "int",
+        "label": "window frame",
+        "states": {
+          "fixed": {
+            "count": 9,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Window frame is a permanent structural building element."
+            }
+          }
+        }
+      },
+      {
+        "id": 6,
+        "id_type": "int",
+        "label": "wooden counter",
+        "states": {
+          "movable": {
+            "count": 6,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Counter structure can likely be pushed or dismantled."
+            }
+          },
+          "fixed": {
+            "count": 1,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r1",
+              "reason": "Counter is integrated into the wall structure."
+            }
+          },
+          "uncertain": {
+            "count": 2,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r2",
+              "reason": "Counter appears fixed but could be a heavy movable unit."
+            }
+          }
+        }
+      },
+      {
+        "id": 7,
+        "id_type": "int",
+        "label": "red curved structure",
+        "states": {
+          "uncertain": {
+            "count": 9,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Partial visibility prevents reliable assessment of attachment."
+            }
+          }
+        }
+      }
+    ],
+    "own_assessment": "Q4 long v vseh3 odgovorih za ID6 vrne napačen ključ construction namesto classification; izvirno polje je ohranjeno in odgovor zavrnjen. Med9 veljavnimi klici sta column/window frame fixed, stoli/miza/bele police movable, odrezani red curved structure pa uncertain. Counter variira6 movable/1 fixed/2 uncertain; razstavne enote ob oknu zato ne dobijo ročne reference stabilnosti."
+  },
+  "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+}

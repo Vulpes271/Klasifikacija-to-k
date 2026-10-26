@@ -252,6 +252,36 @@ class SeparateStageTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "cannot verify GPU"):
             load_config(path, 1)
 
+    def test_pilot_resume_keeps_full_manifest_and_never_repeats_saved_call(self):
+        config=self.config(both=False)
+        args=argparse.Namespace(input=self.input,output_dir=self.root/'pilot-resume',
+                                limit=2,frame_id=None,resume=True,warmup=False,max_new_calls=1)
+        with contextlib.redirect_stdout(io.StringIO()): stage1_describe.run(args,config)
+        first=args.output_dir/'a/t0-s42/frame-000001.json'
+        original=first.read_bytes()
+        self.assertEqual(len(json.loads((args.output_dir/'manifest.json').read_text())['frames']),2)
+        self.assertEqual(len([b for p,b in self.calls if p=='/api/chat']),1)
+        args.max_new_calls=None
+        with contextlib.redirect_stdout(io.StringIO()): stage1_describe.run(args,config)
+        self.assertEqual(first.read_bytes(),original)
+        self.assertEqual(len([b for p,b in self.calls if p=='/api/chat']),2)
+
+    def test_reason_pilot_resume_keeps_same_frozen_bytes_and_input(self):
+        _,first=self.describe(self.config(both=False))
+        captions=first/'a/t0-s42'
+        original={p.name:p.read_bytes() for p in captions.glob('frame-*.json')}
+        self.calls.clear()
+        args=argparse.Namespace(captions=captions,output_dir=self.root/'reason-resume',
+                                limit=2,resume=True,warmup=False,max_new_calls=1)
+        config=self.config(stage=2,both=False)
+        with contextlib.redirect_stdout(io.StringIO()): stage2_reason.run(args,config)
+        args.max_new_calls=None
+        with contextlib.redirect_stdout(io.StringIO()): stage2_reason.run(args,config)
+        calls=[b for p,b in self.calls if p=='/api/chat']
+        self.assertEqual(len(calls),2)
+        self.assertTrue(all('images' not in m for b in calls for m in b['messages']))
+        self.assertEqual(original,{p.name:p.read_bytes() for p in captions.glob('frame-*.json')})
+
 
 if __name__ == "__main__":
     unittest.main()

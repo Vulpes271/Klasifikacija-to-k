@@ -1,0 +1,145 @@
+{
+  "review_status": "reviewed",
+  "selection_reason": "Ozka, zamegljena pot med policami, ena vidna oseba in popolnoma neveljaven NVILA JSON v vseh3 ponovitvah.",
+  "visible_confirmed": [
+    "Visoke police na obeh straneh, ena oseba v temnih oblačilih na sredini, pravokotne stropne luči in viseči okraski.",
+    "Modri pano je v globini prednjega dela opreme/razstavne enote, ne jasno samostojen napis na tleh."
+  ],
+  "unsupported_model_claims": [
+    "NVILA branje/prevod kitajskih napisov, potovalna smer osebe ter razlaga talnih oznak kot varnostnih smernic niso vizualno potrjeni.",
+    "Checkout/service counter je modelova funkcijska razlaga ozadja; iz samega pogleda funkcije blagajne ne potrjujem.",
+    "Gemma osvetljen lantern ne dokazuje, da je papirnati okrasek sam vir svetlobe.",
+    "Florence appears to be in a hurry ni potrjeno iz zamegljene ene slike; jeans je nepotrjena vrsta tkanine."
+  ],
+  "repetition_observations": [
+    "NVILA neubežani narekovaji in napačni nizi v objektih povzročijo zavrnitev vseh3 JSON; raw besedilo ostane v celoti. Prazna razčlenjena imena pomenijo neuspešno razčlenitev, ne praznega prizora.",
+    "BF16 med r1/r2/r3 menja levo/desno poimenovanje polic in skupinski/separatni zapis okraskov; Q4 v r3 združi obe polici v en zapis.",
+    "Gemma isto fotografijo med semeni različno opisuje kot dim ali brightly lit; subjektivni opis ni meritev osvetljenosti.",
+    "Dense oznaki empty aisle pokrivata stranski regiji polic; ne berem ju kot trditev, da v celotni fotografiji ni človeka. Dve skoraj prekrivajoči se person regiji ne pomenita dveh ljudi."
+  ],
+  "classification_review": {
+    "frozen_sha256": "f2ce26b83db64bd96769ecd60381076941337a8de53601ac5852d7ba65959dd4",
+    "valid_calls": 12,
+    "errors": [],
+    "objects": [
+      {
+        "id": 1,
+        "id_type": "int",
+        "label": "left shelving unit",
+        "states": {
+          "movable": {
+            "count": 3,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Retail shelving units are standard fixtures that can be moved or reconfigured."
+            }
+          },
+          "fixed": {
+            "count": 9,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r1",
+              "reason": "Structural shelving unit integrated into store layout."
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "id_type": "int",
+        "label": "right shelving unit",
+        "states": {
+          "movable": {
+            "count": 3,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Retail shelving units are standard fixtures that can be moved or reconfigured."
+            }
+          },
+          "fixed": {
+            "count": 9,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r1",
+              "reason": "Structural shelving unit integrated into store layout."
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "id_type": "int",
+        "label": "person",
+        "states": {
+          "movable": {
+            "count": 12,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "A person is a biological entity capable of independent movement."
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "id_type": "int",
+        "label": "hanging lanterns",
+        "states": {
+          "movable": {
+            "count": 6,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Decorative lanterns suspended from the ceiling can be removed and relocated."
+            }
+          },
+          "uncertain": {
+            "count": 6,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r1",
+              "reason": "Hanging lanterns attachment method not reliably visible."
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "id_type": "int",
+        "label": "checkout counter area",
+        "states": {
+          "uncertain": {
+            "count": 6,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r1",
+              "reason": "Counter area status varies by store layout and operational changes over time."
+            }
+          },
+          "fixed": {
+            "count": 6,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r1",
+              "reason": "Checkout counter appears as permanent structural installation."
+            }
+          }
+        }
+      }
+    ],
+    "own_assessment": "Za osebo je12/12 movable, za obe polici 3 movable proti9 fixed kljub not_visible. Viseči okraski se delijo6 movable/6 uncertain. Counter area 6 fixed/6 uncertain dodatno temelji na že nepotrjeni funkcijski razlagi ozadja; navidezno razmerje v prostoru ni dokaz pritrditve."
+  },
+  "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+}

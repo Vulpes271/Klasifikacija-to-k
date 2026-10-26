@@ -450,5 +450,623 @@ def main():
     print(json.dumps(verification,indent=2))
 
 
+
+# The repeat export below is offline: it only reads the new results/ponovitve.
+# It shares the existing validators, matching, image drawing and table helpers.
+def repetition_view(record):
+    """Literal display extraction; never repair a source or feed a candidate to LLM."""
+    task=record['task']
+    if record['model_name']=='florence':
+        value=record.get('parsed',{}).get(TASKS[task])
+        if task=='caption': return {'scene_description':value or '', 'objects':[], 'object_list_available':False,'extraction':'native caption'}
+        if not isinstance(value,dict): return {'scene_description':'','objects':[],'extraction':'no parsed native regions'}
+        return {'scene_description':'','object_list_available':True,'objects':[{'id':i,'label':label,'bbox_xyxy':box}
+                for i,(label,box) in enumerate(zip(value.get('labels',[]),value.get('bboxes',[])),1)],
+                'extraction':'native regions; invalid coordinates remain rejected'}
+    value=record.get('parsed',record.get('candidate_parsed'))
+    document_count=1 if isinstance(value,dict) else 0
+    unconsumed=0 if isinstance(value,dict) else None
+    policy='validated description' if record['status']=='ok' else 'unvalidated syntactic candidate'
+    if not isinstance(value,dict):
+        try:
+            content=record.get('content','').lstrip()
+            from .experiment import strict_json
+            documents=[];offset=0
+            while offset<len(content):
+                offset+=len(content[offset:])-len(content[offset:].lstrip())
+                if offset==len(content): break
+                try:
+                    _,end=json.JSONDecoder().raw_decode(content[offset:])
+                    doc=strict_json(content[offset:offset+end])
+                except ValueError: break
+                documents.append(doc);offset+=end
+            if not documents: raise ValueError('No strict JSON document')
+            document_count=len(documents);unconsumed=len(content)-offset
+            # A display view only: keep objects from all literal JSON documents.
+            # The original remains invalid and its complete trailing text remains.
+            value={'scene_description':next((d['scene_description'] for d in documents if isinstance(d,dict) and isinstance(d.get('scene_description'),str)),'')}
+            lists=[d['objects'] for d in documents if isinstance(d,dict) and isinstance(d.get('objects'),list)]
+            if lists: value['objects']=[o for objects in lists for o in objects]
+            policy=f'{len(documents)} literal JSON document(s) for display only; {len(content)-offset} trailing characters retained in raw'
+        except (ValueError,TypeError): value={'scene_description':record.get('content','')}; policy='raw text only'
+    if not isinstance(value,dict): value={}
+    return {'scene_description':value.get('scene_description',''),
+            'objects':[o for o in value.get('objects',[]) if isinstance(o,dict)] if isinstance(value.get('objects',[]),list) else [],
+            'object_list_available':isinstance(value.get('objects'),list),
+            'parsed_json_documents':document_count,'unconsumed_characters':unconsumed,
+            'relations':value.get('relations'), 'extraction':policy}
+
+
+def repetition_compact(value, key='', path=()):
+    """Remove transport images/debug paths, never shorten model text or prompts."""
+    if isinstance(value,dict):
+        return {k:repetition_compact(v,k,path+(k,)) for k,v in value.items()
+                if not (k=='traceback' and not path)
+                and not (k=='images' and path==('request','messages'))
+                and not (k=='image_url' and path==('request','messages','content'))}
+    if isinstance(value,list): return [repetition_compact(v,key,path) for v in value]
+    if isinstance(value,str) and not set(path)&{'parsed','candidate_parsed','response','view'} and key in {'image_path','image_path_resolved','caption_source','source_record','system_file','instruction_file'}:
+        if value.startswith(str(ROOT)+'/'): return value[len(str(ROOT))+1:]
+    return value
+
+
+def repetition_consistency(records):
+    """Name-group changes, not instance identities; exact label boxes matched separately."""
+    from itertools import combinations
+    aliases=read_json(ROOT/'configs/thud-florence-matching.json')['aliases']
+    groups={}
+    for r in records: groups.setdefault((r['frame_id'],r['model_name'],r['task']),{})[r['repeat']]=r
+    result=[]
+    for (fid,model,task),runs in sorted(groups.items()):
+        for a,b in combinations(('r1','r2','r3'),2):
+            if a not in runs or b not in runs: continue
+            left,right=runs[a],runs[b]
+            views=[repetition_view(r) for r in (left,right)]
+            named=[]
+            for v in views:
+                d={}
+                for obj in v['objects']:
+                    label=obj.get('label')
+                    if isinstance(label,str): d.setdefault(' '.join(label.lower().split()),[]).append(obj)
+                named.append(d)
+            x,y=map(set,named); union=x|y
+            changes=[{'normalized_label':name,
+                      'left_objects':named[0][name],'right_objects':named[1][name]}
+                     for name in sorted(x&y) if [{k:v for k,v in o.items() if k!='id'} for o in named[0][name]] !=
+                                                [{k:v for k,v in o.items() if k!='id'} for o in named[1][name]]]
+            row={'frame_id':fid,'model':model,'task':task,'left':a,'right':b,
+                 'left_status':left['status'],'right_status':right['status'],
+                 'raw_equal':left.get('content')==right.get('content'),
+                 'scene_equal':views[0]['scene_description']==views[1]['scene_description'],
+                 'left_objects':len(views[0]['objects']),'right_objects':len(views[1]['objects']),
+                 'object_list_available':[v.get('object_list_available',True) for v in views],
+                 'name_intersection':len(x&y),'name_union':len(union),
+                 'name_jaccard':len(x&y)/len(union) if union else None,
+                 'names_removed':sorted(x-y),'names_added':sorted(y-x),
+                 'possible_alias_changes':[{'left':s,'right':t,'canonical_hint':aliases[s]} for s in sorted(x-y) for t in sorted(y-x)
+                                           if s in aliases and t in aliases and aliases[s]==aliases[t]],
+                 'name_group_details_changed':changes,
+                 'structured_relations_available':all(isinstance(v.get('relations'),list) for v in views),
+                 'relations_equal':views[0].get('relations')==views[1].get('relations') if all(isinstance(v.get('relations'),list) for v in views) else None}
+            if model=='florence' and task in ('od','dense') and left['status']==right['status']=='ok':
+                labels=x|y
+                refs=[{**o,'label':' '.join(o['label'].lower().split())} for o in views[1]['objects']]
+                row['box_matching']=match_regions(views[0]['objects'],refs,{'aliases':{s:s for s in labels},'iou_threshold':.5})
+            result.append(row)
+    return result
+
+
+def repetition_reason_consistency(records):
+    """Compare only identical frozen file SHA and typed local object IDs."""
+    from itertools import combinations
+    groups={}
+    for r in records: groups.setdefault(r['frame_id'],[]).append(r)
+    result=[]
+    for fid,rows in sorted(groups.items()):
+        for left,right in combinations(rows,2):
+            changes=[k for k in ('repeat','model_name','prompt_name') if left[k]!=right[k]]
+            if len(changes)!=1: continue
+            same=left['caption_sha256']==right['caption_sha256']
+            valid=same and left['status']==right['status']=='ok'
+            row={'frame_id':fid,'dimension':changes[0],
+                 'left':{k:left[k] for k in ('model_name','prompt_name','repeat','status')},
+                 'right':{k:right[k] for k in ('model_name','prompt_name','repeat','status')},
+                 'frozen_sha256':left['caption_sha256'],'same_frozen_input':same,
+                 'comparable':valid,'objects':[]}
+            if valid:
+                by_id={(type(o['id']),o['id']):o for o in right['parsed']['objects']}
+                for obj in left['parsed']['objects']:
+                    other=by_id.get((type(obj['id']),obj['id']))
+                    if other is None: raise ValueError('Typed IDs differ in valid classifications')
+                    row['objects'].append({'id':obj['id'],'id_type':type(obj['id']).__name__,
+                        'left_class':obj['classification'],'right_class':other['classification'],
+                        'class_changed':obj['classification']!=other['classification'],
+                        'left_reason':obj['reason'],'right_reason':other['reason']})
+            row['changed_objects']=sum(o['class_changed'] for o in row['objects'])
+            row['compared_objects']=len(row['objects'])
+            result.append(row)
+    return result
+
+
+def repetitions_export():
+    """Publish all 20 textual results and ten portable, independently readable cases."""
+    from itertools import product
+    base=ROOT/'results/ponovitve'; target=ROOT/'reports/PRIMERJAVA_PONOVITEV'
+    target.mkdir(parents=True,exist_ok=True)
+    selected=read_json(base/'frames.json')
+    records=[]
+    combined=[]
+    for p in sorted((base/'stage1').glob('*/*/*/*/frame-*.json')):
+        r=read_json(p); model=p.parts[-5]; repeat=p.parts[-4]; task=p.parent.name
+        if model=='florence' and task=='combined':
+            combined.append({'model_name':model,'task':'combined','repeat':repeat,**r}); continue
+        if model!='florence': task='description'
+        r.update(model_name=model,repeat=repeat,task=task,local_record=str(p.relative_to(ROOT)),
+                 original_record_sha256=sha256(p.read_bytes()))
+        if model=='nvila':
+            # Pinned AUTO chat template and extract_media concatenate the image
+            # marker with the entire instruction. Raw component fields stay intact.
+            user='<image>'+r['system_prompt']+'\n\n'+r['user_prompt']
+            native_text='<|im_start|>system\nYou are a helpful assistant<|im_end|>\n<|im_start|>user\n'+user+'<|im_end|>\n<|im_start|>assistant\n'
+            if r.get('native_chat_prompt_text',native_text)!=native_text: raise ValueError('Native chat reconstruction differs from runtime')
+            r['native_prompt_provenance']='runtime capture' if 'native_chat_prompt_text' in r else 'reconstructed from pinned tokenizer template and extract_media'
+            r.update(native_system_prompt='You are a helpful assistant',native_user_prompt=user,native_chat_prompt_text=native_text)
+        r['view']=repetition_view(r)
+        names=[o.get('label','') for o in r['view']['objects'] if isinstance(o.get('label'),str)]
+        normalized=[' '.join(s.lower().split()) for s in names]
+        r['view']['name_cautions']={'repeated_names':{s:n for s,n in Counter(normalized).items() if n>1},
+            'plural_or_group_wording':[s for s in names if ' '.join(s.lower().split()) in {'people','products','goods','chairs','tables','shelves','bottles','plants','windows','lights'}],
+            'note':'Wording flags only. Do not infer instance count or merge synonymous/plural names.'}
+        records.append(r)
+    reason=[]
+    for p in sorted((base/'stage2').glob('*/*/*/*/*/frame-*.json')):
+        r=read_json(p)
+        r.update(model_name=p.parts[-6],prompt_name=p.parts[-5],repeat=p.parts[-4],
+                 local_record=str(p.relative_to(ROOT)),original_record_sha256=sha256(p.read_bytes()))
+        frozen=Path(r['caption_source'])
+        if sha256(frozen.read_bytes())!=r['caption_sha256']: raise ValueError('Frozen input changed')
+        if r.get('response'):
+            if any(m.get('images') for m in r['request']['messages']): raise ValueError('Image leaked into reasoner')
+        reason.append(r)
+    frozen_sha={read_json(p)['frame_id']:sha256(p.read_bytes()) for p in (base/'frozen/qwen35-bf16-r1').glob('frame-*.json')}
+    if any(r['caption_sha256']!=frozen_sha.get(r['frame_id']) for r in reason):
+        raise ValueError('Reasoners did not use the same Qwen BF16 r1 frozen input')
+    for r in combined:
+        tasks=[s for s in records if s['frame_id']==r['frame_id'] and s['repeat']==r['repeat'] and s['model_name']=='florence']
+        r['status']='ok' if len(tasks)==3 and all(s['status']=='ok' for s in tasks) else 'error'
+        if not r.get('complete_three_task_measurement'):
+            r['elapsed_seconds']=None  # Never present a partial resume as three-task wall time.
+    summaries=[]
+    for stage,rows,keys in [('stage1',records,['model_name','task','repeat']),
+                            ('combined',combined,['model_name','task','repeat']),
+                            ('stage2',reason,['model_name','prompt_name','repeat'])]:
+        groups={}
+        for r in rows: groups.setdefault(tuple(r[k] for k in keys),[]).append(r)
+        for values,rs in sorted(groups.items()):
+            values=dict(zip(keys,values))
+            measured=[r for r in rs if r.get('gpu_verified')]
+            summaries.append({'stage':stage,**values,**stats(rs),
+                              'skipped':sum(r.get('status')=='skipped' for r in rs),
+                              'actual_generations':len(measured) if stage!='combined' else 0,
+                              'syntax_valid':sum(r.get('syntax_valid',False) for r in rs) if values.get('model_name')!='florence' else None,
+                              'literal_objects':sum(len(r.get('view',{}).get('objects',[])) for r in rs) if stage=='stage1' else None,
+                              'nonempty_literal_object_lists':sum(bool(r.get('view',{}).get('objects')) for r in rs) if stage=='stage1' else None,
+                              'schema_note':'Native task validity for Florence; legacy description validation otherwise.' if stage=='stage1' else ''})
+    write_json(target/'summary.json',summaries)
+    headers=list(dict.fromkeys(k for r in summaries for k in r))
+    write_csv(target/'summary.csv',[{k:r.get(k,'') for k in headers} for r in summaries],headers)
+    consistent=repetition_consistency(records)
+    reason_pairs=repetition_reason_consistency(reason)
+    write_json(target/'consistency.json',{'stage1':consistent,'stage2':reason_pairs,
+        'note':'Normalized exact names only; groups/aliases are not automatically equal. Name groups are not cross-run instance identities. Agreement is not correctness.'})
+    flat=[]
+    for r in consistent:
+        flat.append({k:r[k] for k in ('frame_id','model','task','left','right','raw_equal','left_objects','right_objects','name_intersection','name_union','name_jaccard')})
+    if flat: write_csv(target/'consistency.csv',flat,list(flat[0]))
+    reason_flat=[{'frame_id':r['frame_id'],'dimension':r['dimension'],'comparable':r['comparable'],
+                 'same_frozen_input':r['same_frozen_input'],'compared_objects':r['compared_objects'],
+                 'changed_objects':r['changed_objects'],'left':json.dumps(r['left']),'right':json.dumps(r['right'])} for r in reason_pairs]
+    if reason_flat: write_csv(target/'reasoning-consistency.csv',reason_flat,list(reason_flat[0]))
+    # Apply the already fixed reference matching policy, separately per repetition.
+    policy=read_json(ROOT/'configs/thud-florence-matching.json'); boxes=[]
+    refs={}
+    for f in selected:
+        refs[f['frame_id']]=[json.loads(s) for s in (ROOT/'data'/f['dataset']/'objects.jsonl').read_text().splitlines() if s.strip()][f['index']]
+    for r in records:
+        if r['model_name']=='florence' and r['task'] in ('od','dense'):
+            boxes.append({'frame_id':r['frame_id'],'task':r['task'],'repeat':r['repeat'],'status':r['status'],
+                          **match_regions(r['view']['objects'] if r['status']=='ok' else [],refs[r['frame_id']]['objects'],policy)})
+    write_json(target/'reference-matching.json',{'policy':policy,'results':boxes,
+        'note':'Coverage of annotated regions in the existing vocabulary; not full precision/recall or mAP. A matched box does not verify a caption or stability.'})
+    reference_summary=[]
+    for ds,task,repeat in product(DATASETS,('od','dense'),('r1','r2','r3')):
+        rs=[r for r in boxes if r['frame_id'].startswith(ds+'/') and r['task']==task and r['repeat']==repeat]
+        if rs:
+            reference_summary.append({'dataset':ds,'task':task,'repeat':repeat,
+                **{k:sum(r[k] for r in rs) for k in ('matched','eligible_reference_regions','excluded_reference_regions','prediction_regions')},
+                'mean_matched_iou':statistics.mean(p['iou'] for r in rs for p in r['pairs']) if any(r['pairs'] for r in rs) else None})
+    write_json(target/'reference-summary.json',reference_summary)
+    if reference_summary: write_csv(target/'reference-summary.csv',reference_summary,list(reference_summary[0]))
+    for name,rows in [('stage1-responses',records),('stage2-responses',reason)]:
+        (target/(name+'.jsonl')).write_text(''.join(json.dumps(repetition_compact(r),ensure_ascii=False,allow_nan=False)+'\n' for r in rows))
+    diagnostic=[]
+    for p in sorted((base/'diagnostics').rglob('*.json')):
+        if not (p.name.startswith('frame-') or 'warmups' in p.parts): continue
+        row=read_json(p)
+        diagnostic.append({'local_source':str(p.relative_to(base)),**repetition_compact(row)})
+    if diagnostic:
+        (target/'diagnostic-nvila.jsonl').write_text(''.join(json.dumps(r,ensure_ascii=False)+'\n' for r in diagnostic))
+    frozen_dir=target/'frozen-inputs'; frozen_dir.mkdir(exist_ok=True)
+    for p in sorted((base/'frozen/qwen35-bf16-r1').glob('frame-*.json')): shutil.copyfile(p,frozen_dir/p.name)
+    prompts=target/'prompts'; prompts.mkdir(exist_ok=True)
+    for p in (ROOT/'configs/ponovitve').glob('*.txt'): shutil.copyfile(p,prompts/p.name)
+    unique={}
+    for r in records+reason:
+        if r.get('status')=='skipped': continue
+        system=r.get('system_prompt',''); user=r.get('user_prompt',r.get('prompt',''))
+        digest=sha256(json.dumps([system,user],ensure_ascii=False).encode())
+        unique.setdefault(digest,{'sha256':digest,'system_prompt':system,'user_prompt':user,
+                                 **{k:r[k] for k in ('native_system_prompt','native_user_prompt','native_chat_prompt_text','native_prompt_provenance') if k in r}})
+    (prompts/'actual-requests.jsonl').write_text(''.join(json.dumps(r,ensure_ascii=False)+'\n' for r in unique.values()))
+    write_json(prompts/'native-tasks.json',TASKS)
+    tokenizer_config=read_json(ROOT/'results/thud-extended/models/nvila/llm/tokenizer_config.json')
+    (prompts/'nvila-tokenizer-chat-template.txt').write_text(tokenizer_config['chat_template'])
+    old=read_json(base/'previous-results-index.json')
+    changed=[p for p,h in old.items() if sha256((ROOT/p).read_bytes())!=h]
+    if changed: raise ValueError('Old responses changed')
+    keys={(r['frame_id'],r['model_name'],r['task'],r['repeat']) for r in records}
+    expected={(f['frame_id'],m,t,r) for f in selected for m in ('florence','nvila','qwen35-bf16','qwen35-q4','gemma3-q4')
+              for t in (TASKS if m=='florence' else ('description',)) for r in ('r1','r2','r3')}
+    expected_reason={(f['frame_id'],m,p,r) for f in selected for m in ('qwen35-bf16','qwen35-q4') for p in ('short','long') for r in ('r1','r2','r3')}
+    actual_reason={(r['frame_id'],r['model_name'],r['prompt_name'],r['repeat']) for r in reason}
+    if len(keys)!=len(records) or len(actual_reason)!=len(reason): raise ValueError('Duplicate positions')
+    call_ids=[r.get('call_id',r.get('response',{}).get('created_at')) for r in records+reason if r.get('gpu_verified')]
+    if None in call_ids or len(call_ids)!=len(set(call_ids)): raise ValueError('Repeated/missing physical call identity')
+    plan=read_json(base/'plan.json')
+    public_frames=[{**{k:v for k,v in f.items() if k!='image_path'},'image_path':str(Path(f['image_path']).relative_to(ROOT))} for f in selected]
+    configs={str(p.relative_to(base)):repetition_compact(read_json(p)) for p in sorted((base/'configs').glob('*.json'))}
+    native_configs={str(p.relative_to(base)):read_json(p)['config'] for m,r in product(('nvila','florence'),('r1','r2','r3'))
+                    for p in [base/'stage1'/m/r/'manifest.json'] if p.exists()}
+    environments=[]
+    for p in sorted((base/'stage1').glob('*/*/environments/*.json')):
+        env=read_json(p)
+        environments.append({'model':p.parts[-4],'repeat':p.parts[-3],
+                             **{k:env[k] for k in ('python','torch','cuda','transformers','gpu_name','gpu_capability',
+                                  'parameter_devices','parameter_dtypes','parameter_count','load_seconds') if k in env}})
+        for key in ('initialization_seed','embedding_tail_sha256'):
+            if key in env: environments[-1][key]=env[key]
+    warmups=[]
+    for stage in ('stage1','stage2'):
+        for p in sorted((base/stage).glob('**/warmups/**/*.json')):
+            row=read_json(p)
+            warmups.append({'path':str(p.relative_to(base)), 'stage':stage,
+                            'seconds':row.get('elapsed_seconds'),'gpu_verified':row.get('gpu_verified',False),
+                            'ollama_load_seconds':row.get('response',{}).get('load_duration',0)/1e9,
+                            'excluded_from_quality':True,'error':row.get('error')})
+    write_json(target/'warmups.json',warmups)
+    # Native manifests contain prompt text/config, no weights or vendor code.
+    manifest={'protocol':plan,'frames':public_frames,'ollama_configs':configs,'native_configs':native_configs,
+              'native_environments':environments,'physical_warmups':len(warmups),
+              'model_revisions':{m:read_json(ROOT/f'results/thud-extended/setup/{m}-api.txt')['sha'] for m in ('nvila','florence')},
+              'ollama_digests':{r['model_name']:r['gpu']['digest'] for r in records+reason if r.get('gpu')},
+              'previous_responses_unchanged':len(old),'missing_stage1':sorted(expected-keys),'missing_stage2':sorted(expected_reason-actual_reason),
+              'actual_stage1_generations':sum(bool(r.get('gpu_verified')) for r in records),
+              'actual_stage2_generations':sum(bool(r.get('gpu_verified')) for r in reason),
+              'same_frozen_qwen_r1_verified':True,
+              'stage2_skipped':sum(r['status']=='skipped' for r in reason),'unique_physical_call_ids':len(call_ids),
+              'export_omissions':['Image bytes/base64 in transport requests (source RGB SHA retained).','Python traceback debug text; original remains local.'],
+              'accuracy_note':'No stability ground truth; format validity and agreement do not establish accuracy.',
+              'timing_note':'GPU is shared with other processes. Loading and physical warmups are separate; do not infer model-only speed differences.',
+              'raw_local':'results/ponovitve/','export_git_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()}
+    if (base/'nvila-prompt-revision.json').exists(): manifest['nvila_prompt_revision']=read_json(base/'nvila-prompt-revision.json')
+    if (base/'setup/nvila-initialization-correction.json').exists(): manifest['nvila_initialization_correction']=read_json(base/'setup/nvila-initialization-correction.json')
+    if (base/'setup/nvila-r3-segfault.json').exists(): manifest['nvila_r3_process_failure']=read_json(base/'setup/nvila-r3-segfault.json')
+    manifest['process_failures']=[{'source':str(p.relative_to(base)),
+                                  'exit_code':read_json(p)['exit_code'],
+                                  'note':read_json(p).get('note'),
+                                  'original_command_sha256':sha256(json.dumps(read_json(p).get('command'),ensure_ascii=False).encode())}
+                                 for p in sorted((base/'process-errors').glob('*.json'))]
+    manifest['diagnostic_measured_generations']=sum(not r.get('excluded_from_quality',False) for r in diagnostic)
+    manifest['diagnostic_warmups']=sum(bool(r.get('excluded_from_quality',False)) for r in diagnostic)
+    tests_path=base/'logs/tests-final.log'
+    if tests_path.exists():
+        test_text=tests_path.read_text(); match=re.search(r'Ran (\d+) tests in ([\d.]+)s',test_text)
+        manifest['tests']={'count':int(match[1]) if match else None,'passed':test_text.strip().endswith('OK'),
+                           'seconds':float(match[2]) if match else None,'log_sha256':sha256(tests_path.read_bytes())}
+    write_json(target/'manifest.json',manifest)
+    if not manifest['missing_stage1']:
+        repetition_cases(target,base,selected,records,reason,consistent,refs)
+    repetition_readme(target,manifest,summaries,consistent,reason_pairs)
+    print(json.dumps({k:manifest[k] for k in ('actual_stage1_generations','actual_stage2_generations','stage2_skipped','unique_physical_call_ids')},indent=2))
+
+
+def repetition_cases(target,base,selected,records,reason,consistent,refs):
+    """Select five cases per dataset by explicit diagnostics, then retain that choice."""
+    from .thud_extended_common import draw_boxes
+    selection_file=target/'case-selection.json'
+    if selection_file.exists():
+        chosen=read_json(selection_file)
+    else:
+        chosen=[]
+        for ds in DATASETS:
+            candidates=[]
+            for frame in selected:
+                if frame['dataset']!=ds: continue
+                fid=frame['frame_id']
+                pairs=[r for r in consistent if r['frame_id']==fid]
+                native=[r for r in records if r['frame_id']==fid]
+                values=[r['name_jaccard'] for r in pairs if r['name_jaccard'] is not None and r['model']!='florence']
+                failures=sum(r['status']!='ok' for r in native)
+                density=max((len(r['view']['objects']) for r in native if r['task']=='od'),default=0)
+                stable_flo=all(r['raw_equal'] and r['left_status']==r['right_status']=='ok'
+                               for r in pairs if r['model']=='florence')
+                score=(1-statistics.mean(values) if values else 1)+failures*.15+density*.01
+                candidates.append({'frame_id':fid,'dataset':ds,'index':frame['index'],'diagnostic_score':score,
+                                   'format_failures':failures,'max_od_regions':density,'florence_stable':stable_flo})
+            # One stable native example per room, followed by four difficult/divergent cases.
+            stable=sorted(candidates,key=lambda r:(not r['florence_stable'],r['format_failures'],-r['max_od_regions'],r['index']))[0]
+            stable={**stable,'selection_reason':'Stable deterministic native results; visually check successful localization/caption separately.'}
+            difficult=[{**r,'selection_reason':'High scripted divergence/failure/density score; inspect occlusion, unsupported claims and format errors.'}
+                       for r in sorted(candidates,key=lambda r:(-r['diagnostic_score'],r['index'])) if r['frame_id']!=stable['frame_id']][:4]
+            chosen.extend([stable]+difficult)
+        write_json(selection_file,chosen)
+    notes=read_json(target/'manual-review.json') if (target/'manual-review.json').exists() else {}
+    pages=['<!doctype html><html lang="sl"><meta charset="utf-8"><meta name="viewport" content="width=device-width">',
+           '<title>THUD: tri ponovitve, deset primerov</title>',
+           '<style>body{font:16px system-ui;max-width:1550px;margin:2em auto;padding:0 1em;color:#18222b}a{color:#005b96}img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f5f7;padding:1em;max-height:65vh;overflow:auto}.runs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1em}.run{border:1px solid #bcc7d0;border-radius:5px;padding:1em}details{margin:.8em 0}summary{cursor:pointer;font-weight:bold}article{margin-top:3em;border-top:3px solid #557}.notice{padding:1em;background:#fff0d2}.references{border:3px dashed #a33;padding:.5em}nav{display:flex;flex-wrap:wrap;gap:1em}li{margin-bottom:.5em}@media(max-width:900px){.runs{grid-template-columns:1fr}}</style>',
+           '<style>.case-layout{display:grid;grid-template-columns:minmax(240px,320px) minmax(0,1fr);gap:1em}.case-layout aside{position:sticky;top:1em;align-self:start}@media(max-width:1000px){.case-layout{display:block}.case-layout aside{position:static}}</style>',
+           '<h1>THUD: trije sveži izhodi na isti fotografiji</h1>',
+           '<p>10 podrobnih primerov od 20 slik (5 trgovina + 5 agtea). Odpri ta index.html neposredno v brskalniku po prenosu repozitorija. Podatki vseh 20: <a href="stage1-responses.jsonl">VLM</a>, <a href="stage2-responses.jsonl">LLM</a>, <a href="summary.csv">meritve</a>, <a href="consistency.json">primerjave</a>.</p>',
+           '<p class="notice">Veljaven JSON in strinjanje nista pravilnost. Lokalni ID med modeli ni identiteta istega predmeta. Florence okvirji so njegove napovedi; referenčni izris je posebej označen. Drugi modeli nimajo lastnih okvirjev. Brez referenc stabilnosti ni accuracy.</p>',
+           '<nav>'+''.join(f'<a href="#case-{i}">{i:02d}: {html.escape(c["dataset"].replace("thud_", ""))} / {c["index"]+1}</a>' for i,c in enumerate(chosen,1))+'</nav>']
+    def pre(value): return '<pre>'+html.escape(value if isinstance(value,str) else json.dumps(value,ensure_ascii=False,indent=2))+'</pre>'
+    for i,case in enumerate(chosen,1):
+        frame=next(f for f in selected if f['frame_id']==case['frame_id'])
+        slug=f'{i:02d}-'+('trgovina' if frame['dataset']==DATASETS[0] else 'agtea')+f'-{frame["index"]+1:02d}'
+        directory=target/'cases'/slug;directory.mkdir(parents=True,exist_ok=True)
+        original=directory/'original.png'
+        if not original.exists(): shutil.copyfile(frame['image_path'],original)
+        stage1=[repetition_compact(r) for r in records if r['frame_id']==frame['frame_id']]
+        stage2=[repetition_compact(r) for r in reason if r['frame_id']==frame['frame_id']]
+        write_json(directory/'stage1.json',stage1);write_json(directory/'stage2.json',stage2)
+        note=notes.get(frame['frame_id'],{'review_status':'pending','selection_reason':case['selection_reason']})
+        write_json(directory/'review.json',note)
+        refpath=directory/'reference-only.jpg'
+        ref=refs[frame['frame_id']]
+        draw_boxes(frame['image_path'],{'reference':{'labels':[o['label'] for o in ref['objects']],
+                  'bboxes':[o['bbox_xyxy'] for o in ref['objects']]}},'reference',refpath)
+        relative=directory.relative_to(target).as_posix()
+        pages+=['<article id="case-'+str(i)+'"><h2>'+html.escape(f'{i:02d} — {frame["frame_id"]}, izvorni indeks {frame["index"]+1}')+'</h2>',
+                '<div class="case-layout"><aside><a href="'+relative+'/original.png"><img src="'+relative+'/original.png" alt="Izvirni RGB"></a><p>Izvirni RGB. Klik za polno ločljivost. Fotografija ostane ob rezultatih.</p></aside><div>',
+                '<p><strong>Razlog izbire:</strong> '+html.escape(note.get('selection_reason',case['selection_reason']))+'</p><details><summary>Lastna podrobna vizualna presoja in pregled LLM</summary>'+pre(note)+'</details>',
+                '<p><a href="'+relative+'/stage1.json">Celotni VLM izhodi</a> · <a href="'+relative+'/stage2.json">Celotni LLM izhodi</a> · <a href="'+relative+'/review.json">Ročni pregled</a></p>',
+                '<details class="references"><summary>REFERENCE — samo pregled/vrednotenje; niso vhod VLM</summary><img src="'+relative+'/reference-only.jpg">'+pre(ref['objects'])+'</details>']
+        for model in ('florence','nvila','qwen35-bf16','qwen35-q4','gemma3-q4'):
+            pages.append('<details'+(' open' if model=='florence' else '')+'><summary>VLM: '+model+'</summary><div class="runs">')
+            for repeat in ('r1','r2','r3'):
+                pages.append('<section class="run"><h3>'+repeat+' / seed '+str({'r1':42,'r2':43,'r3':44}[repeat])+'</h3>')
+                for row in (r for r in stage1 if r['model_name']==model and r['repeat']==repeat):
+                    pages.append('<h4>'+html.escape(row['task']+' — '+row['status'])+'</h4>')
+                    if model=='florence' and row['task'] in ('od','dense'):
+                        name=row['task']+'-'+repeat+'.jpg'; image=directory/name
+                        if row['status']=='ok':
+                            draw_boxes(frame['image_path'],row['parsed'],TASKS[row['task']],image)
+                            pages.append('<p>NAPOVED Florence '+html.escape(row['task'])+'</p><a href="'+relative+'/'+name+'"><img src="'+relative+'/'+name+'"></a>')
+                        else: pages.append('<p>Zavrnjeni okvirji; niso popravljeni ali izrisani kot veljavna napoved.</p>')
+                    elif model!='florence': pages.append('<p>Izvirna fotografija zgoraj + dobesedni seznam spodaj; lastnih okvirjev ni.</p>')
+                    pages.append('<p>'+html.escape(f"Čas {row.get('elapsed_seconds',0):.3f} s; prikaz: {row['view']['extraction']}")+'</p>')
+                    if row['view']['scene_description']: pages.append(pre(row['view']['scene_description']))
+                    pages.append('<ol>'+''.join('<li>'+pre(o)+'</li>' for o in row['view']['objects'])+'</ol>')
+                    pages.append('<details><summary>Celotni surovi odgovor, prompti in podatki</summary>'+pre(row)+'</details>')
+                pages.append('</section>')
+            pages.append('</div></details>')
+        pages.append('<h3>Besedilni LLM — isti zamrznjeni Qwen BF16 opis iz r1</h3>')
+        for model in ('qwen35-bf16','qwen35-q4'):
+            for prompt in ('short','long'):
+                rows=[r for r in stage2 if r['model_name']==model and r['prompt_name']==prompt]
+                pages.append('<details><summary>'+html.escape(model+' / '+prompt+'-no-examples')+'</summary>')
+                if rows:
+                    pages.append('<details><summary>Celotni dejanski sistemski/uporabniški prompt</summary>'+pre({'system_prompt':rows[0]['system_prompt'],'user_prompt':rows[0].get('user_prompt','Source description skipped'),'caption_sha256':rows[0]['caption_sha256']})+'</details>')
+                pages.append('<div class="runs">')
+                for r in rows:
+                    pages.append('<section class="run"><h4>'+html.escape(r['repeat']+' — '+r['status'])+'</h4>'+pre({k:r[k] for k in ('parsed','candidate_parsed','error','elapsed_seconds','caption_sha256') if k in r})+
+                                 '<details><summary>Celotni odgovor in sled</summary>'+pre(r)+'</details></section>')
+                pages.append('</div></details>')
+        pages.append('</div></div></article>')
+    pages.append('</html>')
+    (target/'index.html').write_text('\n'.join(pages))
+    write_json(target/'case-index.json',[{'directory':str(p.relative_to(target))} for p in sorted((target/'cases').iterdir()) if p.is_dir()])
+
+
+def repetition_readme(target,manifest,summaries,consistent,reason_pairs):
+    stage1=[r for r in summaries if r['stage']=='stage1']
+    table=['| Model / naloga | r1 OK/vsi | r2 OK/vsi | r3 OK/vsi |',
+           '| --- | ---: | ---: | ---: |']
+    for model,task in sorted({(r['model_name'],r['task']) for r in stage1}):
+        cells=[]
+        for repeat in ('r1','r2','r3'):
+            r=next((r for r in stage1 if r['model_name']==model and r['task']==task and r['repeat']==repeat),None)
+            cells.append(f"{r['ok']}/{r['positions']}" if r else 'manjka')
+        table.append('| '+model+' / '+task+' | '+' | '.join(cells)+' |')
+    flo=[r for r in consistent if r['model']=='florence']
+    nvila=[r for r in stage1 if r['model_name']=='nvila']
+    grouped=[]
+    for dimension in ('repeat','prompt_name','model_name'):
+        rows=[r for r in reason_pairs if r['dimension']==dimension]
+        grouped.append(f"- `{dimension}`: {sum(r['comparable'] for r in rows)}/{len(rows)} veljavnih parov klicev; "
+                       f"{sum(r['changed_objects'] for r in rows)}/{sum(r['compared_objects'] for r in rows)} različnih razredov na primerjanih objektih.")
+    text=f'''# Tri ponovitve slikovnih opisov in besedilnega razvrščanja
+
+Uporabili smo istih 20 THUD slik (10 trgovina + 10 agtea) kot v prejšnjem poskusu.
+To so povezani pogledi dveh prostorov, ne 20 neodvisnih prizorov.
+Cilj je pogledati, kaj se spremeni med semeni, in ločeno preveriti vpliv kratkega/dolgega
+navodila ter BF16/Q4 besedilnega modela na isti shranjeni opis. To je paket meritev
+in primerov, iz katerega lahko pripravimo poročilo; novega dolgega PDF ne izdelujemo.
+
+Odpri **[index.html](index.html)** neposredno v brskalniku po prenosu repozitorija.
+Vse slike, opisi in podatki desetih primerov so relativno povezani in delujejo brez strežnika.
+Na GitHubu je HTML izvorna datoteka; za prikaz prenesi repozitorij ali mapo s primeri.
+Deset primerov (5 + 5) izberejo kazalniki razhajanja, napak in gostote, vključno z dvema
+stabilnima Florence primeroma. Lastna vizualna presoja je v `manual-review.json` in vsaki
+mapi primera; modelove trditve ostanejo ločene od te presoje.
+
+## Dejanski obseg
+
+- VLM: **{manifest['actual_stage1_generations']} svežih GPU generacij / 420 položajev**.
+- LLM: **{manifest['actual_stage2_generations']} svežih GPU generacij / 240 položajev**, **{manifest['stage2_skipped']} preskokov** zaradi neuporabnega Qwen BF16 r1 vira.
+- Diagnostični NVILA poskusi: {manifest['diagnostic_measured_generations']} dodatnih merjenih odgovorov in {manifest['diagnostic_warmups']} zaključenih izključenih ogrevanj, ohranjeni posebej; ne štejejo v glavno primerjavo.
+- Glavni izbor ni prepis starega cache: fizične generacije imajo enolične ID oziroma strežniške čase. Pilot istega protokola ostane del r1.
+- Predhodnih **{manifest['previous_responses_unchanged']}** shranjenih odgovorov je preverjeno nespremenjenih. Ogrevanja in nalaganja so ločena v `warmups.json` in `manifest.json`.
+
+{chr(10).join(table)}
+
+OK pomeni skladnost z ustreznim izhodnim formatom, **ne vsebinske pravilnosti**.
+NVILA ima dobesedno razčlenjen neprazen seznam objektov v **{sum(r['nonempty_literal_object_lists'] for r in nvila)}/{sum(r['positions'] for r in nvila)}** odgovorih,
+tudi kadar celoten zapis ni veljaven po shemi. Te vsebine ne zavržemo.
+NVILA več JSON dokumentov/odvečno besedilo ostane napaka celotnega odgovora. Za prikaz
+skripta izlušči samo dobesedne objekte iz strogo prebranih JSON dokumentov; ničesar ne
+popravlja v veljaven opis. Preostalo besedilo in celotni original ostaneta dostopna.
+Neobstoječ razčlenjen seznam ni dokaz, da na sliki ni objektov.
+
+## Protokol in meje primerjave
+
+Qwen BF16/Q4 in Gemma Q4 uporabljajo isti novi `description-v1.txt`, T=0.3,
+semena 42/43/44 za r1/r2/r3, kontekst 16384, največ 4096 novih tokenov,
+top-p=0.8, top-k=20, presence penalty=1.5. JSON transport je obstoječa Ollama.
+NVILA uporablja vsebinsko primerljivo, a izrecneje strukturirano navodilo
+`nvila-description-v2.txt`; prvi novi pilot je vrnil prosti tekst in je ohranjen
+v `diagnostic-nvila.jsonl`. NVILA je FP16, SDPA, T=0.3, ista semena,
+4096 novih tokenov, repetition penalty=1.05; presence penalty ni podprt.
+Zaradi različnih promptov/formatov/preprocesiranja razlik ne pripisujemo samo modelu.
+Pri NVILA je inicializacija dodatnih tokenov vedno seed42; le generiranje uporablja
+42/43/44. Med revizijo odkriti neprimerljivi r2 (in prekinjeno nalaganje r3) sta
+ohranjena v diagnostiki, r2/r3 sta izvedena s pravilno ločenima semenoma. R1 je že
+uporabil init seed42. Popravljena nalaganja hranijo SHA256 zadnjih 64 vrstic vhodnih
+in izhodnih embeddingov; `nvila_initialization_correction` dokumentira popravek.
+Pri ponovnem r3 je proces po ogrevanju odpovedal s SIGSEGV. Napaka in neznani čas
+nedokončanega klica sta zabeležena; nadaljevanje ni popravilo ali ponovilo shranjenega odgovora.
+Vzrok sesutja ni potrjen. Native navodilo se po VILA API pošlje v uporabniškem
+sporočilu; dodatna polja `native_*` ohranijo dejanski chat format in njegov privzeti
+sistem, raw komponenti `system_prompt/user_prompt` pa ostaneta nespremenjeni.
+
+Florence je izvirni `microsoft/Florence-2-large`, FP16, beam=3,
+do_sample=false, max_new_tokens=1024. T=0.3 zanj ni uporabljen in seme pri tem
+režimu ni vir vzorčenja; tri dejanske generacije so zahtevane tudi ob enakem odgovoru.
+Prejme samo native naloge caption/OD/dense, ne Qwenove JSON sheme.
+Ima **{sum(r['raw_equal'] for r in flo)}/{len(flo)}** parov z dobesedno enakim odgovorom.
+
+Drugi korak prejme samo **isti zamrznjeni Qwen BF16 r1 opis**, brez slike in referenc.
+Datoteke `frozen-inputs/` so objavljene bajt za bajtom, s preverljivim SHA256.
+BF16 in Q4, kratki in dolgi prompt brez primerov ter semena 42/43/44 uporabljajo
+isti vhod. Napake in preskoki ostanejo v imenovalcih; ne nadomeščamo jih z drugim virom.
+
+{chr(10).join(grouped)}
+
+To so razlike med napovedmi po istem tipiziranem ID, ne accuracy stabilnosti.
+Referenc stabilnosti ni. Imena primerjamo po malih črkah in presledkih; sinonimov,
+množin ali skupinskih regij ne enačimo samodejno. Spremembe lastnosti so spremembe
+celotnih dobesednih zapisov v skupini istega imena, ne potrjeno iste fizične instance.
+Odnosi v besedilu ostanejo v opazovanju; odsotnost strukturiranega polja ni odsotnost odnosa.
+Florence okvirji imajo enolično IoU ujemanje. Reference in že določen slovar se uporabljajo
+samo pri vrednotenju: `reference-matching.json` hrani vse pare, `reference-summary.*` agregate.
+Pokritost anotiranih regij ni celoten precision/recall/mAP; neujemanje ni nujno halucinacija.
+
+GPU je med meritvami v souporabi. Časi vključujejo dejanski obseg posameznega izvajalnika;
+Florence combined meri vse tri naloge skupaj brez izrisa. CUDA allocated/reserved in
+Ollama size_vram sta različni meritvi. Iz teh časov ne sklepamo o čistem vplivu arhitekture.
+
+## Ponovitev in podatki
+
+Uporabljena so obstoječa Docker okolja in lokalni modeli, brez ponovne namestitve:
+
+```bash
+bash scripts/thud_ponovitve.sh prepare
+bash scripts/thud_ponovitve.sh all
+# Ločeno: pilot/describe --model florence|nvila|qwen35-bf16|qwen35-q4|gemma3-q4
+# Describe omogoča tudi --repeat r1|r2|r3; pilot se ohrani kot r1.
+bash scripts/thud_ponovitve.sh freeze
+bash scripts/thud_ponovitve.sh reason
+bash scripts/thud_ponovitve.sh export
+bash scripts/thud_ponovitve.sh verify
+python3 -m unittest tests.test_separate_stages tests.test_thud_extended tests.test_thud_repetitions tests.test_stage_scripts tests.test_thud_selections -v
+```
+
+Zaganjalnik nadaljuje samo manjkajoče klice, ohrani napake in zavrne spremenjene
+konfiguracije ali vhode. Vsako novo nalaganje fizično ogreje. GPU modeli tečejo zaporedno.
+Veliki lokalni izhodi so `results/ponovitve/`; stare meritve ostanejo v svojih mapah.
+Konfiguracije/prompti so `configs/ponovitve/`; točne poslane prompte hrani tudi `prompts/`.
+
+Za **vseh 20** so objavljeni `stage1-responses.jsonl`, `stage2-responses.jsonl`,
+zamrznjeni vhodi, manifest, summary in consistency. Deset map `cases/` vsebuje original,
+Florence izrise z ID/oznakami za OD in dense vsake ponovitve, ločen referenčni izris,
+celotne odgovore/podatke obeh korakov in ročno opombo. Drugi VLM nimajo lastnih okvirjev;
+prikazujejo se original in oštevilčeni dobesedni seznami. Dodatno grounding ni izveden.
+
+Iz kompaktnih Git kopij so odstranjena transportna slikovna polja/base64, gostiteljski
+argumenti diagnostičnih Docker ukazov (ohranjen SHA256 izvirnika) in Python
+tracebacki, laboratorijske poti v strukturnih poljih so relativne. **Besedilo odgovora,
+promptov, opisov, objektov in utemeljitev ni skrajšano.** Originalni lokalni zapisi ostanejo
+nespremenjeni; `original_record_sha256` jih poveže s kopijami. Nobene uteži ali vendor
+knjižnice niso del tega paketa. `verification.json` dokumentira končne preverbe.
+'''
+    (target/'README.md').write_text(text)
+
+
+def repetitions_verify(require_review=True):
+    """Check the complete exported experiment, local originals and relative HTML assets."""
+    from html.parser import HTMLParser
+    base=ROOT/'results/ponovitve';target=ROOT/'reports/PRIMERJAVA_PONOVITEV'
+    manifest=read_json(target/'manifest.json')
+    if manifest['missing_stage1'] or manifest['missing_stage2']: raise ValueError('Missing required positions')
+    if len(manifest['frames'])!=20: raise ValueError('Expected same20')
+    tails=[e['embedding_tail_sha256'] for e in manifest['native_environments']
+           if e['model']=='nvila' and e.get('embedding_tail_sha256')]
+    if len(tails)<2 or len({json.dumps(t,sort_keys=True) for t in tails})!=1:
+        raise ValueError('Corrected native initialization fingerprints differ')
+    for frame in manifest['frames']:
+        if sha256((ROOT/frame['image_path']).read_bytes())!=frame['image_sha256']: raise ValueError('RGB changed')
+    records=[json.loads(line) for name in ('stage1','stage2') for line in (target/(name+'-responses.jsonl')).read_text().splitlines()]
+    for row in records:
+        seed=row.get('seed',row.get('variant',{}).get('seed'))
+        if seed!={'r1':42,'r2':43,'r3':44}[row['repeat']]: raise ValueError('Wrong repeat sampling seed')
+        original=read_json(ROOT/row['local_record'])
+        if original.get('content')!=row.get('content'): raise ValueError('Response text shortened')
+        for key in ('system_prompt','user_prompt'):
+            if original.get(key)!=row.get(key): raise ValueError('Prompt changed in export')
+        if sha256((ROOT/row['local_record']).read_bytes())!=row['original_record_sha256']: raise ValueError('Raw original changed')
+        if str(ROOT) in json.dumps(row,ensure_ascii=False): raise ValueError('Absolute laboratory path in public record')
+        if row.get('stage')==2:
+            source=Path(row['caption_source']).name
+            if sha256((target/'frozen-inputs'/source).read_bytes())!=row['caption_sha256']: raise ValueError('Public frozen SHA differs')
+    cases=read_json(target/'case-selection.json')
+    if len(cases)!=10 or sorted(Counter(c['dataset'] for c in cases).values())!=[5,5]: raise ValueError('Case selection must be five plus five')
+    notes=read_json(target/'manual-review.json') if (target/'manual-review.json').exists() else {}
+    if require_review and any(notes.get(c['frame_id'],{}).get('review_status')!='reviewed' for c in cases): raise ValueError('Ten detailed reviews not complete')
+    links=[]
+    class Assets(HTMLParser):
+        def handle_starttag(self,tag,attrs):
+            for key,value in attrs:
+                if key in ('src','href') and value and not value.startswith('#'): links.append(value)
+    Assets().feed((target/'index.html').read_text())
+    for link in links:
+        if link.startswith(('/','http:','https:','data:')) or not (target/link).is_file(): raise ValueError('Nonportable/missing asset '+link)
+    for directory in (target/'cases').iterdir():
+        rows=read_json(directory/'stage1.json')
+        if len(rows)!=21 or len(read_json(directory/'stage2.json'))!=12: raise ValueError('Case is incomplete')
+        frame=next(f for f in manifest['frames'] if f['frame_id']==rows[0]['frame_id'])
+        if sha256((directory/'original.png').read_bytes())!=frame['image_sha256']: raise ValueError('Case original changed')
+    old=read_json(base/'previous-results-index.json')
+    if any(sha256((ROOT/p).read_bytes())!=digest for p,digest in old.items()): raise ValueError('Old result modified')
+    result={'passed':True,'stage1_positions':420,'stage2_positions':240,'same20':True,'cases':10,'case_split':[5,5],
+            'all_case_positions_present':True,'unshortened_answers_and_prompts_verified':len(records),
+            'relative_html_assets_checked':len(links),'published_frozen_sha_verified':True,
+            'repeat_seeds_verified':True,'corrected_initial_embedding_fingerprints_equal':True,
+            'previous_originals_unchanged':len(old),'reviews_complete':require_review,
+            'note':'Format errors are measured outcomes, not failed experiment invariants.'}
+    write_json(target/'verification.json',result)
+    print(json.dumps(result,indent=2))
+    return result
+
+
 if __name__ == '__main__':
     main()

@@ -1,0 +1,140 @@
+{
+  "review_status": "reviewed",
+  "selection_reason": "Jasno ločena prava ravna stopnica desno in krožna knjižna polica levo: dober preizkus semantične zamenjave ter stabilnega uspeha Qwen.",
+  "visible_confirmed": [
+    "Valjasta osvetljena polica s knjigami levo ob oknih, več oranžnih sedežev, mize, velik dejanski zaslon z obrazom na desni in ravno stopnišče skrajno desno.",
+    "Vijolična zgornja ploskev je ločena od spodnjega zaslona; odsevna tla so vidna, sestave kamna ne potrjujem."
+  ],
+  "unsupported_model_claims": [
+    "Florence escalator ni potrjen: viden je sklop ravnih osvetljenih stopnic brez dokaza premičnega traku. Dense spiral staircase lahko napačno zamenja knjižni valj s stopnicami.",
+    "NVILA engaged in conversation/using phones in upscale cafe/hotel kontekst sta funkcijska sklepa, ne potrjeni aktivnosti ali vrsta ustanove.",
+    "Qwen Q4 wheels visible pri sedežih ni potrjeno; vidna so predvsem kovinsko delujoča podnožja, ne jasni koleščki.",
+    "Gemma r3 cilindrično polico postavi na desno, čeprav je jasno levo. Pri zaslonu in vijoličnem ozadju se opis deloma meša."
+  ],
+  "repetition_observations": [
+    "Qwen BF16 v vseh3 ponovitvah jasno loči knjižno polico ob levih oknih in stopnice desno; Q4 prav tako ohrani osnovno postavitev.",
+    "Gemma ima v vseh3 ponovitvah napako evidence/identifiable, zato njena uporabna prostorska opažanja niso avtomatično veljavna shema.",
+    "Skupinsko orange armchair in 21 OD regij nimata iste granularnosti; ne sklepam o številu zadetkov iz števila objektov."
+  ],
+  "stable_success_scope": "Stabilen, vizualno podprt makro opis Qwen BF16: cilindrična knjižna polica levo, ločene stopnice desno in dejanski zaslon. Ni trditev o popolni detekciji ali stabilnosti pohištva.",
+  "classification_review": {
+    "frozen_sha256": "1f79509b7aca490d3b16c115208de683089bffa90840d7e451b4f6c6b4f1a88a",
+    "valid_calls": 10,
+    "errors": [
+      {
+        "model": "qwen35-bf16",
+        "prompt": "long",
+        "repeat": "r1",
+        "error": "Duplicate JSON key: classification"
+      },
+      {
+        "model": "qwen35-q4",
+        "prompt": "short",
+        "repeat": "r2",
+        "error": "Object 3 has missing reason."
+      }
+    ],
+    "objects": [
+      {
+        "id": 1,
+        "id_type": "int",
+        "label": "spiral bookshelf",
+        "states": {
+          "movable": {
+            "count": 10,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r2",
+              "reason": "Bookshelf is freestanding and can be moved without dismantling."
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "id_type": "int",
+        "label": "orange armchair",
+        "states": {
+          "movable": {
+            "count": 10,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r2",
+              "reason": "Armchair has a base and is designed to be repositioned easily."
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "id_type": "int",
+        "label": "table",
+        "states": {
+          "movable": {
+            "count": 8,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r2",
+              "reason": "Table is a standard furniture item that can be pushed or carried."
+            }
+          },
+          "uncertain": {
+            "count": 2,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "short",
+              "repeat": "r2",
+              "reason": "Table attachment evidence missing; implies uncertain."
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "id_type": "int",
+        "label": "large screen",
+        "states": {
+          "fixed": {
+            "count": 6,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r2",
+              "reason": "Screen is mounted on a wall structure requiring dismantling to move."
+            }
+          },
+          "uncertain": {
+            "count": 4,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r3",
+              "reason": "Mounting method not visible; screen could be wall-mounted or freestanding."
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "id_type": "int",
+        "label": "stairs",
+        "states": {
+          "fixed": {
+            "count": 10,
+            "example": {
+              "model": "qwen35-bf16",
+              "prompt": "long",
+              "repeat": "r2",
+              "reason": "Stairs are an architectural element integral to the building structure."
+            }
+          }
+        }
+      }
+    ],
+    "own_assessment": "Pravo ravno stopnišče je v10 veljavnih klicih fixed, stol in spiral bookshelf pa movable. Freestanding bookshelf je modelov sklep, ne potrjena odsotnost pritrditve. Zaslon se deli6 fixed/4 uncertain; vidna zaslonska ploskev ne potrdi načina montaže. BF16 long r1 ima podvojen classification, Q4 short r2 pa manjkajoč reason."
+  },
+  "review_scope": "Originalna fotografija, primerjava vseh3 scen/imen vsakega VLM s skriptno združenimi enakimi izhodi, izbrane dobesedne lastnosti in izrisi, vseh12 LLM statusov ter primerjava razredov/razlogov po istem zamrznjenem ID. To ni izčrpna referenčna anotacija vseh objektov ali stabilnosti."
+}
