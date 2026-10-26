@@ -1,5 +1,9 @@
 # Opisovanje in razvrščanje objektov za robotsko zaznavanje
 
+**Aktualna naloga za Codex:** [VLM in LLM, tri ponovitve ter deset slikovnih primerov](CODEX_PONOVITVE.md).
+Uporabi že delujoče izvajalnike NVILA, Florence, Qwen in Gemma; navodila določajo
+ločen preizkus slikovnega opisa in besedilne presoje ter objavo celotnih odgovorov.
+
 **Naloga za Codex na Linuxu:** [cilji, načrt poskusov in poročilo za predstavitev](CODEX_NALOGA.md).
 Dokument loči takojšnji eksperimentalni del od nadaljnje nadgradnje prvega koraka.
 
