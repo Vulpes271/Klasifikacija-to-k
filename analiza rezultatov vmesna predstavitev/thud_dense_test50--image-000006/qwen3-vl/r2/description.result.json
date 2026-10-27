@@ -1,0 +1,141 @@
+{
+  "view": {
+    "scene_description": "A brightly lit supermarket aisle with colorful hanging decorations like hot air balloons and red lanterns. Shelves are stocked with products, including boxes of milk and other goods. Customers browse items, while refrigerated sections and promotional posters are visible in the background. The ceiling has fluorescent lights and exposed beams.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "man wearing white shirt",
+        "observation": "A man in a white long-sleeved shirt with Chinese characters on it is standing near shelves, holding a product. He wears glasses and looks down at items. His position is left-center of the frame, partially obscured by stacked boxes. He stands on the floor, supported by his own feet.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      },
+      {
+        "id": 2,
+        "label": "woman with dark hair",
+        "observation": "A woman with dark hair is partially visible behind the man, looking toward the shelves. She is positioned slightly to the right of the man and appears to be browsing. Her face is mostly obscured by the man’s shoulder and the shelving unit.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      },
+      {
+        "id": 3,
+        "label": "stacked product boxes",
+        "observation": "Tall stacks of colorful product boxes in pink, green, blue, and white are arranged on the floor along the aisle. They are positioned in front of the shelves and appear to be for sale. Some boxes have visible branding like 'Cidron'.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      },
+      {
+        "id": 4,
+        "label": "hanging hot air balloon decorations",
+        "observation": "Several decorative hot air balloons hang from the ceiling. They feature patterns like blue and white stripes, yellow and white stripes, and red and white stripes. They are suspended by thin wires and positioned above the aisle, adding festive ambiance.",
+        "attachment_evidence": "visible_installation",
+        "identifiable": true
+      },
+      {
+        "id": 5,
+        "label": "red lantern decorations",
+        "observation": "Red paper lanterns are hanging from the ceiling, clustered together near the center-right of the frame. They are spherical and appear to be made of paper. They are suspended by thin wires and positioned above the aisle, contributing to the festive atmosphere.",
+        "attachment_evidence": "visible_installation",
+        "identifiable": true
+      },
+      {
+        "id": 6,
+        "label": "fluorescent ceiling lights",
+        "observation": "Long rectangular fluorescent lights are mounted on the black ceiling, providing bright illumination. They are evenly spaced and run parallel to the aisle. Their fixtures are visible and attached to the ceiling structure.",
+        "attachment_evidence": "visible_installation",
+        "identifiable": true
+      },
+      {
+        "id": 7,
+        "label": "refrigerated display case",
+        "observation": "A refrigerated display case with glass doors is located on the right side of the aisle. It contains various products and has a red and white design. A person is standing nearby, facing the case. The case is mounted on the wall and supported by its base.",
+        "attachment_evidence": "visible_installation",
+        "identifiable": true
+      },
+      {
+        "id": 8,
+        "label": "promotional poster",
+        "observation": "A large promotional poster is visible on the right wall, featuring an image of a young man and Chinese text. It is mounted on the wall and positioned above the refrigerated case. The poster is framed and appears to be advertising a product or promotion.",
+        "attachment_evidence": "visible_installation",
+        "identifiable": true
+      },
+      {
+        "id": 9,
+        "label": "shelves with products",
+        "observation": "Shelves filled with various products line both sides of the aisle. Items include canned goods, packaged foods, and beverages. The shelves are metal and extend from the floor to near the ceiling. Products are arranged neatly on the shelves.",
+        "attachment_evidence": "visible_installation",
+        "identifiable": true
+      },
+      {
+        "id": 10,
+        "label": "person in dark clothing",
+        "observation": "A person wearing dark clothing is standing near the refrigerated display case on the right side of the aisle. They are facing away from the camera and appear to be examining products. Their posture suggests they are browsing or selecting an item.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      }
+    ],
+    "object_list_available": true,
+    "parsed_json_documents": 1,
+    "unconsumed_characters": 0,
+    "relations": null,
+    "extraction": "validated description"
+  },
+  "prompts": {
+    "system_prompt": "You are a helpful assistant",
+    "user_prompt": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"thud_dense_test50/image-000006\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}",
+    "native_chat_prompt_text": "<|im_start|>system\nYou are a helpful assistant<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"thud_dense_test50/image-000006\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}<|im_end|>\n<|im_start|>assistant\n",
+    "instruction": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.",
+    "generic_input_prompt": "Describe the photograph using these inputs:\n{\"frame_id\": \"thud_dense_test50/image-000006\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}"
+  },
+  "metadata": {
+    "frame_id": "thud_dense_test50/image-000006",
+    "model": "qwen3-vl",
+    "repeat": "r2",
+    "task": "description",
+    "source_path": "results/stage1-presentation/qwen3-vl/r2/thud_dense_test50/description/frame-000006.json",
+    "source_sha256": "416523562fe81242a9f901987a00715e0b7e124efeaca1c6c39cfd027bd73a03",
+    "published_path": "thud_dense_test50--image-000006/qwen3-vl/r2/description.raw.json",
+    "call_id": "e418bf2038d6457baed001e6bbb8b3ea",
+    "finished_at_utc": "2026-10-27T19:23:19Z",
+    "reused_existing_generation": false,
+    "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+    "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+    "settings": {
+      "model": "Qwen/Qwen3-VL-8B-Instruct",
+      "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "repeat": "r2",
+      "seed": 43,
+      "initialization_seed": 42,
+      "instruction": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.",
+      "instruction_sha256": "2278511ff45960ee58f6628bc3925927e5a1d82d975774ae0dbe9efafe420fa8",
+      "native_system_prompt": "You are a helpful assistant",
+      "precision_requested": "BF16",
+      "attention": "sdpa",
+      "do_sample": true,
+      "temperature": 0.3,
+      "top_p": 0.8,
+      "top_k": 20,
+      "repetition_penalty": 1.05,
+      "num_beams": 1,
+      "max_new_tokens": 4096,
+      "input_plus_output_limit": 16384,
+      "unsupported_comparison_options": [
+        "presence_penalty"
+      ],
+      "processor_resize": "checkpoint defaults, recorded image_grid_thw",
+      "description_schema": "legacy",
+      "json_grammar": false
+    },
+    "status": "ok",
+    "syntax_valid": true,
+    "schema_valid": true,
+    "elapsed_seconds": 28.12165354192257,
+    "output_tokens": 1002,
+    "peak_allocated_bytes": 17845008896,
+    "peak_reserved_bytes": 17926455296,
+    "gpu_verified": true,
+    "quality_accuracy": null,
+    "quality_note": "No human reference assessment; format validity is not detection correctness."
+  },
+  "raw_response": "description.raw.json",
+  "note": "Literal extraction only; unavailable parse does not mean an empty scene. Full raw answer is in raw_response, including invalid JSON."
+}

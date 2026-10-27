@@ -1,0 +1,94 @@
+{
+  "view": {
+    "scene_description": "The image depicts the interior of a supermarket with various products on display. The ceiling is adorned with colorful hot air balloon decorations, and there are red paper lanterns hanging from it as well. The store has a variety of items including beverages, snacks, and fruits. There are two people visible in the scene; one man wearing a white shirt with a red logo is standing near the entrance, looking at some boxes. Another person is seen browsing through the products. The shelves are well-stocked with different types of goods, and there are refrigerated sections for drinks and other perishable items. The overall atmosphere appears to be bright and inviting, with ample lighting throughout the store.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "man in white shirt",
+        "observation": "A man wearing a white shirt with a red logo is standing near the entrance of the supermarket, looking at some boxes. He is facing away from the camera and appears to be examining the products on display. His position suggests he may be considering making a purchase or looking for something specific. He is not interacting with any objects at the moment."
+      },
+      {
+        "id": 2,
+        "label": "boxes on shelf",
+        "observation": "There are several stacks of boxes placed on a shelf near the entrance of the supermarket. These boxes appear to be arranged neatly, possibly containing various products such as beverages or snacks. They are stacked in an orderly manner, indicating that they have been recently restocked or organized by the store staff."
+      },
+      {
+        "id": 3,
+        "label": "red paper lanterns",
+        "observation": "Several red paper lanterns are hanging from the ceiling of the supermarket. These lanterns add a festive touch to the store's decor and create a warm, welcoming atmosphere. They are evenly spaced along the length of the ceiling, providing a consistent visual element throughout the space."
+      },
+      {
+        "id": 4,
+        "label": "hot air balloon decorations",
+        "observation": "Colorful hot air balloon decorations are suspended from the ceiling of the supermarket. These balloons come in various colors, including blue, yellow, and pink, adding a playful and whimsical touch to the store's ambiance. They are evenly distributed across the ceiling, creating a visually appealing display."
+      },
+      {
+        "id": 5,
+        "label": "refrigerated section",
+        "observation": "On the right side of the image, there is a refrigerated section filled with various drinks and other perishable items. This section is likely used to store cold beverages, dairy products, and other temperature-sensitive products. The refrigerator doors are closed, and the contents inside are not clearly visible, but the presence of this section indicates that the supermarket offers a range of fresh and chilled products for customers."
+      }
+    ],
+    "object_list_available": true,
+    "parsed_json_documents": 2,
+    "unconsumed_characters": 132,
+    "relations": null,
+    "extraction": "2 literal JSON document(s) for display only; 132 trailing characters retained in raw"
+  },
+  "prompts": {
+    "native_system_prompt": "You are a helpful assistant",
+    "native_user_prompt": "<image>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"thud_dense_test50/image-000006\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}",
+    "native_chat_prompt_text": "<|im_start|>system\nYou are a helpful assistant<|im_end|>\n<|im_start|>user\n<image>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"thud_dense_test50/image-000006\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}<|im_end|>\n<|im_start|>assistant\n",
+    "provenance": "reconstructed from pinned VILA AUTO tokenizer template and extract_media; original components remain in raw.json"
+  },
+  "metadata": {
+    "frame_id": "thud_dense_test50/image-000006",
+    "model": "nvila",
+    "repeat": "r1",
+    "task": "description",
+    "source_path": "results/ponovitve/stage1/nvila/r1/thud_dense_test50/rich/frame-000006.json",
+    "source_sha256": "d997d04eb6a35ffc5993ddff8513ae11e969d7147d107fb71e1572b816fd66d7",
+    "published_path": "thud_dense_test50--image-000006/nvila/r1/description.raw.json",
+    "call_id": "e985bd20f70e4a1bb986262b11e60819",
+    "finished_at_utc": "2026-10-26T09:17:03Z",
+    "reused_existing_generation": true,
+    "model_id": "Efficient-Large-Model/NVILA-8B",
+    "model_revision": "049743cc51bdd8872cdf696a1a58b03fef2c367e",
+    "settings": {
+      "model": "Efficient-Large-Model/NVILA-8B",
+      "revision": "049743cc51bdd8872cdf696a1a58b03fef2c367e",
+      "vila_commit": "57ecbfb904b99b563db69ef7916f6390eecea516",
+      "system_prompt": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.",
+      "system_sha256": "2278511ff45960ee58f6628bc3925927e5a1d82d975774ae0dbe9efafe420fa8",
+      "precision_requested": "FP16",
+      "attention": "sdpa",
+      "seed": 42,
+      "do_sample": true,
+      "temperature": 0.3,
+      "repeat": "r1",
+      "description_schema": "legacy",
+      "max_new_tokens": 4096,
+      "model_max_length": 16384,
+      "num_beams": 1,
+      "top_p": 0.8,
+      "top_k": 20,
+      "repetition_penalty": 1.05,
+      "unsupported_comparison_options": [
+        "presence_penalty"
+      ],
+      "note": "Sampling only when temperature>0; no JSON grammar constraint."
+    },
+    "status": "error",
+    "syntax_valid": false,
+    "schema_valid": false,
+    "error": "Extra data: line 3 column 1 (char 737)",
+    "elapsed_seconds": 14.285651370999403,
+    "output_tokens": 554,
+    "peak_allocated_bytes": 17716507136,
+    "peak_reserved_bytes": 20990394368,
+    "gpu_verified": true,
+    "quality_accuracy": null,
+    "quality_note": "No human reference assessment; format validity is not detection correctness."
+  },
+  "raw_response": "description.raw.json",
+  "note": "Literal extraction only; unavailable parse does not mean an empty scene. Full raw answer is in raw_response, including invalid JSON."
+}

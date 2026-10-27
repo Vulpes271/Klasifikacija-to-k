@@ -1,0 +1,141 @@
+{
+  "view": {
+    "scene_description": "A modern, well-lit interior space resembling a library or café with large windows on the left. A prominent spiral bookshelf tower stands centrally, illuminated from within. People sit at tables working or reading. The floor is polished, reflecting light. Bookshelves line the background walls, creating an inviting, studious atmosphere.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "spiral bookshelf tower",
+        "observation": "A tall, cylindrical structure with concentric circular shelves filled with books. It is illuminated by internal lighting and positioned near the center-right of the frame. Its base rests on a wooden table. Books are arranged in rows, some upright, others stacked. The tower's metallic surface reflects ambient light.",
+        "attachment_evidence": "visible_installation",
+        "identifiable": true
+      },
+      {
+        "id": 2,
+        "label": "person sitting",
+        "observation": "An individual wearing dark clothing sits at a table, facing away from the camera. They appear to be working on a laptop. Their legs are crossed, and they are seated on a chair. A black bag rests on the floor beside them. The person is partially obscured by another person.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      },
+      {
+        "id": 3,
+        "label": "person working",
+        "observation": "A person in a white shirt sits at a table, focused on a laptop. They are positioned slightly behind the first person. Their posture suggests concentration. The table has a few items, including a cup and papers. They are seated on a metal chair with a blue seat.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      },
+      {
+        "id": 4,
+        "label": "large windows",
+        "observation": "Tall, expansive glass windows dominate the left side of the image, allowing natural light to flood the room. The view outside is overexposed, showing trees and possibly buildings. Vertical metal frames divide the windows into sections. The windows reflect interior elements like chairs and lights.",
+        "attachment_evidence": "visible_installation",
+        "identifiable": true
+      },
+      {
+        "id": 5,
+        "label": "wooden table",
+        "observation": "A long, curved wooden table extends horizontally across the mid-section of the image. It serves as a workspace for the seated individuals. The table’s surface is smooth and polished, reflecting overhead lights. It is supported by a central pedestal base connected to the spiral bookshelf tower.",
+        "attachment_evidence": "visible_installation",
+        "identifiable": true
+      },
+      {
+        "id": 6,
+        "label": "metal chairs",
+        "observation": "Several metal chairs with blue seats are arranged around the table. Some are occupied, while others are empty. The chairs have thin, tubular legs and are positioned close together. One chair is partially obscured by a person’s body.",
+        "attachment_evidence": "appears_freestanding",
+        "identifiable": true
+      },
+      {
+        "id": 7,
+        "label": "bookshelves",
+        "observation": "Rows of wooden bookshelves line the background wall on the right side of the image. They are filled with books of various sizes and colors. The shelves are evenly spaced and extend vertically. Some shelves have decorative items or small plants placed on them.",
+        "attachment_evidence": "visible_installation",
+        "identifiable": true
+      },
+      {
+        "id": 8,
+        "label": "laptop",
+        "observation": "A silver laptop is open on the table in front of the person working. The screen is lit, indicating active use. The laptop is positioned centrally on the table. Its keyboard and trackpad are visible. The device is resting on the table surface.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      },
+      {
+        "id": 9,
+        "label": "black bag",
+        "observation": "A black backpack or tote bag lies on the floor next to the seated person. It is positioned under the table, partially obscured by the person’s legs. The bag appears to be made of fabric and has straps. It is resting on the polished floor.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      },
+      {
+        "id": 10,
+        "label": "plant",
+        "observation": "A green potted plant with broad leaves stands on the table between the two seated people. It adds a touch of nature to the indoor setting. The pot is dark-colored and cylindrical. The plant is positioned near the edge of the table.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      }
+    ],
+    "object_list_available": true,
+    "parsed_json_documents": 1,
+    "unconsumed_characters": 0,
+    "relations": null,
+    "extraction": "validated description"
+  },
+  "prompts": {
+    "system_prompt": "You are a helpful assistant",
+    "user_prompt": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"thud_agtea_test50/image-000006\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}",
+    "native_chat_prompt_text": "<|im_start|>system\nYou are a helpful assistant<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"thud_agtea_test50/image-000006\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}<|im_end|>\n<|im_start|>assistant\n",
+    "instruction": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.",
+    "generic_input_prompt": "Describe the photograph using these inputs:\n{\"frame_id\": \"thud_agtea_test50/image-000006\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}"
+  },
+  "metadata": {
+    "frame_id": "thud_agtea_test50/image-000006",
+    "model": "qwen3-vl",
+    "repeat": "r2",
+    "task": "description",
+    "source_path": "results/stage1-presentation/qwen3-vl/r2/thud_agtea_test50/description/frame-000006.json",
+    "source_sha256": "c4f1ee20242a9aee953165b68c717a21da88c4407e44b4a6a52384cee2e651ef",
+    "published_path": "thud_agtea_test50--image-000006/qwen3-vl/r2/description.raw.json",
+    "call_id": "ea66e139e99d4c3196577052b3275b17",
+    "finished_at_utc": "2026-10-27T19:22:51Z",
+    "reused_existing_generation": false,
+    "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+    "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+    "settings": {
+      "model": "Qwen/Qwen3-VL-8B-Instruct",
+      "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "repeat": "r2",
+      "seed": 43,
+      "initialization_seed": 42,
+      "instruction": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.",
+      "instruction_sha256": "2278511ff45960ee58f6628bc3925927e5a1d82d975774ae0dbe9efafe420fa8",
+      "native_system_prompt": "You are a helpful assistant",
+      "precision_requested": "BF16",
+      "attention": "sdpa",
+      "do_sample": true,
+      "temperature": 0.3,
+      "top_p": 0.8,
+      "top_k": 20,
+      "repetition_penalty": 1.05,
+      "num_beams": 1,
+      "max_new_tokens": 4096,
+      "input_plus_output_limit": 16384,
+      "unsupported_comparison_options": [
+        "presence_penalty"
+      ],
+      "processor_resize": "checkpoint defaults, recorded image_grid_thw",
+      "description_schema": "legacy",
+      "json_grammar": false
+    },
+    "status": "ok",
+    "syntax_valid": true,
+    "schema_valid": true,
+    "elapsed_seconds": 27.22406261402648,
+    "output_tokens": 1029,
+    "peak_allocated_bytes": 17848547840,
+    "peak_reserved_bytes": 17926455296,
+    "gpu_verified": true,
+    "quality_accuracy": null,
+    "quality_note": "No human reference assessment; format validity is not detection correctness."
+  },
+  "raw_response": "description.raw.json",
+  "note": "Literal extraction only; unavailable parse does not mean an empty scene. Full raw answer is in raw_response, including invalid JSON."
+}

@@ -1,0 +1,68 @@
+{
+  "view": {
+    "scene_description": "{\"scene_description\":\"The image depicts the interior of a grocery store, specifically focusing on a section with shelves stocked with various food items. The shelves are filled with boxes and bags of different products, including snacks, beverages, and possibly dairy items. The shelves are organized in a tiered manner, with some items placed on top of others. There are also metal baskets attached to the shelves, likely for customers to use while shopping.\n\nThe store has a modern design with a black ceiling and white fluorescent lighting. Colorful hot air balloon decorations hang from the ceiling, adding a playful touch to the environment. Large windows can be seen in the background, allowing natural light to enter the store.\n\nThe floor appears clean and well-maintained, and there is a red trash can visible near the back of the store. The overall atmosphere suggests a well-organized and inviting shopping experience.\"}\n\n{\"objects\":[{\"id\":1,\"label\":\"shelves\",\"observation\":\"The shelves are filled with various food items, including boxes and bags of different products. They are organized in a tiered manner, with some items placed on top of others. Metal baskets are attached to the shelves, likely for customers to use while shopping.\"},\"{\"id\":2,\"label\":\"hot air balloons\",\"observation\":\"Colorful hot air balloon decorations hang from the ceiling, adding a playful touch to the environment.\"},\"{\"id\":3,\"label\":\"windows\",\"observation\":\"Large windows can be seen in the background, allowing natural light to enter the store.\"},\"{\"id\":4,\"label\":\"trash can\",\"observation\":\"A red trash can is visible near the back of the store.\"},\"{\"id\":5,\"label\":\"floor\",\"observation\":\"The floor appears clean and well-maintained.\"}]}",
+    "objects": [],
+    "object_list_available": false,
+    "parsed_json_documents": 0,
+    "unconsumed_characters": null,
+    "relations": null,
+    "extraction": "raw text only"
+  },
+  "prompts": {
+    "native_system_prompt": "You are a helpful assistant",
+    "native_user_prompt": "<image>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"thud_dense_test50/image-000012\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}",
+    "native_chat_prompt_text": "<|im_start|>system\nYou are a helpful assistant<|im_end|>\n<|im_start|>user\n<image>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"thud_dense_test50/image-000012\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}<|im_end|>\n<|im_start|>assistant\n",
+    "provenance": "reconstructed from pinned VILA AUTO tokenizer template and extract_media; original components remain in raw.json"
+  },
+  "metadata": {
+    "frame_id": "thud_dense_test50/image-000012",
+    "model": "nvila",
+    "repeat": "r1",
+    "task": "description",
+    "source_path": "results/ponovitve/stage1/nvila/r1/thud_dense_test50/rich/frame-000012.json",
+    "source_sha256": "9221ac9124a0e9f496c0cd10957b1082c3be496ae72c10e1bcbe0450911ccf0c",
+    "published_path": "thud_dense_test50--image-000012/nvila/r1/description.raw.json",
+    "call_id": "fdb287fa451042fcaf6e15309ba16c13",
+    "finished_at_utc": "2026-10-26T09:17:25Z",
+    "reused_existing_generation": true,
+    "model_id": "Efficient-Large-Model/NVILA-8B",
+    "model_revision": "049743cc51bdd8872cdf696a1a58b03fef2c367e",
+    "settings": {
+      "model": "Efficient-Large-Model/NVILA-8B",
+      "revision": "049743cc51bdd8872cdf696a1a58b03fef2c367e",
+      "vila_commit": "57ecbfb904b99b563db69ef7916f6390eecea516",
+      "system_prompt": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.",
+      "system_sha256": "2278511ff45960ee58f6628bc3925927e5a1d82d975774ae0dbe9efafe420fa8",
+      "precision_requested": "FP16",
+      "attention": "sdpa",
+      "seed": 42,
+      "do_sample": true,
+      "temperature": 0.3,
+      "repeat": "r1",
+      "description_schema": "legacy",
+      "max_new_tokens": 4096,
+      "model_max_length": 16384,
+      "num_beams": 1,
+      "top_p": 0.8,
+      "top_k": 20,
+      "repetition_penalty": 1.05,
+      "unsupported_comparison_options": [
+        "presence_penalty"
+      ],
+      "note": "Sampling only when temperature>0; no JSON grammar constraint."
+    },
+    "status": "error",
+    "syntax_valid": false,
+    "schema_valid": false,
+    "error": "Invalid control character at: line 1 column 460 (char 459)",
+    "elapsed_seconds": 10.248922132013831,
+    "output_tokens": 354,
+    "peak_allocated_bytes": 17716507136,
+    "peak_reserved_bytes": 20990394368,
+    "gpu_verified": true,
+    "quality_accuracy": null,
+    "quality_note": "No human reference assessment; format validity is not detection correctness."
+  },
+  "raw_response": "description.raw.json",
+  "note": "Literal extraction only; unavailable parse does not mean an empty scene. Full raw answer is in raw_response, including invalid JSON."
+}

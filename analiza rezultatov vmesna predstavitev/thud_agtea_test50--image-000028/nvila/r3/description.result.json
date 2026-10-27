@@ -1,0 +1,104 @@
+{
+  "view": {
+    "scene_description": "The image depicts a modern indoor space, possibly a library or cafe. The room features a large glass wall with blue lighting, creating a striking visual effect. There are several people in the scene, some sitting at tables and others standing. A man is seated at a desk on the left side of the image, wearing glasses and a dark jacket. On the right side, there's a circular bookshelf with books displayed on it. The floor appears to be made of polished stone, reflecting the overhead lights. Several plants are placed around the room, adding a touch of greenery. The ceiling has recessed lighting, and there are archways leading to other parts of the building. Overall, the space has a clean, contemporary design with a mix of natural and artificial elements.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "man in glasses and dark jacket",
+        "observation": "A man is seated at a desk on the left side of the image, facing away from the camera. He is wearing glasses and a dark jacket. His posture suggests he might be working or studying. He is partially occluded by the desk and chair he is sitting on."
+      },
+      {
+        "id": 2,
+        "label": "glass wall with blue lighting",
+        "observation": "The most prominent feature in the image is a large glass wall with blue lighting. The glass reflects the interior of the building, creating a visually interesting effect. The blue light adds a calming atmosphere to the space."
+      },
+      {
+        "id": 3,
+        "label": "circular bookshelf with books",
+        "observation": "On the right side of the image, there is a circular bookshelf filled with books. The shelf has a unique design that stands out against the rest of the room. The books appear to be arranged neatly, suggesting an organized space."
+      },
+      {
+        "id": 4,
+        "label": "plants in the room",
+        "observation": "Several plants are scattered throughout the room, adding a touch of greenery to the otherwise modern space. They are placed in various locations, including near the glass wall and on the floor. The plants contribute to the overall aesthetic of the room."
+      },
+      {
+        "id": 5,
+        "label": "polished stone floor",
+        "observation": "The floor of the room appears to be made of polished stone, which reflects the overhead lights and creates a bright, clean look. The stone surface adds a sense of luxury and sophistication to the space."
+      },
+      {
+        "id": 6,
+        "label": "recessed lighting in the ceiling",
+        "observation": "The ceiling has recessed lighting, which provides even illumination throughout the room. The lights are not overly bright, creating a comfortable atmosphere for the occupants."
+      },
+      {
+        "id": 7,
+        "label": "archways leading to other parts of the building",
+        "observation": "There are archways visible in the background, suggesting that this space is part of a larger building. These archways lead to other areas, indicating that the room is connected to other rooms or spaces within the building."
+      }
+    ],
+    "object_list_available": true,
+    "parsed_json_documents": 2,
+    "unconsumed_characters": 0,
+    "relations": null,
+    "extraction": "2 literal JSON document(s) for display only; 0 trailing characters retained in raw"
+  },
+  "prompts": {
+    "native_system_prompt": "You are a helpful assistant",
+    "native_user_prompt": "<image>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"thud_agtea_test50/image-000028\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}",
+    "native_chat_prompt_text": "<|im_start|>system\nYou are a helpful assistant<|im_end|>\n<|im_start|>user\n<image>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"thud_agtea_test50/image-000028\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}<|im_end|>\n<|im_start|>assistant\n",
+    "provenance": "runtime capture"
+  },
+  "metadata": {
+    "frame_id": "thud_agtea_test50/image-000028",
+    "model": "nvila",
+    "repeat": "r3",
+    "task": "description",
+    "source_path": "results/ponovitve/stage1/nvila/r3/thud_agtea_test50/rich/frame-000028.json",
+    "source_sha256": "3c665080179e5d07d7f147a2df021926d424a0e6dedfa3b4019107d6c9637490",
+    "published_path": "thud_agtea_test50--image-000028/nvila/r3/description.raw.json",
+    "call_id": "c425e600a0344ee484f586cad7e935a7",
+    "finished_at_utc": "2026-10-26T09:39:04Z",
+    "reused_existing_generation": true,
+    "model_id": "Efficient-Large-Model/NVILA-8B",
+    "model_revision": "049743cc51bdd8872cdf696a1a58b03fef2c367e",
+    "settings": {
+      "model": "Efficient-Large-Model/NVILA-8B",
+      "revision": "049743cc51bdd8872cdf696a1a58b03fef2c367e",
+      "vila_commit": "57ecbfb904b99b563db69ef7916f6390eecea516",
+      "system_prompt": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.",
+      "system_sha256": "2278511ff45960ee58f6628bc3925927e5a1d82d975774ae0dbe9efafe420fa8",
+      "precision_requested": "FP16",
+      "attention": "sdpa",
+      "seed": 44,
+      "do_sample": true,
+      "temperature": 0.3,
+      "repeat": "r3",
+      "description_schema": "legacy",
+      "max_new_tokens": 4096,
+      "model_max_length": 16384,
+      "num_beams": 1,
+      "top_p": 0.8,
+      "top_k": 20,
+      "repetition_penalty": 1.05,
+      "unsupported_comparison_options": [
+        "presence_penalty"
+      ],
+      "note": "Sampling only when temperature>0; no JSON grammar constraint."
+    },
+    "status": "error",
+    "syntax_valid": false,
+    "schema_valid": false,
+    "error": "Extra data: line 3 column 1 (char 785)",
+    "elapsed_seconds": 10.033767561952118,
+    "output_tokens": 581,
+    "peak_allocated_bytes": 17716507136,
+    "peak_reserved_bytes": 20990394368,
+    "gpu_verified": true,
+    "quality_accuracy": null,
+    "quality_note": "No human reference assessment; format validity is not detection correctness."
+  },
+  "raw_response": "description.raw.json",
+  "note": "Literal extraction only; unavailable parse does not mean an empty scene. Full raw answer is in raw_response, including invalid JSON."
+}

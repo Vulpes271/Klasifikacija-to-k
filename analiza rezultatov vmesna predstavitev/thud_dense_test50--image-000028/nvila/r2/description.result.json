@@ -1,0 +1,68 @@
+{
+  "view": {
+    "scene_description": "{\"scene_description\":\"The image depicts a grocery store aisle with shelves stocked with various food items. The shelves are filled with colorful packages of snacks, drinks, and other products. A person is walking down the aisle, wearing a black shirt and pants. The ceiling has lights and decorative balloons hanging from it. The floor has red and white markings. There is a blue sign at the end of the aisle with white text that reads \"bubu\" and \"大吉大利\". The overall scene is bright and well-lit, with a sense of depth created by the perspective of the image.\"}\n\n{\"objects\":[{\"id\":1,\"label\":\"grocery store aisle\",\"observation\":\"The image shows a grocery store aisle with shelves on both sides filled with various food items. The shelves are stocked with colorful packages of snacks, drinks, and other products. The aisle is brightly lit and has a sense of depth created by the perspective of the image.\"},\"{\"id\":2,\"label\":\"person in black clothing\",\"observation\":\"A person is walking down the aisle, wearing a black shirt and pants. They appear to be shopping or browsing the products on the shelves.\"},\"{\"id\":3,\"label\":\"ceiling lights\",\"observation\":\"The ceiling has lights installed, providing illumination for the grocery store aisle. The lights are evenly spaced and create a bright atmosphere in the store.\"},\"{\"id\":4,\"label\":\"decorative balloons\",\"observation\":\"There are decorative balloons hanging from the ceiling. These balloons add a festive touch to the grocery store environment.\"},\"{\"id\":5,\"label\":\"blue sign with white text\",\"observation\":\"At the end of the aisle, there is a blue sign with white text that reads \"bubu\" and \"大吉大利\". This sign likely provides information about the store or a specific section within the store.\"},\"{\"id\":6,\"label\":\"red and white floor markings\",\"observation\":\"The floor has red and white markings, which may indicate safety guidelines or directional arrows for customers to follow while shopping.\"}}]",
+    "objects": [],
+    "object_list_available": false,
+    "parsed_json_documents": 0,
+    "unconsumed_characters": null,
+    "relations": null,
+    "extraction": "raw text only"
+  },
+  "prompts": {
+    "native_system_prompt": "You are a helpful assistant",
+    "native_user_prompt": "<image>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"thud_dense_test50/image-000028\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}",
+    "native_chat_prompt_text": "<|im_start|>system\nYou are a helpful assistant<|im_end|>\n<|im_start|>user\n<image>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"thud_dense_test50/image-000028\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}<|im_end|>\n<|im_start|>assistant\n",
+    "provenance": "reconstructed from pinned VILA AUTO tokenizer template and extract_media; original components remain in raw.json"
+  },
+  "metadata": {
+    "frame_id": "thud_dense_test50/image-000028",
+    "model": "nvila",
+    "repeat": "r2",
+    "task": "description",
+    "source_path": "results/ponovitve/stage1/nvila/r2/thud_dense_test50/rich/frame-000028.json",
+    "source_sha256": "282dffde4244c5c3ee62054e4f5a0e6a4a60a49b5aa213630f3d852ca2d03b34",
+    "published_path": "thud_dense_test50--image-000028/nvila/r2/description.raw.json",
+    "call_id": "0dea5b1794b64093898f25d1e2b2a81d",
+    "finished_at_utc": "2026-10-26T09:29:13Z",
+    "reused_existing_generation": true,
+    "model_id": "Efficient-Large-Model/NVILA-8B",
+    "model_revision": "049743cc51bdd8872cdf696a1a58b03fef2c367e",
+    "settings": {
+      "model": "Efficient-Large-Model/NVILA-8B",
+      "revision": "049743cc51bdd8872cdf696a1a58b03fef2c367e",
+      "vila_commit": "57ecbfb904b99b563db69ef7916f6390eecea516",
+      "system_prompt": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.",
+      "system_sha256": "2278511ff45960ee58f6628bc3925927e5a1d82d975774ae0dbe9efafe420fa8",
+      "precision_requested": "FP16",
+      "attention": "sdpa",
+      "seed": 43,
+      "do_sample": true,
+      "temperature": 0.3,
+      "repeat": "r2",
+      "description_schema": "legacy",
+      "max_new_tokens": 4096,
+      "model_max_length": 16384,
+      "num_beams": 1,
+      "top_p": 0.8,
+      "top_k": 20,
+      "repetition_penalty": 1.05,
+      "unsupported_comparison_options": [
+        "presence_penalty"
+      ],
+      "note": "Sampling only when temperature>0; no JSON grammar constraint."
+    },
+    "status": "error",
+    "syntax_valid": false,
+    "schema_valid": false,
+    "error": "Expecting ',' delimiter: line 1 column 438 (char 437)",
+    "elapsed_seconds": 8.5129891000106,
+    "output_tokens": 413,
+    "peak_allocated_bytes": 17716507136,
+    "peak_reserved_bytes": 20990394368,
+    "gpu_verified": true,
+    "quality_accuracy": null,
+    "quality_note": "No human reference assessment; format validity is not detection correctness."
+  },
+  "raw_response": "description.raw.json",
+  "note": "Literal extraction only; unavailable parse does not mean an empty scene. Full raw answer is in raw_response, including invalid JSON."
+}

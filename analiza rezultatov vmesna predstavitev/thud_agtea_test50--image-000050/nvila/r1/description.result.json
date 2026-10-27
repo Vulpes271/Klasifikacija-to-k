@@ -1,0 +1,94 @@
+{
+  "view": {
+    "scene_description": "The image depicts an indoor space with a large window that offers a view of the outside. The room has a modern design with a mix of furniture, including tables and chairs. There is a red wall on the left side of the room, and a tall cylindrical column in the center. The floor appears to be made of concrete or stone. Outside the window, there are several buildings visible, suggesting that this room is located in a city or urban area. The overall atmosphere of the room is bright and airy due to the large window, but the interior lighting seems to be dimmed, creating a contrast between the bright exterior and the darker interior.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "Large window",
+        "observation": "The window is very large and takes up most of the wall, allowing for a clear view of the outside. It is divided into multiple panes and provides natural light to the room."
+      },
+      {
+        "id": 2,
+        "label": "Tall cylindrical column",
+        "observation": "This column is located in the center of the room and is quite tall, reaching almost to the ceiling. It adds a structural element to the space and may serve as a focal point."
+      },
+      {
+        "id": 3,
+        "label": "Red wall",
+        "observation": "On the left side of the room, there is a prominent red wall. This color choice adds a pop of vibrancy to the otherwise neutral-toned space."
+      },
+      {
+        "id": 4,
+        "label": "Tables and chairs",
+        "observation": "There are several tables and chairs arranged throughout the room. Some are placed near the windows, while others are positioned closer to the walls. The chairs have blue cushions, adding a touch of color to the seating area."
+      },
+      {
+        "id": 5,
+        "label": "Outside buildings",
+        "observation": "Through the large window, several buildings can be seen. These structures appear to be multi-story and are likely part of a cityscape. They provide context for the location of the room."
+      }
+    ],
+    "object_list_available": true,
+    "parsed_json_documents": 3,
+    "unconsumed_characters": 0,
+    "relations": null,
+    "extraction": "3 literal JSON document(s) for display only; 0 trailing characters retained in raw"
+  },
+  "prompts": {
+    "native_system_prompt": "You are a helpful assistant",
+    "native_user_prompt": "<image>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"thud_agtea_test50/image-000050\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}",
+    "native_chat_prompt_text": "<|im_start|>system\nYou are a helpful assistant<|im_end|>\n<|im_start|>user\n<image>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"thud_agtea_test50/image-000050\", \"image_size\": [960, 540], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}<|im_end|>\n<|im_start|>assistant\n",
+    "provenance": "reconstructed from pinned VILA AUTO tokenizer template and extract_media; original components remain in raw.json"
+  },
+  "metadata": {
+    "frame_id": "thud_agtea_test50/image-000050",
+    "model": "nvila",
+    "repeat": "r1",
+    "task": "description",
+    "source_path": "results/ponovitve/stage1/nvila/r1/thud_agtea_test50/rich/frame-000050.json",
+    "source_sha256": "814cb214905c50ee6975a6ec4bca1917844d51ad1bc2c3a535434abd5763f8d4",
+    "published_path": "thud_agtea_test50--image-000050/nvila/r1/description.raw.json",
+    "call_id": "e8b330dc1a6047569fd52ca94401ee5d",
+    "finished_at_utc": "2026-10-26T09:18:58Z",
+    "reused_existing_generation": true,
+    "model_id": "Efficient-Large-Model/NVILA-8B",
+    "model_revision": "049743cc51bdd8872cdf696a1a58b03fef2c367e",
+    "settings": {
+      "model": "Efficient-Large-Model/NVILA-8B",
+      "revision": "049743cc51bdd8872cdf696a1a58b03fef2c367e",
+      "vila_commit": "57ecbfb904b99b563db69ef7916f6390eecea516",
+      "system_prompt": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.",
+      "system_sha256": "2278511ff45960ee58f6628bc3925927e5a1d82d975774ae0dbe9efafe420fa8",
+      "precision_requested": "FP16",
+      "attention": "sdpa",
+      "seed": 42,
+      "do_sample": true,
+      "temperature": 0.3,
+      "repeat": "r1",
+      "description_schema": "legacy",
+      "max_new_tokens": 4096,
+      "model_max_length": 16384,
+      "num_beams": 1,
+      "top_p": 0.8,
+      "top_k": 20,
+      "repetition_penalty": 1.05,
+      "unsupported_comparison_options": [
+        "presence_penalty"
+      ],
+      "note": "Sampling only when temperature>0; no JSON grammar constraint."
+    },
+    "status": "error",
+    "syntax_valid": false,
+    "schema_valid": false,
+    "error": "Extra data: line 3 column 1 (char 660)",
+    "elapsed_seconds": 7.8058785679750144,
+    "output_tokens": 396,
+    "peak_allocated_bytes": 17716507136,
+    "peak_reserved_bytes": 20990394368,
+    "gpu_verified": true,
+    "quality_accuracy": null,
+    "quality_note": "No human reference assessment; format validity is not detection correctness."
+  },
+  "raw_response": "description.raw.json",
+  "note": "Literal extraction only; unavailable parse does not mean an empty scene. Full raw answer is in raw_response, including invalid JSON."
+}
