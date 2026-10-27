@@ -1,0 +1,942 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000034",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000123.json",
+      "caption_sha256": "29ec16322daca19c79bd4a88b2dc74c90df9b0f1f65c269b53ba52a9545b1f59",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.7239555020350963,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-27T23:30:35.381262836Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Shelves are fixtures within the store, but can be moved.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Hot air balloons are decorations and can be repositioned.\"}, {\"id\": 3, \"classification\": \"fixed\", \"reason\": \"Windows are structural elements of the building.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2723154106,
+        "load_duration": 863826,
+        "prompt_eval_count": 1094,
+        "prompt_eval_cached_count": 191,
+        "prompt_eval_duration": 268963000,
+        "eval_count": 86,
+        "eval_duration": 2291465000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T23:30:35Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3789008403,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T23:35:35.382357087Z",
+        "size_vram": 3789008403,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/stage2-presentation/runs/gemma3-q4/short/r1/gemma3-q4/t0.3-s42/frame-000123.json",
+      "original_record_sha256": "ff7e9c03b686d260a50fd0e9eec7317adbcd079cf54c62185333eddab0f5abaf",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000123.json",
+      "frozen_input_sha256": "29ec16322daca19c79bd4a88b2dc74c90df9b0f1f65c269b53ba52a9545b1f59",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000123-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "007a1e8b84161c20dd877b828a4d02b6f5429880116401f6de2819b0e5ed735c",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 4,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelves are fixtures within the store, but can be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Hot air balloons are decorations and can be repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Windows are structural elements of the building."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelves are fixtures within the store, but can be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Hot air balloons are decorations and can be repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Windows are structural elements of the building."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000123-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000034",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000123.json",
+      "caption_sha256": "29ec16322daca19c79bd4a88b2dc74c90df9b0f1f65c269b53ba52a9545b1f59",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 3.157392938970588,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-27T23:30:50.405682594Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Shelves are fixtures within the store and can be moved.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Hot air balloons are decorations that can be repositioned.\"}, {\"id\": 3, \"classification\": \"fixed\", \"reason\": \"Windows are structural elements of the building.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 3156560678,
+        "load_duration": 753451,
+        "prompt_eval_count": 1094,
+        "prompt_eval_cached_count": 1089,
+        "prompt_eval_duration": 263074000,
+        "eval_count": 85,
+        "eval_duration": 2642254000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T23:30:50Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3789008403,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T23:35:50.406648251Z",
+        "size_vram": 3789008403,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/stage2-presentation/runs/gemma3-q4/short/r2/gemma3-q4/t0.3-s43/frame-000123.json",
+      "original_record_sha256": "542039cc0dbcdca647303f80ff30f0605db67a40fb34d19f08cf61bff1bbb066",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000123.json",
+      "frozen_input_sha256": "29ec16322daca19c79bd4a88b2dc74c90df9b0f1f65c269b53ba52a9545b1f59",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000123-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "007a1e8b84161c20dd877b828a4d02b6f5429880116401f6de2819b0e5ed735c",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 4,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelves are fixtures within the store and can be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Hot air balloons are decorations that can be repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Windows are structural elements of the building."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelves are fixtures within the store and can be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Hot air balloons are decorations that can be repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Windows are structural elements of the building."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000123-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000034",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000123.json",
+      "caption_sha256": "29ec16322daca19c79bd4a88b2dc74c90df9b0f1f65c269b53ba52a9545b1f59",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 3.3587735729524866,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-27T23:31:56.000285877Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Shelves are arranged and can be moved within the retail environment.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Hot air balloons are decorations that can be repositioned.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Windows are structural elements but can be moved.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 3357434131,
+        "load_duration": 1605461,
+        "prompt_eval_count": 1094,
+        "prompt_eval_cached_count": 191,
+        "prompt_eval_duration": 220865000,
+        "eval_count": 88,
+        "eval_duration": 2986715000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T23:31:55Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3789008403,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T23:36:56.002026676Z",
+        "size_vram": 3789008403,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/stage2-presentation/runs/gemma3-q4/short/r3/gemma3-q4/t0.3-s44/frame-000123.json",
+      "original_record_sha256": "8bf48b748610bd6fb575eedfc5278a8ce8b6c776c070ae1ba2713f7c0784e36e",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000123.json",
+      "frozen_input_sha256": "29ec16322daca19c79bd4a88b2dc74c90df9b0f1f65c269b53ba52a9545b1f59",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000123-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "007a1e8b84161c20dd877b828a4d02b6f5429880116401f6de2819b0e5ed735c",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 4,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelves are arranged and can be moved within the retail environment."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Hot air balloons are decorations that can be repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Windows are structural elements but can be moved."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelves are arranged and can be moved within the retail environment."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Hot air balloons are decorations that can be repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Windows are structural elements but can be moved."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000123-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000034",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000123.json",
+      "caption_sha256": "29ec16322daca19c79bd4a88b2dc74c90df9b0f1f65c269b53ba52a9545b1f59",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.8493361490545794,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-27T23:33:31.24951529Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"fixed\", \"reason\": \"Shelves are a permanent structural element of the store.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Hot air balloons can be moved and repositioned within the store.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Windows are movable and can be opened or closed.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1848077929,
+        "load_duration": 605757,
+        "prompt_eval_count": 1160,
+        "prompt_eval_cached_count": 257,
+        "prompt_eval_duration": 141841000,
+        "eval_count": 89,
+        "eval_duration": 1560060000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T23:33:31Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3789008403,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T23:38:31.25145183Z",
+        "size_vram": 3789008403,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/stage2-presentation/runs/gemma3-q4/long/r1/gemma3-q4/t0.3-s42/frame-000123.json",
+      "original_record_sha256": "1ff4a529f1ef4b8d79670e2a2aa381e98693d186a6321c3132c74716a0a784cb",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000123.json",
+      "frozen_input_sha256": "29ec16322daca19c79bd4a88b2dc74c90df9b0f1f65c269b53ba52a9545b1f59",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000123-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "007a1e8b84161c20dd877b828a4d02b6f5429880116401f6de2819b0e5ed735c",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 4,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Shelves are a permanent structural element of the store."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Hot air balloons can be moved and repositioned within the store."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Windows are movable and can be opened or closed."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Shelves are a permanent structural element of the store."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Hot air balloons can be moved and repositioned within the store."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Windows are movable and can be opened or closed."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000123-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000034",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000123.json",
+      "caption_sha256": "29ec16322daca19c79bd4a88b2dc74c90df9b0f1f65c269b53ba52a9545b1f59",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.255400283029303,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-27T23:39:05.869401683Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"fixed\", \"reason\": \"Shelves are structural retail elements.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Hot air balloons can be moved or repositioned.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Windows are movable and can be opened/closed.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1254819397,
+        "load_duration": 580896,
+        "prompt_eval_count": 1160,
+        "prompt_eval_cached_count": 1155,
+        "prompt_eval_duration": 162608000,
+        "eval_count": 82,
+        "eval_duration": 901299000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T23:39:05Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3789008403,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T23:41:30.107731235Z",
+        "size_vram": 3789008403,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/stage2-presentation/runs/gemma3-q4/long/r2/gemma3-q4/t0.3-s43/frame-000123.json",
+      "original_record_sha256": "62c14b0ad1337a33ec8dda559df6170355da71b4b566c134c85b76946721e827",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000123.json",
+      "frozen_input_sha256": "29ec16322daca19c79bd4a88b2dc74c90df9b0f1f65c269b53ba52a9545b1f59",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000123-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "007a1e8b84161c20dd877b828a4d02b6f5429880116401f6de2819b0e5ed735c",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 4,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Shelves are structural retail elements."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Hot air balloons can be moved or repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Windows are movable and can be opened/closed."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Shelves are structural retail elements."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Hot air balloons can be moved or repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Windows are movable and can be opened/closed."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000123-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000034",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000123.json",
+      "caption_sha256": "29ec16322daca19c79bd4a88b2dc74c90df9b0f1f65c269b53ba52a9545b1f59",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.0522376140579581,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-27T23:39:00.730875673Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"fixed\", \"reason\": \"Shelves are a permanent structural element of the store.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Hot air balloons can be moved and repositioned.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Windows are movable and can be opened or closed.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1050956968,
+        "load_duration": 748110,
+        "prompt_eval_count": 1160,
+        "prompt_eval_cached_count": 257,
+        "prompt_eval_duration": 138054000,
+        "eval_count": 86,
+        "eval_duration": 764145000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T23:39:00Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3789008403,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T23:41:30.107731235Z",
+        "size_vram": 3789008403,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/stage2-presentation/runs/gemma3-q4/long/r3/gemma3-q4/t0.3-s44/frame-000123.json",
+      "original_record_sha256": "c6386884acba573337666eaf54bfd770bb0149603516a782d4602464d6d30c36",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000123.json",
+      "frozen_input_sha256": "29ec16322daca19c79bd4a88b2dc74c90df9b0f1f65c269b53ba52a9545b1f59",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000123-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "007a1e8b84161c20dd877b828a4d02b6f5429880116401f6de2819b0e5ed735c",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 4,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Shelves are a permanent structural element of the store."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Hot air balloons can be moved and repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Windows are movable and can be opened or closed."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Shelves are a permanent structural element of the store."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Hot air balloons can be moved and repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Windows are movable and can be opened or closed."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000123-long.txt"
+        }
+      ]
+    }
+  }
+}

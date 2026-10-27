@@ -54,11 +54,19 @@ def run(args, config):
             if previous[key] != manifest[key]:
                 raise ValueError(f"Resume input changed: {key}")
         manifest = previous
+    # Optional per-input context budgets leave the frozen descriptions and all
+    # decoding settings intact. Existing callers keep the configured default.
+    context_overrides = getattr(args, 'context_overrides', {})
+    if context_overrides:
+        if any(set(value) != {'num_ctx'} or not isinstance(value['num_ctx'], int)
+               or value['num_ctx'] < config['num_ctx'] for value in context_overrides.values()):
+            raise ValueError('Only a larger per-input context budget is supported.')
+        manifest['context_overrides_by_caption_sha256'] = context_overrides
     write_json(run_dir / "manifest.json", manifest)
     rows, summary = [], {"stage": 2, "models": {}}
     fatal, stopped, calls = False, False, 0
     for spec in config["models"]:
-        backend = Backend(spec, config["timeout"])
+        backend = getattr(args, 'backend_class', Backend)(spec, config["timeout"])
         counts = summary["models"][spec["name"]] = {"ok": 0, "error": 0, "skipped": 0}
         try:
             manifest["model_metadata"][spec["name"]] = backend.metadata()
@@ -98,6 +106,10 @@ def run(args, config):
                     counts[result["status"]] += 1
                     rows.extend(saved_rows(common, result, saved.get("parsed", {})))
                     continue
+                # Optional scheduling only: deferred positions stay missing,
+                # rather than being misreported as failed or skipped calls.
+                if result['caption_sha256'] in getattr(args, 'defer_caption_sha256', set()):
+                    continue
                 if getattr(args,'max_new_calls',None) is not None and calls >= args.max_new_calls:
                     stopped=True
                     break
@@ -116,7 +128,11 @@ def run(args, config):
                         if "error" in manifest["model_metadata"][spec["name"]]:
                             raise ValueError("Model preparation failed: " + manifest["model_metadata"][spec["name"]]["error"])
                         calls+=1
-                        response = backend.generate(system, prompt, options(config, variant))
+                        call_options = options(config, variant)
+                        override = context_overrides.get(result['caption_sha256'], {})
+                        call_options.update(override)
+                        result['input_option_overrides'] = override
+                        response = backend.generate(system, prompt, call_options)
                         result.update(response)
                         if response["finish_reason"] in {"length", "max_tokens"}:
                             raise ValueError("Truncated reasoning response.")

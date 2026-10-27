@@ -1,0 +1,105 @@
+{
+  "stage": 1,
+  "frame_id": "thud_dense_test50/image-000012",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r2"
+  },
+  "vlm_repeat": "r2",
+  "image_sha256": "fe160e0947cdef0178d8a7eda19406f25455993d35dc7f2014b1d823fef813f7",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/thud_dense_test50--image-000012/florence/r2/caption.raw.json",
+      "sha256": "8faa4c871ba2ad3b774c0fb07d20fdc5d3249c35c7b9bf2dd4e8c401fb0f67b5",
+      "original_call_id": "ab871594091c4c758e28e0152486d364",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/thud_dense_test50--image-000012/florence/r2/od.raw.json",
+      "sha256": "cbd793f7ba19cb53b781cda0c03cb00df48c8b321d1d987c2d57cf2c0b022516",
+      "original_call_id": "151caa995b024dafac94f207ba0e40da",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/thud_dense_test50--image-000012/florence/r2/dense.raw.json",
+      "sha256": "f2030c579d037298c334d8e49174b918a766d28aa8c33843567c132075369703",
+      "original_call_id": "7b08a179a24d4332842834b2fdff0c59",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows the interior of a supermarket aisle with multiple shelves stocked with various food items. The shelves are arranged in a grid-like pattern and are filled with different types of snacks and drinks. On the left side of the image, there is a large display case filled with a variety of snacks, including chips, crackers, and other snacks. In the background, there are several hot air balloons hanging from the ceiling, adding a festive touch to the space. The floor is tiled and there are large windows on the right side, allowing natural light to enter the store.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "convenience store",
+        "observation": "Florence task <OD> literally returned label/phrase 'convenience store'; bbox_xyxy in original image pixels: [0.47999998927116394, 0.27000001072883606, 959.5199584960938, 539.7300415039062]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      },
+      {
+        "id": 2,
+        "label": "supermarket aisle with food items and hot air balloons",
+        "observation": "Florence task <DENSE_REGION_CAPTION> literally returned label/phrase 'supermarket aisle with food items and hot air balloons'; bbox_xyxy in original image pixels: [0.47999998927116394, 0.27000001072883606, 959.5199584960938, 539.7300415039062]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<DENSE_REGION_CAPTION>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows the interior of a supermarket aisle with multiple shelves stocked with various food items. The shelves are arranged in a grid-like pattern and are filled with different types of snacks and drinks. On the left side of the image, there is a large display case filled with a variety of snacks, including chips, crackers, and other snacks. In the background, there are several hot air balloons hanging from the ceiling, adding a festive touch to the space. The floor is tiled and there are large windows on the right side, allowing natural light to enter the store.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows the interior of a supermarket aisle with multiple shelves stocked with various food items. The shelves are arranged in a grid-like pattern and are filled with different types of snacks and drinks. On the left side of the image, there is a large display case filled with a variety of snacks, including chips, crackers, and other snacks. In the background, there are several hot air balloons hanging from the ceiling, adding a festive touch to the space. The floor is tiled and there are large windows on the right side, allowing natural light to enter the store."
+        }
+      },
+      "od": {
+        "content": "</s><s><s><s>convenience store<loc_0><loc_0><loc_999><loc_999></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                0.47999998927116394,
+                0.27000001072883606,
+                959.5199584960938,
+                539.7300415039062
+              ]
+            ],
+            "labels": [
+              "convenience store"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s><s><s>supermarket aisle with food items and hot air balloons<loc_0><loc_0><loc_999><loc_999></s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [
+              [
+                0.47999998927116394,
+                0.27000001072883606,
+                959.5199584960938,
+                539.7300415039062
+              ]
+            ],
+            "labels": [
+              "supermarket aisle with food items and hot air balloons"
+            ]
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "f3366926e06ce34605c97d84690a2a2319cee63ad4186af8f2a64580c60acede",
+  "status": "ok"
+}

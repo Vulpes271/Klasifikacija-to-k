@@ -1,0 +1,876 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "caption_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.2601406790781766,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-27T22:13:08.782219015Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"uncertain\",\"reason\":\"Conflicting labels imply uncertain physical identity\"},{\"id\":2,\"classification\":\"uncertain\",\"reason\":\"Label describes scene, not a relocatable object\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1259409891,
+        "load_duration": 449583,
+        "prompt_eval_count": 1308,
+        "prompt_eval_cached_count": 1304,
+        "prompt_eval_duration": 36894000,
+        "eval_count": 45,
+        "eval_duration": 198882000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T22:13:08Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T22:18:08.783060693Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 12,
+      "vlm": "florence",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/stage2-presentation/runs/qwen35-q4/short/r1/qwen35-q4/t0.3-s42/frame-000012.json",
+      "original_record_sha256": "d1945b04bf149029ca3bcd80ff79c6fe796ef8245309333b4f7a32f6ff7c2967",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "frozen_input_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Conflicting labels imply uncertain physical identity"
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Label describes scene, not a relocatable object"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Conflicting labels imply uncertain physical identity"
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Label describes scene, not a relocatable object"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "caption_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.1926099619595334,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-27T22:13:09.737206728Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"uncertain\",\"reason\":\"Label conflict implies uncertain physical identity\"},{\"id\":2,\"classification\":\"uncertain\",\"reason\":\"Large area label implies uncertain distinct object\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1191915103,
+        "load_duration": 585506,
+        "prompt_eval_count": 1308,
+        "prompt_eval_cached_count": 1304,
+        "prompt_eval_duration": 40416000,
+        "eval_count": 42,
+        "eval_duration": 185646000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T22:13:09Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T22:18:09.737977939Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 12,
+      "vlm": "florence",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/stage2-presentation/runs/qwen35-q4/short/r2/qwen35-q4/t0.3-s43/frame-000012.json",
+      "original_record_sha256": "9a84d1b7c846529f6305df93b7b6768d31ac94d6bc8af02e01ec95be731b8bbc",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "frozen_input_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label conflict implies uncertain physical identity"
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Large area label implies uncertain distinct object"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label conflict implies uncertain physical identity"
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Large area label implies uncertain distinct object"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "caption_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.5794904039939865,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-27T22:13:11.089083359Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"uncertain\",\"reason\":\"Label conflict and no attachment evidence found\"},{\"id\":2,\"classification\":\"uncertain\",\"reason\":\"Label conflict and no attachment evidence found\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1578833147,
+        "load_duration": 686529,
+        "prompt_eval_count": 1308,
+        "prompt_eval_cached_count": 1304,
+        "prompt_eval_duration": 37255000,
+        "eval_count": 43,
+        "eval_duration": 183705000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T22:13:11Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T22:18:11.089711279Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 12,
+      "vlm": "florence",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/stage2-presentation/runs/qwen35-q4/short/r3/qwen35-q4/t0.3-s44/frame-000012.json",
+      "original_record_sha256": "4ae4b0712ea35f7543443dc1253c20e66c403c8956ff5f1c630614b6c804ea3b",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "frozen_input_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label conflict and no attachment evidence found"
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Label conflict and no attachment evidence found"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label conflict and no attachment evidence found"
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Label conflict and no attachment evidence found"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "caption_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.5765386319253594,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-27T22:13:10.770760046Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Store interiors are reconfigurable and contents change regularly.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Supermarket aisles contain movable shelves and products subject to restocking.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1575722634,
+        "load_duration": 1133851,
+        "prompt_eval_count": 1370,
+        "prompt_eval_cached_count": 1366,
+        "prompt_eval_duration": 36355000,
+        "eval_count": 66,
+        "eval_duration": 279870000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T22:13:10Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T22:18:10.771334474Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 12,
+      "vlm": "florence",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/stage2-presentation/runs/qwen35-q4/long/r1/qwen35-q4/t0.3-s42/frame-000012.json",
+      "original_record_sha256": "deba3da19f5ab0048b177f6bec34f5c933ebdfd347d40d3e575f4a7e942e3369",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "frozen_input_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Store interiors are reconfigurable and contents change regularly."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Supermarket aisles contain movable shelves and products subject to restocking."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Store interiors are reconfigurable and contents change regularly."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Supermarket aisles contain movable shelves and products subject to restocking."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "caption_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.276164919952862,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-27T22:42:23.497149682Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"uncertain\", \"reason\": \"Label conflicts and lack of physical identity confirmation.\"}, {\"id\": 2, \"classification\": \"uncertain\", \"reason\": \"Label conflicts and lack of physical identity confirmation.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2275351480,
+        "load_duration": 753946,
+        "prompt_eval_count": 1370,
+        "prompt_eval_cached_count": 1366,
+        "prompt_eval_duration": 50209000,
+        "eval_count": 59,
+        "eval_duration": 550426000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T22:42:23Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T22:47:23.497688112Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 12,
+      "vlm": "florence",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/stage2-presentation/runs/qwen35-q4/long/r2/qwen35-q4/t0.3-s43/frame-000012.json",
+      "original_record_sha256": "583ada9e5435f710bb8b94b919c8ceaa89ba00cd899ffb11aeab3397f6bb5265",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "frozen_input_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label conflicts and lack of physical identity confirmation."
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Label conflicts and lack of physical identity confirmation."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label conflicts and lack of physical identity confirmation."
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Label conflicts and lack of physical identity confirmation."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "caption_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.9241394540295005,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-27T22:42:23.817496876Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Store contents and aisles are movable in normal use.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Aisle layout and items can be repositioned or changed.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 922639746,
+        "load_duration": 502183,
+        "prompt_eval_count": 1370,
+        "prompt_eval_cached_count": 1366,
+        "prompt_eval_duration": 37273000,
+        "eval_count": 65,
+        "eval_duration": 278754000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T22:42:23Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T22:47:23.819552095Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 12,
+      "vlm": "florence",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/stage2-presentation/runs/qwen35-q4/long/r3/qwen35-q4/t0.3-s44/frame-000012.json",
+      "original_record_sha256": "bed090ab21ff0a189f0e31bd8b306c915c93e64e149e74071a73e559b22ade7d",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "frozen_input_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Store contents and aisles are movable in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Aisle layout and items can be repositioned or changed."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Store contents and aisles are movable in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Aisle layout and items can be repositioned or changed."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-long.txt"
+        }
+      ]
+    }
+  }
+}

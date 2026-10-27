@@ -1,0 +1,882 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "caption_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.6412548499647528,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-27T23:20:42.763186134Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\":\"movable\", \"reason\":\"convenience store\"}, {\"id\": 2, \"classification\":\"movable\", \"reason\":\"supermarket aisle with hot air balloons\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1640563273,
+        "load_duration": 696108,
+        "prompt_eval_count": 1327,
+        "prompt_eval_cached_count": 1326,
+        "prompt_eval_duration": 140550000,
+        "eval_count": 47,
+        "eval_duration": 1344853000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T23:20:42Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3789008403,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T23:25:42.764031026Z",
+        "size_vram": 3789008403,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 12,
+      "vlm": "florence",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/stage2-presentation/runs/gemma3-q4/short/r1/gemma3-q4/t0.3-s42/frame-000012.json",
+      "original_record_sha256": "cebf5f401b4523826bbdcdaabf1e2fbaa1af15c78aae9e06436c1a7f48172894",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "frozen_input_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 4,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "convenience store"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "supermarket aisle with hot air balloons"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "convenience store"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "supermarket aisle with hot air balloons"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "caption_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8409371010493487,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-27T23:21:01.190147146Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"supermarket aisle with hot air balloons\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"convenience store\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 839442764,
+        "load_duration": 1343759,
+        "prompt_eval_count": 1327,
+        "prompt_eval_cached_count": 1325,
+        "prompt_eval_duration": 103100000,
+        "eval_count": 51,
+        "eval_duration": 718813000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T23:21:01Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3789008403,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T23:26:01.191962726Z",
+        "size_vram": 3789008403,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 12,
+      "vlm": "florence",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/stage2-presentation/runs/gemma3-q4/short/r2/gemma3-q4/t0.3-s43/frame-000012.json",
+      "original_record_sha256": "66bdae3d05af11d858d1b43f2b786982faf1e6e54353659f838f454b2bfcae49",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "frozen_input_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 4,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "supermarket aisle with hot air balloons"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "convenience store"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "supermarket aisle with hot air balloons"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "convenience store"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "caption_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.3184744699392468,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-27T23:20:52.42125366Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"supermarket aisle with hot air balloons\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"convenience store\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2317076471,
+        "load_duration": 1787368,
+        "prompt_eval_count": 1327,
+        "prompt_eval_cached_count": 1325,
+        "prompt_eval_duration": 176353000,
+        "eval_count": 51,
+        "eval_duration": 2076882999
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T23:20:52Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3789008403,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T23:25:52.422443006Z",
+        "size_vram": 3789008403,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 12,
+      "vlm": "florence",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/stage2-presentation/runs/gemma3-q4/short/r3/gemma3-q4/t0.3-s44/frame-000012.json",
+      "original_record_sha256": "d4a74675f8a28e2002526d0157fffed0e98d94e72ae2215f006eb2aacb47eb94",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "frozen_input_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 4,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "supermarket aisle with hot air balloons"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "convenience store"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "supermarket aisle with hot air balloons"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "convenience store"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "caption_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 3.208348923944868,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-27T23:21:11.174217131Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"The object is a convenience store, which can be moved.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"The object is a supermarket aisle with hot air balloons, which can be moved.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 3207776211,
+        "load_duration": 923041,
+        "prompt_eval_count": 1393,
+        "prompt_eval_cached_count": 1392,
+        "prompt_eval_duration": 103017000,
+        "eval_count": 67,
+        "eval_duration": 3088953000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T23:21:11Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3789008403,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T23:26:11.174815513Z",
+        "size_vram": 3789008403,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 12,
+      "vlm": "florence",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/stage2-presentation/runs/gemma3-q4/long/r1/gemma3-q4/t0.3-s42/frame-000012.json",
+      "original_record_sha256": "2b72976ecb5aa099281b09fc22480308e6d9a78aaf339d49bd6f712cab0f4779",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "frozen_input_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 4,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "The object is a convenience store, which can be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "The object is a supermarket aisle with hot air balloons, which can be moved."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "The object is a convenience store, which can be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "The object is a supermarket aisle with hot air balloons, which can be moved."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "caption_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.1814346719766036,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-27T23:34:26.178134257Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"The supermarket aisle with hot air balloons is a collection of items that can be moved.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Hot air balloons are carried and repositioned in normal use.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1180515857,
+        "load_duration": 1140719,
+        "prompt_eval_count": 1393,
+        "prompt_eval_cached_count": 1392,
+        "prompt_eval_duration": 81865000,
+        "eval_count": 68,
+        "eval_duration": 1082339000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T23:34:26Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3789008403,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T23:39:26.179441982Z",
+        "size_vram": 3789008403,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 12,
+      "vlm": "florence",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/stage2-presentation/runs/gemma3-q4/long/r2/gemma3-q4/t0.3-s43/frame-000012.json",
+      "original_record_sha256": "d814253e76c8371a5d6f70939e9268dbbfadae0f4490b5bbb99f62430cbd2b7b",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "frozen_input_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 4,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "The supermarket aisle with hot air balloons is a collection of items that can be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Hot air balloons are carried and repositioned in normal use."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "The supermarket aisle with hot air balloons is a collection of items that can be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Hot air balloons are carried and repositioned in normal use."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "caption_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.7893796550342813,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-27T23:34:31.102600632Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Supermarket aisle with hot air balloons is a hanging installation.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Convenience store is a general store that can be moved.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 788182501,
+        "load_duration": 945105,
+        "prompt_eval_count": 1393,
+        "prompt_eval_cached_count": 1391,
+        "prompt_eval_duration": 97927000,
+        "eval_count": 63,
+        "eval_duration": 677808000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T23:34:31Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3789008403,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-27T23:39:31.103717606Z",
+        "size_vram": 3789008403,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 12,
+      "vlm": "florence",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/stage2-presentation/runs/gemma3-q4/long/r3/gemma3-q4/t0.3-s44/frame-000012.json",
+      "original_record_sha256": "1789fe977ac8749fb5d686bf16f35bb1f8ab03f5f7e7461e9f58a530ca0b053b",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000012.json",
+      "frozen_input_sha256": "41899a3b29d7aa26661129f14ab122870e233686a3b072ffc818a4cc322cb650",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 4,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Supermarket aisle with hot air balloons is a hanging installation."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Convenience store is a general store that can be moved."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Supermarket aisle with hot air balloons is a hanging installation."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Convenience store is a general store that can be moved."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000012-long.txt"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,964 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000023",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000088.json",
+      "caption_sha256": "5815f2cb395bbb4788b5a092ff0ccc8a34531634c04053f99675782cba72e924",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "elapsed_seconds": 0.9139108760282397,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T20:25:26.450253082Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Person walking down aisle carrying bag.\"},{\"id\":2,\"classification\":\"fixed\",\"reason\":\"Structural element requiring dismantling to relocate.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Decorations may be temporary or permanent installation.\"},{\"id\":4,\"classification\":\"fixed\",\"required equipment for relocation.\":[\"structural element\"]}\n]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 913340252,
+        "load_duration": 583220,
+        "prompt_eval_count": 771,
+        "prompt_eval_cached_count": 184,
+        "prompt_eval_duration": 88471000,
+        "eval_count": 83,
+        "eval_duration": 712576000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T20:25:26Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T20:30:26.450387962Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "status": "error",
+      "error": "Missing IDs: {('int', 5)}",
+      "input_index": 88,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/short/r1/qwen35-bf16/t0.3-s42/frame-000088.json",
+      "original_record_sha256": "5caa0426b3d61795148e5932ac011b753f5d78dcff156ca6f4e1695b94973d85",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000088.json",
+      "frozen_input_sha256": "5815f2cb395bbb4788b5a092ff0ccc8a34531634c04053f99675782cba72e924",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000088-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "f46eb2de117dc30dee7c7001d24f990d4d4859c80263e057684318bc6a2e3321",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person walking down aisle carrying bag."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Structural element requiring dismantling to relocate."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Decorations may be temporary or permanent installation."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "required equipment for relocation.": [
+              "structural element"
+            ]
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000088-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000023",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000088.json",
+      "caption_sha256": "5815f2cb395bbb4788b5a092ff0ccc8a34531634c04053f99675782cba72e924",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 13.127929068985395,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T20:49:29.605841746Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Person walking down aisle carrying bag.\"},{\"id\":2,\"classification\":\"fixed\",\"reason\":\"Structural shelving unit requiring dismantling to relocate.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Decorations hung from ceiling; attachment unclear.\"},{\"id\":4,\"classification\":\"fixed\",\"refrigerated section is a structural element or visibly/explicitly integrated permanent installation requiring dismantling to relocate.\":\"},{\"\n\n\n}\n]\n}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 13127093417,
+        "load_duration": 641298,
+        "prompt_eval_count": 771,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 152653000,
+        "eval_count": 104,
+        "eval_duration": 3164606000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T20:49:29Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T20:54:29.606489751Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Missing IDs: {('int', 5)}",
+      "input_index": 88,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/short/r2/qwen35-bf16/t0.3-s43/frame-000088.json",
+      "original_record_sha256": "8fb338ace6148112deda99bace1417bb0d441c1ed4e582158f4e3ea477e878a4",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000088.json",
+      "frozen_input_sha256": "5815f2cb395bbb4788b5a092ff0ccc8a34531634c04053f99675782cba72e924",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000088-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "f46eb2de117dc30dee7c7001d24f990d4d4859c80263e057684318bc6a2e3321",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person walking down aisle carrying bag."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Structural shelving unit requiring dismantling to relocate."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Decorations hung from ceiling; attachment unclear."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "refrigerated section is a structural element or visibly/explicitly integrated permanent installation requiring dismantling to relocate.": "},{"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000088-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000023",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000088.json",
+      "caption_sha256": "5815f2cb395bbb4788b5a092ff0ccc8a34531634c04053f99675782cba72e924",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 12.62599455891177,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T21:10:38.689278041Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Person walking down aisle carrying bag.\"},{\"id\":2,\"classification\":\"fixed\",\"reason\":\"Structural shelves requiring dismantling to relocate.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Decorations visible but attachment method unclear.\"},{\"id\":4,\"classification\":\"fixed\",\"required structural element requiring dismantling.\":[\"id\"]},{\"id\":5,\"classification\":\"movable\",\"reason\":\"Promotional sign mounted on structure, likely removable.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 12625153116,
+        "load_duration": 836869,
+        "prompt_eval_count": 771,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 125943000,
+        "eval_count": 105,
+        "eval_duration": 2141737999
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T21:10:38Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T21:15:38.69012512Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Object 4 has missing reason.",
+      "input_index": 88,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/short/r3/qwen35-bf16/t0.3-s44/frame-000088.json",
+      "original_record_sha256": "196ca7b343fbc05df2095b5eafcc366431b30b874840767820937f06c644e53b",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000088.json",
+      "frozen_input_sha256": "5815f2cb395bbb4788b5a092ff0ccc8a34531634c04053f99675782cba72e924",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000088-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "f46eb2de117dc30dee7c7001d24f990d4d4859c80263e057684318bc6a2e3321",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person walking down aisle carrying bag."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Structural shelves requiring dismantling to relocate."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Decorations visible but attachment method unclear."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "required structural element requiring dismantling.": [
+              "id"
+            ]
+          },
+          {
+            "id": 5,
+            "classification": "movable",
+            "reason": "Promotional sign mounted on structure, likely removable."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000088-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000023",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000088.json",
+      "caption_sha256": "5815f2cb395bbb4788b5a092ff0ccc8a34531634c04053f99675782cba72e924",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 13.307697405922227,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T21:10:43.044271528Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Person walks down aisle, position changes daily.\"}, {\"id\": 2, \"classification\": \"fixed\", \"reason\": \"Shelves are structural store elements requiring dismantling to move.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Decorations hang from ceiling and can be removed/repositioned.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Refrigerated section is a permanent structural installation of the store.\"}, {\"id\": 5, \"classification\": \"movable\", \"reason\": \"Promotional sign is mounted but easily detached and repositioned.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 13306851546,
+        "load_duration": 516757,
+        "prompt_eval_count": 833,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 127254000,
+        "eval_count": 154,
+        "eval_duration": 4162676000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T21:10:43Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T21:15:43.044855645Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 88,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/long/r1/qwen35-bf16/t0.3-s42/frame-000088.json",
+      "original_record_sha256": "097066a8f29f1470c9db6b91055e18219524e9f1f3aadab645d5ef566d4efce3",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000088.json",
+      "frozen_input_sha256": "5815f2cb395bbb4788b5a092ff0ccc8a34531634c04053f99675782cba72e924",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000088-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "f46eb2de117dc30dee7c7001d24f990d4d4859c80263e057684318bc6a2e3321",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person walks down aisle, position changes daily."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Shelves are structural store elements requiring dismantling to move."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Decorations hang from ceiling and can be removed/repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Refrigerated section is a permanent structural installation of the store."
+          },
+          {
+            "id": 5,
+            "classification": "movable",
+            "reason": "Promotional sign is mounted but easily detached and repositioned."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person walks down aisle, position changes daily."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Shelves are structural store elements requiring dismantling to move."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Decorations hang from ceiling and can be removed/repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Refrigerated section is a permanent structural installation of the store."
+          },
+          {
+            "id": 5,
+            "classification": "movable",
+            "reason": "Promotional sign is mounted but easily detached and repositioned."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000088-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000023",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000088.json",
+      "caption_sha256": "5815f2cb395bbb4788b5a092ff0ccc8a34531634c04053f99675782cba72e924",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 14.363117808941752,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T21:10:47.401799162Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Person walks down aisle, position changes between visits.\"}, {\"id\": 2, \"classification\": \"fixed\", \"reason\": \"Shelves are structural building elements requiring dismantling to move.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Decorations hang from ceiling and can be removed or repositioned.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Refrigerated section is a structural building element requiring dismantling to move.\"}, {\"id\": 5, \"classification\": \"movable\", \"reason\": \"Sign is mounted but can be detached and repositioned in normal use.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 14362385423,
+        "load_duration": 432814,
+        "prompt_eval_count": 833,
+        "prompt_eval_cached_count": 829,
+        "prompt_eval_duration": 55666000,
+        "eval_count": 160,
+        "eval_duration": 4298779000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T21:10:47Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T21:15:47.402514247Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 88,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/long/r2/qwen35-bf16/t0.3-s43/frame-000088.json",
+      "original_record_sha256": "d26d13b1da1adab855d305a6b69a6a9b0d36188a20c48ffda67954719167eecf",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000088.json",
+      "frozen_input_sha256": "5815f2cb395bbb4788b5a092ff0ccc8a34531634c04053f99675782cba72e924",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000088-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "f46eb2de117dc30dee7c7001d24f990d4d4859c80263e057684318bc6a2e3321",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person walks down aisle, position changes between visits."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Shelves are structural building elements requiring dismantling to move."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Decorations hang from ceiling and can be removed or repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Refrigerated section is a structural building element requiring dismantling to move."
+          },
+          {
+            "id": 5,
+            "classification": "movable",
+            "reason": "Sign is mounted but can be detached and repositioned in normal use."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person walks down aisle, position changes between visits."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Shelves are structural building elements requiring dismantling to move."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Decorations hang from ceiling and can be removed or repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Refrigerated section is a structural building element requiring dismantling to move."
+          },
+          {
+            "id": 5,
+            "classification": "movable",
+            "reason": "Sign is mounted but can be detached and repositioned in normal use."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000088-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000023",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000088.json",
+      "caption_sha256": "5815f2cb395bbb4788b5a092ff0ccc8a34531634c04053f99675782cba72e924",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 4.099391706986353,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T21:39:10.434784841Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Person moves freely and cannot be permanently fixed.\"}, {\"id\": 2, \"classification\": \"fixed\", \"reason\": \"Shelves are structural elements requiring dismantling to move.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Decorations hang from ceiling and can be easily removed.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Refrigerated section is a permanent structural installation.\"}, {\"id\": 5, \"classification\": \"movable\", \"reason\": \"Sign is mounted but can be detached without dismantling structure.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 4098363473,
+        "load_duration": 876462,
+        "prompt_eval_count": 833,
+        "prompt_eval_cached_count": 246,
+        "prompt_eval_duration": 139433000,
+        "eval_count": 147,
+        "eval_duration": 3843968000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T21:39:10Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T21:44:10.43489457Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 88,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/long/r3/qwen35-bf16/t0.3-s44/frame-000088.json",
+      "original_record_sha256": "6df549f9245f67f65e0e3a8334486e407a7cb2475a5623ae74af0253245f8945",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000088.json",
+      "frozen_input_sha256": "5815f2cb395bbb4788b5a092ff0ccc8a34531634c04053f99675782cba72e924",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000088-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "f46eb2de117dc30dee7c7001d24f990d4d4859c80263e057684318bc6a2e3321",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person moves freely and cannot be permanently fixed."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Shelves are structural elements requiring dismantling to move."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Decorations hang from ceiling and can be easily removed."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Refrigerated section is a permanent structural installation."
+          },
+          {
+            "id": 5,
+            "classification": "movable",
+            "reason": "Sign is mounted but can be detached without dismantling structure."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person moves freely and cannot be permanently fixed."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Shelves are structural elements requiring dismantling to move."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Decorations hang from ceiling and can be easily removed."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Refrigerated section is a permanent structural installation."
+          },
+          {
+            "id": 5,
+            "classification": "movable",
+            "reason": "Sign is mounted but can be detached without dismantling structure."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000088-long.txt"
+        }
+      ]
+    }
+  }
+}

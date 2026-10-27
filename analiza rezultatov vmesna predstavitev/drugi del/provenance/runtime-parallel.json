@@ -1,0 +1,33 @@
+{
+  "logical_original_url": "http://172.18.0.2:11434",
+  "execution_url": "http://172.18.0.3:11434",
+  "requested_parallel_slots": 4,
+  "client_workers": 4,
+  "server_version": "0.40.4",
+  "docker_image": "sha256:926d40fd6eeeebd346b5c358a63de2a10ec995371cd93dd22f1843200694b1a6",
+  "models_volume": "klasifikacija_ollama-models",
+  "models_volume_readonly": true,
+  "actual_model_slots": {
+    "qwen35-bf16": 1,
+    "qwen35-q4": 1,
+    "gemma3-q4": 4
+  },
+  "proof": "Qwen35 BF16/Q4: architecture warning and n_seq_max=1 at contexts 16384 and32768. Gemma: architecture=gemma3, n_seq_max=4 at both contexts, total n_ctx=65536/131072, four slots each n_ctx=16384/32768; see parallel-runtime-evidence.txt.",
+  "context_scheduling": "16k and32k passes sequential per model; disjoint prompt/repeat jobs concurrent, no new skip statuses.",
+  "actual_model_slots_by_context": {
+    "qwen35-bf16": {
+      "16384": 1,
+      "32768": 1
+    },
+    "qwen35-q4": {
+      "16384": 1,
+      "32768": 1
+    },
+    "gemma3-q4": {
+      "16384": 4,
+      "32768": 4
+    }
+  },
+  "gemma_16384_observed_at_utc": "2026-10-27T23:20:17Z",
+  "gemma_32768_observed_at_utc": "2026-10-27T23:42:03Z"
+}

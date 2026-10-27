@@ -1,0 +1,941 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000017",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000072.json",
+      "caption_sha256": "50f0f2d00647a6e22be3b7f0ce61ee54b7fa29ccb1fbe3bbb7bcd1b1da940571",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "elapsed_seconds": 3.4184534499654546,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T20:23:54.262479754Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Person is a human and can move freely in the store.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Fruit display crate can be carried or repositioned easily.\"},{\"id\":3,\"classification\":\"fixed\",\"reason\":\"Shelves are structural elements requiring dismantling to relocate.\"},{\"id\":4,\"classification\":\"fixed\",\"description\":\"Decorative lights are visibly installed and require tools to remove.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Ceiling lights are mounted fixtures requiring tools to remove.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 3417848536,
+        "load_duration": 641641,
+        "prompt_eval_count": 744,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 120124000,
+        "eval_count": 121,
+        "eval_duration": 3234707000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T20:23:54Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T20:28:54.262637442Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "status": "error",
+      "error": "Object 4 has missing reason.",
+      "input_index": 72,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/short/r1/qwen35-bf16/t0.3-s42/frame-000072.json",
+      "original_record_sha256": "ca657985058d899c4c133cc6f0fc24913ff04a6a7da1e43e6d7c225658d20f61",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000072.json",
+      "frozen_input_sha256": "50f0f2d00647a6e22be3b7f0ce61ee54b7fa29ccb1fbe3bbb7bcd1b1da940571",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000072-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "b07c4c36e58e364d50bc5e1723fd1dca73d2a8385fee21c30055ecfcc3b2dac5",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person is a human and can move freely in the store."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Fruit display crate can be carried or repositioned easily."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelves are structural elements requiring dismantling to relocate."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "description": "Decorative lights are visibly installed and require tools to remove."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Ceiling lights are mounted fixtures requiring tools to remove."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000072-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000017",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000072.json",
+      "caption_sha256": "50f0f2d00647a6e22be3b7f0ce61ee54b7fa29ccb1fbe3bbb7bcd1b1da940571",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 3.3313745229970664,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T20:43:40.179121422Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Human subject is inherently movable in normal use.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Fruit crate can be carried or repositioned easily.\"},{\"id\":3,\"classification\":\"fixed\",\"reason\":\"Shelves are structural elements requiring dismantling to relocate.\"},{\"id\":4,\"classification\":\"fixed\",\"description\":\"Decorative lights require professional installation and tools to remove.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Ceiling fixtures are permanently mounted and require tools to remove.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 3330609462,
+        "load_duration": 1087175,
+        "prompt_eval_count": 744,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 121331000,
+        "eval_count": 117,
+        "eval_duration": 3146957000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T20:43:40Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T20:48:40.179203496Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "status": "error",
+      "error": "Object 4 has missing reason.",
+      "input_index": 72,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/short/r2/qwen35-bf16/t0.3-s43/frame-000072.json",
+      "original_record_sha256": "e5e4aecfe8971e2f17d46b4c47292e5d5792b187f793ab36c0376004bc6bcf8e",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000072.json",
+      "frozen_input_sha256": "50f0f2d00647a6e22be3b7f0ce61ee54b7fa29ccb1fbe3bbb7bcd1b1da940571",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000072-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "b07c4c36e58e364d50bc5e1723fd1dca73d2a8385fee21c30055ecfcc3b2dac5",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Human subject is inherently movable in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Fruit crate can be carried or repositioned easily."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelves are structural elements requiring dismantling to relocate."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "description": "Decorative lights require professional installation and tools to remove."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Ceiling fixtures are permanently mounted and require tools to remove."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000072-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000017",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000072.json",
+      "caption_sha256": "50f0f2d00647a6e22be3b7f0ce61ee54b7fa29ccb1fbe3bbb7bcd1b1da940571",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 19.689820782048628,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T21:04:10.030424606Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Human subject is inherently movable and not permanently attached.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Fruit display crate can be easily moved or repositioned.\"},{\"id\":3,\"classification\":\"fixed\",\"reason\":\"Shelves are structural elements requiring dismantling to relocate.\"},{\"id\":4,\"classification\":\"fixed\",\"description\":\"Decorative lights are visibly installed and require removal to move.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Ceiling lights are permanently mounted fixtures requiring dismantling.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 19689095958,
+        "load_duration": 499264,
+        "prompt_eval_count": 744,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 116023000,
+        "eval_count": 119,
+        "eval_duration": 3232861000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T21:04:10Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T21:09:10.031160693Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Object 4 has missing reason.",
+      "input_index": 72,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/short/r3/qwen35-bf16/t0.3-s44/frame-000072.json",
+      "original_record_sha256": "7779ca469d76c23dee8496a3556826427deb030ce46db13c1049bc5e68ef3546",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000072.json",
+      "frozen_input_sha256": "50f0f2d00647a6e22be3b7f0ce61ee54b7fa29ccb1fbe3bbb7bcd1b1da940571",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000072-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "b07c4c36e58e364d50bc5e1723fd1dca73d2a8385fee21c30055ecfcc3b2dac5",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Human subject is inherently movable and not permanently attached."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Fruit display crate can be easily moved or repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelves are structural elements requiring dismantling to relocate."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "description": "Decorative lights are visibly installed and require removal to move."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Ceiling lights are permanently mounted fixtures requiring dismantling."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000072-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000017",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000072.json",
+      "caption_sha256": "50f0f2d00647a6e22be3b7f0ce61ee54b7fa29ccb1fbe3bbb7bcd1b1da940571",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 18.345546458032914,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T21:04:13.252749304Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Humans can move freely and change position daily.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Fruit displays are restocked and rearranged regularly.\"},{\"id\":3,\"classification\":\"fixed\",\"reason\":\"Shelves are structural elements requiring dismantling to move.\"},{\"id\":4,\"classification\":\"fixed\",\"description\":\"Decorative lights are visibly installed to the ceiling structure.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Ceiling lights are permanently mounted fixtures.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 18344615944,
+        "load_duration": 891255,
+        "prompt_eval_count": 806,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 124318000,
+        "eval_count": 112,
+        "eval_duration": 3030161000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T21:04:13Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T21:09:13.253437835Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Object 4 has missing reason.",
+      "input_index": 72,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/long/r1/qwen35-bf16/t0.3-s42/frame-000072.json",
+      "original_record_sha256": "b21c6bcd73701ffc17c6655387a694abfbe71c245d10cbc9f84c0e43c424b0b5",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000072.json",
+      "frozen_input_sha256": "50f0f2d00647a6e22be3b7f0ce61ee54b7fa29ccb1fbe3bbb7bcd1b1da940571",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000072-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "b07c4c36e58e364d50bc5e1723fd1dca73d2a8385fee21c30055ecfcc3b2dac5",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Humans can move freely and change position daily."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Fruit displays are restocked and rearranged regularly."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelves are structural elements requiring dismantling to move."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "description": "Decorative lights are visibly installed to the ceiling structure."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Ceiling lights are permanently mounted fixtures."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000072-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000017",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000072.json",
+      "caption_sha256": "50f0f2d00647a6e22be3b7f0ce61ee54b7fa29ccb1fbe3bbb7bcd1b1da940571",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 19.73427380702924,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T21:04:18.39176016Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"A person is a movable object that can be carried or repositioned.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Fruit displays are typically movable units placed on shelves.\"}, {\"id\": 3, \"classification\": \"fixed\", \"reason\": \"Shelves are structural elements integrated into the store building.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Decorative lights are visibly installed and require dismantling to move.\"}, {\"id\": 5, \"classification\": \"fixed\", \"reason\": \"Ceiling lights are permanently mounted structural fixtures of the building.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 19733797599,
+        "load_duration": 973731,
+        "prompt_eval_count": 806,
+        "prompt_eval_cached_count": 802,
+        "prompt_eval_duration": 62170000,
+        "eval_count": 154,
+        "eval_duration": 5073562000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T21:04:18Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T21:09:18.392305184Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 72,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/long/r2/qwen35-bf16/t0.3-s43/frame-000072.json",
+      "original_record_sha256": "38891c3fe72f52f5f01883700826f3802f71707b6a74f9ae35451628304895ea",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000072.json",
+      "frozen_input_sha256": "50f0f2d00647a6e22be3b7f0ce61ee54b7fa29ccb1fbe3bbb7bcd1b1da940571",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000072-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "b07c4c36e58e364d50bc5e1723fd1dca73d2a8385fee21c30055ecfcc3b2dac5",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "A person is a movable object that can be carried or repositioned."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Fruit displays are typically movable units placed on shelves."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelves are structural elements integrated into the store building."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Decorative lights are visibly installed and require dismantling to move."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Ceiling lights are permanently mounted structural fixtures of the building."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "A person is a movable object that can be carried or repositioned."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Fruit displays are typically movable units placed on shelves."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelves are structural elements integrated into the store building."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Decorative lights are visibly installed and require dismantling to move."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Ceiling lights are permanently mounted structural fixtures of the building."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000072-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000017",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000072.json",
+      "caption_sha256": "50f0f2d00647a6e22be3b7f0ce61ee54b7fa29ccb1fbe3bbb7bcd1b1da940571",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 15.434410716989078,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T21:37:05.038149547Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"A person can move freely within a store aisle.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Fruit displays are typically restocked or moved regularly.\"}, {\"id\": 3, \"classification\": \"fixed\", \"reason\": \"Shelves are structural elements integrated into the store building.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Decorative lights are visibly installed and require dismantling to move.\"}, {\"id\": 5, \"classification\": \"fixed\", \"reason\": \"Ceiling lights are permanently mounted as part of the building structure.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 15433717056,
+        "load_duration": 411911,
+        "prompt_eval_count": 806,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 129739000,
+        "eval_count": 150,
+        "eval_duration": 4154591999
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T21:37:05Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T21:42:05.038844392Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 72,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/long/r3/qwen35-bf16/t0.3-s44/frame-000072.json",
+      "original_record_sha256": "1934694763886494c8d8c19a64a901d909f85b5b792cdf029ec03c2255dbf38a",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000072.json",
+      "frozen_input_sha256": "50f0f2d00647a6e22be3b7f0ce61ee54b7fa29ccb1fbe3bbb7bcd1b1da940571",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000072-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "b07c4c36e58e364d50bc5e1723fd1dca73d2a8385fee21c30055ecfcc3b2dac5",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "A person can move freely within a store aisle."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Fruit displays are typically restocked or moved regularly."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelves are structural elements integrated into the store building."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Decorative lights are visibly installed and require dismantling to move."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Ceiling lights are permanently mounted as part of the building structure."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "A person can move freely within a store aisle."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Fruit displays are typically restocked or moved regularly."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelves are structural elements integrated into the store building."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Decorative lights are visibly installed and require dismantling to move."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Ceiling lights are permanently mounted as part of the building structure."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000072-long.txt"
+        }
+      ]
+    }
+  }
+}

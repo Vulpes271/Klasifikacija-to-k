@@ -1,0 +1,105 @@
+{
+  "stage": 1,
+  "frame_id": "thud_dense_test50/image-000001",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r1"
+  },
+  "vlm_repeat": "r1",
+  "image_sha256": "b278392d99b9db044d7191682c14b20adf22b072cdb35096d215a36105e2c5db",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/thud_dense_test50--image-000001/florence/r1/caption.raw.json",
+      "sha256": "499b6cc3fd228286bee3c96ce1dbd074d1f0e3e3d9806a92b160894f46f9b8f1",
+      "original_call_id": "22e9cd9d7fe145f2b7dbcdad9778ed22",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/thud_dense_test50--image-000001/florence/r1/od.raw.json",
+      "sha256": "9c62d63d98b9737afd42e4fc81ff9441b407e68f5148fd3043603ae7a5766f0e",
+      "original_call_id": "86d37ddba82149f69bf36fb6a1c4be34",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/thud_dense_test50--image-000001/florence/r1/dense.raw.json",
+      "sha256": "52a4351fef65fbcd45441a80a3ae37c0e7a02cbec527b0f378ab3fe43f334884",
+      "original_call_id": "c8b147886d0446d4862c2bdc2adb566d",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows the interior of a supermarket aisle with shelves stocked with various products. On the left side of the image, there is a red sign with Chinese characters written on it. The shelves are filled with a variety of food items such as snacks, drinks, and drinks. In the background, there are several refrigerators and hot air balloons hanging from the ceiling. The floor is tiled and the overall atmosphere of the store is bright and colorful.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "convenience store",
+        "observation": "Florence task <OD> literally returned label/phrase 'convenience store'; bbox_xyxy in original image pixels: [0.47999998927116394, 0.27000001072883606, 959.5199584960938, 539.7300415039062]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      },
+      {
+        "id": 2,
+        "label": "supermarket aisle with hot air balloons",
+        "observation": "Florence task <DENSE_REGION_CAPTION> literally returned label/phrase 'supermarket aisle with hot air balloons'; bbox_xyxy in original image pixels: [0.47999998927116394, 0.27000001072883606, 959.5199584960938, 539.7300415039062]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<DENSE_REGION_CAPTION>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows the interior of a supermarket aisle with shelves stocked with various products. On the left side of the image, there is a red sign with Chinese characters written on it. The shelves are filled with a variety of food items such as snacks, drinks, and drinks. In the background, there are several refrigerators and hot air balloons hanging from the ceiling. The floor is tiled and the overall atmosphere of the store is bright and colorful.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows the interior of a supermarket aisle with shelves stocked with various products. On the left side of the image, there is a red sign with Chinese characters written on it. The shelves are filled with a variety of food items such as snacks, drinks, and drinks. In the background, there are several refrigerators and hot air balloons hanging from the ceiling. The floor is tiled and the overall atmosphere of the store is bright and colorful."
+        }
+      },
+      "od": {
+        "content": "</s><s>convenience store<loc_0><loc_0><loc_999><loc_999></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                0.47999998927116394,
+                0.27000001072883606,
+                959.5199584960938,
+                539.7300415039062
+              ]
+            ],
+            "labels": [
+              "convenience store"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s>supermarket aisle with hot air balloons<loc_0><loc_0><loc_999><loc_999></s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [
+              [
+                0.47999998927116394,
+                0.27000001072883606,
+                959.5199584960938,
+                539.7300415039062
+              ]
+            ],
+            "labels": [
+              "supermarket aisle with hot air balloons"
+            ]
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "5049e87173a15bbcdc7f1232afbe5755229aa6e93622060b097525e3dad0a9d2",
+  "status": "ok"
+}

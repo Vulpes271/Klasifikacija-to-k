@@ -1,0 +1,873 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000010.json",
+      "caption_sha256": "8ce0cd78e8db5bcb55d7c3ca5dfbfd0f7b9ed61870f46448d289a44dc6fc4e54",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "elapsed_seconds": 1.4748479280387983,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T20:19:44.006713714Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"uncertain\",\"reason\":\"Store label lacks physical object details for mobility assessment\"},{\"id\":2,\"classification\":\"uncertain\",\"reason\":\"Aisle and balloons lack specific structural attachment evidence\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1474305967,
+        "load_duration": 758702,
+        "prompt_eval_count": 1308,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 197428000,
+        "eval_count": 47,
+        "eval_duration": 1217651000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T20:19:44Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T20:24:44.00684327Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "status": "ok",
+      "input_index": 10,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/short/r1/qwen35-bf16/t0.3-s42/frame-000010.json",
+      "original_record_sha256": "975043ad8a136a12bbb93be5a8c427ef381d344dede996c9640c168c7b919cee",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000010.json",
+      "frozen_input_sha256": "8ce0cd78e8db5bcb55d7c3ca5dfbfd0f7b9ed61870f46448d289a44dc6fc4e54",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000010-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Store label lacks physical object details for mobility assessment"
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Aisle and balloons lack specific structural attachment evidence"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Store label lacks physical object details for mobility assessment"
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Aisle and balloons lack specific structural attachment evidence"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000010-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000010.json",
+      "caption_sha256": "8ce0cd78e8db5bcb55d7c3ca5dfbfd0f7b9ed61870f46448d289a44dc6fc4e54",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.7137334489962086,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T20:38:03.191950292Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"uncertain\",\"reason\":\"Label is scene type, not specific movable/fixed object\"},{\"id\":2,\"classification\":\"uncertain\",\"reason\":\"Label is scene type, not specific movable/fixed object\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1713095860,
+        "load_duration": 681865,
+        "prompt_eval_count": 1308,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 191412000,
+        "eval_count": 51,
+        "eval_duration": 1461031000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T20:38:03Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T20:43:03.192063344Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "status": "ok",
+      "input_index": 10,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/short/r2/qwen35-bf16/t0.3-s43/frame-000010.json",
+      "original_record_sha256": "dcfc919a0d6ab60d44072d7cc0227e116343ea1999574ff125f0e4893ce411ae",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000010.json",
+      "frozen_input_sha256": "8ce0cd78e8db5bcb55d7c3ca5dfbfd0f7b9ed61870f46448d289a44dc6fc4e54",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000010-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label is scene type, not specific movable/fixed object"
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Label is scene type, not specific movable/fixed object"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label is scene type, not specific movable/fixed object"
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Label is scene type, not specific movable/fixed object"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000010-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000010.json",
+      "caption_sha256": "8ce0cd78e8db5bcb55d7c3ca5dfbfd0f7b9ed61870f46448d289a44dc6fc4e54",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 14.315909453085624,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T20:48:48.962024259Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"uncertain\",\"reason\":\"Label refers to store type, not specific movable/fixed object\"},{\"id\":2,\"classification\":\"uncertain\",\"reason\":\"Label describes scene, not specific movable/fixed object\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 14315173669,
+        "load_duration": 363390,
+        "prompt_eval_count": 1308,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 203579000,
+        "eval_count": 51,
+        "eval_duration": 1347133000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T20:48:48Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T20:53:48.96287681Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 10,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/short/r3/qwen35-bf16/t0.3-s44/frame-000010.json",
+      "original_record_sha256": "2ab56251a7138396c967e57fd134c57b341250f07d55960262b298075fc9d7f4",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000010.json",
+      "frozen_input_sha256": "8ce0cd78e8db5bcb55d7c3ca5dfbfd0f7b9ed61870f46448d289a44dc6fc4e54",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000010-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label refers to store type, not specific movable/fixed object"
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Label describes scene, not specific movable/fixed object"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label refers to store type, not specific movable/fixed object"
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Label describes scene, not specific movable/fixed object"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000010-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000010.json",
+      "caption_sha256": "8ce0cd78e8db5bcb55d7c3ca5dfbfd0f7b9ed61870f46448d289a44dc6fc4e54",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 12.216783199924976,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T20:48:51.436998953Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"A convenience store is a building that can be moved or repositioned in normal use.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"A supermarket aisle is an arrangement of items that can be carried or repositioned.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 12216147300,
+        "load_duration": 506663,
+        "prompt_eval_count": 1370,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 235578000,
+        "eval_count": 76,
+        "eval_duration": 2147496000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T20:48:51Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T20:53:51.437643553Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 10,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/long/r1/qwen35-bf16/t0.3-s42/frame-000010.json",
+      "original_record_sha256": "004311fcb7805d4a9541963999e4ea14fe4473660df2b5df2a2ce37f5b83fad6",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000010.json",
+      "frozen_input_sha256": "8ce0cd78e8db5bcb55d7c3ca5dfbfd0f7b9ed61870f46448d289a44dc6fc4e54",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000010-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "A convenience store is a building that can be moved or repositioned in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "A supermarket aisle is an arrangement of items that can be carried or repositioned."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "A convenience store is a building that can be moved or repositioned in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "A supermarket aisle is an arrangement of items that can be carried or repositioned."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000010-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000010.json",
+      "caption_sha256": "8ce0cd78e8db5bcb55d7c3ca5dfbfd0f7b9ed61870f46448d289a44dc6fc4e54",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 9.140633892035112,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T20:48:52.814623235Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Convenience store is a building element but can be repositioned in normal use.\"}, {\"id\": 2, \"classification\": \"fixed\", \"reason\": \"Supermarket aisle structure is part of the permanent building installation.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 9139728163,
+        "load_duration": 818962,
+        "prompt_eval_count": 1370,
+        "prompt_eval_cached_count": 1366,
+        "prompt_eval_duration": 61885000,
+        "eval_count": 69,
+        "eval_duration": 1311338000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T20:48:52Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T20:53:52.815618078Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 10,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/long/r2/qwen35-bf16/t0.3-s43/frame-000010.json",
+      "original_record_sha256": "1fd3e49fcc999b91d57204cd6e744b4ae2abeacfbd548b4bdee2d4fc434629eb",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000010.json",
+      "frozen_input_sha256": "8ce0cd78e8db5bcb55d7c3ca5dfbfd0f7b9ed61870f46448d289a44dc6fc4e54",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000010-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Convenience store is a building element but can be repositioned in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Supermarket aisle structure is part of the permanent building installation."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Convenience store is a building element but can be repositioned in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Supermarket aisle structure is part of the permanent building installation."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000010-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "thud_dense_test50/image-000001",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000010.json",
+      "caption_sha256": "8ce0cd78e8db5bcb55d7c3ca5dfbfd0f7b9ed61870f46448d289a44dc6fc4e54",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 14.648226613993756,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-27T21:20:56.078003628Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"A convenience store is a building that can be relocated or demolished.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"A supermarket aisle is a temporary arrangement of movable items.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 14647536195,
+        "load_duration": 713554,
+        "prompt_eval_count": 1370,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 217254000,
+        "eval_count": 65,
+        "eval_duration": 1698156000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-27T21:20:56Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-27T21:25:56.078558165Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 10,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/stage2-presentation/runs/qwen35-bf16/long/r3/qwen35-bf16/t0.3-s44/frame-000010.json",
+      "original_record_sha256": "f8f60196c23fa9aae3f86076d3df73d3c97963002d001338f0fcf84a5384613f",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/drugi del/frozen/frame-000010.json",
+      "frozen_input_sha256": "8ce0cd78e8db5bcb55d7c3ca5dfbfd0f7b9ed61870f46448d289a44dc6fc4e54",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000010-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "8f8ac0e33502716d0c85ad079e5ebb02ad672244e8f4290d3fcba24f6e3f69f7",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 4,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "A convenience store is a building that can be relocated or demolished."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "A supermarket aisle is a temporary arrangement of movable items."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "A convenience store is a building that can be relocated or demolished."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "A supermarket aisle is a temporary arrangement of movable items."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/drugi del/user-prompts/input-000010-long.txt"
+        }
+      ]
+    }
+  }
+}
