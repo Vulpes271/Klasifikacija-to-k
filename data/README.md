@@ -49,3 +49,7 @@ vhod z `data/thud_agtea_test50/objects.jsonl` in ime poskusa.
 Konfiguracija THUD uporablja do 8192 izhodnih tokenov in kontekst 16384, ker je
 na sliki lahko do 37 označenih regij. Daljši opisi lahko zahtevajo več časa in VRAM.
 Prvi korak ne izvaja razvrščanja fiksno/premično. Navodila: [WORKFLOW](../docs/WORKFLOW.md).
+
+## Industrijski dodatek LOCO
+
+[30 že priloženih slik z oznakami](loco_test30/README.md). Navodila za nadaljevanje: [CODEX_LOCO.md](../CODEX_LOCO.md).
