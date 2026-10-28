@@ -22,7 +22,7 @@ def main():
     parser.add_argument('--selection', type=Path)
     parser.add_argument('--output-dir', type=Path)
     parser.add_argument('--system-file', type=Path, default=ROOT/'configs/prompts/thud-description-rich.txt')
-    parser.add_argument('--schema', choices=['legacy','rich-v2'], default='rich-v2')
+    parser.add_argument('--schema', choices=['legacy','rich-v2','bbox'], default='rich-v2')
     parser.add_argument('--temperature', type=float, default=0)
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--repeat', default='original')
@@ -116,14 +116,19 @@ def main():
                   'user_prompt': prompt, 'generation_config': generation.to_dict(),
                   'repeat':args.repeat,'seed':args.seed,'call_id':uuid.uuid4().hex,
                   'syntax_valid':False,'schema_valid':False}
+        text=system+'\n\n'+prompt
+        if args.schema=='bbox':
+            from .bbox_comparison import bbox_prompt
+            text=bbox_prompt(system,frame)
+            result['user_prompt']=text
         if args.selection is not None:
-            result['native_user_prompt']='<image>'+system+'\n\n'+prompt
+            result['native_user_prompt']='<image>'+text
             result['native_chat_prompt_text']=model.tokenizer.apply_chat_template(
                 [{'role':'user','content':result['native_user_prompt']}],add_generation_prompt=True,tokenize=False)
         captured.clear()
         tick = begin_measure(torch)
         try:
-            text = model.generate_content([llava.Image(frame['image_path']), system + '\n\n' + prompt],
+            text = model.generate_content([llava.Image(frame['image_path']), text],
                                           generation_config=generation)
             result.update(content=text, **captured)
             result['output_tokens'] = len(captured['token_ids'])
@@ -132,7 +137,10 @@ def main():
             result['syntax_valid'] = True
             if result['output_tokens'] >= args.max_new_tokens:
                 raise ValueError('Output reached token limit; potential truncation')
-            result['parsed'] = validate_description(candidate, expected_schema=args.schema)
+            if args.schema=='bbox':
+                from .bbox_comparison import validate_bbox
+                result['parsed']=validate_bbox(candidate,frame['image_size'])
+            else:result['parsed'] = validate_description(candidate, expected_schema=args.schema)
             result['schema_valid'] = True
             result['status'] = 'ok'
         except Exception as exc:

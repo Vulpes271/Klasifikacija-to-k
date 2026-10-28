@@ -1,0 +1,7 @@
+Localize the clearly visible objects in this image. Include storage racks/shelving, pallets, boxes/crates, wire containers, transport vehicles such as forklifts or pallet trucks, and other major objects when visible, not only people. Do not invent objects or hidden extents. Separate a support structure and the goods it holds when their visible bounds can be located.
+
+Return only one JSON object with exactly this structure: {"objects": [{"id": 1, "label": "object name", "bbox": [x1, y1, x2, y2]}]}.
+
+Each id must be unique. bbox is an axis-aligned rectangle in ORIGINAL IMAGE PIXELS: top-left x1,y1 and bottom-right x2,y2, with origin at the top left of the original image. Use the supplied original width and height. Do NOT use normalized 0-to-1 or 0-to-1000 coordinates. Do not output coordinates in a resized internal image space. Do not add descriptions, explanations, markdown, confidence scores or other fields.
+
+Only provide a box if you can reliably determine its visible location and extent. Omit objects whose coordinates you cannot determine reliably. If none can be located, return {"objects": []}. Do not replace uncertainty with a guessed box.

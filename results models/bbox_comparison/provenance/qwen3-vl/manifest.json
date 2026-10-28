@@ -1,0 +1,83 @@
+{
+  "config": {
+    "model": "Qwen/Qwen3-VL-8B-Instruct",
+    "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+    "repeat": "r1",
+    "seed": 42,
+    "initialization_seed": 42,
+    "instruction": "Localize the clearly visible objects in this image. Include storage racks/shelving, pallets, boxes/crates, wire containers, transport vehicles such as forklifts or pallet trucks, and other major objects when visible, not only people. Do not invent objects or hidden extents. Separate a support structure and the goods it holds when their visible bounds can be located.\n\nReturn only one JSON object with exactly this structure: {\"objects\": [{\"id\": 1, \"label\": \"object name\", \"bbox\": [x1, y1, x2, y2]}]}.\n\nEach id must be unique. bbox is an axis-aligned rectangle in ORIGINAL IMAGE PIXELS: top-left x1,y1 and bottom-right x2,y2, with origin at the top left of the original image. Use the supplied original width and height. Do NOT use normalized 0-to-1 or 0-to-1000 coordinates. Do not output coordinates in a resized internal image space. Do not add descriptions, explanations, markdown, confidence scores or other fields.\n\nOnly provide a box if you can reliably determine its visible location and extent. Omit objects whose coordinates you cannot determine reliably. If none can be located, return {\"objects\": []}. Do not replace uncertainty with a guessed box.",
+    "instruction_sha256": "ecf29b662730ea950985f3f2ee395d3a42783aa584d9218cfaf766fb35e6f932",
+    "native_system_prompt": "You are a helpful assistant",
+    "precision_requested": "BF16",
+    "attention": "sdpa",
+    "do_sample": true,
+    "temperature": 0.3,
+    "top_p": 0.8,
+    "top_k": 20,
+    "repetition_penalty": 1.05,
+    "num_beams": 1,
+    "max_new_tokens": 4096,
+    "input_plus_output_limit": 16384,
+    "unsupported_comparison_options": [
+      "presence_penalty"
+    ],
+    "processor_resize": "checkpoint defaults, recorded image_grid_thw",
+    "description_schema": "bbox-original-pixels",
+    "json_grammar": false,
+    "warmup_per_load": false
+  },
+  "frames": [
+    {
+      "dataset": "loco_bbox4",
+      "index": 0,
+      "frame_id": "loco-s1-33243",
+      "source_frame_id": "loco-s1-33243",
+      "image_path": "/home/student/jakob/Klasifikacija-to-k/data/loco_test30/images/loco-s1-33243.jpg",
+      "image_sha256": "fc7d9465d031ef59087ac52eac033887fd3ff5d707f43d999b3301cb32002736",
+      "image_size": [
+        640,
+        480
+      ],
+      "subset20": false
+    },
+    {
+      "dataset": "loco_bbox4",
+      "index": 1,
+      "frame_id": "loco-s2-34608",
+      "source_frame_id": "loco-s2-34608",
+      "image_path": "/home/student/jakob/Klasifikacija-to-k/data/loco_test30/images/loco-s2-34608.jpg",
+      "image_sha256": "f6e7dabc322135a88374f5a8253387e90bf1ee3aa80a4c980076b6e18416baca",
+      "image_size": [
+        1280,
+        720
+      ],
+      "subset20": false
+    },
+    {
+      "dataset": "loco_bbox4",
+      "index": 2,
+      "frame_id": "loco-s3-36540",
+      "source_frame_id": "loco-s3-36540",
+      "image_path": "/home/student/jakob/Klasifikacija-to-k/data/loco_test30/images/loco-s3-36540.jpg",
+      "image_sha256": "2d1fe7daae9350df20d2198f22a46a5cc3d6c7a041271cf00c445041c77b6c56",
+      "image_size": [
+        1920,
+        1080
+      ],
+      "subset20": false
+    },
+    {
+      "dataset": "loco_bbox4",
+      "index": 3,
+      "frame_id": "loco-s4-31835",
+      "source_frame_id": "loco-s4-31835",
+      "image_path": "/home/student/jakob/Klasifikacija-to-k/data/loco_test30/images/loco-s4-31835.jpg",
+      "image_sha256": "34659c10a2406ae1b640e5a477b2c6a98b1b0e4b67734743db759ac7b867095c",
+      "image_size": [
+        1280,
+        800
+      ],
+      "subset20": false
+    }
+  ]
+}

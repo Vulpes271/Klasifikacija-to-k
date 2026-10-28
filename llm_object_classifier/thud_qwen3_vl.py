@@ -44,6 +44,8 @@ def main():
     parser.add_argument('--instruction-file', type=Path, default=ROOT / 'configs/ponovitve/nvila-description-v2.txt')
     parser.add_argument('--max-new-calls', type=int)
     parser.add_argument('--no-warmup', action='store_true')
+    parser.add_argument('--task', choices=('description','bbox'), default='description')
+    parser.add_argument('--repeat', choices=tuple(SEEDS), help='One repeat only; omitted preserves the three-repeat default')
     args = parser.parse_args()
     import torch
     from PIL import Image
@@ -51,16 +53,19 @@ def main():
     selected = native_selection(args.selection)
     instruction = args.instruction_file.read_text().strip()
     output = args.output_dir
-    configs = {r: configuration(r, instruction) for r in SEEDS}
+    repeats = {args.repeat:SEEDS[args.repeat]} if args.repeat else SEEDS
+    configs = {r: configuration(r, instruction) for r in repeats}
+    if args.task=='bbox':
+        for config in configs.values(): config['description_schema']='bbox-original-pixels'
     if args.no_warmup:
         for config in configs.values(): config['warmup_per_load'] = False
     for repeat, config in configs.items():
         snapshot(output / 'qwen3-vl' / repeat, config, selected)
-    pending = [(r, f) for r in SEEDS for f in selected
+    pending = [(r, f) for r in repeats for f in selected
                if not check_saved(saved_path(output / 'qwen3-vl' / r, f, 'description'), f)]
     if args.max_new_calls is not None: pending = pending[:args.max_new_calls]
     if not pending:
-        progress(f'Qwen3-VL: vseh {len(selected)*len(SEEDS)} odgovorov že shranjenih; brez novih generacij.')
+        progress(f'Qwen3-VL: vseh {len(selected)*len(repeats)} odgovorov že shranjenih; brez novih generacij.')
         return
     if not torch.cuda.is_available():
         raise RuntimeError('CUDA required; CPU fallback forbidden')
@@ -85,6 +90,10 @@ def main():
         prompt = user_prompt({'record': {'frame_id': frame['frame_id']},
                               'image_size': frame['image_size'], 'regions': None})
         text = instruction + '\n\n' + prompt
+        if args.task=='bbox':
+            from .bbox_comparison import bbox_prompt
+            text=bbox_prompt(instruction,frame)
+            prompt=text
         record = {**frame, 'model': MODEL, 'revision': REVISION, 'repeat': repeat,
                   'seed': config['seed'], 'call_id': uuid.uuid4().hex,
                   'system_prompt': config['native_system_prompt'], 'user_prompt': text,
@@ -124,7 +133,10 @@ def main():
             record.update(candidate_parsed=candidate, syntax_valid=True)
             if len(tokens) >= config['max_new_tokens']:
                 raise ValueError('Output reached token limit; potential truncation')
-            record['parsed'] = validate_description(candidate, expected_schema='legacy')
+            if args.task=='bbox':
+                from .bbox_comparison import validate_bbox
+                record['parsed']=validate_bbox(candidate,frame['image_size'])
+            else:record['parsed'] = validate_description(candidate, expected_schema='legacy')
             record.update(schema_valid=True, status='ok')
         except Exception as exc:
             record.update(status='error', error=str(exc), traceback=traceback.format_exc())
