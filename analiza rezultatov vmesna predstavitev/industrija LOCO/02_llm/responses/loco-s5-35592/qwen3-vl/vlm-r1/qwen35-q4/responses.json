@@ -1,0 +1,714 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s5-35592",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000259.json",
+      "caption_sha256": "923f8c2b56240dfb12574b246342145f5469196fab9bc719144ce177d2aeb606",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.7317556600319222,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:41:32.66218489Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Crates on pallets are easily repositioned by forklift.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Pallets support crates but can be moved independently.\"},{\"id\":3,\"classification\":\"movable\",\"classification\":\"movable\",\"reason\":\"Forklift is a vehicle designed to move goods.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Goods on pallets are easily repositioned by forklift.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Ceiling structure requires dismantling to relocate permanently.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 731061176,
+        "load_duration": 510304,
+        "prompt_eval_count": 690,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 73046000,
+        "eval_count": 130,
+        "eval_duration": 552653000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:41:32Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:46:32.662281515Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Duplicate JSON key: classification",
+      "input_index": 259,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-q4/short/r1/qwen35-q4/t0.3-s42/frame-000259.json",
+      "original_record_sha256": "4eef0eac04e1e3f0682d065787195bbe88db3e17da25e1318ad1832052bbd4d3",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000259.json",
+      "frozen_input_sha256": "923f8c2b56240dfb12574b246342145f5469196fab9bc719144ce177d2aeb606",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000259-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "94114419d5bc32588f79883417778232885b988e0e0a7b11a0143971c8e9cad4",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000259-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s5-35592",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000259.json",
+      "caption_sha256": "923f8c2b56240dfb12574b246342145f5469196fab9bc719144ce177d2aeb606",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.6825119029963389,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:44:22.845425718Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Plastic crates are standard movable warehouse items.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Wooden pallets are designed to be moved and repositioned.\"},{\"id\":3,\"classification\":\"movable\",\"classification\":\"movable\",\"reason\":\"Forklifts are heavy machinery intended for movement.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Wrapped goods on pallets are movable inventory items.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Ceiling structure is a permanent architectural element.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 681203643,
+        "load_duration": 622759,
+        "prompt_eval_count": 690,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 71360000,
+        "eval_count": 122,
+        "eval_duration": 508402000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:44:22Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:49:22.845664842Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Duplicate JSON key: classification",
+      "input_index": 259,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-q4/short/r2/qwen35-q4/t0.3-s43/frame-000259.json",
+      "original_record_sha256": "74eb66995670d43d2664250c1b229ae6cba1689bb2f938cf9f6ae0e828b76c91",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000259.json",
+      "frozen_input_sha256": "923f8c2b56240dfb12574b246342145f5469196fab9bc719144ce177d2aeb606",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000259-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "94114419d5bc32588f79883417778232885b988e0e0a7b11a0143971c8e9cad4",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000259-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s5-35592",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000259.json",
+      "caption_sha256": "923f8c2b56240dfb12574b246342145f5469196fab9bc719144ce177d2aeb606",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.7215742089319974,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:47:13.066845675Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Stacked crates on pallets can be moved by forklift.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Pallets support crates but are repositionable in use.\"},{\"id\":3,\"classification\":\"movable\",\"classification\":\"movable\",\"reason\":\"Forklift is a vehicle designed to move goods.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Wrapped goods on pallets can be moved by forklift.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Ceiling beams are structural elements requiring dismantling.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 720922018,
+        "load_duration": 769196,
+        "prompt_eval_count": 690,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 73764000,
+        "eval_count": 130,
+        "eval_duration": 538696000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:47:13Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:52:13.066983906Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Duplicate JSON key: classification",
+      "input_index": 259,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-q4/short/r3/qwen35-q4/t0.3-s44/frame-000259.json",
+      "original_record_sha256": "1e06d52941d517483da8a1029e2e07c5f8db28b95912031d3b1b7656b2ab7d6c",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000259.json",
+      "frozen_input_sha256": "923f8c2b56240dfb12574b246342145f5469196fab9bc719144ce177d2aeb606",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000259-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "94114419d5bc32588f79883417778232885b988e0e0a7b11a0143971c8e9cad4",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000259-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s5-35592",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000259.json",
+      "caption_sha256": "923f8c2b56240dfb12574b246342145f5469196fab9bc719144ce177d2aeb606",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.7486742879264057,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:50:37.247126191Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Stacked crates can be easily moved or repositioned by forklifts.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Pallets are standard warehouse items designed to be carried and moved.\"},{\"id\":3,\"classification\":\"movable\",\"classification\":\"movable\",\"reason\":\"Forklifts are mobile vehicles that move frequently within the workspace.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Goods on pallets can be loaded, unloaded, and relocated regularly.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Ceiling structure is a permanent architectural element not meant to be moved.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 748120607,
+        "load_duration": 562089,
+        "prompt_eval_count": 752,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 54336000,
+        "eval_count": 142,
+        "eval_duration": 582161000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:50:37Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:55:37.247230547Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Duplicate JSON key: classification",
+      "input_index": 259,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-q4/long/r1/qwen35-q4/t0.3-s42/frame-000259.json",
+      "original_record_sha256": "1c94c2e694c213879c1dfc92df0270d3fab69b070f63adfd0529ba82500c7d89",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000259.json",
+      "frozen_input_sha256": "923f8c2b56240dfb12574b246342145f5469196fab9bc719144ce177d2aeb606",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000259-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "94114419d5bc32588f79883417778232885b988e0e0a7b11a0143971c8e9cad4",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000259-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s5-35592",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000259.json",
+      "caption_sha256": "923f8c2b56240dfb12574b246342145f5469196fab9bc719144ce177d2aeb606",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.771084405016154,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:53:57.699139063Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Plastic crates are standard warehouse items designed to be moved.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Pallets are designed to be stacked and repositioned by forklifts.\"},{\"id\":3,\"classification\":\"movable\",\"classification\":\"movable\",\"reason\":\"Forklifts are vehicles that move within the space and can be relocated.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Stacked goods on pallets are intended to be moved and repositioned.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Ceiling structures are permanent architectural elements not meant to be moved.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 769886446,
+        "load_duration": 733948,
+        "prompt_eval_count": 752,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 53289000,
+        "eval_count": 144,
+        "eval_duration": 607694000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:53:57Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:58:57.699421006Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Duplicate JSON key: classification",
+      "input_index": 259,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-q4/long/r2/qwen35-q4/t0.3-s43/frame-000259.json",
+      "original_record_sha256": "e23bf9993127aa886aa33456d55105ab470e3cc5f20facaed5191f0a222332a7",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000259.json",
+      "frozen_input_sha256": "923f8c2b56240dfb12574b246342145f5469196fab9bc719144ce177d2aeb606",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000259-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "94114419d5bc32588f79883417778232885b988e0e0a7b11a0143971c8e9cad4",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000259-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s5-35592",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000259.json",
+      "caption_sha256": "923f8c2b56240dfb12574b246342145f5469196fab9bc719144ce177d2aeb606",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.7368353409692645,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:57:16.979427028Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Plastic crates are standard warehouse items moved by forklifts.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Pallets are designed to be repositioned or replaced easily.\"},{\"id\":3,\"classification\":\"movable\",\"classification\":\"movable\",\"reason\":\"Forklifts are vehicles intended for movement and transport.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Stacked goods are regularly moved, stacked, or restocked.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Ceiling beams and lights are structural elements requiring dismantling to move.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 736228407,
+        "load_duration": 843292,
+        "prompt_eval_count": 752,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 52358000,
+        "eval_count": 136,
+        "eval_duration": 571480000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:57:16Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T17:02:16.979540012Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Duplicate JSON key: classification",
+      "input_index": 259,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-q4/long/r3/qwen35-q4/t0.3-s44/frame-000259.json",
+      "original_record_sha256": "f761c72583d49b271a959a44031a5d40b14092a1b0a42ff1e0e9a8480c7f1467",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000259.json",
+      "frozen_input_sha256": "923f8c2b56240dfb12574b246342145f5469196fab9bc719144ce177d2aeb606",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000259-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "94114419d5bc32588f79883417778232885b988e0e0a7b11a0143971c8e9cad4",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000259-long.txt"
+        }
+      ]
+    }
+  }
+}

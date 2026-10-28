@@ -10,6 +10,8 @@ from datetime import datetime, timezone
 import html
 import json
 import math
+import os
+import re
 from pathlib import Path
 import shutil
 import statistics
@@ -48,13 +50,18 @@ def portable_frame(frame):
             'published_original': leaf_name(frame) + '/original.png'}
 
 
-def audit_protocol(selected):
+def run_root(model, repeat, roots=None):
+    """Explicit alternate roots; legacy THUD commands retain their old paths."""
+    return ((roots[model] if roots else (OUT / 'qwen3-vl' if model == 'qwen3-vl' else OLD / model)) / repeat)
+
+
+def audit_protocol(selected, roots=None):
     """Fail closed if a reused run changed seeds, prompts, revisions or RGB bytes."""
     configs = {}
     for model in MODELS:
         configs[model] = {}
         for repeat, seed in SEEDS.items():
-            root = (OUT / 'qwen3-vl' if model == 'qwen3-vl' else OLD / model) / repeat
+            root = run_root(model, repeat, roots)
             manifest = read_json(root / 'manifest.json')
             if manifest['frames'] != selected:
                 raise ValueError(f'{model}/{repeat}: changed image selection')
@@ -181,16 +188,19 @@ def copy_provenance(configs, selected):
         if path.exists(): shutil.copyfile(path, provenance / destination)
 
 
-def collect(selected, configs):
+def collect(selected, configs, *, target=None, roots=None, reused=None, copy_original=True):
+    target = TARGET if target is None else Path(target)
+    reused = {'florence', 'nvila'} if reused is None else set(reused)
     records, sources, combined = [], [], []
     for frame in selected:
-        image_root = TARGET / leaf_name(frame)
+        image_root = target / leaf_name(frame)
         image_root.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(frame['image_path'], image_root / 'original.png')
-        assert sha256((image_root / 'original.png').read_bytes()) == frame['image_sha256']
+        if copy_original:
+            shutil.copyfile(frame['image_path'], image_root / 'original.png')
+            assert sha256((image_root / 'original.png').read_bytes()) == frame['image_sha256']
         for model in MODELS:
             for repeat, seed in SEEDS.items():
-                root = (OUT / 'qwen3-vl' if model == 'qwen3-vl' else OLD / model) / repeat
+                root = run_root(model, repeat, roots)
                 destination = image_root / model / repeat
                 destination.mkdir(parents=True, exist_ok=True)
                 tasks = TASKS if model == 'florence' else {'description': None}
@@ -210,7 +220,7 @@ def collect(selected, configs):
                         assert row['prompt'] == TASKS[task]
                         for key in ('do_sample', 'num_beams', 'max_new_tokens', 'seed'):
                             assert row['generation'][key] == configs[model][repeat][key]
-                    relative = destination.relative_to(TARGET)
+                    relative = destination.relative_to(target)
                     # Exact source bytes, including invalid JSON text and complete tracebacks.
                     raw_path = destination / (task + '.raw.json')
                     shutil.copyfile(path, raw_path)
@@ -218,8 +228,8 @@ def collect(selected, configs):
                     assert sha256(raw_path.read_bytes()) == raw_sha
                     source = {'frame_id': frame['frame_id'], 'model': model, 'repeat': repeat, 'task': task,
                               'source_path': str(path.relative_to(ROOT)), 'source_sha256': raw_sha,
-                              'published_path': str(raw_path.relative_to(TARGET)), 'call_id': row['call_id'],
-                              'finished_at_utc': row['finished_at_utc'], 'reused_existing_generation': model != 'qwen3-vl'}
+                              'published_path': str(raw_path.relative_to(target)), 'call_id': row['call_id'],
+                              'finished_at_utc': row['finished_at_utc'], 'reused_existing_generation': model in reused}
                     sources.append(source)
                     row.update(model_name=model, task=task, original_record_sha256=raw_sha)
                     row['view'] = repetition_view(row)
@@ -246,7 +256,8 @@ def collect(selected, configs):
     return records, sources, combined
 
 
-def summarize(records, combined):
+def summarize(records, combined, reused=None):
+    reused = {'florence', 'nvila'} if reused is None else set(reused)
     groups = defaultdict(list)
     for row in records + combined:
         groups[(row['model_name'], row['task'])].append(row)
@@ -264,7 +275,7 @@ def summarize(records, combined):
             'max_allocated_GiB': max(r['peak_allocated_bytes'] for r in rows) / 2**30,
             'max_reserved_GiB': max(r['peak_reserved_bytes'] for r in rows) / 2**30,
             'precision': 'BF16' if model == 'qwen3-vl' else 'FP16',
-            'reused': model != 'qwen3-vl', 'detection_accuracy': None})
+            'reused': model in reused, 'detection_accuracy': None})
     return summary
 
 
@@ -273,7 +284,10 @@ def escaped(value):
 
 
 def pre(value):
-    return '<pre>' + escaped(value if isinstance(value, str) else json.dumps(value, ensure_ascii=False, indent=2)) + '</pre>'
+    content=escaped(value if isinstance(value, str) else json.dumps(value, ensure_ascii=False, indent=2)).replace('\r','&#13;')
+    # HTML entities preserve literal model whitespace without source-format noise.
+    content=re.sub(r'(?m)[ \t]+$',lambda m:''.join('&#'+str(ord(c))+';' for c in m[0]),content)
+    return '<pre>' + content + '</pre>'
 
 
 STYLE = '''body{font:16px system-ui;margin:24px;background:#f4f5f8;color:#17202a}a{color:#1459a1}img{max-width:100%;height:auto}.columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.model,article{background:white;padding:14px;border:1px solid #ccd3dd;border-radius:7px;margin-bottom:16px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.5 monospace}summary{cursor:pointer;font-weight:600;padding:6px}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd3dd;padding:7px;text-align:left}nav a{display:inline-block;margin:5px}.note{padding:12px;background:#fff0cf}h1{font-size:1.6em}h2{font-size:1.15em}@media(max-width:1100px){.columns{grid-template-columns:1fr}}'''
@@ -283,12 +297,15 @@ def document(title, body):
     return '<!doctype html><html lang="sl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + escaped(title) + '</title><style>' + STYLE + '</style><body>' + body + '</body></html>'
 
 
-def render(selected, records, summary):
+def render(selected, records, summary, *, target=None, reused=None, introduction=None):
+    target = TARGET if target is None else Path(target)
+    reused = {'florence', 'nvila'} if reused is None else set(reused)
     groups = defaultdict(list)
     for row in records:
         groups[(row['frame_id'], row['model_name'], row['repeat'])].append(row)
     intro = '<h1>Prvi korak: opis slike, objekti in lokacije</h1><p>20 istih slik · 3 VLM · 3 ponovitve. Brez referenčnih oznak na vhodu. Brez drugega koraka in PDF.</p>'
     intro += '<p class="note">Enakost odgovorov in veljaven zapis nista dokaz zaznavne pravilnosti. Florence vrne lastne okvirje; NVILA in Qwen pri tem protokolu nimata okvirjev. Referenčnih okvirjev ta paket ne izrisuje. Stari časi Florence/NVILA so ponovno uporabljene meritve z drugega dne, ne nove sočasne meritve.</p>'
+    if introduction is not None: intro = introduction
     intro += '<nav><a href="README.md">Protokol in omejitve</a><a href="summary.csv">Čas in VRAM</a><a href="response-metrics.csv">Posamezne meritve</a><a href="repeat-differences.csv">Razlike ponovitev</a><a href="manual-review-empty.csv">Prazen ročni pregled</a><a href="verification.json">Popolnost</a><a href="provenance.json">Izvor vseh odgovorov</a></nav>'
     intro += '<table><tr><th>Model / naloga</th><th>N</th><th>Mediana s</th><th>VRAM allocated GiB</th><th>Napake zapisa</th></tr>'
     for row in summary:
@@ -297,11 +314,12 @@ def render(selected, records, summary):
     for frame in selected:
         name = leaf_name(frame)
         intro += f'<a href="{name}/index.html">{escaped(frame["frame_id"])}</a>'
-        body = '<p><a href="../index.html">← Vseh 20 slik</a></p><h1>' + escaped(frame['frame_id']) + '</h1>'
-        body += '<a href="original.png"><img src="original.png" alt="Originalna slika brez oznak"></a><p>Original, brez referenčnih okvirjev. SHA256: ' + frame['image_sha256'] + '</p><div class="columns">'
+        body = '<p><a href="../index.html">← Vse slike</a></p><h1>' + escaped(frame['frame_id']) + '</h1>'
+        original = os.path.relpath(target / frame['published_original'], target / name) if 'published_original' in frame else 'original.png'
+        body += f'<a href="{original}"><img src="{original}" alt="Originalna slika brez oznak"></a><p>Original, brez referenčnih okvirjev. SHA256: ' + frame['image_sha256'] + '</p><div class="columns">'
         for model, model_id in MODELS.items():
-            body += '<section class="model"><h2>' + escaped(model_id) + '</h2><p>' + ('Ponovna uporaba izvornih GPU klicev 26. 10. 2026.' if model != 'qwen3-vl' else 'Nove GPU generacije za ta paket.') + '</p>'
-            if model != 'florence': body += '<p>Ta protokol ne vrne lastnih okvirjev; lokacije in odnosi so v besedilu spodaj.</p>'
+            body += '<section class="model"><h2>' + escaped(model_id) + '</h2><p>' + ('Ponovna uporaba izvornih GPU klicev 26. 10. 2026.' if model in reused else 'Nove GPU generacije za ta paket.') + '</p>'
+            if model != 'florence': body += '<p>Model ni vrnil okvirjev; lokacije in odnosi so v besedilu spodaj.</p>'
             for repeat in SEEDS:
                 body += '<article><h2>' + repeat + ' · seed ' + str(SEEDS[repeat]) + '</h2>'
                 for row in groups[(frame['frame_id'], model, repeat)]:
@@ -320,8 +338,8 @@ def render(selected, records, summary):
                 body += '</article>'
             body += '</section>'
         body += '</div>'
-        (TARGET / name / 'index.html').write_text(document(frame['frame_id'], body), encoding='utf-8')
-    (TARGET / 'index.html').write_text(document('Primerjava prvega koraka', intro + '</nav>'), encoding='utf-8')
+        (target / name / 'index.html').write_text(document(frame['frame_id'], body), encoding='utf-8')
+    (target / 'index.html').write_text(document('Primerjava prvega koraka', intro + '</nav>'), encoding='utf-8')
 
 
 def verify(selected, records, sources, differences):

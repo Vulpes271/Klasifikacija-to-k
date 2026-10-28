@@ -1,0 +1,86 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s2-35144",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r1"
+  },
+  "vlm_repeat": "r1",
+  "image_sha256": "c12799da002ba96b6233e1b66bab01429ee752f7d8512a90d26323facd011c66",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s2-35144/florence/r1/caption.raw.json",
+      "sha256": "e11c7c9c03fa4ea3f890151fef6ffc217e3870f535821144b3c831cbcfeb0831",
+      "original_call_id": "9c8612b4f09d438eae3013e2fc610180",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s2-35144/florence/r1/od.raw.json",
+      "sha256": "6070aab0abc9e3d41d3f54f7798533299746ca26a0f181323e7cd2dde44678fc",
+      "original_call_id": "dd810d5fdda94bfd967ab1752866a9fd",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s2-35144/florence/r1/dense.raw.json",
+      "sha256": "a1afbc8e78629deb82660349cc7d93f54029bdbdd4214ea8356018a444a40c98",
+      "original_call_id": "d235feb0c2b641e7b2d5e755b6839a47",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows a large warehouse with multiple shelves and racks. The shelves are filled with cardboard boxes and other items. The floor is made of concrete and there is a metal frame in the foreground. The warehouse appears to be well-lit with natural light coming in from the windows on the left side of the image. The image is taken from a low angle, looking up at the shelves.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "furniture",
+        "observation": "Florence task <OD> literally returned label/phrase 'furniture'; bbox_xyxy in original image pixels: [0.6399999856948853, 0.47999998927116394, 1279.3599853515625, 959.5199584960938]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows a large warehouse with multiple shelves and racks. The shelves are filled with cardboard boxes and other items. The floor is made of concrete and there is a metal frame in the foreground. The warehouse appears to be well-lit with natural light coming in from the windows on the left side of the image. The image is taken from a low angle, looking up at the shelves.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows a large warehouse with multiple shelves and racks. The shelves are filled with cardboard boxes and other items. The floor is made of concrete and there is a metal frame in the foreground. The warehouse appears to be well-lit with natural light coming in from the windows on the left side of the image. The image is taken from a low angle, looking up at the shelves."
+        }
+      },
+      "od": {
+        "content": "</s><s><s><s>furniture<loc_0><loc_0><loc_999><loc_999></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                0.6399999856948853,
+                0.47999998927116394,
+                1279.3599853515625,
+                959.5199584960938
+              ]
+            ],
+            "labels": [
+              "furniture"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s>No object detected.</s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [],
+            "labels": []
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "8dab575463c0c4c7e1844b904072e8599ec4bd293513eacdc891761b7bcdf5b8",
+  "status": "ok"
+}

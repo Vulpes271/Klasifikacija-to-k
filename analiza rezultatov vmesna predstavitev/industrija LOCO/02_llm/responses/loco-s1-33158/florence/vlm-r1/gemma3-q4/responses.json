@@ -1,0 +1,652 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s1-33158",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000001.json",
+      "caption_sha256": "86c33a9b860d60e15f87663211eba35da98d81f8392ea20de177fd7c470b58be",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 10.081169013981707,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T15:20:01.104940869Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"wheel\"}, {\"id\": 2, \"classification\": \"fixed\", \"reason\": \"forklift truck in warehouse with pallet racking\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"wheel\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 10080683142,
+        "load_duration": 5650728419,
+        "prompt_eval_count": 1648,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 4033722000,
+        "eval_count": 68,
+        "eval_duration": 387858000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:20:01Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T15:25:01.105075144Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 1,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r1/gemma3-q4/t0.3-s42/frame-000001.json",
+      "original_record_sha256": "bc6e3bfddf4267adbce8e1016fc9546fc9320ca4af93954a2f148a950bae30a5",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000001.json",
+      "frozen_input_sha256": "86c33a9b860d60e15f87663211eba35da98d81f8392ea20de177fd7c470b58be",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000001-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "791bd586b73cd7cf947a1ab596ce5a6ba923c2b21ed7be3c9b3cd04d5e2f2a56",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "wheel"
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "forklift truck in warehouse with pallet racking"
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "wheel"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "wheel"
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "forklift truck in warehouse with pallet racking"
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "wheel"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000001-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s1-33158",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000001.json",
+      "caption_sha256": "86c33a9b860d60e15f87663211eba35da98d81f8392ea20de177fd7c470b58be",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 5.136864345986396,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T17:10:56.102379297Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"wheel\"}, {\"id\": 2, \"classification\": \"fixed\", \"reason\": \"forklift truck in warehouse with pallet racking\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"wheel\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 5135779778,
+        "load_duration": 656206,
+        "prompt_eval_count": 1648,
+        "prompt_eval_cached_count": 1647,
+        "prompt_eval_duration": 152375000,
+        "eval_count": 68,
+        "eval_duration": 4974242000
+      },
+      "gpu_verified": false,
+      "finished_at_utc": "2026-10-28T17:10:56Z",
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "GPU verification failed: Requested model has no reported VRAM allocation.. Recreate the project's Ollama container with the GPU override.",
+      "input_index": 1,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r2/gemma3-q4/t0.3-s43/frame-000001.json",
+      "original_record_sha256": "a595e17ef2fef15dac1349747f20db40438e0d99e9afda177da0e8755a6315b2",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000001.json",
+      "frozen_input_sha256": "86c33a9b860d60e15f87663211eba35da98d81f8392ea20de177fd7c470b58be",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000001-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "791bd586b73cd7cf947a1ab596ce5a6ba923c2b21ed7be3c9b3cd04d5e2f2a56",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000001-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s1-33158",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000001.json",
+      "caption_sha256": "86c33a9b860d60e15f87663211eba35da98d81f8392ea20de177fd7c470b58be",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 5.138441174058244,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T17:11:01.261938377Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"wheel\"}, {\"id\": 2, \"classification\": \"fixed\", \"reason\": \"forklift truck in warehouse with pallet racking\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"wheel\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 5137611057,
+        "load_duration": 649107,
+        "prompt_eval_count": 1648,
+        "prompt_eval_cached_count": 1647,
+        "prompt_eval_duration": 153301000,
+        "eval_count": 68,
+        "eval_duration": 4975075000
+      },
+      "gpu_verified": false,
+      "finished_at_utc": "2026-10-28T17:11:01Z",
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "GPU verification failed: Requested model has no reported VRAM allocation.. Recreate the project's Ollama container with the GPU override.",
+      "input_index": 1,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r3/gemma3-q4/t0.3-s44/frame-000001.json",
+      "original_record_sha256": "d338fc840cf1afa9d460923048baf4d30d7865d167c5d044b3d42f87a69fcadf",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000001.json",
+      "frozen_input_sha256": "86c33a9b860d60e15f87663211eba35da98d81f8392ea20de177fd7c470b58be",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000001-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "791bd586b73cd7cf947a1ab596ce5a6ba923c2b21ed7be3c9b3cd04d5e2f2a56",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000001-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s1-33158",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000001.json",
+      "caption_sha256": "86c33a9b860d60e15f87663211eba35da98d81f8392ea20de177fd7c470b58be",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 26.838403495028615,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T17:11:28.118853501Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [ {\"id\": 1, \"classification\": \"movable\", \"reason\": \"A wheel is a component of a vehicle and can be moved.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"A forklift truck is designed to be moved around a warehouse.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"A wheel is a component of a vehicle and can be moved.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 26837129163,
+        "load_duration": 467669,
+        "prompt_eval_count": 1714,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 19653539000,
+        "eval_count": 95,
+        "eval_duration": 7008980000
+      },
+      "gpu_verified": false,
+      "finished_at_utc": "2026-10-28T17:11:28Z",
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "GPU verification failed: Requested model has no reported VRAM allocation.. Recreate the project's Ollama container with the GPU override.",
+      "input_index": 1,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r1/gemma3-q4/t0.3-s42/frame-000001.json",
+      "original_record_sha256": "381364baa21f33122680a7f382d3fffd0ad547dafbe3ebebdc7690f47ddcd153",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000001.json",
+      "frozen_input_sha256": "86c33a9b860d60e15f87663211eba35da98d81f8392ea20de177fd7c470b58be",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000001-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "791bd586b73cd7cf947a1ab596ce5a6ba923c2b21ed7be3c9b3cd04d5e2f2a56",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000001-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s1-33158",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000001.json",
+      "caption_sha256": "86c33a9b860d60e15f87663211eba35da98d81f8392ea20de177fd7c470b58be",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 6.718037089915015,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T17:11:34.86149902Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [ {\"id\": 1, \"classification\": \"movable\", \"reason\": \"A wheel is a component that can be moved.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"A forklift truck is designed to be moved around a warehouse.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"A wheel is a component that can be moved.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 6717253520,
+        "load_duration": 610295,
+        "prompt_eval_count": 1714,
+        "prompt_eval_cached_count": 1713,
+        "prompt_eval_duration": 155411000,
+        "eval_count": 89,
+        "eval_duration": 6553230000
+      },
+      "gpu_verified": false,
+      "finished_at_utc": "2026-10-28T17:11:34Z",
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "GPU verification failed: Requested model has no reported VRAM allocation.. Recreate the project's Ollama container with the GPU override.",
+      "input_index": 1,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r2/gemma3-q4/t0.3-s43/frame-000001.json",
+      "original_record_sha256": "5ceb3ac5d0da892b1797df6746c01ae81cb879aa4ac486b310d01390ea2f3fce",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000001.json",
+      "frozen_input_sha256": "86c33a9b860d60e15f87663211eba35da98d81f8392ea20de177fd7c470b58be",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000001-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "791bd586b73cd7cf947a1ab596ce5a6ba923c2b21ed7be3c9b3cd04d5e2f2a56",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000001-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s1-33158",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000001.json",
+      "caption_sha256": "86c33a9b860d60e15f87663211eba35da98d81f8392ea20de177fd7c470b58be",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 7.0251148419920355,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T17:11:41.903097429Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [ {\"id\": 1, \"classification\": \"movable\", \"reason\": \"A wheel, likely part of a forklift or other equipment.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Forklift truck, designed for transportation and repositioning.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"A wheel, potentially part of the forklift or another movable object.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 7024046585,
+        "load_duration": 573438,
+        "prompt_eval_count": 1714,
+        "prompt_eval_cached_count": 1713,
+        "prompt_eval_duration": 153918000,
+        "eval_count": 93,
+        "eval_duration": 6860940000
+      },
+      "gpu_verified": false,
+      "finished_at_utc": "2026-10-28T17:11:41Z",
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "GPU verification failed: Requested model has no reported VRAM allocation.. Recreate the project's Ollama container with the GPU override.",
+      "input_index": 1,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r3/gemma3-q4/t0.3-s44/frame-000001.json",
+      "original_record_sha256": "1d2164fc2978e18b688c01bebebdc78a0dd4707f5173be0ed7ead134774ca4a2",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000001.json",
+      "frozen_input_sha256": "86c33a9b860d60e15f87663211eba35da98d81f8392ea20de177fd7c470b58be",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000001-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "791bd586b73cd7cf947a1ab596ce5a6ba923c2b21ed7be3c9b3cd04d5e2f2a56",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000001-long.txt"
+        }
+      ]
+    }
+  }
+}

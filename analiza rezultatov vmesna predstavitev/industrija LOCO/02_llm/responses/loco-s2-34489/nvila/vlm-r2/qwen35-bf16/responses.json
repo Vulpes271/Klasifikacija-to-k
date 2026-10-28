@@ -1,0 +1,936 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s2-34489",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000095.json",
+      "caption_sha256": "06cf338acb3a4accf5fabac79549202197c64a95305a5dc04cdff516b9f334d3",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.0521457770373672,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:26:05.975416438Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Stacked boxes are easily repositioned or removed.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Pallets are standard movable storage units.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Stationary appearance but function unclear; could be fixed equipment.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2051525882,
+        "load_duration": 664374,
+        "prompt_eval_count": 1037,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 160630000,
+        "eval_count": 73,
+        "eval_duration": 1806334000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:26:05Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:31:05.975562873Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 95,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r1/qwen35-bf16/t0.3-s42/frame-000095.json",
+      "original_record_sha256": "3eea370d7500248782e1480e69eb7b8a3be3d4bd54ac89c9d5aa35d723e30aeb",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000095.json",
+      "frozen_input_sha256": "06cf338acb3a4accf5fabac79549202197c64a95305a5dc04cdff516b9f334d3",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000095-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "b12146033803273624c6569552cc885cad564d79fe82c7226b6291a9eaa3f351",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Stacked boxes are easily repositioned or removed."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets are standard movable storage units."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Stationary appearance but function unclear; could be fixed equipment."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Stacked boxes are easily repositioned or removed."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets are standard movable storage units."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Stationary appearance but function unclear; could be fixed equipment."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000095-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s2-34489",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000095.json",
+      "caption_sha256": "06cf338acb3a4accf5fabac79549202197c64a95305a5dc04cdff516b9f334d3",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.3252407199470326,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:38:45.804675771Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Cardboard boxes are standard warehouse storage items easily moved.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Wooden pallets are designed to be carried and repositioned.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Machine function unclear; stationary appearance does not guarantee permanence.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1324629717,
+        "load_duration": 426125,
+        "prompt_eval_count": 1037,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 165041000,
+        "eval_count": 77,
+        "eval_duration": 1071529000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:38:45Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:43:45.804780553Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 95,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r2/qwen35-bf16/t0.3-s43/frame-000095.json",
+      "original_record_sha256": "825b2b0bf6c67ab05e40eed577a11707f293690cf18bb38d122e6e483ed089cb",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000095.json",
+      "frozen_input_sha256": "06cf338acb3a4accf5fabac79549202197c64a95305a5dc04cdff516b9f334d3",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000095-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "b12146033803273624c6569552cc885cad564d79fe82c7226b6291a9eaa3f351",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Cardboard boxes are standard warehouse storage items easily moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Wooden pallets are designed to be carried and repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Machine function unclear; stationary appearance does not guarantee permanence."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Cardboard boxes are standard warehouse storage items easily moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Wooden pallets are designed to be carried and repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Machine function unclear; stationary appearance does not guarantee permanence."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000095-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s2-34489",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000095.json",
+      "caption_sha256": "06cf338acb3a4accf5fabac79549202197c64a95305a5dc04cdff516b9f334d3",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8497557640075684,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:45:34.09024055Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Cardboard boxes are standard warehouse inventory items designed to be moved.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Wooden pallets are structural supports intended for stacking and relocation.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Stationary appearance does not confirm permanent attachment or immovability.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 849101398,
+        "load_duration": 674030,
+        "prompt_eval_count": 1037,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 114758000,
+        "eval_count": 80,
+        "eval_duration": 641348000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:45:34Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:50:34.090367362Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 95,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r3/qwen35-bf16/t0.3-s44/frame-000095.json",
+      "original_record_sha256": "e73c1ec78cdf729919890a22d9d1da89a4e02614188457c7ba5e84270ff7e5a6",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000095.json",
+      "frozen_input_sha256": "06cf338acb3a4accf5fabac79549202197c64a95305a5dc04cdff516b9f334d3",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000095-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "b12146033803273624c6569552cc885cad564d79fe82c7226b6291a9eaa3f351",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Cardboard boxes are standard warehouse inventory items designed to be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Wooden pallets are structural supports intended for stacking and relocation."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Stationary appearance does not confirm permanent attachment or immovability."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Cardboard boxes are standard warehouse inventory items designed to be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Wooden pallets are structural supports intended for stacking and relocation."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Stationary appearance does not confirm permanent attachment or immovability."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000095-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s2-34489",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000095.json",
+      "caption_sha256": "06cf338acb3a4accf5fabac79549202197c64a95305a5dc04cdff516b9f334d3",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.9147679540328681,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:53:03.099779424Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Boxes can be easily removed and reorganized in a warehouse.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Pallets are standard storage units designed to be moved frequently.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Machines in warehouses are often relocated for maintenance or workflow.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 914210201,
+        "load_duration": 590534,
+        "prompt_eval_count": 1099,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 100171000,
+        "eval_count": 96,
+        "eval_duration": 724808000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:53:03Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:58:03.099885394Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 95,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r1/qwen35-bf16/t0.3-s42/frame-000095.json",
+      "original_record_sha256": "e40e5ebea31a696bb8c30a3f639b2086ccd624a202a84d195de5b2c51b5d1e3b",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000095.json",
+      "frozen_input_sha256": "06cf338acb3a4accf5fabac79549202197c64a95305a5dc04cdff516b9f334d3",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000095-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "b12146033803273624c6569552cc885cad564d79fe82c7226b6291a9eaa3f351",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Boxes can be easily removed and reorganized in a warehouse."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets are standard storage units designed to be moved frequently."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Machines in warehouses are often relocated for maintenance or workflow."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Boxes can be easily removed and reorganized in a warehouse."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets are standard storage units designed to be moved frequently."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Machines in warehouses are often relocated for maintenance or workflow."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000095-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s2-34489",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000095.json",
+      "caption_sha256": "06cf338acb3a4accf5fabac79549202197c64a95305a5dc04cdff516b9f334d3",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.9728573489701375,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T16:00:36.665579039Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Boxes can be easily removed from shelves and repositioned.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Pallets are standard warehouse items designed to be moved.\"}, {\"id\": 3, \"classification\": \"uncertain\", \"reason\": \"Machine function unclear; could be fixed equipment or movable unit.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 972277528,
+        "load_duration": 453615,
+        "prompt_eval_count": 1099,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 104423000,
+        "eval_count": 95,
+        "eval_duration": 770733000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:00:36Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:05:36.665657417Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 95,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r2/qwen35-bf16/t0.3-s43/frame-000095.json",
+      "original_record_sha256": "8a5c158c077d3a55b110af67c539ee953ace75e53c596544cce65e18353829fb",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000095.json",
+      "frozen_input_sha256": "06cf338acb3a4accf5fabac79549202197c64a95305a5dc04cdff516b9f334d3",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000095-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "b12146033803273624c6569552cc885cad564d79fe82c7226b6291a9eaa3f351",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Boxes can be easily removed from shelves and repositioned."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets are standard warehouse items designed to be moved."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Machine function unclear; could be fixed equipment or movable unit."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Boxes can be easily removed from shelves and repositioned."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets are standard warehouse items designed to be moved."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Machine function unclear; could be fixed equipment or movable unit."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000095-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s2-34489",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000095.json",
+      "caption_sha256": "06cf338acb3a4accf5fabac79549202197c64a95305a5dc04cdff516b9f334d3",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.4984335630433634,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T16:07:41.583050194Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Boxes can be easily carried or repositioned in normal use.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Pallets are designed to be moved and stacked by workers.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Machines in warehouses can be relocated for maintenance or storage.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2497842630,
+        "load_duration": 814902,
+        "prompt_eval_count": 1099,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 101119000,
+        "eval_count": 97,
+        "eval_duration": 2289336000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:07:41Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:12:41.583188194Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 95,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r3/qwen35-bf16/t0.3-s44/frame-000095.json",
+      "original_record_sha256": "ba45a56ece8fce6f7f049525f47d0af57cc9e8320442a9b17c0434fe2c4c2f1d",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000095.json",
+      "frozen_input_sha256": "06cf338acb3a4accf5fabac79549202197c64a95305a5dc04cdff516b9f334d3",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000095-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "b12146033803273624c6569552cc885cad564d79fe82c7226b6291a9eaa3f351",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Boxes can be easily carried or repositioned in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets are designed to be moved and stacked by workers."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Machines in warehouses can be relocated for maintenance or storage."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Boxes can be easily carried or repositioned in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets are designed to be moved and stacked by workers."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Machines in warehouses can be relocated for maintenance or storage."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000095-long.txt"
+        }
+      ]
+    }
+  }
+}

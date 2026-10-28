@@ -1,0 +1,928 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s2-35144",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000106.json",
+      "caption_sha256": "a01c31bf03b30f4303e02e366265467d115926ceceea61dfd59c7719537d4e86",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8716955200070515,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T18:52:16.131053372Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": \"loco-s2-35144\", \"classification\": \"fixed\", \"reason\": \"Metal shelving is bolted to floor or wall, appears freestanding.\"}, {\"id\": 1, \"classification\": \"fixed\", \"reason\": \"Metal shelving frames dominate the foreground and midground, likely bolted.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Pallets with boxes rest on concrete floor, supported by their own structure.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"White plastic bins are stacked vertically on top of each other.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Concrete floor supports the pallets and shelving.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 871008782,
+        "load_duration": 568050,
+        "prompt_eval_count": 630,
+        "prompt_eval_cached_count": 147,
+        "prompt_eval_duration": 72897000,
+        "eval_count": 160,
+        "eval_duration": 706945000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T18:52:16Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T18:57:16.131152481Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Unexpected, wrong-type or duplicate ID: 'loco-s2-35144'",
+      "input_index": 106,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r1/gemma3-q4/t0.3-s42/frame-000106.json",
+      "original_record_sha256": "ea6a6b953a0a36f88278cdb447c933923f98e3a21a91e1a1bb4fe3f0e5b774be",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000106.json",
+      "frozen_input_sha256": "a01c31bf03b30f4303e02e366265467d115926ceceea61dfd59c7719537d4e86",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000106-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "7d8b93a429c55c473e742dbc510135610aa4f67f99835a3f5577e11fa585b137",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": "loco-s2-35144",
+            "classification": "fixed",
+            "reason": "Metal shelving is bolted to floor or wall, appears freestanding."
+          },
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Metal shelving frames dominate the foreground and midground, likely bolted."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets with boxes rest on concrete floor, supported by their own structure."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "White plastic bins are stacked vertically on top of each other."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Concrete floor supports the pallets and shelving."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000106-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s2-35144",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000106.json",
+      "caption_sha256": "a01c31bf03b30f4303e02e366265467d115926ceceea61dfd59c7719537d4e86",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.3280775820603594,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T18:57:08.786511453Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": \"loco-s2-35144\", \"classification\": \"fixed\", \"reason\": \"Metal shelving is bolted to floor or wall, appears freestanding.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 327420093,
+        "load_duration": 518513,
+        "prompt_eval_count": 630,
+        "prompt_eval_cached_count": 147,
+        "prompt_eval_duration": 72220000,
+        "eval_count": 42,
+        "eval_duration": 195992000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T18:57:08Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:02:08.786604298Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Unexpected, wrong-type or duplicate ID: 'loco-s2-35144'",
+      "input_index": 106,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r2/gemma3-q4/t0.3-s43/frame-000106.json",
+      "original_record_sha256": "4860eb15ef721c518bb5465c1eca8d21ee17b114975429c1411ee6d65d2ba61f",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000106.json",
+      "frozen_input_sha256": "a01c31bf03b30f4303e02e366265467d115926ceceea61dfd59c7719537d4e86",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000106-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "7d8b93a429c55c473e742dbc510135610aa4f67f99835a3f5577e11fa585b137",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": "loco-s2-35144",
+            "classification": "fixed",
+            "reason": "Metal shelving is bolted to floor or wall, appears freestanding."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000106-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s2-35144",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000106.json",
+      "caption_sha256": "a01c31bf03b30f4303e02e366265467d115926ceceea61dfd59c7719537d4e86",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8550696240272373,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:02:01.744541409Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": \"loco-s2-35144\", \"classification\": \"fixed\", \"reason\": \"Metal shelving is bolted to floor or wall, appears freestanding.\"},{\"id\": 1, \"classification\": \"fixed\", \"reason\": \"Metal shelving frames dominate the foreground and midground, likely bolted.\"},{\"id\": 2, \"classification\": \"movable\", \"reason\": \"Pallets with boxes rest on concrete floor, supported by their own structure.\"},{\"id\": 3, \"classification\": \"movable\", \"reason\": \"White plastic bins are stacked vertically on top of each other.\"},{\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Concrete floor supports the pallets and shelving.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 854403830,
+        "load_duration": 625455,
+        "prompt_eval_count": 630,
+        "prompt_eval_cached_count": 136,
+        "prompt_eval_duration": 64700999,
+        "eval_count": 156,
+        "eval_duration": 690743000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:02:01Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:07:01.744666351Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Unexpected, wrong-type or duplicate ID: 'loco-s2-35144'",
+      "input_index": 106,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r3/gemma3-q4/t0.3-s44/frame-000106.json",
+      "original_record_sha256": "424e9f3b11d844f089970ac0dd45346afc8c9a152fe146977e6d384d0039fd05",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000106.json",
+      "frozen_input_sha256": "a01c31bf03b30f4303e02e366265467d115926ceceea61dfd59c7719537d4e86",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000106-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "7d8b93a429c55c473e742dbc510135610aa4f67f99835a3f5577e11fa585b137",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": "loco-s2-35144",
+            "classification": "fixed",
+            "reason": "Metal shelving is bolted to floor or wall, appears freestanding."
+          },
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Metal shelving frames dominate the foreground and midground, likely bolted."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets with boxes rest on concrete floor, supported by their own structure."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "White plastic bins are stacked vertically on top of each other."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Concrete floor supports the pallets and shelving."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000106-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s2-35144",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000106.json",
+      "caption_sha256": "a01c31bf03b30f4303e02e366265467d115926ceceea61dfd59c7719537d4e86",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.6717430240241811,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:07:34.137711843Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"fixed\", \"reason\": \"Freestanding shelving likely bolted to floor or wall.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Pallets and boxes can be moved and rearranged.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Plastic bins are containers that can be carried/repositioned.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Concrete floor is a permanent structural element.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 671178026,
+        "load_duration": 412399,
+        "prompt_eval_count": 696,
+        "prompt_eval_cached_count": 216,
+        "prompt_eval_duration": 66438999,
+        "eval_count": 112,
+        "eval_duration": 498752000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:07:34Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:12:34.13782721Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 106,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r1/gemma3-q4/t0.3-s42/frame-000106.json",
+      "original_record_sha256": "1162a51a6acc4e4b08f7daaa7ece35fd1d17c87644c96750a1404e33be7f5cff",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000106.json",
+      "frozen_input_sha256": "a01c31bf03b30f4303e02e366265467d115926ceceea61dfd59c7719537d4e86",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000106-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "7d8b93a429c55c473e742dbc510135610aa4f67f99835a3f5577e11fa585b137",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Freestanding shelving likely bolted to floor or wall."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets and boxes can be moved and rearranged."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins are containers that can be carried/repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Concrete floor is a permanent structural element."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Freestanding shelving likely bolted to floor or wall."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets and boxes can be moved and rearranged."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins are containers that can be carried/repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Concrete floor is a permanent structural element."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000106-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s2-35144",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000106.json",
+      "caption_sha256": "a01c31bf03b30f4303e02e366265467d115926ceceea61dfd59c7719537d4e86",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.7218428140040487,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:19:52.713115637Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"fixed\", \"reason\": \"Freestanding shelving likely bolted to floor or wall.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Pallets and boxes can be moved and rearranged.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Plastic bins are containers that can be carried/repositioned.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Concrete floor is a structural element of the building.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 721238871,
+        "load_duration": 478242,
+        "prompt_eval_count": 696,
+        "prompt_eval_cached_count": 142,
+        "prompt_eval_duration": 87165000,
+        "eval_count": 114,
+        "eval_duration": 532109000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:19:52Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:24:52.713240843Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 106,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r2/gemma3-q4/t0.3-s43/frame-000106.json",
+      "original_record_sha256": "052cc09e2117c99f8adbf8270d514b9d6984a76fb67a731a37188c12df1aae1e",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000106.json",
+      "frozen_input_sha256": "a01c31bf03b30f4303e02e366265467d115926ceceea61dfd59c7719537d4e86",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000106-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "7d8b93a429c55c473e742dbc510135610aa4f67f99835a3f5577e11fa585b137",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Freestanding shelving likely bolted to floor or wall."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets and boxes can be moved and rearranged."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins are containers that can be carried/repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Concrete floor is a structural element of the building."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Freestanding shelving likely bolted to floor or wall."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets and boxes can be moved and rearranged."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins are containers that can be carried/repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Concrete floor is a structural element of the building."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000106-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s2-35144",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000106.json",
+      "caption_sha256": "a01c31bf03b30f4303e02e366265467d115926ceceea61dfd59c7719537d4e86",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.6640089970314875,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:25:02.422854084Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"fixed\", \"reason\": \"Freestanding shelving bolted to floor or wall.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Pallets and boxes can be moved and rearranged.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Plastic bins are containers that can be carried.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Concrete floor provides a stable base for objects.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 663394896,
+        "load_duration": 452834,
+        "prompt_eval_count": 696,
+        "prompt_eval_cached_count": 213,
+        "prompt_eval_duration": 78794000,
+        "eval_count": 109,
+        "eval_duration": 483880000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:25:02Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:30:02.422955033Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 106,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r3/gemma3-q4/t0.3-s44/frame-000106.json",
+      "original_record_sha256": "8fec94362f07a8bbf102c0e0d62a6a83b5d13428db5bab802825f11e26e6c458",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000106.json",
+      "frozen_input_sha256": "a01c31bf03b30f4303e02e366265467d115926ceceea61dfd59c7719537d4e86",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000106-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "7d8b93a429c55c473e742dbc510135610aa4f67f99835a3f5577e11fa585b137",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Freestanding shelving bolted to floor or wall."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets and boxes can be moved and rearranged."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins are containers that can be carried."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Concrete floor provides a stable base for objects."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Freestanding shelving bolted to floor or wall."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets and boxes can be moved and rearranged."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins are containers that can be carried."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Concrete floor provides a stable base for objects."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000106-long.txt"
+        }
+      ]
+    }
+  }
+}

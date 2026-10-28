@@ -1,0 +1,936 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s2-35144",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000107.json",
+      "caption_sha256": "cef7f553436d16e2d214da8c8c38afdc4e7c879793ea9b0b93f1b264ded94037",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.4472335670143366,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:39:56.839479469Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Structural grid pattern implies permanent installation.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Pallets and boxes are standard warehouse movable items.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Plastic bins on a pallet are portable storage units.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 446597069,
+        "load_duration": 525024,
+        "prompt_eval_count": 557,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 70500000,
+        "eval_count": 70,
+        "eval_duration": 298804000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:39:56Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:44:56.839634261Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 107,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-q4/short/r1/qwen35-q4/t0.3-s42/frame-000107.json",
+      "original_record_sha256": "2ee8fbf278f3e21fdbc84ec5a1fd5210a8ac0954f661c55b4251ae0bf8b74864",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000107.json",
+      "frozen_input_sha256": "cef7f553436d16e2d214da8c8c38afdc4e7c879793ea9b0b93f1b264ded94037",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000107-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "2a8ce93b08f9104dc778912ebf65de30351957cd57a2e889b74f939b2ba81587",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural grid pattern implies permanent installation."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets and boxes are standard warehouse movable items."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins on a pallet are portable storage units."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural grid pattern implies permanent installation."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets and boxes are standard warehouse movable items."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins on a pallet are portable storage units."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000107-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s2-35144",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000107.json",
+      "caption_sha256": "cef7f553436d16e2d214da8c8c38afdc4e7c879793ea9b0b93f1b264ded94037",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.44139036000706255,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:42:50.529770399Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Structural grid pattern implies permanent installation.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Stacked pallets are standard warehouse movable items.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Plastic bins on a pallet can be easily repositioned.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 440197412,
+        "load_duration": 741912,
+        "prompt_eval_count": 557,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 70266000,
+        "eval_count": 71,
+        "eval_duration": 291578000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:42:50Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:47:50.529974321Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 107,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-q4/short/r2/qwen35-q4/t0.3-s43/frame-000107.json",
+      "original_record_sha256": "24ecb769ce583ac59f1d64f9f4ce8d1d1a0641bbd64b901d018d586a7e98d69b",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000107.json",
+      "frozen_input_sha256": "cef7f553436d16e2d214da8c8c38afdc4e7c879793ea9b0b93f1b264ded94037",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000107-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "2a8ce93b08f9104dc778912ebf65de30351957cd57a2e889b74f939b2ba81587",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural grid pattern implies permanent installation."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Stacked pallets are standard warehouse movable items."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins on a pallet can be easily repositioned."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural grid pattern implies permanent installation."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Stacked pallets are standard warehouse movable items."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins on a pallet can be easily repositioned."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000107-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s2-35144",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000107.json",
+      "caption_sha256": "cef7f553436d16e2d214da8c8c38afdc4e7c879793ea9b0b93f1b264ded94037",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.4170245830900967,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:45:39.733365712Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Structural grid pattern implies permanent installation.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Stacked items on floor can be easily relocated.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Standard storage containers designed for transport.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 416254979,
+        "load_duration": 479322,
+        "prompt_eval_count": 557,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 70426000,
+        "eval_count": 65,
+        "eval_duration": 272914000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:45:39Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:50:39.733475685Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 107,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-q4/short/r3/qwen35-q4/t0.3-s44/frame-000107.json",
+      "original_record_sha256": "4f111db0d137a00796206edd19660bb6867153ea9f2f1ab0a777a6264925c477",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000107.json",
+      "frozen_input_sha256": "cef7f553436d16e2d214da8c8c38afdc4e7c879793ea9b0b93f1b264ded94037",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000107-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "2a8ce93b08f9104dc778912ebf65de30351957cd57a2e889b74f939b2ba81587",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural grid pattern implies permanent installation."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Stacked items on floor can be easily relocated."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Standard storage containers designed for transport."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural grid pattern implies permanent installation."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Stacked items on floor can be easily relocated."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Standard storage containers designed for transport."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000107-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s2-35144",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000107.json",
+      "caption_sha256": "cef7f553436d16e2d214da8c8c38afdc4e7c879793ea9b0b93f1b264ded94037",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.4474788500228897,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:48:46.198592878Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Structural element requiring dismantling to move.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Objects can be carried or repositioned in normal use.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Storage containers can be moved easily by hand.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 446922362,
+        "load_duration": 599214,
+        "prompt_eval_count": 619,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 66772000,
+        "eval_count": 70,
+        "eval_duration": 300651000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:48:46Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:53:46.19869836Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 107,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-q4/long/r1/qwen35-q4/t0.3-s42/frame-000107.json",
+      "original_record_sha256": "a54f27d9db1d77e78ff40e979952bcf7596e840f151c6ee293f86ffa9c54e1b6",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000107.json",
+      "frozen_input_sha256": "cef7f553436d16e2d214da8c8c38afdc4e7c879793ea9b0b93f1b264ded94037",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000107-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "2a8ce93b08f9104dc778912ebf65de30351957cd57a2e889b74f939b2ba81587",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural element requiring dismantling to move."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Objects can be carried or repositioned in normal use."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Storage containers can be moved easily by hand."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural element requiring dismantling to move."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Objects can be carried or repositioned in normal use."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Storage containers can be moved easily by hand."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000107-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s2-35144",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000107.json",
+      "caption_sha256": "cef7f553436d16e2d214da8c8c38afdc4e7c879793ea9b0b93f1b264ded94037",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.4254035069607198,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:52:08.706068433Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Structural element requiring dismantling to move.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Stacked items easily carried or repositioned in normal use.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Containers can be lifted and moved by standard handling equipment.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 424798418,
+        "load_duration": 523848,
+        "prompt_eval_count": 619,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 45374000,
+        "eval_count": 73,
+        "eval_duration": 303124000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:52:08Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:57:08.706142489Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 107,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-q4/long/r2/qwen35-q4/t0.3-s43/frame-000107.json",
+      "original_record_sha256": "426e3bd8616ce6c422600d6f9f83b3e61ab8db0d67b3df2c62e385e0bc1bbeec",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000107.json",
+      "frozen_input_sha256": "cef7f553436d16e2d214da8c8c38afdc4e7c879793ea9b0b93f1b264ded94037",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000107-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "2a8ce93b08f9104dc778912ebf65de30351957cd57a2e889b74f939b2ba81587",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural element requiring dismantling to move."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Stacked items easily carried or repositioned in normal use."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Containers can be lifted and moved by standard handling equipment."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural element requiring dismantling to move."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Stacked items easily carried or repositioned in normal use."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Containers can be lifted and moved by standard handling equipment."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000107-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s2-35144",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000107.json",
+      "caption_sha256": "cef7f553436d16e2d214da8c8c38afdc4e7c879793ea9b0b93f1b264ded94037",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.43048818001989275,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:55:27.580961243Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Structural element requiring dismantling to move.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Pallets and boxes can be easily repositioned or carried.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Plastic bins are standard storage items that can be moved.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 429887373,
+        "load_duration": 562731,
+        "prompt_eval_count": 619,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 45606000,
+        "eval_count": 75,
+        "eval_duration": 309049000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:55:27Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T17:00:27.581022309Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 107,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-q4/long/r3/qwen35-q4/t0.3-s44/frame-000107.json",
+      "original_record_sha256": "eda9f70c172cd8ca93b33ab8b547dc95062be091287bf87c674fb5b8b9065ee8",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000107.json",
+      "frozen_input_sha256": "cef7f553436d16e2d214da8c8c38afdc4e7c879793ea9b0b93f1b264ded94037",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000107-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "2a8ce93b08f9104dc778912ebf65de30351957cd57a2e889b74f939b2ba81587",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural element requiring dismantling to move."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets and boxes can be easily repositioned or carried."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins are standard storage items that can be moved."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural element requiring dismantling to move."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Pallets and boxes can be easily repositioned or carried."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins are standard storage items that can be moved."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000107-long.txt"
+        }
+      ]
+    }
+  }
+}

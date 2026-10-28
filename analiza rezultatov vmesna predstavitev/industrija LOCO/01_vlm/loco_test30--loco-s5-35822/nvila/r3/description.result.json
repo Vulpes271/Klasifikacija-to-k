@@ -1,0 +1,69 @@
+{
+  "view": {
+    "scene_description": "{\"scene_description\":\"The image depicts a large warehouse or distribution center with high ceilings and metal shelving units. The floor is concrete, and there are several forklifts parked throughout the space. On the left side of the image, an orange forklift labeled \"REWE\" is visible, while on the right side, two more forklifts can be seen, one red and black and another red and gray. There are multiple pallets stacked on wooden pallets, including a large stack of black boxes in the center of the image. The shelves are filled with various items, some wrapped in plastic. The overall atmosphere suggests a busy storage area or distribution facility.\"}\n\n{\"objects\":[{\"id\":1,\"label\":\"orange forklift\",\"observation\":\"An orange forklift with a black seat and handlebars is parked on the left side of the image. It has a white label that reads 'REWE' on its front. The forklift appears to be stationary and is positioned near a stack of black boxes.\"},{\"id\":2,\"label\":\"red and black forklift\",\"observation\":\"A red and black forklift is parked on the right side of the image. It has a black seat and handlebars, and it's positioned near a stack of cardboard boxes. The forklift seems to be stationary and is facing towards the back of the warehouse.\"},{\"id\":3,\"label\":\"red and gray forklift\",\"observation\":\"Another forklift, this one red and gray, is parked further back on the right side of the image. It has a black seat and handlebars, and it's positioned near a stack of cardboard boxes. The forklift appears to be stationary and is facing towards the back of the warehouse.\"},{\"id\":4,\"label\":\"stack of black boxes\",\"observation\":\"In the center of the image, there is a large stack of black boxes arranged on wooden pallets. The boxes appear to be uniform in size and shape, and they are neatly stacked on top of each other.\"},{\"id\":5,\"label\":\"metal shelving units\",\"observation\":\"The background of the image features tall metal shelving units filled with various items. Some of these items are wrapped in plastic, while others are not. The shelves are organized and appear to be well-stocked.\"}]}",
+    "objects": [],
+    "object_list_available": false,
+    "parsed_json_documents": 0,
+    "unconsumed_characters": null,
+    "relations": null,
+    "extraction": "raw text only"
+  },
+  "prompts": {
+    "native_system_prompt": "You are a helpful assistant",
+    "native_user_prompt": "<image>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"loco-s5-35822\", \"image_size\": [1280, 720], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}",
+    "native_chat_prompt_text": "<|im_start|>system\nYou are a helpful assistant<|im_end|>\n<|im_start|>user\n<image>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"loco-s5-35822\", \"image_size\": [1280, 720], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}<|im_end|>\n<|im_start|>assistant\n",
+    "provenance": "runtime capture"
+  },
+  "metadata": {
+    "frame_id": "loco-s5-35822",
+    "model": "nvila",
+    "repeat": "r3",
+    "task": "description",
+    "source_path": "results/loco/vlm/nvila/r3/loco_test30/rich/frame-000027.json",
+    "source_sha256": "cc8015e97130adf79822a82d43107248ed5431140890053b7fd270eb0c94eb94",
+    "published_path": "loco_test30--loco-s5-35822/nvila/r3/description.raw.json",
+    "call_id": "6437079b62c142ceb28fe61feb40f17e",
+    "finished_at_utc": "2026-10-28T14:49:27Z",
+    "reused_existing_generation": false,
+    "model_id": "Efficient-Large-Model/NVILA-8B",
+    "model_revision": "049743cc51bdd8872cdf696a1a58b03fef2c367e",
+    "settings": {
+      "model": "Efficient-Large-Model/NVILA-8B",
+      "revision": "049743cc51bdd8872cdf696a1a58b03fef2c367e",
+      "vila_commit": "57ecbfb904b99b563db69ef7916f6390eecea516",
+      "system_prompt": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.",
+      "system_sha256": "2278511ff45960ee58f6628bc3925927e5a1d82d975774ae0dbe9efafe420fa8",
+      "precision_requested": "FP16",
+      "attention": "sdpa",
+      "seed": 44,
+      "do_sample": true,
+      "temperature": 0.3,
+      "repeat": "r3",
+      "description_schema": "legacy",
+      "max_new_tokens": 4096,
+      "model_max_length": 16384,
+      "num_beams": 1,
+      "top_p": 0.8,
+      "top_k": 20,
+      "repetition_penalty": 1.05,
+      "unsupported_comparison_options": [
+        "presence_penalty"
+      ],
+      "note": "Sampling only when temperature>0; no JSON grammar constraint.",
+      "warmup_per_load": false
+    },
+    "status": "error",
+    "syntax_valid": false,
+    "schema_valid": false,
+    "error": "Expecting ',' delimiter: line 1 column 270 (char 269)",
+    "elapsed_seconds": 7.623584724962711,
+    "output_tokens": 473,
+    "peak_allocated_bytes": 17716507136,
+    "peak_reserved_bytes": 20990394368,
+    "gpu_verified": true,
+    "quality_accuracy": null,
+    "quality_note": "No human reference assessment; format validity is not detection correctness."
+  },
+  "raw_response": "description.raw.json",
+  "note": "Literal extraction only; unavailable parse does not mean an empty scene. Full raw answer is in raw_response, including invalid JSON."
+}

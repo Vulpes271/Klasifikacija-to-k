@@ -1,0 +1,942 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s2-34451",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000059.json",
+      "caption_sha256": "1fe0e132cd9c462707ef3f2bff2b77410923589b1921591b7e620e80ef906bf2",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.187206313945353,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:23:30.066512275Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Metal shelving units are typically movable in warehouse settings.\"},{\"id\":2,\"classification\":\"fixed\",\"reason\":\"Concrete floor is a structural element requiring dismantling to relocate.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Worker status and intent cannot be reliably determined from visual data.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2186285472,
+        "load_duration": 899087,
+        "prompt_eval_count": 1072,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 160939000,
+        "eval_count": 75,
+        "eval_duration": 1910505000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:23:30Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:28:30.066665908Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 59,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r1/qwen35-bf16/t0.3-s42/frame-000059.json",
+      "original_record_sha256": "a3b2d7bb2b4869c2a0ac5d2c795f5bcfe16cd083cc2270233a849ce7ba981da6",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000059.json",
+      "frozen_input_sha256": "1fe0e132cd9c462707ef3f2bff2b77410923589b1921591b7e620e80ef906bf2",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000059-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "dc8a24625e30672cc1dcfc2177c4ac60d14ab25795e105a5cae4bf69491c3f0b",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Metal shelving units are typically movable in warehouse settings."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Concrete floor is a structural element requiring dismantling to relocate."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Worker status and intent cannot be reliably determined from visual data."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Metal shelving units are typically movable in warehouse settings."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Concrete floor is a structural element requiring dismantling to relocate."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Worker status and intent cannot be reliably determined from visual data."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000059-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s2-34451",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000059.json",
+      "caption_sha256": "1fe0e132cd9c462707ef3f2bff2b77410923589b1921591b7e620e80ef906bf2",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8057126150233671,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:37:28.189183173Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Shelving units are typically movable in warehouses unless bolted down.\"},{\"id\":2,\"classification\":\"fixed\",\"reason\":\"Concrete floor is a structural element requiring dismantling to relocate.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Worker status changes; not permanent or structurally fixed.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 805139869,
+        "load_duration": 909800,
+        "prompt_eval_count": 1072,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 105028000,
+        "eval_count": 77,
+        "eval_duration": 565477000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:37:28Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:42:28.18933156Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 59,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r2/qwen35-bf16/t0.3-s43/frame-000059.json",
+      "original_record_sha256": "32de968d6906271d488ed194577cdb3328d9478e2c84c05642ddea541e0b2ea5",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000059.json",
+      "frozen_input_sha256": "1fe0e132cd9c462707ef3f2bff2b77410923589b1921591b7e620e80ef906bf2",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000059-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "dc8a24625e30672cc1dcfc2177c4ac60d14ab25795e105a5cae4bf69491c3f0b",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelving units are typically movable in warehouses unless bolted down."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Concrete floor is a structural element requiring dismantling to relocate."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Worker status changes; not permanent or structurally fixed."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelving units are typically movable in warehouses unless bolted down."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Concrete floor is a structural element requiring dismantling to relocate."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Worker status changes; not permanent or structurally fixed."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000059-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s2-34451",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000059.json",
+      "caption_sha256": "1fe0e132cd9c462707ef3f2bff2b77410923589b1921591b7e620e80ef906bf2",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8294935950543731,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:44:19.753071058Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Shelving units are typically movable in warehouse settings.\",\"id_type\":\"integer\"},{\"id\":2,\"classification\":\"fixed\",\"reason\":\"Concrete floor is a permanent structural element.\",\"id_type\":\"integer\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Person classification uncertain; human mobility varies by context.\",\"id_type\":\"integer\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 828466874,
+        "load_duration": 527065,
+        "prompt_eval_count": 1072,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 103224000,
+        "eval_count": 81,
+        "eval_duration": 598590000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:44:19Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:49:19.753412593Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 59,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r3/qwen35-bf16/t0.3-s44/frame-000059.json",
+      "original_record_sha256": "62ec362f257ea802195d17749cdbd3a5ef82ced523dc3cf2e50d8d006cdba387",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000059.json",
+      "frozen_input_sha256": "1fe0e132cd9c462707ef3f2bff2b77410923589b1921591b7e620e80ef906bf2",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000059-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "dc8a24625e30672cc1dcfc2177c4ac60d14ab25795e105a5cae4bf69491c3f0b",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelving units are typically movable in warehouse settings.",
+            "id_type": "integer"
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Concrete floor is a permanent structural element.",
+            "id_type": "integer"
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Person classification uncertain; human mobility varies by context.",
+            "id_type": "integer"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelving units are typically movable in warehouse settings.",
+            "id_type": "integer"
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Concrete floor is a permanent structural element.",
+            "id_type": "integer"
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Person classification uncertain; human mobility varies by context.",
+            "id_type": "integer"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000059-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s2-34451",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000059.json",
+      "caption_sha256": "1fe0e132cd9c462707ef3f2bff2b77410923589b1921591b7e620e80ef906bf2",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.9601995679549873,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:51:23.951144118Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Shelving units can be repositioned or dismantled in warehouse operations.\"}, {\"id\": 2, \"classification\": \"fixed\", \"reason\": \"Concrete floor is a structural element permanently part of the building.\"}, {\"id\": 3, \"classification\": \"uncertain\", \"reason\": \"Worker position changes frequently and cannot be predicted for long-term maps.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 959583482,
+        "load_duration": 597217,
+        "prompt_eval_count": 1134,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 105365000,
+        "eval_count": 99,
+        "eval_duration": 728240000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:51:23Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:56:23.951251127Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 59,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r1/qwen35-bf16/t0.3-s42/frame-000059.json",
+      "original_record_sha256": "92fc1d7b9f46830f0efbea476f23b96456fcb73ce565754b30b8625ec5818448",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000059.json",
+      "frozen_input_sha256": "1fe0e132cd9c462707ef3f2bff2b77410923589b1921591b7e620e80ef906bf2",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000059-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "dc8a24625e30672cc1dcfc2177c4ac60d14ab25795e105a5cae4bf69491c3f0b",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelving units can be repositioned or dismantled in warehouse operations."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Concrete floor is a structural element permanently part of the building."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Worker position changes frequently and cannot be predicted for long-term maps."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelving units can be repositioned or dismantled in warehouse operations."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Concrete floor is a structural element permanently part of the building."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Worker position changes frequently and cannot be predicted for long-term maps."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000059-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s2-34451",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000059.json",
+      "caption_sha256": "1fe0e132cd9c462707ef3f2bff2b77410923589b1921591b7e620e80ef906bf2",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.0041998700471595,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:59:25.528915587Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Shelving units can be repositioned or dismantled in normal warehouse operations.\"}, {\"id\": 2, \"classification\": \"fixed\", \"reason\": \"Concrete floor is a structural building element permanently integrated into the site.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"A worker is a person who can move freely and is not part of the structure.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1003664474,
+        "load_duration": 646546,
+        "prompt_eval_count": 1134,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 106202000,
+        "eval_count": 105,
+        "eval_duration": 791009000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:59:25Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:04:25.529021183Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 59,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r2/qwen35-bf16/t0.3-s43/frame-000059.json",
+      "original_record_sha256": "3b14b8580c1900335c44b7be9f69f4e5c38dc8506c1fa6cb4546c9141e00efe3",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000059.json",
+      "frozen_input_sha256": "1fe0e132cd9c462707ef3f2bff2b77410923589b1921591b7e620e80ef906bf2",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000059-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "dc8a24625e30672cc1dcfc2177c4ac60d14ab25795e105a5cae4bf69491c3f0b",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelving units can be repositioned or dismantled in normal warehouse operations."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Concrete floor is a structural building element permanently integrated into the site."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "A worker is a person who can move freely and is not part of the structure."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelving units can be repositioned or dismantled in normal warehouse operations."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Concrete floor is a structural building element permanently integrated into the site."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "A worker is a person who can move freely and is not part of the structure."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000059-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s2-34451",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000059.json",
+      "caption_sha256": "1fe0e132cd9c462707ef3f2bff2b77410923589b1921591b7e620e80ef906bf2",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.9907483930001035,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T16:06:15.793494183Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Shelving units can be repositioned or dismantled in normal use.\"}, {\"id\": 2, \"classification\": \"fixed\", \"reason\": \"Concrete floor is a structural building element requiring demolition to move.\"}, {\"id\": 3, \"classification\": \"uncertain\", \"reason\": \"Worker position changes frequently and they are not permanently installed.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 989906076,
+        "load_duration": 622532,
+        "prompt_eval_count": 1134,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 100101000,
+        "eval_count": 97,
+        "eval_duration": 760717000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:06:15Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:11:15.793585769Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 59,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r3/qwen35-bf16/t0.3-s44/frame-000059.json",
+      "original_record_sha256": "0108bd6d1c8c4eb20c2b0ca2177fbd55b300da0defbe4879cd1412ba37c204f6",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000059.json",
+      "frozen_input_sha256": "1fe0e132cd9c462707ef3f2bff2b77410923589b1921591b7e620e80ef906bf2",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000059-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "dc8a24625e30672cc1dcfc2177c4ac60d14ab25795e105a5cae4bf69491c3f0b",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelving units can be repositioned or dismantled in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Concrete floor is a structural building element requiring demolition to move."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Worker position changes frequently and they are not permanently installed."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Shelving units can be repositioned or dismantled in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Concrete floor is a structural building element requiring demolition to move."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Worker position changes frequently and they are not permanently installed."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000059-long.txt"
+        }
+      ]
+    }
+  }
+}

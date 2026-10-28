@@ -1,0 +1,122 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s1-33089",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r2"
+  },
+  "vlm_repeat": "r2",
+  "image_sha256": "1e3691a7a02662b97eb83b31bb5b95d549dea3f4694c11ae26908ecf8d0e617c",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s1-33089/florence/r2/caption.raw.json",
+      "sha256": "94599fdfefa447c45d93c7fc7fdc592b0d5fde9e9284b18e08a1d912bd7f6008",
+      "original_call_id": "e142504c3b1d4edda798b3f7335a6e73",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s1-33089/florence/r2/od.raw.json",
+      "sha256": "fd0b2d67c40b0b36d7548d7f8c88b85720e94a53179823ac535217744490443d",
+      "original_call_id": "d787cc94c2d44e629f9c96c3f4a54ee7",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s1-33089/florence/r2/dense.raw.json",
+      "sha256": "748f4b378e31f30541acc20e2516436cd1644b2d96af935637eb8ea47a6cfa2f",
+      "original_call_id": "cbd2701014f040e69d4c9e18ccb78ab5",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows a long row of orange metal shelves in a warehouse. The shelves are filled with red plastic bins and boxes of various sizes and colors. The bins are arranged in a neat and orderly manner, and the boxes are neatly stacked on top of each other. The warehouse appears to be well-stocked with various items, and there are a few people visible in the background. The floor is made of concrete and there is a large window on the left side of the image, allowing natural light to enter the space.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "person",
+        "observation": "Florence task <OD> literally returned label/phrase 'person'; bbox_xyxy in original image pixels: [2.879999876022339, 275.94000244140625, 96.95999908447266, 442.260009765625]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      },
+      {
+        "id": 2,
+        "label": "shelf",
+        "observation": "Florence task <OD> literally returned label/phrase 'shelf'; bbox_xyxy in original image pixels: [534.719970703125, 0.5400000214576721, 1919.0399169921875, 1079.4600830078125]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 2,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      },
+      {
+        "id": 3,
+        "label": "shelving unit with red bins in warehouse",
+        "observation": "Florence task <DENSE_REGION_CAPTION> literally returned label/phrase 'shelving unit with red bins in warehouse'; bbox_xyxy in original image pixels: [530.8800048828125, 0.5400000214576721, 1919.0399169921875, 1079.4600830078125]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<DENSE_REGION_CAPTION>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows a long row of orange metal shelves in a warehouse. The shelves are filled with red plastic bins and boxes of various sizes and colors. The bins are arranged in a neat and orderly manner, and the boxes are neatly stacked on top of each other. The warehouse appears to be well-stocked with various items, and there are a few people visible in the background. The floor is made of concrete and there is a large window on the left side of the image, allowing natural light to enter the space.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows a long row of orange metal shelves in a warehouse. The shelves are filled with red plastic bins and boxes of various sizes and colors. The bins are arranged in a neat and orderly manner, and the boxes are neatly stacked on top of each other. The warehouse appears to be well-stocked with various items, and there are a few people visible in the background. The floor is made of concrete and there is a large window on the left side of the image, allowing natural light to enter the space."
+        }
+      },
+      "od": {
+        "content": "</s><s><s><s>person<loc_1><loc_255><loc_50><loc_409>shelf<loc_278><loc_0><loc_999><loc_999></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                2.879999876022339,
+                275.94000244140625,
+                96.95999908447266,
+                442.260009765625
+              ],
+              [
+                534.719970703125,
+                0.5400000214576721,
+                1919.0399169921875,
+                1079.4600830078125
+              ]
+            ],
+            "labels": [
+              "person",
+              "shelf"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s><s><s>shelving unit with red bins in warehouse<loc_276><loc_0><loc_999><loc_999></s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [
+              [
+                530.8800048828125,
+                0.5400000214576721,
+                1919.0399169921875,
+                1079.4600830078125
+              ]
+            ],
+            "labels": [
+              "shelving unit with red bins in warehouse"
+            ]
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "232717acdc2eb57d28e3fc8a39a3df22ea99b3cddbabd04fca0c30543000f8c7",
+  "status": "ok"
+}

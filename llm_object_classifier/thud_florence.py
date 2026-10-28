@@ -24,6 +24,8 @@ def main():
     parser.add_argument('--output-dir', type=Path)
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--repeat', default='original')
+    parser.add_argument('--max-new-calls', type=int, help='Maximum new images (three native tasks per image)')
+    parser.add_argument('--no-warmup', action='store_true')
     args = parser.parse_args()
     import torch
     from PIL import Image
@@ -39,14 +41,17 @@ def main():
               'unsupported_comparison_options': ['rich JSON prompt', '16384 context', '8192 output',
                                                   'top_k', 'top_p', 'presence_penalty']}
     if args.selection is None and args.repeat=='original': config.pop('repeat')
+    if args.no_warmup: config['warmup_per_load'] = False
     snapshot(destination, config, selected)
     pending = [f for f in selected[:args.limit] if any(not check_saved(saved_path(destination, f, t), f) for t in TASKS)]
+    if args.max_new_calls is not None: pending = pending[:args.max_new_calls]
     if not pending:
         progress('Florence: zahtevani odgovori že shranjeni; brez ponovitve inferenc.')
         return
     if not torch.cuda.is_available():
         raise RuntimeError('CUDA required')
-    torch.manual_seed(args.seed)
+    initialization_seed = 42 if args.selection is not None else args.seed
+    torch.manual_seed(initialization_seed)
     start = time.perf_counter()
     model = AutoModelForCausalLM.from_pretrained(str(model_path), trust_remote_code=True,
         torch_dtype=torch.float16, attn_implementation='eager', local_files_only=True).cuda().eval()
@@ -54,6 +59,7 @@ def main():
     torch.cuda.synchronize()
     write_json(destination / 'environments' / f'{time.time_ns()}.json',
                {**environment(torch, model), 'load_seconds': time.perf_counter()-start,
+                'initialization_seed': initialization_seed,
                 'generation_config': model.generation_config.to_dict()})
 
     def infer(frame, task):
@@ -87,12 +93,12 @@ def main():
 
     # Physical warmup for every task after this model load, even on resume.
     warmdir = destination / 'warmups' / str(time.time_ns())
-    for name, task in TASKS.items():
+    for name, task in ({} if args.no_warmup else TASKS).items():
         row = infer(pending[0], task)
         write_json(warmdir / (name + '.json'), {**row, 'excluded_from_quality': True})
         if 'content' not in row:
             raise RuntimeError('Florence GPU warmup failed: ' + row.get('error', ''))
-    progress('Florence: fizično ogrevanje treh nalog na GPU uspešno; začetek merjenih slik.')
+    progress('Florence: začetek merjenih slik; ' + ('brez dodatnih ogrevalnih generacij.' if args.no_warmup else 'fizično ogrevanje treh nalog opravljeno.'))
     for frame in pending:
         combined_tick = begin_measure(torch)
         performed = []
@@ -119,7 +125,7 @@ def main():
             if row['status'] == 'ok':
                 draw_boxes(frame['image_path'], row['parsed'], TASKS[name],
                     destination / 'overlays' / frame['dataset'] / name / f"frame-{frame['index']+1:06d}.jpg")
-        progress(f"Florence: {frame['dataset']} {frame['index']+1}/50, tri naloge shranjene.")
+        progress(f"Florence: {frame['dataset']} slika {frame['index']+1}, tri naloge shranjene.")
 
 
 if __name__ == '__main__':

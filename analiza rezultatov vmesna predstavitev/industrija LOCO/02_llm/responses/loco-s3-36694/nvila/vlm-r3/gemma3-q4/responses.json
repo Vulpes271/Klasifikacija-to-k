@@ -1,0 +1,814 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s3-36694",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000114.json",
+      "caption_sha256": "d42d6075fd4bf517456827d229647042aecac6469d7723752da7df81426f1649",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.3063494049711153,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T18:52:24.654238495Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": 1, \"classification\":\"movable\", \"reason\":\"Man is standing next to a car, which can be moved.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 305759091,
+        "load_duration": 781686,
+        "prompt_eval_count": 741,
+        "prompt_eval_cached_count": 143,
+        "prompt_eval_duration": 79186000,
+        "eval_count": 32,
+        "eval_duration": 135738000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T18:52:24Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T18:57:24.654394224Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 114,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r1/gemma3-q4/t0.3-s42/frame-000114.json",
+      "original_record_sha256": "69db0565c1bade0d48611c0a619ce4eb7123a70dd1a23d0fbb6f7b7e057ef59a",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000114.json",
+      "frozen_input_sha256": "d42d6075fd4bf517456827d229647042aecac6469d7723752da7df81426f1649",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000114-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "d8c8680626b42bc1ab3beb26437aae06865cd49af2af7425051007344a487a8a",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Man is standing next to a car, which can be moved."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Man is standing next to a car, which can be moved."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000114-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s3-36694",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000114.json",
+      "caption_sha256": "d42d6075fd4bf517456827d229647042aecac6469d7723752da7df81426f1649",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.3250430530169979,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T18:57:17.726615138Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": \"loco-s3-36694\", \"classification\":\"uncertain\", \"reason\":\"No robot object identified; human observation provided.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 324342777,
+        "load_duration": 529350,
+        "prompt_eval_count": 741,
+        "prompt_eval_cached_count": 143,
+        "prompt_eval_duration": 80999000,
+        "eval_count": 37,
+        "eval_duration": 157560000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T18:57:17Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:02:17.726723759Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Unexpected, wrong-type or duplicate ID: 'loco-s3-36694'",
+      "input_index": 114,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r2/gemma3-q4/t0.3-s43/frame-000114.json",
+      "original_record_sha256": "541e52d357dc1f98b396b06c583968caae72b10969ac39a7ca46c2e1201f1542",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000114.json",
+      "frozen_input_sha256": "d42d6075fd4bf517456827d229647042aecac6469d7723752da7df81426f1649",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000114-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "d8c8680626b42bc1ab3beb26437aae06865cd49af2af7425051007344a487a8a",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": "loco-s3-36694",
+            "classification": "uncertain",
+            "reason": "No robot object identified; human observation provided."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000114-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s3-36694",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000114.json",
+      "caption_sha256": "d42d6075fd4bf517456827d229647042aecac6469d7723752da7df81426f1649",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.32455565698910505,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:02:10.148694576Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": 1, \"classification\":\"movable\", \"reason\":\"Man is standing next to a car, which can be carried or repositioned.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 323788916,
+        "load_duration": 897759,
+        "prompt_eval_count": 741,
+        "prompt_eval_cached_count": 132,
+        "prompt_eval_duration": 87092000,
+        "eval_count": 35,
+        "eval_duration": 147414000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:02:10Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:07:10.148823689Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 114,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r3/gemma3-q4/t0.3-s44/frame-000114.json",
+      "original_record_sha256": "1b6096cc85f7e79746eba3bd187d87743ac9fd2fdc65fbc675a68188876298da",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000114.json",
+      "frozen_input_sha256": "d42d6075fd4bf517456827d229647042aecac6469d7723752da7df81426f1649",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000114-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "d8c8680626b42bc1ab3beb26437aae06865cd49af2af7425051007344a487a8a",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Man is standing next to a car, which can be carried or repositioned."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Man is standing next to a car, which can be carried or repositioned."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000114-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s3-36694",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000114.json",
+      "caption_sha256": "d42d6075fd4bf517456827d229647042aecac6469d7723752da7df81426f1649",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.31767765805125237,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:07:47.282688014Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Man can move and reposition himself in the scene.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 316891296,
+        "load_duration": 665967,
+        "prompt_eval_count": 807,
+        "prompt_eval_cached_count": 212,
+        "prompt_eval_duration": 88219000,
+        "eval_count": 32,
+        "eval_duration": 129076000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:07:47Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:12:47.282813064Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 114,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r1/gemma3-q4/t0.3-s42/frame-000114.json",
+      "original_record_sha256": "5633ad427ff5428272c107fb9599507a979c19db32ef72a276dee24c9868a0ef",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000114.json",
+      "frozen_input_sha256": "d42d6075fd4bf517456827d229647042aecac6469d7723752da7df81426f1649",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000114-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "d8c8680626b42bc1ab3beb26437aae06865cd49af2af7425051007344a487a8a",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Man can move and reposition himself in the scene."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Man can move and reposition himself in the scene."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000114-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s3-36694",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000114.json",
+      "caption_sha256": "d42d6075fd4bf517456827d229647042aecac6469d7723752da7df81426f1649",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.3580792300635949,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:20:14.214476031Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Man is actively loading/unloading items from the car.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 357364992,
+        "load_duration": 1041975,
+        "prompt_eval_count": 807,
+        "prompt_eval_cached_count": 138,
+        "prompt_eval_duration": 98409000,
+        "eval_count": 34,
+        "eval_duration": 147249000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:20:14Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:25:14.214624261Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 114,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r2/gemma3-q4/t0.3-s43/frame-000114.json",
+      "original_record_sha256": "b14a8936f6d119ca40a9b1c58710e34066d48e2b0625420879a249288578d680",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000114.json",
+      "frozen_input_sha256": "d42d6075fd4bf517456827d229647042aecac6469d7723752da7df81426f1649",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000114-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "d8c8680626b42bc1ab3beb26437aae06865cd49af2af7425051007344a487a8a",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Man is actively loading/unloading items from the car."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Man is actively loading/unloading items from the car."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000114-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s3-36694",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000114.json",
+      "caption_sha256": "d42d6075fd4bf517456827d229647042aecac6469d7723752da7df81426f1649",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.32976095704361796,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:25:16.406230674Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Man is actively loading/unloading items from the car.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 328835498,
+        "load_duration": 636914,
+        "prompt_eval_count": 807,
+        "prompt_eval_cached_count": 209,
+        "prompt_eval_duration": 83680000,
+        "eval_count": 34,
+        "eval_duration": 147322000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:25:16Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:30:16.406470514Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 114,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r3/gemma3-q4/t0.3-s44/frame-000114.json",
+      "original_record_sha256": "c54b93d8ef4bc4ffc96dbcfa8f3f0bb1d3748f9b9564a11f8b1b2bf7853399f6",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000114.json",
+      "frozen_input_sha256": "d42d6075fd4bf517456827d229647042aecac6469d7723752da7df81426f1649",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000114-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "d8c8680626b42bc1ab3beb26437aae06865cd49af2af7425051007344a487a8a",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Man is actively loading/unloading items from the car."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Man is actively loading/unloading items from the car."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000114-long.txt"
+        }
+      ]
+    }
+  }
+}

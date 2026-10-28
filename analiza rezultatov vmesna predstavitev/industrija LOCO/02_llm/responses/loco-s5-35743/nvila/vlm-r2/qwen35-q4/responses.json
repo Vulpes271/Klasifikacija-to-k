@@ -1,0 +1,816 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s5-35743",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000248.json",
+      "caption_sha256": "9464cb5ff235579de8fa867161c120ff1e1bfe2242a35d69f1fec2a219df5b73",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.2690181740326807,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:41:28.704569074Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"uncertain\",\"reason\":\"Label describes scene, not specific movable or fixed object\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 268275739,
+        "load_duration": 531833,
+        "prompt_eval_count": 976,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 85019000,
+        "eval_count": 27,
+        "eval_duration": 106427000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:41:28Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:46:28.704659758Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 248,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-q4/short/r1/qwen35-q4/t0.3-s42/frame-000248.json",
+      "original_record_sha256": "6ba3f8cbc05d705e4ca8069c2055642dfa26b844ee0881f9367ef1e03a5278ec",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000248.json",
+      "frozen_input_sha256": "9464cb5ff235579de8fa867161c120ff1e1bfe2242a35d69f1fec2a219df5b73",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000248-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "4e586cc74a07bb55ae9bcb65da4ca4d98598be42995fa0a434be9a9a70f9623e",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label describes scene, not specific movable or fixed object"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label describes scene, not specific movable or fixed object"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000248-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s5-35743",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000248.json",
+      "caption_sha256": "9464cb5ff235579de8fa867161c120ff1e1bfe2242a35d69f1fec2a219df5b73",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.26991121703758836,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:44:18.823632261Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"uncertain\",\"reason\":\"Label describes scene, not specific movable or fixed object\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 269199563,
+        "load_duration": 1712851,
+        "prompt_eval_count": 976,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 83158000,
+        "eval_count": 27,
+        "eval_duration": 109355000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:44:18Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:49:18.823722332Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 248,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-q4/short/r2/qwen35-q4/t0.3-s43/frame-000248.json",
+      "original_record_sha256": "77558b6bac4b031b38a9d154a551fb6821e87754626e77bdf866e301d5066ff3",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000248.json",
+      "frozen_input_sha256": "9464cb5ff235579de8fa867161c120ff1e1bfe2242a35d69f1fec2a219df5b73",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000248-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "4e586cc74a07bb55ae9bcb65da4ca4d98598be42995fa0a434be9a9a70f9623e",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label describes scene, not specific movable or fixed object"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label describes scene, not specific movable or fixed object"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000248-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s5-35743",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000248.json",
+      "caption_sha256": "9464cb5ff235579de8fa867161c120ff1e1bfe2242a35d69f1fec2a219df5b73",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.27154081291519105,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:47:09.023516931Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"uncertain\",\"reason\":\"Label describes scene, not specific movable/fixed object\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 270347586,
+        "load_duration": 739625,
+        "prompt_eval_count": 976,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 83098000,
+        "eval_count": 27,
+        "eval_duration": 104799000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:47:09Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:52:09.023767547Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 248,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-q4/short/r3/qwen35-q4/t0.3-s44/frame-000248.json",
+      "original_record_sha256": "53e1b3319799a42bd6ec7bab110ac8a1cfb436c05f19e7a1628c5f7b1df0fd38",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000248.json",
+      "frozen_input_sha256": "9464cb5ff235579de8fa867161c120ff1e1bfe2242a35d69f1fec2a219df5b73",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000248-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "4e586cc74a07bb55ae9bcb65da4ca4d98598be42995fa0a434be9a9a70f9623e",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label describes scene, not specific movable/fixed object"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label describes scene, not specific movable/fixed object"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000248-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s5-35743",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000248.json",
+      "caption_sha256": "9464cb5ff235579de8fa867161c120ff1e1bfe2242a35d69f1fec2a219df5b73",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.292844302020967,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:50:32.908966168Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"uncertain\", \"reason\": \"Label describes space, not a specific movable or fixed object.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 292088955,
+        "load_duration": 964312,
+        "prompt_eval_count": 1038,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 63856000,
+        "eval_count": 35,
+        "eval_duration": 139840000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:50:32Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:55:32.909078994Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 248,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-q4/long/r1/qwen35-q4/t0.3-s42/frame-000248.json",
+      "original_record_sha256": "4eb0a4a23f305cde0e63cbf1891ead84c4b5179ee2f74ff97c13ada793ffe437",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000248.json",
+      "frozen_input_sha256": "9464cb5ff235579de8fa867161c120ff1e1bfe2242a35d69f1fec2a219df5b73",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000248-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "4e586cc74a07bb55ae9bcb65da4ca4d98598be42995fa0a434be9a9a70f9623e",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label describes space, not a specific movable or fixed object."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label describes space, not a specific movable or fixed object."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000248-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s5-35743",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000248.json",
+      "caption_sha256": "9464cb5ff235579de8fa867161c120ff1e1bfe2242a35d69f1fec2a219df5b73",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.2696953220292926,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:53:53.375205187Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"fixed\", \"reason\": \"Structural building element of the warehouse interior.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 268874560,
+        "load_duration": 1044527,
+        "prompt_eval_count": 1038,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 64462999,
+        "eval_count": 31,
+        "eval_duration": 122461000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:53:53Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:58:53.375282241Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 248,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-q4/long/r2/qwen35-q4/t0.3-s43/frame-000248.json",
+      "original_record_sha256": "047186e1c0df1ad74f664f7b75a3ec4f68199572445005dbf52e6b6d2c424ff8",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000248.json",
+      "frozen_input_sha256": "9464cb5ff235579de8fa867161c120ff1e1bfe2242a35d69f1fec2a219df5b73",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000248-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "4e586cc74a07bb55ae9bcb65da4ca4d98598be42995fa0a434be9a9a70f9623e",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural building element of the warehouse interior."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural building element of the warehouse interior."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000248-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s5-35743",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000248.json",
+      "caption_sha256": "9464cb5ff235579de8fa867161c120ff1e1bfe2242a35d69f1fec2a219df5b73",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.2959615580039099,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:57:12.65371606Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"uncertain\", \"reason\": \"Label refers to the whole room, not a specific movable or fixed object.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 295315900,
+        "load_duration": 653254,
+        "prompt_eval_count": 1038,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 65290000,
+        "eval_count": 38,
+        "eval_duration": 150952000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:57:12Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T17:02:12.653864833Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 248,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-q4/long/r3/qwen35-q4/t0.3-s44/frame-000248.json",
+      "original_record_sha256": "4d07951590a8dfe4311518c2bf87486de7c6a5bbe8133041645caa5dc7804413",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000248.json",
+      "frozen_input_sha256": "9464cb5ff235579de8fa867161c120ff1e1bfe2242a35d69f1fec2a219df5b73",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000248-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "4e586cc74a07bb55ae9bcb65da4ca4d98598be42995fa0a434be9a9a70f9623e",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label refers to the whole room, not a specific movable or fixed object."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "uncertain",
+            "reason": "Label refers to the whole room, not a specific movable or fixed object."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000248-long.txt"
+        }
+      ]
+    }
+  }
+}

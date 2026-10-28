@@ -5,6 +5,7 @@ All model parameters must reside on CUDA. Sampling is reset per image, so resume
 does not change the seed. A failed record is retained, never silently retried.
 """
 import copy
+import argparse
 from pathlib import Path
 import time
 import traceback
@@ -36,24 +37,36 @@ def configuration(repeat, instruction):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--selection', type=Path, default=ROOT / 'results/ponovitve/frames.json')
+    parser.add_argument('--output-dir', type=Path, default=OUT)
+    parser.add_argument('--model-path', type=Path, default=OUT / 'models/qwen3-vl')
+    parser.add_argument('--instruction-file', type=Path, default=ROOT / 'configs/ponovitve/nvila-description-v2.txt')
+    parser.add_argument('--max-new-calls', type=int)
+    parser.add_argument('--no-warmup', action='store_true')
+    args = parser.parse_args()
     import torch
     from PIL import Image
     from transformers import AutoProcessor, Qwen3VLForConditionalGeneration
-    selected = native_selection(ROOT / 'results/ponovitve/frames.json')
-    instruction = (ROOT / 'configs/ponovitve/nvila-description-v2.txt').read_text().strip()
+    selected = native_selection(args.selection)
+    instruction = args.instruction_file.read_text().strip()
+    output = args.output_dir
     configs = {r: configuration(r, instruction) for r in SEEDS}
+    if args.no_warmup:
+        for config in configs.values(): config['warmup_per_load'] = False
     for repeat, config in configs.items():
-        snapshot(OUT / 'qwen3-vl' / repeat, config, selected)
+        snapshot(output / 'qwen3-vl' / repeat, config, selected)
     pending = [(r, f) for r in SEEDS for f in selected
-               if not check_saved(saved_path(OUT / 'qwen3-vl' / r, f, 'description'), f)]
+               if not check_saved(saved_path(output / 'qwen3-vl' / r, f, 'description'), f)]
+    if args.max_new_calls is not None: pending = pending[:args.max_new_calls]
     if not pending:
-        progress('Qwen3-VL: vseh 60 odgovorov že shranjenih; brez novih generacij.')
+        progress(f'Qwen3-VL: vseh {len(selected)*len(SEEDS)} odgovorov že shranjenih; brez novih generacij.')
         return
     if not torch.cuda.is_available():
         raise RuntimeError('CUDA required; CPU fallback forbidden')
     torch.manual_seed(42)
     tick = time.perf_counter()
-    weights = OUT / 'models/qwen3-vl'
+    weights = args.model_path
     processor = AutoProcessor.from_pretrained(weights, local_files_only=True)
     model = Qwen3VLForConditionalGeneration.from_pretrained(
         weights, torch_dtype=torch.bfloat16, device_map='cuda:0',
@@ -63,7 +76,8 @@ def main():
            'revision': REVISION, 'config': model.config.to_dict(),
            'processor': processor.to_dict() if hasattr(processor, 'to_dict') else str(processor),
            'generation_defaults': model.generation_config.to_dict()}
-    write_json(OUT / 'environment.json', env)
+    write_json(output / 'environments' / (str(time.time_ns()) + '.json'), env)
+    if output == OUT: write_json(OUT / 'environment.json', env)
 
     def infer(repeat, frame):
         config = configs[repeat]
@@ -118,16 +132,17 @@ def main():
         record['finished_at_utc'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
         return record
 
-    repeat, frame = pending[0]
-    warmup = infer(repeat, frame)
-    write_json(OUT / 'warmups' / (str(time.time_ns()) + '.json'),
-               {**warmup, 'excluded_from_quality': True})
-    if 'content' not in warmup:
-        raise RuntimeError('Qwen3-VL GPU warmup failed: ' + warmup.get('error', ''))
-    progress('Qwen3-VL: prva slika na GPU uspešna; ogrevanje izključeno iz primerjave.')
+    if not args.no_warmup:
+        repeat, frame = pending[0]
+        warmup = infer(repeat, frame)
+        write_json(output / 'warmups' / (str(time.time_ns()) + '.json'),
+                   {**warmup, 'excluded_from_quality': True})
+        if 'content' not in warmup:
+            raise RuntimeError('Qwen3-VL GPU warmup failed: ' + warmup.get('error', ''))
+        progress('Qwen3-VL: prva slika na GPU uspešna; ogrevanje izključeno iz primerjave.')
     for position, (repeat, frame) in enumerate(pending, 1):
         record = infer(repeat, frame)
-        write_json(saved_path(OUT / 'qwen3-vl' / repeat, frame, 'description'), record)
+        write_json(saved_path(output / 'qwen3-vl' / repeat, frame, 'description'), record)
         progress(f"Qwen3-VL {repeat} {frame['frame_id']}: {record['status']}, {record['elapsed_seconds']:.2f} s ({position}/{len(pending)}).")
         if position <= 2 and 'content' not in record:
             raise RuntimeError('Initial GPU pilot failed; see retained raw error')

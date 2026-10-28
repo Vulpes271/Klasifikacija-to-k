@@ -1,0 +1,816 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s4-32850",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000185.json",
+      "caption_sha256": "743c695a3a45c43bb6fac35317168e7790de3e93cfdecc3f2f82ac10dc2ddcdc",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.31641927803866565,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:40:54.354278766Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Boxes and pallets can be easily repositioned by forklift\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 315891530,
+        "load_duration": 591961,
+        "prompt_eval_count": 822,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 81036000,
+        "eval_count": 31,
+        "eval_duration": 124396000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:40:54Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:45:54.354379993Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 185,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-q4/short/r1/qwen35-q4/t0.3-s42/frame-000185.json",
+      "original_record_sha256": "502d418c81237350a626335d1730ec96862f6535a1584c181c34c6bc7d739c52",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000185.json",
+      "frozen_input_sha256": "743c695a3a45c43bb6fac35317168e7790de3e93cfdecc3f2f82ac10dc2ddcdc",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000185-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "3cb58c3a735e13bace39032f4140a822ab4942bf151b7b9bc75f155f8b430b5d",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Boxes and pallets can be easily repositioned by forklift"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Boxes and pallets can be easily repositioned by forklift"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000185-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s4-32850",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000185.json",
+      "caption_sha256": "743c695a3a45c43bb6fac35317168e7790de3e93cfdecc3f2f82ac10dc2ddcdc",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.3062733099795878,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:43:44.611137359Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Stacks of boxes on pallets can be moved by forklift\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 305749345,
+        "load_duration": 563468,
+        "prompt_eval_count": 822,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 76526000,
+        "eval_count": 31,
+        "eval_duration": 124978000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:43:44Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:48:44.611257753Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 185,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-q4/short/r2/qwen35-q4/t0.3-s43/frame-000185.json",
+      "original_record_sha256": "cfcbd79b487593193d7de9b1765d9163b0b905bdc1119edd7acb04774b8dea9b",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000185.json",
+      "frozen_input_sha256": "743c695a3a45c43bb6fac35317168e7790de3e93cfdecc3f2f82ac10dc2ddcdc",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000185-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "3cb58c3a735e13bace39032f4140a822ab4942bf151b7b9bc75f155f8b430b5d",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Stacks of boxes on pallets can be moved by forklift"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Stacks of boxes on pallets can be moved by forklift"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000185-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s4-32850",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000185.json",
+      "caption_sha256": "743c695a3a45c43bb6fac35317168e7790de3e93cfdecc3f2f82ac10dc2ddcdc",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.3186937440186739,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:46:34.678533568Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Stacks of boxes on pallets can be repositioned by forklift\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 318158793,
+        "load_duration": 1002215,
+        "prompt_eval_count": 822,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 76817000,
+        "eval_count": 33,
+        "eval_duration": 133630000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:46:34Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:51:34.678649176Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 185,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-q4/short/r3/qwen35-q4/t0.3-s44/frame-000185.json",
+      "original_record_sha256": "aa8cf533cfdb5b5e271dd84bdb00adecc58b963584b9f062ca0ddf372cbf4b16",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000185.json",
+      "frozen_input_sha256": "743c695a3a45c43bb6fac35317168e7790de3e93cfdecc3f2f82ac10dc2ddcdc",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000185-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "3cb58c3a735e13bace39032f4140a822ab4942bf151b7b9bc75f155f8b430b5d",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Stacks of boxes on pallets can be repositioned by forklift"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Stacks of boxes on pallets can be repositioned by forklift"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000185-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s4-32850",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000185.json",
+      "caption_sha256": "743c695a3a45c43bb6fac35317168e7790de3e93cfdecc3f2f82ac10dc2ddcdc",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.32018309202976525,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:49:54.578830484Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Boxes and pallets can be easily repositioned by forklift.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 319413780,
+        "load_duration": 1125715,
+        "prompt_eval_count": 884,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 58169000,
+        "eval_count": 38,
+        "eval_duration": 152369000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:49:54Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:54:54.578997111Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 185,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-q4/long/r1/qwen35-q4/t0.3-s42/frame-000185.json",
+      "original_record_sha256": "e4fbe8541cac1ccc17233ea8c7095aa1714384e917214ba6c6721d14f983374a",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000185.json",
+      "frozen_input_sha256": "743c695a3a45c43bb6fac35317168e7790de3e93cfdecc3f2f82ac10dc2ddcdc",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000185-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "3cb58c3a735e13bace39032f4140a822ab4942bf151b7b9bc75f155f8b430b5d",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Boxes and pallets can be easily repositioned by forklift."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Boxes and pallets can be easily repositioned by forklift."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000185-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s4-32850",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000185.json",
+      "caption_sha256": "743c695a3a45c43bb6fac35317168e7790de3e93cfdecc3f2f82ac10dc2ddcdc",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.3189739770023152,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:53:14.016922275Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Boxes and pallets can be easily moved or repositioned in normal use.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 317867757,
+        "load_duration": 423999,
+        "prompt_eval_count": 884,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 57960000,
+        "eval_count": 39,
+        "eval_duration": 152495000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:53:14Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T16:58:14.017163494Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 185,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-q4/long/r2/qwen35-q4/t0.3-s43/frame-000185.json",
+      "original_record_sha256": "13d0794f067e6a4ef96d25759a1ed03752a38562f99533313e797a7bcf878bd8",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000185.json",
+      "frozen_input_sha256": "743c695a3a45c43bb6fac35317168e7790de3e93cfdecc3f2f82ac10dc2ddcdc",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000185-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "3cb58c3a735e13bace39032f4140a822ab4942bf151b7b9bc75f155f8b430b5d",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Boxes and pallets can be easily moved or repositioned in normal use."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Boxes and pallets can be easily moved or repositioned in normal use."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000185-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s4-32850",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000185.json",
+      "caption_sha256": "743c695a3a45c43bb6fac35317168e7790de3e93cfdecc3f2f82ac10dc2ddcdc",
+      "model": "qwen3.5:4b-q4_K_M",
+      "model_name": "qwen35-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.31282823102083057,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "created_at": "2026-10-28T16:56:33.725903837Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Boxes on pallets can be easily moved or repositioned.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 311423459,
+        "load_duration": 570589,
+        "prompt_eval_count": 884,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 58341000,
+        "eval_count": 36,
+        "eval_duration": 146634000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:56:33Z",
+      "gpu": {
+        "name": "qwen3.5:4b-q4_K_M",
+        "model": "qwen3.5:4b-q4_K_M",
+        "size": 3650124512,
+        "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.2B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T17:01:33.726161654Z",
+        "size_vram": 3650124512,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 185,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-q4/long/r3/qwen35-q4/t0.3-s44/frame-000185.json",
+      "original_record_sha256": "d8080e87adfc80b5021207be84811fa483af83d2950e02793fdf0f3e81c88acc",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000185.json",
+      "frozen_input_sha256": "743c695a3a45c43bb6fac35317168e7790de3e93cfdecc3f2f82ac10dc2ddcdc",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000185-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "3cb58c3a735e13bace39032f4140a822ab4942bf151b7b9bc75f155f8b430b5d",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Boxes on pallets can be easily moved or repositioned."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Boxes on pallets can be easily moved or repositioned."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000185-long.txt"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,973 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s3-36412",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "caption_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8835293060401455,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:27:55.869075666Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Vehicles are typically movable unless permanently mounted.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Barriers can be pushed or repositioned in normal use.\"},{\"id\":3,\"classification\":\"fixed\",\"reason\":\"Metal racks are structural elements requiring dismantling to relocate.\"},{\"id\":4,\"classification\":\"fixed\",\"response\":\"Garage doors are integral to the building structure.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 883033723,
+        "load_duration": 656149,
+        "prompt_eval_count": 1300,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 112208000,
+        "eval_count": 94,
+        "eval_duration": 694337000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:27:55Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:32:55.869156714Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Object 4 has missing reason.",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r1/qwen35-bf16/t0.3-s42/frame-000123.json",
+      "original_record_sha256": "b29f73cb367ff15b6c5224bee289684b6fe0afc63c3a9e3f871fc6a7442af668",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "frozen_input_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "4e380f579e34376d21bf0b9f28540d69fd8609c66d020a195323423b067d7f12",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Vehicles are typically movable unless permanently mounted."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Barriers can be pushed or repositioned in normal use."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Metal racks are structural elements requiring dismantling to relocate."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "response": "Garage doors are integral to the building structure."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s3-36412",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "caption_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8528058499796316,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:39:26.635978362Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Vehicle parked in warehouse can be driven away\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Barrier blocks area but can be pushed or repositioned\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Racks appear fixed but could be dismantled for relocation\"},{\"id\":4,\"classification\":\"fixed\",\"reason\":\"Garage door is integral to the building structure\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 851973024,
+        "load_duration": 616491,
+        "prompt_eval_count": 1300,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 109222000,
+        "eval_count": 91,
+        "eval_duration": 663950000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:39:26Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:44:26.636108483Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r2/qwen35-bf16/t0.3-s43/frame-000123.json",
+      "original_record_sha256": "b895e3d653d249d76519a3ae866607606de9793edc613603bc9b19ebeaa1561b",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "frozen_input_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "4e380f579e34376d21bf0b9f28540d69fd8609c66d020a195323423b067d7f12",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Vehicle parked in warehouse can be driven away"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Barrier blocks area but can be pushed or repositioned"
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Racks appear fixed but could be dismantled for relocation"
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Garage door is integral to the building structure"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Vehicle parked in warehouse can be driven away"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Barrier blocks area but can be pushed or repositioned"
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Racks appear fixed but could be dismantled for relocation"
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Garage door is integral to the building structure"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s3-36412",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "caption_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8978369029937312,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:46:34.716636772Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Vehicle parked in warehouse can be driven away.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Barrier blocks area but can be moved or removed.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Racks are sturdy but movable racks often exist in warehouses.\"},{\"id\":4,\"classification\":\"fixed\",\"reason\":\"Garage door is a structural element of the building.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 897075266,
+        "load_duration": 798490,
+        "prompt_eval_count": 1300,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 111977000,
+        "eval_count": 94,
+        "eval_duration": 707368000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:46:34Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:51:34.716758103Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r3/qwen35-bf16/t0.3-s44/frame-000123.json",
+      "original_record_sha256": "a0b97a43d91e76892a47bddb9ca91556f0e802b2e35f07ef360c4c7bc977aaf0",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "frozen_input_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "4e380f579e34376d21bf0b9f28540d69fd8609c66d020a195323423b067d7f12",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Vehicle parked in warehouse can be driven away."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Barrier blocks area but can be moved or removed."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Racks are sturdy but movable racks often exist in warehouses."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Garage door is a structural element of the building."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Vehicle parked in warehouse can be driven away."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Barrier blocks area but can be moved or removed."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Racks are sturdy but movable racks often exist in warehouses."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Garage door is a structural element of the building."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s3-36412",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "caption_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.3802580420160666,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:54:19.270654719Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Vehicles are designed to be driven or towed to new locations.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Barriers can be easily pushed or repositioned by humans.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Storage racks are typically movable units for warehouse logistics.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Garage doors are structural elements integrated into the building wall.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1379633466,
+        "load_duration": 691715,
+        "prompt_eval_count": 1362,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 116890000,
+        "eval_count": 125,
+        "eval_duration": 1178368000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:54:19Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:59:19.270767122Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r1/qwen35-bf16/t0.3-s42/frame-000123.json",
+      "original_record_sha256": "3bd1796b375479c637ddb51e88bc5c7523f1f2d1088aea2edeb9dd2983cb4936",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "frozen_input_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "4e380f579e34376d21bf0b9f28540d69fd8609c66d020a195323423b067d7f12",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Vehicles are designed to be driven or towed to new locations."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Barriers can be easily pushed or repositioned by humans."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Storage racks are typically movable units for warehouse logistics."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Garage doors are structural elements integrated into the building wall."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Vehicles are designed to be driven or towed to new locations."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Barriers can be easily pushed or repositioned by humans."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Storage racks are typically movable units for warehouse logistics."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Garage doors are structural elements integrated into the building wall."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s3-36412",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "caption_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.4034083579899743,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T16:01:29.31983985Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"SUVs are vehicles designed to be driven or towed away.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Barriers can be easily pushed, lifted, or removed by workers.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Storage racks can be repositioned or dismantled for storage.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Garage doors are structural elements integrated into the building wall.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1402594149,
+        "load_duration": 611067,
+        "prompt_eval_count": 1362,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 114846000,
+        "eval_count": 129,
+        "eval_duration": 1200098000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:01:29Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:06:29.319965484Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r2/qwen35-bf16/t0.3-s43/frame-000123.json",
+      "original_record_sha256": "aa57ee62f4e92e0e3a4affc92a4d4e8e0b89eb4cf13d7833f22ba7879338442b",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "frozen_input_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "4e380f579e34376d21bf0b9f28540d69fd8609c66d020a195323423b067d7f12",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "SUVs are vehicles designed to be driven or towed away."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Barriers can be easily pushed, lifted, or removed by workers."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Storage racks can be repositioned or dismantled for storage."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Garage doors are structural elements integrated into the building wall."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "SUVs are vehicles designed to be driven or towed away."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Barriers can be easily pushed, lifted, or removed by workers."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Storage racks can be repositioned or dismantled for storage."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Garage doors are structural elements integrated into the building wall."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s3-36412",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "caption_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 3.309227466932498,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T16:08:47.573417533Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Vehicles can be driven or towed to new locations easily.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Barriers are designed to be repositioned for different uses.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Metal racks can be pushed or dismantled and moved by workers.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Garage doors are structural elements integrated into the building.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 3308598780,
+        "load_duration": 495558,
+        "prompt_eval_count": 1362,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 125418000,
+        "eval_count": 126,
+        "eval_duration": 3092285000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:08:47Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:13:47.573552298Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r3/qwen35-bf16/t0.3-s44/frame-000123.json",
+      "original_record_sha256": "a265fbb8504772afacfaf4e10647807b9951f22367020deb61e9b58aab881398",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "frozen_input_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "4e380f579e34376d21bf0b9f28540d69fd8609c66d020a195323423b067d7f12",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Vehicles can be driven or towed to new locations easily."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Barriers are designed to be repositioned for different uses."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Metal racks can be pushed or dismantled and moved by workers."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Garage doors are structural elements integrated into the building."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Vehicles can be driven or towed to new locations easily."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Barriers are designed to be repositioned for different uses."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Metal racks can be pushed or dismantled and moved by workers."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Garage doors are structural elements integrated into the building."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-long.txt"
+        }
+      ]
+    }
+  }
+}

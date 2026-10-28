@@ -1,0 +1,29 @@
+{
+  "normalization": "lowercase, underscores/hyphens become spaces, collapse whitespace; exact whole label only",
+  "iou_threshold": 0.5,
+  "classes": [
+    "forklift",
+    "pallet_truck",
+    "pallet",
+    "small_load_carrier",
+    "stillage"
+  ],
+  "aliases": {
+    "forklift": "forklift",
+    "fork lift": "forklift",
+    "forklift truck": "forklift",
+    "pallet truck": "pallet_truck",
+    "pallet jack": "pallet_truck",
+    "hand pallet truck": "pallet_truck",
+    "pallet": "pallet",
+    "wooden pallet": "pallet",
+    "plastic pallet": "pallet",
+    "small load carrier": "small_load_carrier",
+    "klt": "small_load_carrier",
+    "stillage": "stillage",
+    "metal stillage": "stillage",
+    "pallet cage": "stillage",
+    "cage pallet": "stillage"
+  },
+  "policy": "Frozen before predictions. No broad box/container/rack/cage aliases, no synonym expansion after seeing outputs. Unknown labels remain unmapped. Ground truth covers five classes only; no stability ground truth. Native regions may describe groups, not individual physical instances."
+}

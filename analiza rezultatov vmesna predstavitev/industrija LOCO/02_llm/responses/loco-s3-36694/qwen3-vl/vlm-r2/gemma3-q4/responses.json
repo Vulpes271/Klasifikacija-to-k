@@ -1,0 +1,1028 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s3-36694",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000116.json",
+      "caption_sha256": "a7513e18714cdaac63e01abe3839689149e5ef228d1dbdd923b845989992c0c3",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.9009076100774109,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T18:52:25.901318508Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": 1, \"classification\":\"movable\", \"reason\":\"Person is carrying items and appears to be loading/unloading.\"}, {\"id\": 2, \"classification\":\"movable\", \"reason\":\"Gray car is parked and can be moved or repositioned.\"}, {\"id\": 3, \"classification\":\"movable\", \"reason\":\"Yellow cart is a wheeled transport device.\"}, {\"id\": 4, \"classification\":\"fixed\", \"reason\":\"Warehouse racks are structural elements integrated into the building.\"}, {\"id\": 5, \"classification\":\"stationary\", \"reason\":\"Forklift is stationary and appears to be in place.\"}, {\"id\": 6, \"classification\":\"movable\", \"reason\":\"Cardboard boxes can be carried or moved around.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 900082271,
+        "load_duration": 938574,
+        "prompt_eval_count": 876,
+        "prompt_eval_cached_count": 141,
+        "prompt_eval_duration": 85822000,
+        "eval_count": 160,
+        "eval_duration": 714037000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T18:52:25Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T18:57:25.901437305Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Object 5 has invalid classification 'stationary'.",
+      "input_index": 116,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r1/gemma3-q4/t0.3-s42/frame-000116.json",
+      "original_record_sha256": "0314b6b54c292e437e56ce59d32c052b635be4c9d2f2126255fa92bd716fe496",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000116.json",
+      "frozen_input_sha256": "a7513e18714cdaac63e01abe3839689149e5ef228d1dbdd923b845989992c0c3",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000116-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "5ee6935c5eece1b894638e0270c88eb9826bd8dc2eed2cc9c95b86dda616ed23",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person is carrying items and appears to be loading/unloading."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Gray car is parked and can be moved or repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Yellow cart is a wheeled transport device."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Warehouse racks are structural elements integrated into the building."
+          },
+          {
+            "id": 5,
+            "classification": "stationary",
+            "reason": "Forklift is stationary and appears to be in place."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Cardboard boxes can be carried or moved around."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000116-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s3-36694",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000116.json",
+      "caption_sha256": "a7513e18714cdaac63e01abe3839689149e5ef228d1dbdd923b845989992c0c3",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.0655397570226341,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T18:57:19.645681377Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": 1, \"classification\":\"movable\", \"reason\":\"Person is carrying items and appears to be loading/unloading.\"}, {\"id\": 2, \"classification\":\"movable\", \"reason\":\"Gray car is parked and can be carried or repositioned.\"}, {\"id\": 3, \"classification\":\"movable\", \"reason\":\"Yellow cart is a wheeled vehicle that can be pushed or carried.\"}, {\"id\": 4, \"classification\":\"fixed\", \"reason\":\"Warehouse racks are structural elements integrated into the building.\"}, {\"id\": 5, \"classification\":\"stationary\", \"reason\":\"Forklift is stationary and resting on the floor.\"}, {\"id\": 6, \"classification\":\"movable\", \"reason\":\"Cardboard boxes can be carried or stacked.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1064948123,
+        "load_duration": 546403,
+        "prompt_eval_count": 876,
+        "prompt_eval_cached_count": 141,
+        "prompt_eval_duration": 86756000,
+        "eval_count": 163,
+        "eval_duration": 869536000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T18:57:19Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:02:19.645815518Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Object 5 has invalid classification 'stationary'.",
+      "input_index": 116,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r2/gemma3-q4/t0.3-s43/frame-000116.json",
+      "original_record_sha256": "d2d7ee03afae67971e40fac6dd83bd876123b6f33b57d5825eed31275f606268",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000116.json",
+      "frozen_input_sha256": "a7513e18714cdaac63e01abe3839689149e5ef228d1dbdd923b845989992c0c3",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000116-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "5ee6935c5eece1b894638e0270c88eb9826bd8dc2eed2cc9c95b86dda616ed23",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person is carrying items and appears to be loading/unloading."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Gray car is parked and can be carried or repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Yellow cart is a wheeled vehicle that can be pushed or carried."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Warehouse racks are structural elements integrated into the building."
+          },
+          {
+            "id": 5,
+            "classification": "stationary",
+            "reason": "Forklift is stationary and resting on the floor."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Cardboard boxes can be carried or stacked."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000116-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s3-36694",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000116.json",
+      "caption_sha256": "a7513e18714cdaac63e01abe3839689149e5ef228d1dbdd923b845989992c0c3",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.1195217780768871,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:02:12.141439539Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": \"loco-s3-36694\", \"classification\":\"movable\", \"reason\":\"Yellow cart is movable and can be pushed or repositioned\"},{\"id\": 1, \"classification\":\"movable\", \"reason\":\"Person is carrying boxes and can be moved\"},{\"id\": 2, \"classification\":\"movable\", \"reason\":\"Gray car is a vehicle that can be driven and moved\"},{\"id\": 3, \"classification\":\"movable\", \"reason\":\"Yellow cart is movable and can be carried or pushed\"},{\"id\": 4, \"classification\":\"fixed\", \"reason\":\"Warehouse racks are a permanent structural installation\"},{\"id\": 5, \"classification\":\"stationary\", \"reason\":\"Forklift is stationary and does not move in normal use\"},{\"id\": 6, \"classification\":\"movable\", \"reason\":\"Cardboard boxes can be carried or moved\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1118851220,
+        "load_duration": 782817,
+        "prompt_eval_count": 876,
+        "prompt_eval_cached_count": 130,
+        "prompt_eval_duration": 91138000,
+        "eval_count": 184,
+        "eval_duration": 913801000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:02:12Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:07:12.141581132Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Unexpected, wrong-type or duplicate ID: 'loco-s3-36694'",
+      "input_index": 116,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r3/gemma3-q4/t0.3-s44/frame-000116.json",
+      "original_record_sha256": "d780d32f26f451355940d32f3e154b8aa8a70c1f29957c02fa59f51b88bfd149",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000116.json",
+      "frozen_input_sha256": "a7513e18714cdaac63e01abe3839689149e5ef228d1dbdd923b845989992c0c3",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000116-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "5ee6935c5eece1b894638e0270c88eb9826bd8dc2eed2cc9c95b86dda616ed23",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": "loco-s3-36694",
+            "classification": "movable",
+            "reason": "Yellow cart is movable and can be pushed or repositioned"
+          },
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person is carrying boxes and can be moved"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Gray car is a vehicle that can be driven and moved"
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Yellow cart is movable and can be carried or pushed"
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Warehouse racks are a permanent structural installation"
+          },
+          {
+            "id": 5,
+            "classification": "stationary",
+            "reason": "Forklift is stationary and does not move in normal use"
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Cardboard boxes can be carried or moved"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000116-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s3-36694",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000116.json",
+      "caption_sha256": "a7513e18714cdaac63e01abe3839689149e5ef228d1dbdd923b845989992c0c3",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.9251556950621307,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:07:49.107412943Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Person can be carried or repositioned in normal use.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Gray car is a vehicle and can be moved.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Yellow cart can be pushed or repositioned.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Warehouse racks are a permanent installation in the building.\"}, {\"id\": 5, \"classification\": \"movable\", \"reason\": \"Forklift can be moved and repositioned for operation.\"}, {\"id\": 6, \"classification\": \"movable\", \"reason\": \"Cardboard boxes can be carried or stacked differently.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 924549377,
+        "load_duration": 626544,
+        "prompt_eval_count": 942,
+        "prompt_eval_cached_count": 210,
+        "prompt_eval_duration": 93231000,
+        "eval_count": 167,
+        "eval_duration": 712202000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:07:49Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:12:49.107522222Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 116,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r1/gemma3-q4/t0.3-s42/frame-000116.json",
+      "original_record_sha256": "feddf89a991628045b3cab2be0bfea2c7702226eae1fbaf78e98dde7b9c32648",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000116.json",
+      "frozen_input_sha256": "a7513e18714cdaac63e01abe3839689149e5ef228d1dbdd923b845989992c0c3",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000116-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "5ee6935c5eece1b894638e0270c88eb9826bd8dc2eed2cc9c95b86dda616ed23",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person can be carried or repositioned in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Gray car is a vehicle and can be moved."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Yellow cart can be pushed or repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Warehouse racks are a permanent installation in the building."
+          },
+          {
+            "id": 5,
+            "classification": "movable",
+            "reason": "Forklift can be moved and repositioned for operation."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Cardboard boxes can be carried or stacked differently."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person can be carried or repositioned in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Gray car is a vehicle and can be moved."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Yellow cart can be pushed or repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Warehouse racks are a permanent installation in the building."
+          },
+          {
+            "id": 5,
+            "classification": "movable",
+            "reason": "Forklift can be moved and repositioned for operation."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Cardboard boxes can be carried or stacked differently."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000116-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s3-36694",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000116.json",
+      "caption_sha256": "a7513e18714cdaac63e01abe3839689149e5ef228d1dbdd923b845989992c0c3",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.0018982909386978,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:20:16.191171663Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Person can be carried or repositioned in normal use.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Gray car is a vehicle that can be moved.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Yellow cart can be pushed or repositioned.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Warehouse racks are a permanent installation in the building.\"}, {\"id\": 5, \"classification\": \"movable\", \"reason\": \"Forklift can be carried or repositioned for operation.\"}, {\"id\": 6, \"classification\": \"movable\", \"reason\": \"Cardboard boxes can be moved and rearranged.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1001276248,
+        "load_duration": 464857,
+        "prompt_eval_count": 942,
+        "prompt_eval_cached_count": 136,
+        "prompt_eval_duration": 103865000,
+        "eval_count": 166,
+        "eval_duration": 770389000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:20:16Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:25:16.191302585Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 116,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r2/gemma3-q4/t0.3-s43/frame-000116.json",
+      "original_record_sha256": "efd46395f25618d52b3f4eb81e9da8bcf7d5dd1907412462ef314603c7f5134a",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000116.json",
+      "frozen_input_sha256": "a7513e18714cdaac63e01abe3839689149e5ef228d1dbdd923b845989992c0c3",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000116-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "5ee6935c5eece1b894638e0270c88eb9826bd8dc2eed2cc9c95b86dda616ed23",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person can be carried or repositioned in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Gray car is a vehicle that can be moved."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Yellow cart can be pushed or repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Warehouse racks are a permanent installation in the building."
+          },
+          {
+            "id": 5,
+            "classification": "movable",
+            "reason": "Forklift can be carried or repositioned for operation."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Cardboard boxes can be moved and rearranged."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person can be carried or repositioned in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Gray car is a vehicle that can be moved."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Yellow cart can be pushed or repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Warehouse racks are a permanent installation in the building."
+          },
+          {
+            "id": 5,
+            "classification": "movable",
+            "reason": "Forklift can be carried or repositioned for operation."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Cardboard boxes can be moved and rearranged."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000116-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s3-36694",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000116.json",
+      "caption_sha256": "a7513e18714cdaac63e01abe3839689149e5ef228d1dbdd923b845989992c0c3",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.9390187000390142,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:25:18.274394678Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Person can be carried or repositioned in normal use.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Gray car is a vehicle that can be moved.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Yellow cart can be pushed or repositioned.\"}, {\"id\": 4, \"classification\": \"fixed\", \"reason\": \"Warehouse racks are a permanent installation in the building.\"}, {\"id\": 5, \"classification\": \"movable\", \"reason\": \"Forklift is a vehicle that can be moved.\"}, {\"id\": 6, \"classification\": \"movable\", \"reason\": \"Cardboard boxes can be carried or repositioned.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 938366499,
+        "load_duration": 654713,
+        "prompt_eval_count": 942,
+        "prompt_eval_cached_count": 207,
+        "prompt_eval_duration": 95964000,
+        "eval_count": 166,
+        "eval_duration": 722589000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:25:18Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:30:18.274550205Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 116,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r3/gemma3-q4/t0.3-s44/frame-000116.json",
+      "original_record_sha256": "164e60236622f1f619de19b71c5fc02eb471d7fc188ecd46aeac26759aabb9f6",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000116.json",
+      "frozen_input_sha256": "a7513e18714cdaac63e01abe3839689149e5ef228d1dbdd923b845989992c0c3",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000116-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "5ee6935c5eece1b894638e0270c88eb9826bd8dc2eed2cc9c95b86dda616ed23",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person can be carried or repositioned in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Gray car is a vehicle that can be moved."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Yellow cart can be pushed or repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Warehouse racks are a permanent installation in the building."
+          },
+          {
+            "id": 5,
+            "classification": "movable",
+            "reason": "Forklift is a vehicle that can be moved."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Cardboard boxes can be carried or repositioned."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person can be carried or repositioned in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Gray car is a vehicle that can be moved."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Yellow cart can be pushed or repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "fixed",
+            "reason": "Warehouse racks are a permanent installation in the building."
+          },
+          {
+            "id": 5,
+            "classification": "movable",
+            "reason": "Forklift is a vehicle that can be moved."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Cardboard boxes can be carried or repositioned."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000116-long.txt"
+        }
+      ]
+    }
+  }
+}

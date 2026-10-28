@@ -1,0 +1,1006 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s2-34608",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000070.json",
+      "caption_sha256": "0d6680ec437ce04a331e81d9d6525ace35460dd3d422b2375c8c5bb9ccc76036",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8265065849991515,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T18:51:47.228249664Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": 1, \"classification\":\"fixed\", \"reason\":\"Integrated into warehouse layout, bolted to floor, part of permanent structure\"},{\"id\": 2, \"classification\":\"fixed\", \"reason\":\"Tall shelving unit, freestanding but integrated into warehouse layout\"},{\"id\": 3, \"classification\":\"movable\", \"reason\":\"Blue plastic bins can be carried or repositioned in normal use\"},{\"id\": 4, \"classification\":\"stationary\", \"reason\":\"Forklift is parked and appears stationary with no operator or cargo\"},{\"id\": 5, \"classification\":\"fixed\", \"reason\":\"Fluorescent light fixtures are mounted on ceiling, part of permanent structure\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 825931120,
+        "load_duration": 946808,
+        "prompt_eval_count": 723,
+        "prompt_eval_cached_count": 155,
+        "prompt_eval_duration": 78009000,
+        "eval_count": 136,
+        "eval_duration": 619325000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T18:51:47Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T18:56:47.228372065Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Object 4 has invalid classification 'stationary'.",
+      "input_index": 70,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r1/gemma3-q4/t0.3-s42/frame-000070.json",
+      "original_record_sha256": "fb71400ba57e388c55dcbea1e184ad995559ea975f67dbc9e3679169a1d8c8a6",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000070.json",
+      "frozen_input_sha256": "0d6680ec437ce04a331e81d9d6525ace35460dd3d422b2375c8c5bb9ccc76036",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000070-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "a50eb06452ac759e28972379165fde930bcc2df616961e9194222a8ee7e36374",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Integrated into warehouse layout, bolted to floor, part of permanent structure"
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Tall shelving unit, freestanding but integrated into warehouse layout"
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Blue plastic bins can be carried or repositioned in normal use"
+          },
+          {
+            "id": 4,
+            "classification": "stationary",
+            "reason": "Forklift is parked and appears stationary with no operator or cargo"
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Fluorescent light fixtures are mounted on ceiling, part of permanent structure"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000070-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s2-34608",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000070.json",
+      "caption_sha256": "0d6680ec437ce04a331e81d9d6525ace35460dd3d422b2375c8c5bb9ccc76036",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8105928869917989,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T18:56:40.07450148Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": 1, \"classification\":\"fixed\", \"reason\":\"Integrated into warehouse layout, bolted to floor, part of permanent structure\"},{\"id\": 2, \"classification\":\"fixed\", \"reason\":\"Tall metal shelving unit, freestanding but integrated into warehouse layout\"},{\"id\": 3, \"classification\":\"movable\", \"reason\":\"Blue plastic bins can be carried or repositioned in normal use\"},{\"id\": 4, \"classification\":\"stationary\", \"reason\":\"Forklift is parked and appears stationary, no operator or cargo visible\"},{\"id\": 5, \"classification\":\"fixed\", \"reason\":\"Fluorescent light fixtures are mounted on ceiling, part of permanent installation\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 809811223,
+        "load_duration": 633940,
+        "prompt_eval_count": 723,
+        "prompt_eval_cached_count": 155,
+        "prompt_eval_duration": 82096000,
+        "eval_count": 138,
+        "eval_duration": 601976000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T18:56:40Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:01:40.074634595Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Object 4 has invalid classification 'stationary'.",
+      "input_index": 70,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r2/gemma3-q4/t0.3-s43/frame-000070.json",
+      "original_record_sha256": "4a51c8bbad75311151e0159f73c2daab872f0f11b2f1748f8ed5259c7c1df244",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000070.json",
+      "frozen_input_sha256": "0d6680ec437ce04a331e81d9d6525ace35460dd3d422b2375c8c5bb9ccc76036",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000070-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "a50eb06452ac759e28972379165fde930bcc2df616961e9194222a8ee7e36374",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Integrated into warehouse layout, bolted to floor, part of permanent structure"
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Tall metal shelving unit, freestanding but integrated into warehouse layout"
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Blue plastic bins can be carried or repositioned in normal use"
+          },
+          {
+            "id": 4,
+            "classification": "stationary",
+            "reason": "Forklift is parked and appears stationary, no operator or cargo visible"
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Fluorescent light fixtures are mounted on ceiling, part of permanent installation"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000070-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s2-34608",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000070.json",
+      "caption_sha256": "0d6680ec437ce04a331e81d9d6525ace35460dd3d422b2375c8c5bb9ccc76036",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.7683836879441515,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:01:13.294410351Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": 1,\"classification\":\"fixed\",\"reason\":\"Integrated into warehouse layout, bolted to floor, part of permanent structure.\"}, {\"id\": 2,\"classification\":\"fixed\",\"reason\":\"Tall shelving unit integrated into warehouse, bolted to floor.\"}, {\"id\": 3,\"classification\":\"movable\",\"reason\":\"Plastic bins can be carried and repositioned within the shelving unit.\"}, {\"id\": 4,\"classification\":\"uncertain\",\"reason\":\"Forklift appears stationary but lacks clear attachment evidence.\"}, {\"id\": 5,\"classification\":\"fixed\",\"reason\":\"Fluorescent light fixtures are permanently mounted on the ceiling.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 767899518,
+        "load_duration": 547429,
+        "prompt_eval_count": 723,
+        "prompt_eval_cached_count": 154,
+        "prompt_eval_duration": 81815000,
+        "eval_count": 124,
+        "eval_duration": 565228000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:01:13Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:06:13.294502721Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 70,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r3/gemma3-q4/t0.3-s44/frame-000070.json",
+      "original_record_sha256": "2f52b2cfd669a48139d0c8fae94105eac27553243e9e9d247a7b00f317c1cc4a",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000070.json",
+      "frozen_input_sha256": "0d6680ec437ce04a331e81d9d6525ace35460dd3d422b2375c8c5bb9ccc76036",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000070-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "a50eb06452ac759e28972379165fde930bcc2df616961e9194222a8ee7e36374",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Integrated into warehouse layout, bolted to floor, part of permanent structure."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Tall shelving unit integrated into warehouse, bolted to floor."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins can be carried and repositioned within the shelving unit."
+          },
+          {
+            "id": 4,
+            "classification": "uncertain",
+            "reason": "Forklift appears stationary but lacks clear attachment evidence."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Fluorescent light fixtures are permanently mounted on the ceiling."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Integrated into warehouse layout, bolted to floor, part of permanent structure."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Tall shelving unit integrated into warehouse, bolted to floor."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins can be carried and repositioned within the shelving unit."
+          },
+          {
+            "id": 4,
+            "classification": "uncertain",
+            "reason": "Forklift appears stationary but lacks clear attachment evidence."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Fluorescent light fixtures are permanently mounted on the ceiling."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000070-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s2-34608",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000070.json",
+      "caption_sha256": "0d6680ec437ce04a331e81d9d6525ace35460dd3d422b2375c8c5bb9ccc76036",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8274102850118652,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:06:20.579500533Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Crate can be carried and repositioned within the warehouse.\"}, {\"id\": 2, \"classification\": \"fixed\", \"reason\": \"Shelving rack is permanently installed in the warehouse.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Plastic bins are designed to be moved and stacked.\"}, {\"id\": 4, \"classification\": \"movable\", \"reason\": \"Forklift can be driven and repositioned within the space.\"}, {\"id\": 5, \"classification\": \"fixed\", \"reason\": \"Light fixture is permanently mounted on the warehouse ceiling.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 826692977,
+        "load_duration": 583151,
+        "prompt_eval_count": 789,
+        "prompt_eval_cached_count": 221,
+        "prompt_eval_duration": 84796000,
+        "eval_count": 142,
+        "eval_duration": 601676000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:06:20Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:11:20.579632751Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 70,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r1/gemma3-q4/t0.3-s42/frame-000070.json",
+      "original_record_sha256": "26481205a01a8c878e76a20e9d1b12ee304989edcf2c4e8509a7e9cf5310b454",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000070.json",
+      "frozen_input_sha256": "0d6680ec437ce04a331e81d9d6525ace35460dd3d422b2375c8c5bb9ccc76036",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000070-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "a50eb06452ac759e28972379165fde930bcc2df616961e9194222a8ee7e36374",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Crate can be carried and repositioned within the warehouse."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Shelving rack is permanently installed in the warehouse."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins are designed to be moved and stacked."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "Forklift can be driven and repositioned within the space."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Light fixture is permanently mounted on the warehouse ceiling."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Crate can be carried and repositioned within the warehouse."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Shelving rack is permanently installed in the warehouse."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins are designed to be moved and stacked."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "Forklift can be driven and repositioned within the space."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Light fixture is permanently mounted on the warehouse ceiling."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000070-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s2-34608",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000070.json",
+      "caption_sha256": "0d6680ec437ce04a331e81d9d6525ace35460dd3d422b2375c8c5bb9ccc76036",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.810540842008777,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:18:05.556964002Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Crate can be carried and repositioned within the warehouse.\"}, {\"id\": 2, \"classification\": \"fixed\", \"reason\": \"Shelving rack is a permanent installation bolted to the floor.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Plastic bins are designed to be moved and stacked.\"}, {\"id\": 4, \"classification\": \"uncertain\", \"reason\": \"Forklift position is not fixed; it can move around.\"}, {\"id\": 5, \"classification\": \"fixed\", \"reason\": \"Light fixtures are permanently mounted on the ceiling.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 809986915,
+        "load_duration": 529124,
+        "prompt_eval_count": 789,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 137471000,
+        "eval_count": 142,
+        "eval_duration": 664112000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:18:05Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:23:05.557066461Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 70,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r2/gemma3-q4/t0.3-s43/frame-000070.json",
+      "original_record_sha256": "272ea95ca6d05cd74ad528cf4c047a491edcefb743cbbb0b4448f308148d1a8a",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000070.json",
+      "frozen_input_sha256": "0d6680ec437ce04a331e81d9d6525ace35460dd3d422b2375c8c5bb9ccc76036",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000070-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "a50eb06452ac759e28972379165fde930bcc2df616961e9194222a8ee7e36374",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Crate can be carried and repositioned within the warehouse."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Shelving rack is a permanent installation bolted to the floor."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins are designed to be moved and stacked."
+          },
+          {
+            "id": 4,
+            "classification": "uncertain",
+            "reason": "Forklift position is not fixed; it can move around."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Light fixtures are permanently mounted on the ceiling."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Crate can be carried and repositioned within the warehouse."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Shelving rack is a permanent installation bolted to the floor."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins are designed to be moved and stacked."
+          },
+          {
+            "id": 4,
+            "classification": "uncertain",
+            "reason": "Forklift position is not fixed; it can move around."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Light fixtures are permanently mounted on the ceiling."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000070-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s2-34608",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000070.json",
+      "caption_sha256": "0d6680ec437ce04a331e81d9d6525ace35460dd3d422b2375c8c5bb9ccc76036",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8369737439788878,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:24:16.527345043Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Crate can be moved and supported by rack structure.\"}, {\"id\": 2, \"classification\": \"fixed\", \"reason\": \"Shelving rack is bolted to the floor and integrated.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Plastic bins are carried and repositioned in normal use.\"}, {\"id\": 4, \"classification\": \"uncertain\", \"reason\": \"Forklift position is not fixed or permanently located.\"}, {\"id\": 5, \"classification\": \"fixed\", \"reason\": \"Light fixture is mounted on the ceiling structure.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 836374042,
+        "load_duration": 863782,
+        "prompt_eval_count": 789,
+        "prompt_eval_cached_count": 221,
+        "prompt_eval_duration": 84361000,
+        "eval_count": 139,
+        "eval_duration": 611291000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:24:16Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:29:16.527467983Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 70,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r3/gemma3-q4/t0.3-s44/frame-000070.json",
+      "original_record_sha256": "2dd46bac24fe1c8d128b607bc4916b91025bf94e9e2ff5135b5158e4f27bafad",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000070.json",
+      "frozen_input_sha256": "0d6680ec437ce04a331e81d9d6525ace35460dd3d422b2375c8c5bb9ccc76036",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000070-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "a50eb06452ac759e28972379165fde930bcc2df616961e9194222a8ee7e36374",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Crate can be moved and supported by rack structure."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Shelving rack is bolted to the floor and integrated."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins are carried and repositioned in normal use."
+          },
+          {
+            "id": 4,
+            "classification": "uncertain",
+            "reason": "Forklift position is not fixed or permanently located."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Light fixture is mounted on the ceiling structure."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Crate can be moved and supported by rack structure."
+          },
+          {
+            "id": 2,
+            "classification": "fixed",
+            "reason": "Shelving rack is bolted to the floor and integrated."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Plastic bins are carried and repositioned in normal use."
+          },
+          {
+            "id": 4,
+            "classification": "uncertain",
+            "reason": "Forklift position is not fixed or permanently located."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Light fixture is mounted on the ceiling structure."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000070-long.txt"
+        }
+      ]
+    }
+  }
+}

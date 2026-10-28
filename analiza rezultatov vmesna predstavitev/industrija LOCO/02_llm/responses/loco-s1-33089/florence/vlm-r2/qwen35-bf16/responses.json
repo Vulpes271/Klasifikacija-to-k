@@ -1,0 +1,936 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s1-33089",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000047.json",
+      "caption_sha256": "017cd68096892501a7f5da9d5fe9aa5bde51867250f8f80e2057a14ebbb6c65a",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.705737263080664,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:22:58.085094629Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Human person is movable in normal use.\"},{\"id\":2,\"classification\":\"uncertain\",\"reason\":\"Shelf label conflicts with shelving unit description.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Conflicting labels imply uncertain classification.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1704472589,
+        "load_duration": 913752,
+        "prompt_eval_count": 1647,
+        "prompt_eval_cached_count": 1643,
+        "prompt_eval_duration": 62057000,
+        "eval_count": 66,
+        "eval_duration": 1626837000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:22:58Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:27:58.085336093Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 47,
+      "vlm": "florence",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r1/qwen35-bf16/t0.3-s42/frame-000047.json",
+      "original_record_sha256": "9db3adfe16b85a73f8f083063d0151b0162331ce596e1a774143824f6c43e2f5",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000047.json",
+      "frozen_input_sha256": "017cd68096892501a7f5da9d5fe9aa5bde51867250f8f80e2057a14ebbb6c65a",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000047-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "577f39516c3d27c788da4683514baa735cffb93925a814bb9292164f9e337fe6",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Human person is movable in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Shelf label conflicts with shelving unit description."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Conflicting labels imply uncertain classification."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Human person is movable in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Shelf label conflicts with shelving unit description."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Conflicting labels imply uncertain classification."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000047-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s1-33089",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000047.json",
+      "caption_sha256": "017cd68096892501a7f5da9d5fe9aa5bde51867250f8f80e2057a14ebbb6c65a",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.0428458539536223,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:36:59.915776251Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Person is inherently movable and not permanently attached.\"},{\"id\":2,\"classification\":\"uncertain\",\"reason\":\"Shelf attachment evidence missing; could be fixed or movable.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Conflicting labels imply uncertain classification for shelving unit.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2042062914,
+        "load_duration": 1025368,
+        "prompt_eval_count": 1647,
+        "prompt_eval_cached_count": 1643,
+        "prompt_eval_duration": 62347000,
+        "eval_count": 73,
+        "eval_duration": 1972873000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:36:59Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:41:59.915902241Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 47,
+      "vlm": "florence",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r2/qwen35-bf16/t0.3-s43/frame-000047.json",
+      "original_record_sha256": "01131e967a31a97d89185f579635bea91138667038a92ed3f8493951c8d95c8f",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000047.json",
+      "frozen_input_sha256": "017cd68096892501a7f5da9d5fe9aa5bde51867250f8f80e2057a14ebbb6c65a",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000047-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "577f39516c3d27c788da4683514baa735cffb93925a814bb9292164f9e337fe6",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person is inherently movable and not permanently attached."
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Shelf attachment evidence missing; could be fixed or movable."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Conflicting labels imply uncertain classification for shelving unit."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person is inherently movable and not permanently attached."
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Shelf attachment evidence missing; could be fixed or movable."
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Conflicting labels imply uncertain classification for shelving unit."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000047-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s1-33089",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000047.json",
+      "caption_sha256": "017cd68096892501a7f5da9d5fe9aa5bde51867250f8f80e2057a14ebbb6c65a",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.624926001066342,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:44:08.806108666Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Person is movable and not permanently attached to the scene.\"},{\"id\":2,\"classification\":\"uncertain\",\"reason\":\"Shelf label conflicts with shelving unit; attachment evidence missing.\"},{\"id\":3,\"classification\":\"fixed\",\"reason\":\"Shelving unit appears as permanent structural element in warehouse.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 624286303,
+        "load_duration": 637675,
+        "prompt_eval_count": 1647,
+        "prompt_eval_cached_count": 1643,
+        "prompt_eval_duration": 40398000,
+        "eval_count": 76,
+        "eval_duration": 577528000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:44:08Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:49:08.806184572Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 47,
+      "vlm": "florence",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r3/qwen35-bf16/t0.3-s44/frame-000047.json",
+      "original_record_sha256": "995d35c9f28a6609321dbf83f90fae3f84838db27d9208fac281a2d35242a5ef",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000047.json",
+      "frozen_input_sha256": "017cd68096892501a7f5da9d5fe9aa5bde51867250f8f80e2057a14ebbb6c65a",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000047-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "577f39516c3d27c788da4683514baa735cffb93925a814bb9292164f9e337fe6",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person is movable and not permanently attached to the scene."
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Shelf label conflicts with shelving unit; attachment evidence missing."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelving unit appears as permanent structural element in warehouse."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Person is movable and not permanently attached to the scene."
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Shelf label conflicts with shelving unit; attachment evidence missing."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelving unit appears as permanent structural element in warehouse."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000047-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s1-33089",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000047.json",
+      "caption_sha256": "017cd68096892501a7f5da9d5fe9aa5bde51867250f8f80e2057a14ebbb6c65a",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.105271908105351,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:51:10.576782173Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"People are naturally movable and can change position freely.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Shelves in a warehouse setting are typically movable units.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Shelving units with bins are movable objects subject to reorganization.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1104498383,
+        "load_duration": 900346,
+        "prompt_eval_count": 1709,
+        "prompt_eval_cached_count": 1705,
+        "prompt_eval_duration": 53306000,
+        "eval_count": 94,
+        "eval_duration": 1043702000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:51:10Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:56:10.576901915Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 47,
+      "vlm": "florence",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r1/qwen35-bf16/t0.3-s42/frame-000047.json",
+      "original_record_sha256": "ebccf21a0edb6bd83f478d77876d405c920b0163a2afaeca5853a962d300a48f",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000047.json",
+      "frozen_input_sha256": "017cd68096892501a7f5da9d5fe9aa5bde51867250f8f80e2057a14ebbb6c65a",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000047-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "577f39516c3d27c788da4683514baa735cffb93925a814bb9292164f9e337fe6",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "People are naturally movable and can change position freely."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Shelves in a warehouse setting are typically movable units."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Shelving units with bins are movable objects subject to reorganization."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "People are naturally movable and can change position freely."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Shelves in a warehouse setting are typically movable units."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Shelving units with bins are movable objects subject to reorganization."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000047-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s1-33089",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000047.json",
+      "caption_sha256": "017cd68096892501a7f5da9d5fe9aa5bde51867250f8f80e2057a14ebbb6c65a",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8141084120143205,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:59:12.874806307Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"People are mobile and can move freely within the environment.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Shelves in a warehouse setting are typically movable units.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Shelving units with bins are designed to be repositioned or dismantled.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 813559114,
+        "load_duration": 740385,
+        "prompt_eval_count": 1709,
+        "prompt_eval_cached_count": 1705,
+        "prompt_eval_duration": 43732000,
+        "eval_count": 98,
+        "eval_duration": 763258000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:59:12Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:04:12.874936474Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 47,
+      "vlm": "florence",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r2/qwen35-bf16/t0.3-s43/frame-000047.json",
+      "original_record_sha256": "4a71a62041989f82265b5a276ad6d4be5eec440f002af5eacc48291b8f842f1a",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000047.json",
+      "frozen_input_sha256": "017cd68096892501a7f5da9d5fe9aa5bde51867250f8f80e2057a14ebbb6c65a",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000047-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "577f39516c3d27c788da4683514baa735cffb93925a814bb9292164f9e337fe6",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "People are mobile and can move freely within the environment."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Shelves in a warehouse setting are typically movable units."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Shelving units with bins are designed to be repositioned or dismantled."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "People are mobile and can move freely within the environment."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Shelves in a warehouse setting are typically movable units."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Shelving units with bins are designed to be repositioned or dismantled."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000047-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s1-33089",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000047.json",
+      "caption_sha256": "017cd68096892501a7f5da9d5fe9aa5bde51867250f8f80e2057a14ebbb6c65a",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.7977818310027942,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T16:06:02.660251585Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"People can move freely in a warehouse environment.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Shelves are often movable units in warehouses for reconfiguration.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Shelving units with bins are typically movable storage racks.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 797015574,
+        "load_duration": 750063,
+        "prompt_eval_count": 1709,
+        "prompt_eval_cached_count": 1705,
+        "prompt_eval_duration": 43002000,
+        "eval_count": 92,
+        "eval_duration": 747292000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:06:02Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:11:02.660337596Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 47,
+      "vlm": "florence",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r3/qwen35-bf16/t0.3-s44/frame-000047.json",
+      "original_record_sha256": "2e034dfa8158277bf9b4aea8f509701a8b82ddba531142ec1052ecedd3f96aad",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000047.json",
+      "frozen_input_sha256": "017cd68096892501a7f5da9d5fe9aa5bde51867250f8f80e2057a14ebbb6c65a",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000047-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "577f39516c3d27c788da4683514baa735cffb93925a814bb9292164f9e337fe6",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "People can move freely in a warehouse environment."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Shelves are often movable units in warehouses for reconfiguration."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Shelving units with bins are typically movable storage racks."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "People can move freely in a warehouse environment."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Shelves are often movable units in warehouses for reconfiguration."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Shelving units with bins are typically movable storage racks."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000047-long.txt"
+        }
+      ]
+    }
+  }
+}

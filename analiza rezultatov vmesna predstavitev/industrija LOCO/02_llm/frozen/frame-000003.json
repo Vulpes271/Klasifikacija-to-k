@@ -1,0 +1,122 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s1-33158",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r3"
+  },
+  "vlm_repeat": "r3",
+  "image_sha256": "948d388e72dac6bfb43a52b49e38609edf7ff15530a37afbfacdc6c37370aca2",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s1-33158/florence/r3/caption.raw.json",
+      "sha256": "b4eff503351215c049fa8c24f9e44247c38670cda497285fa97504a66ea7abd6",
+      "original_call_id": "c63b9af3ab944406a1e81d24c79f5750",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s1-33158/florence/r3/od.raw.json",
+      "sha256": "96aaa13674027ec7fb88fb5d51c9b1152c8211e2ce025e52c43449f91ddd2beb",
+      "original_call_id": "9dc8c12199b54b04b5bd1b418ad36d1f",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s1-33158/florence/r3/dense.raw.json",
+      "sha256": "2da9ec4723eaeccb8d8b98390178d5600098e8d5a4e7228e05a82986685847b1",
+      "original_call_id": "af5260fae4e64ffc80258310e2eeb5aa",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows a large warehouse with multiple stacks of metal cages. The cages are stacked on top of each other and are arranged in a neat and orderly manner. In the center of the image, there is an orange forklift truck parked in front of one of the cages. On the right side of the forklift, there are several stacks of cardboard boxes and pallets. The warehouse appears to be well-stocked with various tools and equipment. The floor is made of concrete and there are large windows on the left side, allowing natural light to enter the space.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "wheel",
+        "observation": "Florence task <OD> literally returned label/phrase 'wheel'; bbox_xyxy in original image pixels: [373.44000244140625, 742.5, 523.2000122070312, 851.5800170898438]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      },
+      {
+        "id": 2,
+        "label": "forklift truck in warehouse with pallet racking",
+        "observation": "Florence task <DENSE_REGION_CAPTION> literally returned label/phrase 'forklift truck in warehouse with pallet racking'; bbox_xyxy in original image pixels: [0.9599999785423279, 0.5400000214576721, 1919.0399169921875, 750.06005859375]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<DENSE_REGION_CAPTION>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      },
+      {
+        "id": 3,
+        "label": "wheel",
+        "observation": "Florence task <DENSE_REGION_CAPTION> literally returned label/phrase 'wheel'; bbox_xyxy in original image pixels: [371.5199890136719, 742.5, 523.2000122070312, 851.5800170898438]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<DENSE_REGION_CAPTION>",
+        "source_region_id": 2,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows a large warehouse with multiple stacks of metal cages. The cages are stacked on top of each other and are arranged in a neat and orderly manner. In the center of the image, there is an orange forklift truck parked in front of one of the cages. On the right side of the forklift, there are several stacks of cardboard boxes and pallets. The warehouse appears to be well-stocked with various tools and equipment. The floor is made of concrete and there are large windows on the left side, allowing natural light to enter the space.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows a large warehouse with multiple stacks of metal cages. The cages are stacked on top of each other and are arranged in a neat and orderly manner. In the center of the image, there is an orange forklift truck parked in front of one of the cages. On the right side of the forklift, there are several stacks of cardboard boxes and pallets. The warehouse appears to be well-stocked with various tools and equipment. The floor is made of concrete and there are large windows on the left side, allowing natural light to enter the space."
+        }
+      },
+      "od": {
+        "content": "</s><s><s><s>wheel<loc_194><loc_687><loc_272><loc_788></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                373.44000244140625,
+                742.5,
+                523.2000122070312,
+                851.5800170898438
+              ]
+            ],
+            "labels": [
+              "wheel"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s><s><s>forklift truck in warehouse with pallet racking<loc_0><loc_0><loc_999><loc_694>wheel<loc_193><loc_687><loc_272><loc_788></s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [
+              [
+                0.9599999785423279,
+                0.5400000214576721,
+                1919.0399169921875,
+                750.06005859375
+              ],
+              [
+                371.5199890136719,
+                742.5,
+                523.2000122070312,
+                851.5800170898438
+              ]
+            ],
+            "labels": [
+              "forklift truck in warehouse with pallet racking",
+              "wheel"
+            ]
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "95c70f460a1df1a3bcc007be1366baa60708aed5465ec5499a00b617b690e0c7",
+  "status": "ok"
+}

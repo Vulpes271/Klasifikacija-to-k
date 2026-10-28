@@ -1,0 +1,936 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s4-32898",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000176.json",
+      "caption_sha256": "264e5c25221b45024837a02a139887999b83e2b32e1eda4047ee77bb57ff50e8",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.3341178479604423,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:30:50.871601615Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Forklifts are designed to be pushed or repositioned in normal use.\"},{\"id\":2,\"classification\":\"uncertain\",\"reason\":\"Workers' mobility varies; some may be temporarily stationary but not permanently fixed.\"},{\"id\":3,\"classification\":\"fixed\",\"reason\":\"Shelving units require dismantling to relocate and are structural elements.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2333323722,
+        "load_duration": 1520134,
+        "prompt_eval_count": 1148,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 108317000,
+        "eval_count": 86,
+        "eval_duration": 2133018000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:30:50Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:35:50.871733589Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 176,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r1/qwen35-bf16/t0.3-s42/frame-000176.json",
+      "original_record_sha256": "99d80fefe1c205febe1709763fa96728b9a4b43f7bb765cb6b07e8f60a557ea0",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000176.json",
+      "frozen_input_sha256": "264e5c25221b45024837a02a139887999b83e2b32e1eda4047ee77bb57ff50e8",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000176-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "c1682195ee5f83b75699a38318f856be44c367698a7abb448084ee2049eda261",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Forklifts are designed to be pushed or repositioned in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Workers' mobility varies; some may be temporarily stationary but not permanently fixed."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelving units require dismantling to relocate and are structural elements."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Forklifts are designed to be pushed or repositioned in normal use."
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Workers' mobility varies; some may be temporarily stationary but not permanently fixed."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelving units require dismantling to relocate and are structural elements."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000176-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s4-32898",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000176.json",
+      "caption_sha256": "264e5c25221b45024837a02a139887999b83e2b32e1eda4047ee77bb57ff50e8",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.810182370012626,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:40:54.955206411Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Forklifts are designed to be driven and repositioned in warehouses.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Workers are humans who can move freely within the facility.\"},{\"id\":3,\"classification\":\"fixed\",\"reason\":\"Shelving units with safety barriers require dismantling to relocate permanently.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 809556177,
+        "load_duration": 936796,
+        "prompt_eval_count": 1148,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 106097000,
+        "eval_count": 81,
+        "eval_duration": 608541000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:40:54Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:45:54.955297485Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 176,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r2/qwen35-bf16/t0.3-s43/frame-000176.json",
+      "original_record_sha256": "9e2ce98069502c8f2c7453a67d9ee3b8dfe9a2aa3f4ecb5f1ff92f71f86d6f30",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000176.json",
+      "frozen_input_sha256": "264e5c25221b45024837a02a139887999b83e2b32e1eda4047ee77bb57ff50e8",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000176-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "c1682195ee5f83b75699a38318f856be44c367698a7abb448084ee2049eda261",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Forklifts are designed to be driven and repositioned in warehouses."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Workers are humans who can move freely within the facility."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelving units with safety barriers require dismantling to relocate permanently."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Forklifts are designed to be driven and repositioned in warehouses."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Workers are humans who can move freely within the facility."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelving units with safety barriers require dismantling to relocate permanently."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000176-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s4-32898",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000176.json",
+      "caption_sha256": "264e5c25221b45024837a02a139887999b83e2b32e1eda4047ee77bb57ff50e8",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.7855978880543262,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:47:55.657054659Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Forklifts are designed to be repositioned by operators.\"},{\"id\":2,\"classification\":\"uncertain\",\"reason\":\"Workers may move or stay; evidence is insufficient.\"},{\"id\":3,\"classification\":\"fixed\",\"reason\":\"Shelving units are structural elements requiring dismantling to relocate.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 784871707,
+        "load_duration": 714355,
+        "prompt_eval_count": 1148,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 109476000,
+        "eval_count": 77,
+        "eval_duration": 582039000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:47:55Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:52:55.657230441Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 176,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r3/qwen35-bf16/t0.3-s44/frame-000176.json",
+      "original_record_sha256": "9a8d59f1011f207011183b0cb8f52efb18917ba950ffd5c3bae879cd3af4eff9",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000176.json",
+      "frozen_input_sha256": "264e5c25221b45024837a02a139887999b83e2b32e1eda4047ee77bb57ff50e8",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000176-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "c1682195ee5f83b75699a38318f856be44c367698a7abb448084ee2049eda261",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Forklifts are designed to be repositioned by operators."
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Workers may move or stay; evidence is insufficient."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelving units are structural elements requiring dismantling to relocate."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Forklifts are designed to be repositioned by operators."
+          },
+          {
+            "id": 2,
+            "classification": "uncertain",
+            "reason": "Workers may move or stay; evidence is insufficient."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelving units are structural elements requiring dismantling to relocate."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000176-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s4-32898",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000176.json",
+      "caption_sha256": "264e5c25221b45024837a02a139887999b83e2b32e1eda4047ee77bb57ff50e8",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.9749525340739638,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:55:58.301909798Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Forklifts are designed to move goods and can be repositioned easily.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Workers are people who move around the facility during their tasks.\"}, {\"id\": 3, \"classification\": \"fixed\", \"reason\": \"Shelving units are structural elements integrated into the warehouse floor.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 974257625,
+        "load_duration": 616196,
+        "prompt_eval_count": 1210,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 108967000,
+        "eval_count": 100,
+        "eval_duration": 768662000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:55:58Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:00:58.302020492Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 176,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r1/qwen35-bf16/t0.3-s42/frame-000176.json",
+      "original_record_sha256": "e90f7a229d053a80a22f93225b9085576809914a96cd476512b1bbdcd6b5bcd4",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000176.json",
+      "frozen_input_sha256": "264e5c25221b45024837a02a139887999b83e2b32e1eda4047ee77bb57ff50e8",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000176-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "c1682195ee5f83b75699a38318f856be44c367698a7abb448084ee2049eda261",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Forklifts are designed to move goods and can be repositioned easily."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Workers are people who move around the facility during their tasks."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelving units are structural elements integrated into the warehouse floor."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Forklifts are designed to move goods and can be repositioned easily."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Workers are people who move around the facility during their tasks."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelving units are structural elements integrated into the warehouse floor."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000176-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s4-32898",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000176.json",
+      "caption_sha256": "264e5c25221b45024837a02a139887999b83e2b32e1eda4047ee77bb57ff50e8",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.0358954119728878,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T16:03:01.480512135Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Forklifts are designed to be driven and repositioned frequently.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Workers move around the facility as part of their tasks.\"}, {\"id\": 3, \"classification\": \"fixed\", \"reason\": \"Shelving units are structural elements requiring dismantling to move.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1035269165,
+        "load_duration": 716270,
+        "prompt_eval_count": 1210,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 119207000,
+        "eval_count": 97,
+        "eval_duration": 814890000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:03:01Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:08:01.480646396Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 176,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r2/qwen35-bf16/t0.3-s43/frame-000176.json",
+      "original_record_sha256": "84a8fc5426973ad1954f2bf324b866a8f2104cdddef5454129d82ddeae7df552",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000176.json",
+      "frozen_input_sha256": "264e5c25221b45024837a02a139887999b83e2b32e1eda4047ee77bb57ff50e8",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000176-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "c1682195ee5f83b75699a38318f856be44c367698a7abb448084ee2049eda261",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Forklifts are designed to be driven and repositioned frequently."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Workers move around the facility as part of their tasks."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelving units are structural elements requiring dismantling to move."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Forklifts are designed to be driven and repositioned frequently."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Workers move around the facility as part of their tasks."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelving units are structural elements requiring dismantling to move."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000176-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s4-32898",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000176.json",
+      "caption_sha256": "264e5c25221b45024837a02a139887999b83e2b32e1eda4047ee77bb57ff50e8",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.9495715099619702,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T16:10:06.437328653Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Forklifts are designed to move goods and can be repositioned easily.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Workers are human beings who move freely throughout the facility.\"}, {\"id\": 3, \"classification\": \"fixed\", \"reason\": \"Shelving units are structural elements integrated into the warehouse floor.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 949011625,
+        "load_duration": 664518,
+        "prompt_eval_count": 1210,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 90563000,
+        "eval_count": 99,
+        "eval_duration": 768997000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:10:06Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:15:06.437415463Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 176,
+      "vlm": "nvila",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r3/qwen35-bf16/t0.3-s44/frame-000176.json",
+      "original_record_sha256": "d441cd1949e49074b060d51c17c9e526a239d62c2b0635b25bb7fbac5a5826f1",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000176.json",
+      "frozen_input_sha256": "264e5c25221b45024837a02a139887999b83e2b32e1eda4047ee77bb57ff50e8",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000176-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "c1682195ee5f83b75699a38318f856be44c367698a7abb448084ee2049eda261",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Forklifts are designed to move goods and can be repositioned easily."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Workers are human beings who move freely throughout the facility."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelving units are structural elements integrated into the warehouse floor."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Forklifts are designed to move goods and can be repositioned easily."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Workers are human beings who move freely throughout the facility."
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "Shelving units are structural elements integrated into the warehouse floor."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000176-long.txt"
+        }
+      ]
+    }
+  }
+}

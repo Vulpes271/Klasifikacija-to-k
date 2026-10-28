@@ -1,0 +1,34 @@
+{
+  "session_start_utc": "2026-10-28T15:18:55.075021+00:00",
+  "requested_parallel_slots": 1,
+  "client_workers": 1,
+  "docker_image": "sha256:926d40fd6eeeebd346b5c358a63de2a10ec995371cd93dd22f1843200694b1a6",
+  "actual_model_slots": {
+    "qwen35-bf16": 1,
+    "qwen35-q4": 1,
+    "gemma3-q4": 1
+  },
+  "actual_model_slots_by_context": {
+    "qwen35-bf16": {
+      "16384": 1,
+      "32768": 1,
+      "65536": 1
+    },
+    "qwen35-q4": {
+      "16384": 1,
+      "32768": 1,
+      "65536": 1
+    },
+    "gemma3-q4": {
+      "16384": 1,
+      "32768": 1
+    }
+  },
+  "model_blob_ids": {
+    "qwen35-bf16": "sha256-bb5b8b1308515427ca45544a46ec828f7a5472a505f2e8c9e60f26ce665a4a4d",
+    "qwen35-q4": "sha256-a9d0a3e1d8c91732a3812becd31f8d4a8ff57414903f226306069f0437e2ac50",
+    "gemma3-q4": "sha256-f06e91e18fc74295d0c781bf91622508c75655e2c18ed869d52447ffe1e667e1"
+  },
+  "proof": "Matched the first FROM weight blob in each saved model manifest to --model in the current-session server command, then parsed n_seq_max and each slot n_ctx. Qwen quantizations are tracked separately; no prior THUD lines imported. One slot requested for every model to limit VRAM on the shared GPU.",
+  "context_scheduling": "One model and context cohort at a time; same input/options for every prompt/seed."
+}

@@ -1,0 +1,86 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s4-31835",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r3"
+  },
+  "vlm_repeat": "r3",
+  "image_sha256": "34659c10a2406ae1b640e5a477b2c6a98b1b0e4b67734743db759ac7b867095c",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s4-31835/florence/r3/caption.raw.json",
+      "sha256": "217a8420d58de737db538461610a8a6c66c969d3625aaae3067de81052c030f3",
+      "original_call_id": "45adb0abce634a3d8ade8dc2f0388a41",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s4-31835/florence/r3/od.raw.json",
+      "sha256": "e261506aac87ea0fe91c1ac9efc9f2d38d5eab9b6307515bc4489b3c96cca67c",
+      "original_call_id": "b21a16ccee0d4bcf84aac58bd865e02c",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s4-31835/florence/r3/dense.raw.json",
+      "sha256": "2dcc465e682f09106c9a3557f3fe3c1c3a1702838bb4153084cd00bcf7cea2bd",
+      "original_call_id": "b7fa70b89bb9424b9b59dab4ed6c978b",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows a large warehouse with rows of pallets and shelves. The pallets are arranged in a neat and orderly manner, and the shelves are filled with boxes of various sizes and colors. The boxes are stacked on top of each other and have the word \"POTT\" written on them in white letters. The warehouse appears to be well-stocked with various items, and there are other shelves and racks visible in the background. The floor is made of concrete and the ceiling is high with overhead lights. The overall atmosphere of the warehouse is industrial and organized.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "box",
+        "observation": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [1.9199999570846558, 482.0, 222.0800018310547, 682.0]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows a large warehouse with rows of pallets and shelves. The pallets are arranged in a neat and orderly manner, and the shelves are filled with boxes of various sizes and colors. The boxes are stacked on top of each other and have the word \"POTT\" written on them in white letters. The warehouse appears to be well-stocked with various items, and there are other shelves and racks visible in the background. The floor is made of concrete and the ceiling is high with overhead lights. The overall atmosphere of the warehouse is industrial and organized.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows a large warehouse with rows of pallets and shelves. The pallets are arranged in a neat and orderly manner, and the shelves are filled with boxes of various sizes and colors. The boxes are stacked on top of each other and have the word \"POTT\" written on them in white letters. The warehouse appears to be well-stocked with various items, and there are other shelves and racks visible in the background. The floor is made of concrete and the ceiling is high with overhead lights. The overall atmosphere of the warehouse is industrial and organized."
+        }
+      },
+      "od": {
+        "content": "</s><s><s><s>box<loc_1><loc_602><loc_173><loc_852></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                1.9199999570846558,
+                482.0,
+                222.0800018310547,
+                682.0
+              ]
+            ],
+            "labels": [
+              "box"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s><s>No object detected.</s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [],
+            "labels": []
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "7c53ab05beb1ccc30a5f3701b1466ceffeee593213a453015bf2c5597089bc24",
+  "status": "ok"
+}

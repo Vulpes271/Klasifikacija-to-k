@@ -1,0 +1,86 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s4-32850",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r1"
+  },
+  "vlm_repeat": "r1",
+  "image_sha256": "e466999161f190ea3bcf5b6781c6b361d01c02842f66a08c12590043e7df7f7e",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s4-32850/florence/r1/caption.raw.json",
+      "sha256": "6fca5248741997b8c4d77fc090ff88cc49c08f1bc7b32f072e6fb009b53922af",
+      "original_call_id": "0a779285cda94826b96a780c6e4ddbb6",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s4-32850/florence/r1/od.raw.json",
+      "sha256": "425f2d2d160fb1e5a14c784f14734c28404dd4298e43df31a18660012682094a",
+      "original_call_id": "4842f20717a94c75a2adc013622b9325",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s4-32850/florence/r1/dense.raw.json",
+      "sha256": "6383dc3920cef057de4d16f80ded79d8660f4be9b48bd8ab08dabff6c4537b87",
+      "original_call_id": "7b63fee17e4b45dab626a165577e0f7a",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows a large warehouse with a forklift parked on the right side. The forklift is orange and black in color and is moving towards the left side of the image. In the background, there are several pallets stacked on top of each other. The pallets are blue and appear to be filled with various items. The warehouse has a concrete floor and white walls, and there are pipes and ducts running along the ceiling. There is a number 2 on the wall, indicating that this is the number 2 of the warehouse.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "furniture",
+        "observation": "Florence task <OD> literally returned label/phrase 'furniture'; bbox_xyxy in original image pixels: [413.7599792480469, 561.0599975585938, 567.3599853515625, 676.6200561523438]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows a large warehouse with a forklift parked on the right side. The forklift is orange and black in color and is moving towards the left side of the image. In the background, there are several pallets stacked on top of each other. The pallets are blue and appear to be filled with various items. The warehouse has a concrete floor and white walls, and there are pipes and ducts running along the ceiling. There is a number 2 on the wall, indicating that this is the number 2 of the warehouse.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows a large warehouse with a forklift parked on the right side. The forklift is orange and black in color and is moving towards the left side of the image. In the background, there are several pallets stacked on top of each other. The pallets are blue and appear to be filled with various items. The warehouse has a concrete floor and white walls, and there are pipes and ducts running along the ceiling. There is a number 2 on the wall, indicating that this is the number 2 of the warehouse."
+        }
+      },
+      "od": {
+        "content": "</s><s><s><s>furniture<loc_215><loc_519><loc_295><loc_626></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                413.7599792480469,
+                561.0599975585938,
+                567.3599853515625,
+                676.6200561523438
+              ]
+            ],
+            "labels": [
+              "furniture"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s>No object detected.</s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [],
+            "labels": []
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "970f25a8416ff27b175166d3f05d06f3bc1dedeceaf0bf6f3a7a26302e41c7ae",
+  "status": "ok"
+}

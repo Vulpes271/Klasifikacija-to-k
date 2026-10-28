@@ -510,10 +510,10 @@ def repetition_compact(value, key='', path=()):
     return value
 
 
-def repetition_consistency(records):
+def repetition_consistency(records, aliases=None):
     """Name-group changes, not instance identities; exact label boxes matched separately."""
     from itertools import combinations
-    aliases=read_json(ROOT/'configs/thud-florence-matching.json')['aliases']
+    if aliases is None:aliases=read_json(ROOT/'configs/thud-florence-matching.json')['aliases']
     groups={}
     for r in records: groups.setdefault((r['frame_id'],r['model_name'],r['task']),{})[r['repeat']]=r
     result=[]

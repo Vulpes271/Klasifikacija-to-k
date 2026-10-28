@@ -1,0 +1,86 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s4-32693",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r3"
+  },
+  "vlm_repeat": "r3",
+  "image_sha256": "f88d13adf6a700c20a8908c040395dd036fff89ac28533b7e9b3cb0c57e19510",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s4-32693/florence/r3/caption.raw.json",
+      "sha256": "efa40fe49b136645f9fa7c16e6090c816db5fdb53075e5060196d32184300dba",
+      "original_call_id": "88ef1e602c824e1d96bae781207492b9",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s4-32693/florence/r3/od.raw.json",
+      "sha256": "dcac3375eb00b51350bc7ba271fa69ec13f6c5afd780ba51962425ab57937e10",
+      "original_call_id": "adf1df9c155c4ac29b396348f5ea9bfe",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s4-32693/florence/r3/dense.raw.json",
+      "sha256": "f62b78278524b04e06a832934c1ef2e8c5e1e3365af1d76622e42df950205676",
+      "original_call_id": "23b1c25f4739404885fec348169d41ee",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows a large warehouse with a high ceiling and rows of shelves. The floor is made of concrete and there are several forklifts parked in the center of the room. On the left side of the image, there is a yellow forklift truck with a black cab and a red and white logo on the side. The forklift is moving through the warehouse, and on the right side, there are stacks of boxes and pallets. The warehouse appears to be well-stocked with various items for sale. The overall atmosphere of the space is industrial and busy.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "land vehicle",
+        "observation": "Florence task <OD> literally returned label/phrase 'land vehicle'; bbox_xyxy in original image pixels: [0.9599999785423279, 64.26000213623047, 237.1199951171875, 873.1800537109375]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows a large warehouse with a high ceiling and rows of shelves. The floor is made of concrete and there are several forklifts parked in the center of the room. On the left side of the image, there is a yellow forklift truck with a black cab and a red and white logo on the side. The forklift is moving through the warehouse, and on the right side, there are stacks of boxes and pallets. The warehouse appears to be well-stocked with various items for sale. The overall atmosphere of the space is industrial and busy.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows a large warehouse with a high ceiling and rows of shelves. The floor is made of concrete and there are several forklifts parked in the center of the room. On the left side of the image, there is a yellow forklift truck with a black cab and a red and white logo on the side. The forklift is moving through the warehouse, and on the right side, there are stacks of boxes and pallets. The warehouse appears to be well-stocked with various items for sale. The overall atmosphere of the space is industrial and busy."
+        }
+      },
+      "od": {
+        "content": "</s><s><s>land vehicle<loc_0><loc_59><loc_123><loc_808></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                0.9599999785423279,
+                64.26000213623047,
+                237.1199951171875,
+                873.1800537109375
+              ]
+            ],
+            "labels": [
+              "land vehicle"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s>No object detected.</s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [],
+            "labels": []
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "d7cd959c820098f3198f043ce4296c3aef64c9e0a04542cc5f92d52d83c86cbb",
+  "status": "ok"
+}

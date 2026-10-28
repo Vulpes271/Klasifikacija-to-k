@@ -1,0 +1,86 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s2-34489",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r3"
+  },
+  "vlm_repeat": "r3",
+  "image_sha256": "880479661e332e91bd359516c1be32af0556fc74fc81e9d12a025c7a4da6944f",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s2-34489/florence/r3/caption.raw.json",
+      "sha256": "532edd9dcf59ee5e481da9c509d8511115df0f56ebc4d0e43adf76ef502e515d",
+      "original_call_id": "dc536ceb5136494784efdd63dfcf0c1e",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s2-34489/florence/r3/od.raw.json",
+      "sha256": "3ea49d64be183b206a3b3ff7970b63b5bb05d583f2ca6d3d10f1b56ef0f294a3",
+      "original_call_id": "419088bc627e4371a58913dbf43e98d2",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s2-34489/florence/r3/dense.raw.json",
+      "sha256": "44525e4cf1982852b3c8a41d43a4e5af89fba35c81c55d06c24215ebba55c6f9",
+      "original_call_id": "55e0b41d6d3e4463a38ecdd169b105ce",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows a large warehouse with multiple rows of wooden pallets stacked on top of each other. The pallets are arranged in neat rows and appear to be made of light-colored wood. The warehouse has a high ceiling with large windows, allowing natural light to enter the space. In the foreground, there is a red fire extinguisher and a stack of cardboard boxes. The image is slightly blurred, but it appears to be taken from a distance, giving it a sense of depth and dimension.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "shelf",
+        "observation": "Florence task <OD> literally returned label/phrase 'shelf'; bbox_xyxy in original image pixels: [75.83999633789062, 96.66000366210938, 1654.0799560546875, 458.46002197265625]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows a large warehouse with multiple rows of wooden pallets stacked on top of each other. The pallets are arranged in neat rows and appear to be made of light-colored wood. The warehouse has a high ceiling with large windows, allowing natural light to enter the space. In the foreground, there is a red fire extinguisher and a stack of cardboard boxes. The image is slightly blurred, but it appears to be taken from a distance, giving it a sense of depth and dimension.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows a large warehouse with multiple rows of wooden pallets stacked on top of each other. The pallets are arranged in neat rows and appear to be made of light-colored wood. The warehouse has a high ceiling with large windows, allowing natural light to enter the space. In the foreground, there is a red fire extinguisher and a stack of cardboard boxes. The image is slightly blurred, but it appears to be taken from a distance, giving it a sense of depth and dimension."
+        }
+      },
+      "od": {
+        "content": "</s><s><s><s>shelf<loc_39><loc_89><loc_861><loc_424></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                75.83999633789062,
+                96.66000366210938,
+                1654.0799560546875,
+                458.46002197265625
+              ]
+            ],
+            "labels": [
+              "shelf"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s>No object detected.</s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [],
+            "labels": []
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "762005ada7be8fbb8c768b8468271b24d9849a31befe9d7339533b52a2bf6913",
+  "status": "ok"
+}

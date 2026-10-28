@@ -1,0 +1,982 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s3-36397",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000133.json",
+      "caption_sha256": "c486d7ec6d5bbd3eaf5423953ceb1d5fb7cb8ca0d49bc9aa719a0d3bf09d2187",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 5.90021381189581,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:28:19.789727519Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Mounted to wall and floor, requires dismantling to relocate.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Stacked on pallets, can be carried or pushed.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Resting on floor, can be moved by hand or machinery.\"},{\"id\":4,\"classification\":\"movable\",\"description\":\"Person is mobile; desk/chair are movable equipment.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Supported by anchored posts, requires dismantling to relocate.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Stacked on a surface, can be carried or pushed.\"},{\"id\":7,\"classification\":\"movable\",\"reason\":\"Has wheels and handlebars, designed for pushing.\"},{\"id\":8,\"classification\":\"movable\",\"reason\":\"Has wheels and handles, designed for carrying loads.\"},{\"id\":9,\"classification\":\"fixed\",\"reason\":\"Structural element of the building floor.\"},{\"id\":10,\"classification\":\"fixed\",\"reason\":\"Suspended from ceiling beams, requires dismantling to relocate.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 5898815740,
+        "load_duration": 689917,
+        "prompt_eval_count": 1243,
+        "prompt_eval_cached_count": 215,
+        "prompt_eval_duration": 181684000,
+        "eval_count": 233,
+        "eval_duration": 5596935000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:28:19Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:33:19.78995224Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Object 4 has missing reason.",
+      "input_index": 133,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r1/qwen35-bf16/t0.3-s42/frame-000133.json",
+      "original_record_sha256": "bc5183c341fab2f79612a1483147efd0f923545f269ffe36deb9f01b699381f0",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000133.json",
+      "frozen_input_sha256": "c486d7ec6d5bbd3eaf5423953ceb1d5fb7cb8ca0d49bc9aa719a0d3bf09d2187",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000133-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "12169340b819a1dcb7336f0d054aaf3f4f864f09c79decf0dd735bc60141e443",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Mounted to wall and floor, requires dismantling to relocate."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Stacked on pallets, can be carried or pushed."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Resting on floor, can be moved by hand or machinery."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "description": "Person is mobile; desk/chair are movable equipment."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Supported by anchored posts, requires dismantling to relocate."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Stacked on a surface, can be carried or pushed."
+          },
+          {
+            "id": 7,
+            "classification": "movable",
+            "reason": "Has wheels and handlebars, designed for pushing."
+          },
+          {
+            "id": 8,
+            "classification": "movable",
+            "reason": "Has wheels and handles, designed for carrying loads."
+          },
+          {
+            "id": 9,
+            "classification": "fixed",
+            "reason": "Structural element of the building floor."
+          },
+          {
+            "id": 10,
+            "classification": "fixed",
+            "reason": "Suspended from ceiling beams, requires dismantling to relocate."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000133-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s3-36397",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000133.json",
+      "caption_sha256": "c486d7ec6d5bbd3eaf5423953ceb1d5fb7cb8ca0d49bc9aa719a0d3bf09d2187",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 6.705934975994751,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:39:52.120082827Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Mounted to wall and floor, requires dismantling to relocate.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Stacked crates on pallets can be easily moved.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Pallet with goods rests on floor and can be pushed.\"},{\"id\":4,\"classification\":\"uncertain\",\"reason\":\"Person is movable; chair wheels visible but attachment unclear.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Mezzanine walkway anchored to floor, requires dismantling.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Crates on a table-like structure can be repositioned.\"},{\"id\":7,\"classification\":\"movable\",\"reason\":\"Hand truck has wheels and is designed for carrying.\"},{\"id\":8,\"classification\":\"movable\",\"reason\":\"Cart has wheels and is designed for easy repositioning.\"},{\"id\":9,\"classification\":\"fixed\",\"reason\":\"Concrete floor is a structural element of the building.\"},{\"id\":10,\"classification\":\"fixed\",\"reason\":\"Lighting fixtures are suspended from ceiling beams.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 6705013183,
+        "load_duration": 614220,
+        "prompt_eval_count": 1243,
+        "prompt_eval_cached_count": 215,
+        "prompt_eval_duration": 199959000,
+        "eval_count": 235,
+        "eval_duration": 6371333000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:39:52Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:44:52.12026616Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 133,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r2/qwen35-bf16/t0.3-s43/frame-000133.json",
+      "original_record_sha256": "f9b348f4838c9a3b0e79a7ef70fab9669ce9a80342665562092fcfbf315b1d00",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000133.json",
+      "frozen_input_sha256": "c486d7ec6d5bbd3eaf5423953ceb1d5fb7cb8ca0d49bc9aa719a0d3bf09d2187",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000133-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "12169340b819a1dcb7336f0d054aaf3f4f864f09c79decf0dd735bc60141e443",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Mounted to wall and floor, requires dismantling to relocate."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Stacked crates on pallets can be easily moved."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Pallet with goods rests on floor and can be pushed."
+          },
+          {
+            "id": 4,
+            "classification": "uncertain",
+            "reason": "Person is movable; chair wheels visible but attachment unclear."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Mezzanine walkway anchored to floor, requires dismantling."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Crates on a table-like structure can be repositioned."
+          },
+          {
+            "id": 7,
+            "classification": "movable",
+            "reason": "Hand truck has wheels and is designed for carrying."
+          },
+          {
+            "id": 8,
+            "classification": "movable",
+            "reason": "Cart has wheels and is designed for easy repositioning."
+          },
+          {
+            "id": 9,
+            "classification": "fixed",
+            "reason": "Concrete floor is a structural element of the building."
+          },
+          {
+            "id": 10,
+            "classification": "fixed",
+            "reason": "Lighting fixtures are suspended from ceiling beams."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Mounted to wall and floor, requires dismantling to relocate."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Stacked crates on pallets can be easily moved."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Pallet with goods rests on floor and can be pushed."
+          },
+          {
+            "id": 4,
+            "classification": "uncertain",
+            "reason": "Person is movable; chair wheels visible but attachment unclear."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Mezzanine walkway anchored to floor, requires dismantling."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Crates on a table-like structure can be repositioned."
+          },
+          {
+            "id": 7,
+            "classification": "movable",
+            "reason": "Hand truck has wheels and is designed for carrying."
+          },
+          {
+            "id": 8,
+            "classification": "movable",
+            "reason": "Cart has wheels and is designed for easy repositioning."
+          },
+          {
+            "id": 9,
+            "classification": "fixed",
+            "reason": "Concrete floor is a structural element of the building."
+          },
+          {
+            "id": 10,
+            "classification": "fixed",
+            "reason": "Lighting fixtures are suspended from ceiling beams."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000133-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s3-36397",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000133.json",
+      "caption_sha256": "c486d7ec6d5bbd3eaf5423953ceb1d5fb7cb8ca0d49bc9aa719a0d3bf09d2187",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.27170738496352,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:46:44.995008978Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Mounted to wall and floor, requires dismantling to relocate.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Stacked on pallets, can be carried or pushed easily.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Resting on floor, can be lifted or moved by hand.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Person and chair are portable and repositionable freely.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Anchored to floor with posts, requires dismantling to move.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Placed on a surface, can be lifted or pushed away.\"},{\"id\":7,\"classification\":\"movable\",\"reason\":\"Has wheels and handle, designed to be carried or pushed.\"},{\"id\":8,\"classification\":\"movable\",\"reason\":\"Equipped with wheels and handles for easy repositioning.\"},{\"id\":9,\"classification\":\"fixed\",\"reason\":\"Structural floor element, cannot be relocated without demolition.\"},{\"id\":10,\"classification\":\"fixed\",\"reason\":\"Suspended from ceiling structure, requires dismantling to move.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2271048763,
+        "load_duration": 1248905,
+        "prompt_eval_count": 1243,
+        "prompt_eval_cached_count": 215,
+        "prompt_eval_duration": 109157000,
+        "eval_count": 245,
+        "eval_duration": 2028925000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:46:44Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:51:44.995151179Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 133,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r3/qwen35-bf16/t0.3-s44/frame-000133.json",
+      "original_record_sha256": "2011670eabc9e8c2f83d239695c259e3375e1750935718064fbb15bc4151c4f2",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000133.json",
+      "frozen_input_sha256": "c486d7ec6d5bbd3eaf5423953ceb1d5fb7cb8ca0d49bc9aa719a0d3bf09d2187",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000133-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "12169340b819a1dcb7336f0d054aaf3f4f864f09c79decf0dd735bc60141e443",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Mounted to wall and floor, requires dismantling to relocate."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Stacked on pallets, can be carried or pushed easily."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Resting on floor, can be lifted or moved by hand."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "Person and chair are portable and repositionable freely."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Anchored to floor with posts, requires dismantling to move."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Placed on a surface, can be lifted or pushed away."
+          },
+          {
+            "id": 7,
+            "classification": "movable",
+            "reason": "Has wheels and handle, designed to be carried or pushed."
+          },
+          {
+            "id": 8,
+            "classification": "movable",
+            "reason": "Equipped with wheels and handles for easy repositioning."
+          },
+          {
+            "id": 9,
+            "classification": "fixed",
+            "reason": "Structural floor element, cannot be relocated without demolition."
+          },
+          {
+            "id": 10,
+            "classification": "fixed",
+            "reason": "Suspended from ceiling structure, requires dismantling to move."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Mounted to wall and floor, requires dismantling to relocate."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Stacked on pallets, can be carried or pushed easily."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Resting on floor, can be lifted or moved by hand."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "Person and chair are portable and repositionable freely."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Anchored to floor with posts, requires dismantling to move."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Placed on a surface, can be lifted or pushed away."
+          },
+          {
+            "id": 7,
+            "classification": "movable",
+            "reason": "Has wheels and handle, designed to be carried or pushed."
+          },
+          {
+            "id": 8,
+            "classification": "movable",
+            "reason": "Equipped with wheels and handles for easy repositioning."
+          },
+          {
+            "id": 9,
+            "classification": "fixed",
+            "reason": "Structural floor element, cannot be relocated without demolition."
+          },
+          {
+            "id": 10,
+            "classification": "fixed",
+            "reason": "Suspended from ceiling structure, requires dismantling to move."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000133-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s3-36397",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000133.json",
+      "caption_sha256": "c486d7ec6d5bbd3eaf5423953ceb1d5fb7cb8ca0d49bc9aa719a0d3bf09d2187",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.53638900606893,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:54:31.735894408Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Mounted to wall and floor, requires dismantling to move.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Stacked on pallets, can be easily repositioned or moved.\"},{\"id\":3,\"classification\":\"movable\",\"classification\":\"movable\",\"reason\":\"Resting on floor, can be pushed or lifted by forklift.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Person is mobile; desk and chair have wheels.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Structural mezzanine with posts anchored to the floor.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Stacked on pallets, can be easily repositioned or moved.\"},{\"id\":7,\"classification\":\"movable\",\"reason\":\"Hand truck has wheels and is designed for transport.\"},{\"id\":8,\"classification\":\"movable\",\"reason\":\"Cart has wheels and is designed for easy movement.\"},{\"id\":9,\"classification\":\"fixed\",\"reason\":\"Concrete floor is a permanent structural element of the building.\"},{\"id\":10,\"classification\":\"fixed\",\"reason\":\"Lighting fixtures are suspended from ceiling beams.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2535789661,
+        "load_duration": 575676,
+        "prompt_eval_count": 1305,
+        "prompt_eval_cached_count": 277,
+        "prompt_eval_duration": 178269000,
+        "eval_count": 246,
+        "eval_duration": 2243845000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:54:31Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:59:31.735996504Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Duplicate JSON key: classification",
+      "input_index": 133,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r1/qwen35-bf16/t0.3-s42/frame-000133.json",
+      "original_record_sha256": "c6884b25759ea8253d3a3108657aa5efd878cae6d472ec85e69caf0a889ce4a6",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000133.json",
+      "frozen_input_sha256": "c486d7ec6d5bbd3eaf5423953ceb1d5fb7cb8ca0d49bc9aa719a0d3bf09d2187",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000133-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "12169340b819a1dcb7336f0d054aaf3f4f864f09c79decf0dd735bc60141e443",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000133-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s3-36397",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000133.json",
+      "caption_sha256": "c486d7ec6d5bbd3eaf5423953ceb1d5fb7cb8ca0d49bc9aa719a0d3bf09d2187",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.2852056390838698,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T16:01:44.426077049Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Mounted to wall and floor, requires dismantling to move.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Stacked on pallets, can be carried or pushed easily.\"},{\"id\":3,\"classification\":\"movable\",\"classification\":\"movable\",\"reason\":\"Resting on floor with no fixed attachment, easy to relocate.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Person and chair are designed to move freely in the room.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Structural walkway supported by posts anchored to the floor.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Placed on a surface, can be carried or repositioned normally.\"},{\"id\":7,\"classification\":\"movable\",\"reason\":\"Hand truck is designed to be pushed and moved around.\"},{\"id\":8,\"classification\":\"movable\",\"reason\":\"Cart has wheels and handles for easy carrying and repositioning.\"},{\"id\":9,\"classification\":\"fixed\",\"reason\":\"Concrete floor is a structural element of the building.\"},{\"id\":10,\"classification\":\"fixed\",\"reason\":\"Hanging from ceiling beams, requires dismantling to remove.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2284300911,
+        "load_duration": 507016,
+        "prompt_eval_count": 1305,
+        "prompt_eval_cached_count": 277,
+        "prompt_eval_duration": 110612000,
+        "eval_count": 250,
+        "eval_duration": 2053829000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:01:44Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:06:44.426205186Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Duplicate JSON key: classification",
+      "input_index": 133,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r2/qwen35-bf16/t0.3-s43/frame-000133.json",
+      "original_record_sha256": "d76f52ffb8d05b210ff8e665fe0161ea55d66946174193628e10dad4527eb624",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000133.json",
+      "frozen_input_sha256": "c486d7ec6d5bbd3eaf5423953ceb1d5fb7cb8ca0d49bc9aa719a0d3bf09d2187",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000133-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "12169340b819a1dcb7336f0d054aaf3f4f864f09c79decf0dd735bc60141e443",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000133-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s3-36397",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000133.json",
+      "caption_sha256": "c486d7ec6d5bbd3eaf5423953ceb1d5fb7cb8ca0d49bc9aa719a0d3bf09d2187",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.2329252639319748,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T16:09:00.376382637Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Mounted to wall and floor, requires dismantling to move.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Stacked crates on pallets can be easily repositioned.\"},{\"id\":3,\"classification\":\"movable\",\"classification\":\"movable\",\"reason\":\"Pallet with goods rests on floor and is portable.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Person sitting at desk can move or leave the area.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Structural walkway supported by posts, requires dismantling to move.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Crates on a table structure can be carried or pushed.\"},{\"id\":7,\"classification\":\"movable\",\"reason\":\"Hand truck with wheels is designed for easy repositioning.\"},{\"id\":8,\"classification\":\"movable\",\"reason\":\"Cart with wheels loaded with items can be moved freely.\"},{\"id\":9,\"classification\":\"fixed\",\"reason\":\"Concrete floor is a structural building element.\"},{\"id\":10,\"classification\":\"fixed\",\"reason\":\"Lighting fixtures are suspended from ceiling beams permanently.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2232175817,
+        "load_duration": 544046,
+        "prompt_eval_count": 1305,
+        "prompt_eval_cached_count": 277,
+        "prompt_eval_duration": 113169000,
+        "eval_count": 241,
+        "eval_duration": 2008018000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:09:00Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:14:00.376508683Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Duplicate JSON key: classification",
+      "input_index": 133,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r1",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r3/qwen35-bf16/t0.3-s44/frame-000133.json",
+      "original_record_sha256": "aea74f38cacd795ecc79b6d6ad6d691f61152eeca44a4d9aa5f0ad871c646798",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000133.json",
+      "frozen_input_sha256": "c486d7ec6d5bbd3eaf5423953ceb1d5fb7cb8ca0d49bc9aa719a0d3bf09d2187",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000133-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "12169340b819a1dcb7336f0d054aaf3f4f864f09c79decf0dd735bc60141e443",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000133-long.txt"
+        }
+      ]
+    }
+  }
+}

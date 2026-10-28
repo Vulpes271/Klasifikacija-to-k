@@ -1,0 +1,105 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s5-35743",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r3"
+  },
+  "vlm_repeat": "r3",
+  "image_sha256": "a481570af1bbb5757ccb3cc3291f81ad5e1ca88e5cb7ba493ec45f9dea8067bc",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s5-35743/florence/r3/caption.raw.json",
+      "sha256": "68416a209ca16aa9ea85e7bc308cd9945690a8e89d33235dcd4454de38744324",
+      "original_call_id": "317e84fd0dc548838c799d013fafa80a",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s5-35743/florence/r3/od.raw.json",
+      "sha256": "f93a565adf803f7ef4cb200cb468794dc844d60b8af5a950d4a9740b61e422b2",
+      "original_call_id": "ceb0bd0cbfec4493b289522431f6ece9",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s5-35743/florence/r3/dense.raw.json",
+      "sha256": "4f3cb33d3b0c3d15170e3d9cc2027c495ef031b161ecb3dc2410f3f5f79c8201",
+      "original_call_id": "4f44ce0c964e4337a7054743b333bf8d",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows the interior of a large warehouse or industrial space. The floor is made of concrete and there are several red forklifts parked on the left side of the image. On the right side, there are two large white doors with red and white signs on them. The doors appear to be closed and there is a yellow caution tape on the ground in front of them. In the background, there is another red forklift parked next to the door. The warehouse has a high ceiling with overhead lights and a large window on the wall. The overall atmosphere of the space is clean and well-maintained.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "ladder",
+        "observation": "Florence task <OD> literally returned label/phrase 'ladder'; bbox_xyxy in original image pixels: [261.7599792480469, 190.44000244140625, 352.6399841308594, 307.8000183105469]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      },
+      {
+        "id": 2,
+        "label": "ladder",
+        "observation": "Florence task <DENSE_REGION_CAPTION> literally returned label/phrase 'ladder'; bbox_xyxy in original image pixels: [263.0400085449219, 190.44000244140625, 352.6399841308594, 307.8000183105469]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<DENSE_REGION_CAPTION>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows the interior of a large warehouse or industrial space. The floor is made of concrete and there are several red forklifts parked on the left side of the image. On the right side, there are two large white doors with red and white signs on them. The doors appear to be closed and there is a yellow caution tape on the ground in front of them. In the background, there is another red forklift parked next to the door. The warehouse has a high ceiling with overhead lights and a large window on the wall. The overall atmosphere of the space is clean and well-maintained.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows the interior of a large warehouse or industrial space. The floor is made of concrete and there are several red forklifts parked on the left side of the image. On the right side, there are two large white doors with red and white signs on them. The doors appear to be closed and there is a yellow caution tape on the ground in front of them. In the background, there is another red forklift parked next to the door. The warehouse has a high ceiling with overhead lights and a large window on the wall. The overall atmosphere of the space is clean and well-maintained."
+        }
+      },
+      "od": {
+        "content": "</s><s><s><s>ladder<loc_204><loc_264><loc_275><loc_427></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                261.7599792480469,
+                190.44000244140625,
+                352.6399841308594,
+                307.8000183105469
+              ]
+            ],
+            "labels": [
+              "ladder"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s><s>ladder<loc_205><loc_264><loc_275><loc_427></s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [
+              [
+                263.0400085449219,
+                190.44000244140625,
+                352.6399841308594,
+                307.8000183105469
+              ]
+            ],
+            "labels": [
+              "ladder"
+            ]
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "31812d42979906c9867d253654c6d89eff6aa81d1515cdc442d5e63f637aea7d",
+  "status": "ok"
+}

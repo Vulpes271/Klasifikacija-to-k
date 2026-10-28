@@ -6,10 +6,12 @@ confirmed physical identities. Repeated names are left ambiguous and unmatched.
 """
 from collections import Counter, defaultdict
 from itertools import combinations, product
+from pathlib import Path
 import csv
 import html
 import json
 import re
+import os
 import statistics
 import shutil
 
@@ -17,6 +19,12 @@ from .experiment import read_json, write_json, sha256
 from .vision_prompts import reason_prompt
 from .thud_stage2_presentation import ROOT, SOURCE, TARGET, OUT, VLMS, SEEDS, PROMPTS, MODELS
 from .thud_stage1_presentation import csv_file, document, pre as source_pre, escaped
+
+
+def configure_paths(*, source=SOURCE, target=TARGET, out=OUT):
+    """Explicit isolated export paths, with existing THUD paths as defaults."""
+    global SOURCE, TARGET, OUT
+    SOURCE, TARGET, OUT = Path(source).resolve(), Path(target).resolve(), Path(out).resolve()
 
 
 def pre(value):
@@ -136,6 +144,8 @@ def public_record(record, source, user_prompt_path, system_path):
     r['parallel_slots_requested']=requested
     r['parallel_slots_actual']=actual
     r['parallel_runtime_note']='Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.'
+    if record.get('request_reconstructed_after_interruption'):
+        r['published_interruption_evidence_path']=str((TARGET/'provenance'/Path(record['interruption_evidence_path']).name).relative_to(ROOT))
     # Parser outputs are retained as well; accepted decisions are never inferred
     # from an invalid response during statistical comparisons.
     for key in ('parsed', 'candidate_parsed'):
@@ -144,6 +154,8 @@ def public_record(record, source, user_prompt_path, system_path):
         assert record.get('content','') == record['response'].get('message',{}).get('content','')
     elif 'content' in record:
         r['content'] = record['content']
+    else:
+        r['full_response_text_path'] = None
     if 'request' in record:
         request = record['request']; messages = request['messages']
         assert len(messages) == 2 and all('images' not in m for m in messages)
@@ -257,6 +269,7 @@ def aggregate(records, frozen):
         rows.append(dict(zip(('llm','prompt','vlm','vlm_repeat','llm_repeat'),key)) | {
             'positions':len(values), **{s:sum(r['status']==s for r in values) for s in ('ok','error','skipped')},
             'attempted_calls':sum('request' in r for r in values),
+            'timed_calls':len(times),
             'completed_response_records':sum('response' in r for r in values),
             'attempts_without_full_response':sum('request' in r and 'response' not in r for r in values),
             'gpu_verified':sum(bool(r.get('gpu_verified')) for r in values),
@@ -321,8 +334,10 @@ def render(index, frozen, records):
     frames = list(dict.fromkeys(r['frame_id'] for r in index))
     manifest = read_json(SOURCE/'manifest.json'); frame_info={f['frame_id']:f for f in manifest['frames']}
     states=Counter(r['status'] for r in records)
+    plan=read_json(TARGET/'plan.json')
+    diagnostic_count=len(read_json(TARGET/'execution-context-policy.json')['archived_failed_attempts'])
     top='<h1>Drugi korak: razvrščanje zamrznjenih opisov</h1><p>VLM ponovitev in LLM ponovitev sta ločeni. LLM ne prejme slike. Strinjanje ni pravilnost.</p>'
-    top+=f'<p>Shranjenih položajev: {len(records)}/3240. Veljavni po shemi: {states["ok"]}, napake: {states["error"]}, preskoki: {states["skipped"]}. Glavnih inferenčnih klicev: {sum("request" in r for r in records)}; arhiviranih neuspešnih kontekstnih poskusov: 9.</p><nav>'
+    top+=f'<p>Shranjenih položajev: {len(records)}/{plan["logical_positions"]}. Veljavni po shemi: {states["ok"]}, napake: {states["error"]}, preskoki: {states["skipped"]}. Glavnih inferenčnih klicev: {sum("request" in r for r in records)}; arhiviranih neuspešnih kontekstnih poskusov: {diagnostic_count}.</p><nav>'
     for name in ('README.md','plan.json','summary.csv','calls.csv','classifications.csv','comparison-summary.csv','manual-review-empty.csv','verification.json','frozen/index.json','execution-context-policy.json','diagnostics/index.json'):
         top+=f'<a href="{name}">{name}</a> '
     top+='</nav><p>Podrobne tabele razlik: '
@@ -332,8 +347,10 @@ def render(index, frozen, records):
     for frame in frames:
         slug=frame.replace('/','--');top+=f'<a href="images/{slug}.html">{escaped(frame)}</a>'
         info=frame_info[frame];image=info['published_original']
-        body=f'<p><a href="../index.html">← Vse slike</a> · <a href="../../index.html">Prvi korak</a></p><h1>{escaped(frame)}</h1>'
-        body+=f'<a href="../../{image}"><img src="../../{image}" alt="Original za ročni pregled; LLM te slike ne dobi"></a>'
+        image_url=os.path.relpath(SOURCE/image,TARGET/'images')
+        stage1_url=os.path.relpath(SOURCE/'index.html',TARGET/'images')
+        body=f'<p><a href="../index.html">← Vse slike</a> · <a href="{stage1_url}">Prvi korak</a></p><h1>{escaped(frame)}</h1>'
+        body+=f'<a href="{image_url}"><img src="{image_url}" alt="Original za ročni pregled; LLM te slike ne dobi"></a>'
         body+='<p>Slika samo za vaš pregled; LLM prejme izključno spodnje zamrznjeno besedilo.</p>'
         for vlm in VLMS:
             body+='<h2>'+escaped(vlm)+'</h2>'
@@ -343,11 +360,15 @@ def render(index, frozen, records):
                 body+=f'<a href="../inputs/{filename}">{escaped(vlm)} VLM-{vlm_repeat} · {source["object_entries"]} regij/objektnih zapisov · {escaped(source["status"])}</a><br>'
                 detail=f'<p><a href="../images/{slug}.html">← Slika in izvori</a></p><h1>{escaped(frame)} / {vlm} / VLM-{vlm_repeat}</h1>'
                 detail+='<details><summary>Izvorna slika za človekov pregled; ni vhod LLM</summary>'
-                detail+=f'<a href="../../{image}"><img src="../../{image}" alt="Original samo za ročni pregled"></a>'
+                detail+=f'<a href="{image_url}"><img src="{image_url}" alt="Original samo za ročni pregled"></a>'
                 if vlm=='florence':
-                    directory=image.rsplit('/',1)[0]
+                    directory=info.get('published_directory',image.rsplit('/',1)[0])
                     for task in ('od','dense'):
-                        predicted=f'../../{directory}/florence/{vlm_repeat}/{task}.predictions.jpg'
+                        predicted_path=SOURCE/directory/'florence'/vlm_repeat/(task+'.predictions.jpg')
+                        if not predicted_path.exists():
+                            detail+='<p>Za to nalogo ni veljavnih napovedanih okvirjev; glejte izvorno napako.</p>'
+                            continue
+                        predicted=os.path.relpath(predicted_path,TARGET/'inputs')
                         detail+=f'<p>Florence {task}: native ID regije znotraj te naloge; transportni ID je v zamrznjenem dokumentu.</p><a href="{predicted}"><img src="{predicted}" alt="Florence napovedi za ročni pregled"></a>'
                 detail+='</details>'
                 detail+=f'<p>SHA256 zamrznjenega vhoda: {source["sha256"]}</p><p><a href="../frozen/frame-{number:06d}.json">Celoten zamrznjeni vhod</a></p>'
@@ -395,7 +416,9 @@ def render(index, frozen, records):
 
 def verify():
     index,frozen,records=load();plan=read_json(TARGET/'plan.json')
-    assert len(index)==180 and len({s['frame_id'] for s in frozen.values()})==20
+    image_count=len(read_json(SOURCE/'manifest.json')['frames'])
+    positions=plan['logical_positions']
+    assert len(index)==image_count*len(VLMS)*len(SEEDS) and len({s['frame_id'] for s in frozen.values()})==image_count
     for frame in {s['frame_id'] for s in frozen.values()}:
         assert {(s['vlm'],s['vlm_repeat']) for s in frozen.values() if s['frame_id']==frame}==set(product(VLMS,SEEDS))
     for source in frozen.values():
@@ -403,9 +426,9 @@ def verify():
         assert len({typed(o['id']) for o in objects})==len(objects)
     expected={(n,m['name'],p,r) for n in frozen for m in MODELS for p in PROMPTS for r in SEEDS}
     actual={(r['input_index'],r['llm'],r['prompt_name'],r['llm_repeat']) for r in records}
-    assert actual==expected and len(records)==plan['logical_positions']==3240
+    assert actual==expected and len(records)==positions
     counts=Counter(r['status'] for r in records);attempted=sum('request' in r for r in records)
-    assert counts['skipped']==plan['planned_skips']==144 and attempted==plan['planned_measured_calls']==3096
+    assert counts['skipped']==plan['planned_skips'] and attempted==plan['planned_measured_calls']
     assert all(r.get('gpu_verified') for r in records if r['status']=='ok')
     digests={spec['name']:sorted({r.get('gpu',{}).get('digest') for r in records
         if r['llm']==spec['name'] and r.get('gpu',{}).get('digest')}) for spec in MODELS}
@@ -418,12 +441,12 @@ def verify():
     for path in diagnostic_root.glob('*/*/*/*/*/frame-*.json'):
         old=read_json(path);assert old['status']=='error', 'A successful call was repeated'
         diagnostics.append(old)
-    assert len(diagnostics)==9
+    assert len(diagnostics)==len(read_json(TARGET/'execution-context-policy.json')['archived_failed_attempts'])
     all_ids=identities+[(r['model'],r['response']['created_at']) for r in diagnostics if 'response' in r]
     assert len(set(all_ids))==len(all_ids)
     policy=read_json(TARGET/'execution-context-policy.json')['overrides_by_frozen_sha256']
     response_index=read_json(TARGET/'responses-index.json')
-    assert len(response_index)==540 and sum(r['positions'] for r in response_index)==3240
+    assert len(response_index)==len(index)*len(MODELS) and sum(r['positions'] for r in response_index)==positions
     assert all(r['complete_six_positions'] and sha256((TARGET/r['path']).read_bytes())==r['sha256'] for r in response_index)
     for r in records:
         source=frozen[r['input_index']];leaf=destination(source,r['llm'],r['prompt_name'])
@@ -457,15 +480,15 @@ def verify():
             link_count+=1
     with (TARGET/'manual-review-empty.csv').open() as stream:
         reviews=list(csv.DictReader(stream))
-    assert len(reviews)==3240
+    assert len(reviews)==positions
     assert all(not value for row in reviews for key,value in row.items() if key.startswith('review'))
     with (TARGET/'calls.csv').open() as stream:call_rows=list(csv.DictReader(stream))
-    assert len(call_rows)==3249 and sum(r['call_attempted']=='True' for r in call_rows)==3105
-    assert sum(r['attempt_role']=='main' for r in call_rows)==3240
+    assert len(call_rows)==positions+len(diagnostics) and sum(r['call_attempted']=='True' for r in call_rows)==attempted+len(diagnostics)
+    assert sum(r['attempt_role']=='main' for r in call_rows)==positions
     assert all(r['parallel_slots_actual'] for r in call_rows if r['call_attempted']=='True')
     summary=read_json(TARGET/'summary.json')
-    assert len(summary)==162 and all(r['positions']==20 for r in summary)
-    comparison_counts={'llm-repeats':3240,'prompts':1620,'llms':3240,'vlm-repeats':3240,'vlms':3240}
+    assert len(summary)==162 and all(r['positions']==image_count for r in summary)
+    comparison_counts={'llm-repeats':positions,'prompts':positions//2,'llms':positions,'vlm-repeats':positions,'vlms':positions}
     for kind,expected_count in comparison_counts.items():
         with (TARGET/'comparisons'/(kind+'.jsonl')).open() as stream:
             assert sum(1 for _ in stream)==expected_count
@@ -494,7 +517,7 @@ def verify():
 
 
 def export(require_complete=True):
-    for folder in ('user-prompts','images','inputs','comparisons'): (TARGET/folder).mkdir(parents=True,exist_ok=True)
+    for folder in ('user-prompts','images','inputs','comparisons','provenance'): (TARGET/folder).mkdir(parents=True,exist_ok=True)
     write_json(TARGET/'verification.json',{'complete':False,'verification_in_progress':True})
     index,frozen,records=load()
     instruction=(TARGET/'prompts/reasoning.txt').read_text().strip()

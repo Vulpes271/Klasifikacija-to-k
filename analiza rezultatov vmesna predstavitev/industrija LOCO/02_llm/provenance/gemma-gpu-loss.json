@@ -1,0 +1,49 @@
+{
+  "observed_at_utc": "2026-10-28T18:49:40.333051+00:00",
+  "observations": [
+    {
+      "command": [
+        "nvidia-smi",
+        "--query-gpu=name,memory.total,memory.used,utilization.gpu",
+        "--format=csv"
+      ],
+      "returncode": 0,
+      "stdout": "name, memory.total [MiB], memory.used [MiB], utilization.gpu [%]\nNVIDIA GeForce RTX 5090, 32607 MiB, 3792 MiB, 12 %\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "exec",
+        "loco-ollama",
+        "nvidia-smi"
+      ],
+      "returncode": 255,
+      "stdout": "Failed to initialize NVML: Unknown Error\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "docker",
+        "inspect",
+        "-f",
+        "{{json .HostConfig.DeviceRequests}}",
+        "loco-ollama"
+      ],
+      "returncode": 0,
+      "stdout": "[{\"Driver\":\"\",\"Count\":-1,\"DeviceIDs\":null,\"Capabilities\":[[\"gpu\"]],\"Options\":{}}]\n",
+      "stderr": ""
+    }
+  ],
+  "saved_gemma_errors": 6,
+  "cause": "Host GPU available; container NVML fails. Underlying cause not established.",
+  "next_action": "Restart only loco-ollama with unchanged image and model weights; resume missing records.",
+  "recovery": {
+    "action": "docker restart loco-ollama; unchanged image, read-only weights, prompts and inference options",
+    "at_utc": "2026-10-28T18:51:37.243303+00:00",
+    "container_gpu_visible_after_restart": true,
+    "first_new_saved_gpu_result_verified": true,
+    "all_preexisting_records_unchanged": 3247,
+    "failed_calls_retried": 0
+  }
+}

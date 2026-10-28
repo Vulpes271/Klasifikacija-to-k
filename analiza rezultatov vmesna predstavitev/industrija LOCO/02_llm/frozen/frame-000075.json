@@ -1,0 +1,86 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s2-34748",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r3"
+  },
+  "vlm_repeat": "r3",
+  "image_sha256": "4d799565304b9f8a6479eb0787ac30664ed9380ae426d8fdd37829d4f6842638",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s2-34748/florence/r3/caption.raw.json",
+      "sha256": "1fbcc9add570eddd19b5b1b8c043cc3cc8329103007e7b5004100684183b6d61",
+      "original_call_id": "674d0dd709ce42ad8179d548ccea4cb2",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s2-34748/florence/r3/od.raw.json",
+      "sha256": "0f640c37ecccfe77d454325e8d08b36b75a587715ca76af3ee458647ca9979a1",
+      "original_call_id": "5f3d29ea7de944fd88bdecc48caae919",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s2-34748/florence/r3/dense.raw.json",
+      "sha256": "c0b983f335fa3781a63f0f9797055f2770f887b306bb6839985677136caeb490",
+      "original_call_id": "37cdfda9dc2b4d99bffba43c1984dc28",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows a large warehouse with multiple rows of pallets and crates stacked on top of each other. The pallets are of different sizes and colors, and they are arranged in a neat and orderly manner. The warehouse appears to be well-stocked with various items, and there is a forklift in the background. The floor is made of concrete, and the walls are made of metal. The overall atmosphere of the warehouse is industrial and well-organized.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "box",
+        "observation": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [327.03997802734375, 50.040000915527344, 513.9199829101562, 223.5600128173828]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows a large warehouse with multiple rows of pallets and crates stacked on top of each other. The pallets are of different sizes and colors, and they are arranged in a neat and orderly manner. The warehouse appears to be well-stocked with various items, and there is a forklift in the background. The floor is made of concrete, and the walls are made of metal. The overall atmosphere of the warehouse is industrial and well-organized.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows a large warehouse with multiple rows of pallets and crates stacked on top of each other. The pallets are of different sizes and colors, and they are arranged in a neat and orderly manner. The warehouse appears to be well-stocked with various items, and there is a forklift in the background. The floor is made of concrete, and the walls are made of metal. The overall atmosphere of the warehouse is industrial and well-organized."
+        }
+      },
+      "od": {
+        "content": "</s><s><s><s>box<loc_255><loc_69><loc_401><loc_310></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                327.03997802734375,
+                50.040000915527344,
+                513.9199829101562,
+                223.5600128173828
+              ]
+            ],
+            "labels": [
+              "box"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s>No object detected.</s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [],
+            "labels": []
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "0243ba5656192e2f12cb89253c122bd5e8b6c3e46a2228e406ad5f70502a75c3",
+  "status": "ok"
+}

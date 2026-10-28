@@ -1,0 +1,955 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s5-35822",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000235.json",
+      "caption_sha256": "b16962ee00e6c1d82ae5c790c934866094222736a2205d44f9a02303ef24c13b",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.594965839991346,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T18:54:56.134829258Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [\n  {\"id\": 1, \"classification\": \"movable\", \"reason\": \"Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [607.3599853515625, 235.0800018310547, 750.719970703125, 361.08001708984375]\"},\n  {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [987.5199584960938, 392.0400085449219, 1033.5999755859375, 442.44000244140625\"}\n  ],\n  \"objects\": [\n    {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [960.6399536132812, 402.84002685546875, 993.9199829101562, 457.5600280761719\"}\n  ],\n  \"objects\": [\n    {\"id\": 4, \"classification\": \"movable\", \"reason\": \"Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [1010.5599975585938, 223.5600128173828, 1048.9599609375, 261.7200012207031]\"\n  }\n]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2594136199,
+        "load_duration": 1028232,
+        "prompt_eval_count": 1943,
+        "prompt_eval_cached_count": 154,
+        "prompt_eval_duration": 146723000,
+        "eval_count": 499,
+        "eval_duration": 2312043000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T18:54:56Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T18:59:56.134953431Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Duplicate JSON key: objects",
+      "input_index": 235,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r1/gemma3-q4/t0.3-s42/frame-000235.json",
+      "original_record_sha256": "48cb82416ec85c4642549fd6bf383f7ddc1e18f1b29bcdee84c964ad2b9a3f77",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000235.json",
+      "frozen_input_sha256": "b16962ee00e6c1d82ae5c790c934866094222736a2205d44f9a02303ef24c13b",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000235-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "19fab3c6f853403f75d158794e9e4a8483693eeb8bbc1ac84908c681df1278f4",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000235-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s5-35822",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000235.json",
+      "caption_sha256": "b16962ee00e6c1d82ae5c790c934866094222736a2205d44f9a02303ef24c13b",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.806802490958944,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T18:59:35.796079647Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [\n  {\"id\": 1, \"classification\": \"movable\", \"reason\": \"Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [607.3599853515625, 235.0800018310547, 750.719970703125, 361.08001708984375]. No attachment/contact/occlusion fields were produced.\"},\n  {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [987.5199584960938, 392.0400085449219, 1033.5999755859375, 442.44000244140625]. No attachment/contact/occlusion fields were produced.\"},\n  {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [960.6399536132812, 402.84002685546875, 993.9199829101562, 457.5600280761719]. No attachment/contact/occlusion fields were produced.\"},\n  {\"id\": 4, \"classification\": \"movable\", \"reason\": \"Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [1010.5599975585938, 223.5600128173828, 1048.9599609375, 261.7200012207031]. No attachment/contact/occlusion fields were produced.\"}\n]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2805892123,
+        "load_duration": 718675,
+        "prompt_eval_count": 1943,
+        "prompt_eval_cached_count": 154,
+        "prompt_eval_duration": 156320000,
+        "eval_count": 522,
+        "eval_duration": 2515546000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T18:59:35Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:04:35.796377675Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 235,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r2/gemma3-q4/t0.3-s43/frame-000235.json",
+      "original_record_sha256": "3f3061779dc2e1ab46210fa255b938c908ae96350e6d68a876603923410d0db2",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000235.json",
+      "frozen_input_sha256": "b16962ee00e6c1d82ae5c790c934866094222736a2205d44f9a02303ef24c13b",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000235-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "19fab3c6f853403f75d158794e9e4a8483693eeb8bbc1ac84908c681df1278f4",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [607.3599853515625, 235.0800018310547, 750.719970703125, 361.08001708984375]. No attachment/contact/occlusion fields were produced."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [987.5199584960938, 392.0400085449219, 1033.5999755859375, 442.44000244140625]. No attachment/contact/occlusion fields were produced."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [960.6399536132812, 402.84002685546875, 993.9199829101562, 457.5600280761719]. No attachment/contact/occlusion fields were produced."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [1010.5599975585938, 223.5600128173828, 1048.9599609375, 261.7200012207031]. No attachment/contact/occlusion fields were produced."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [607.3599853515625, 235.0800018310547, 750.719970703125, 361.08001708984375]. No attachment/contact/occlusion fields were produced."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [987.5199584960938, 392.0400085449219, 1033.5999755859375, 442.44000244140625]. No attachment/contact/occlusion fields were produced."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [960.6399536132812, 402.84002685546875, 993.9199829101562, 457.5600280761719]. No attachment/contact/occlusion fields were produced."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [1010.5599975585938, 223.5600128173828, 1048.9599609375, 261.7200012207031]. No attachment/contact/occlusion fields were produced."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000235-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s5-35822",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000235.json",
+      "caption_sha256": "b16962ee00e6c1d82ae5c790c934866094222736a2205d44f9a02303ef24c13b",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.6621464389609173,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:04:22.637741278Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [\n  {\"id\": 1, \"classification\": \"movable\", \"reason\": \"Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [607.3599853515625, 235.0800018310547, 750.719970703125, 361.08001708984375]. No attachment/contact/occlusion fields were produced.\"},\n  {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [987.5199584960938, 392.0400085449219, 1033.5999755859375, 442.44000244140625]. No attachment/contact/occlusion fields were produced.\"},\n  {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [960.6399536132812, 402.84002685546875, 993.9199829101562, 457.5600280761719]. No attachment/contact/occlusion fields were produced.\"},\n  {\"id\": 4, \"classification\": \"movable\", \"reason\": \"Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [1010.5599975585938, 223.5600128173828, 1048.9599609375, 261.7200012207031]. No attachment/contact/occlusion fields were produced.\"}\n]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2661471672,
+        "load_duration": 447033,
+        "prompt_eval_count": 1943,
+        "prompt_eval_cached_count": 154,
+        "prompt_eval_duration": 152623000,
+        "eval_count": 522,
+        "eval_duration": 2375766000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:04:22Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:09:22.637870355Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 235,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r3/gemma3-q4/t0.3-s44/frame-000235.json",
+      "original_record_sha256": "0eeacf24da1050acd4d66bffd9ab5474aeb43f314282e77447ab19b0db27c2f2",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000235.json",
+      "frozen_input_sha256": "b16962ee00e6c1d82ae5c790c934866094222736a2205d44f9a02303ef24c13b",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000235-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "19fab3c6f853403f75d158794e9e4a8483693eeb8bbc1ac84908c681df1278f4",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [607.3599853515625, 235.0800018310547, 750.719970703125, 361.08001708984375]. No attachment/contact/occlusion fields were produced."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [987.5199584960938, 392.0400085449219, 1033.5999755859375, 442.44000244140625]. No attachment/contact/occlusion fields were produced."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [960.6399536132812, 402.84002685546875, 993.9199829101562, 457.5600280761719]. No attachment/contact/occlusion fields were produced."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [1010.5599975585938, 223.5600128173828, 1048.9599609375, 261.7200012207031]. No attachment/contact/occlusion fields were produced."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [607.3599853515625, 235.0800018310547, 750.719970703125, 361.08001708984375]. No attachment/contact/occlusion fields were produced."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [987.5199584960938, 392.0400085449219, 1033.5999755859375, 442.44000244140625]. No attachment/contact/occlusion fields were produced."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [960.6399536132812, 402.84002685546875, 993.9199829101562, 457.5600280761719]. No attachment/contact/occlusion fields were produced."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "Florence task <OD> literally returned label/phrase 'box'; bbox_xyxy in original image pixels: [1010.5599975585938, 223.5600128173828, 1048.9599609375, 261.7200012207031]. No attachment/contact/occlusion fields were produced."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000235-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s5-35822",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000235.json",
+      "caption_sha256": "b16962ee00e6c1d82ae5c790c934866094222736a2205d44f9a02303ef24c13b",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.8050917949294671,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:10:19.785077816Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"The visual observation indicates no attachment evidence and the label is 'box'.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"The visual observation indicates no attachment evidence and the label is 'box'.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"The visual observation indicates no attachment evidence and the label is 'box'.\"}, {\"id\": 4, \"classification\": \"movable\", \"reason\": \"The visual observation indicates no attachment evidence and the label is 'box'.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1804365155,
+        "load_duration": 598909,
+        "prompt_eval_count": 2009,
+        "prompt_eval_cached_count": 237,
+        "prompt_eval_duration": 162185000,
+        "eval_count": 132,
+        "eval_duration": 1506882000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:10:19Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:15:19.785202744Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 235,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r1/gemma3-q4/t0.3-s42/frame-000235.json",
+      "original_record_sha256": "00b6c2f1f78ed5cd8ff58d57cb2959156ee2dfb46d08f18328d003e9e5d1926a",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000235.json",
+      "frozen_input_sha256": "b16962ee00e6c1d82ae5c790c934866094222736a2205d44f9a02303ef24c13b",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000235-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "19fab3c6f853403f75d158794e9e4a8483693eeb8bbc1ac84908c681df1278f4",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the label is 'box'."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the label is 'box'."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the label is 'box'."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the label is 'box'."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the label is 'box'."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the label is 'box'."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the label is 'box'."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the label is 'box'."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000235-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s5-35822",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000235.json",
+      "caption_sha256": "b16962ee00e6c1d82ae5c790c934866094222736a2205d44f9a02303ef24c13b",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.9779049259377643,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:22:32.434615923Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"The visual observation indicates no attachment evidence and the region is identified as 'box' by the task.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"The visual observation indicates no attachment evidence and the region is identified as 'box' by the task.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"The visual observation indicates no attachment evidence and the region is identified as 'box' by the task.\"}, {\"id\": 4, \"classification\": \"movable\", \"reason\": \"The visual observation indicates no attachment evidence and the region is identified as 'box' by the task.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 977237982,
+        "load_duration": 591621,
+        "prompt_eval_count": 2009,
+        "prompt_eval_cached_count": 237,
+        "prompt_eval_duration": 165384000,
+        "eval_count": 153,
+        "eval_duration": 669661000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:22:32Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:27:32.434734957Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 235,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r2/gemma3-q4/t0.3-s43/frame-000235.json",
+      "original_record_sha256": "c18d0fca7e3dc68b7f68dbd95fee84e058685488947af6dcef26feb70529f39e",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000235.json",
+      "frozen_input_sha256": "b16962ee00e6c1d82ae5c790c934866094222736a2205d44f9a02303ef24c13b",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000235-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "19fab3c6f853403f75d158794e9e4a8483693eeb8bbc1ac84908c681df1278f4",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as 'box' by the task."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as 'box' by the task."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as 'box' by the task."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as 'box' by the task."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as 'box' by the task."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as 'box' by the task."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as 'box' by the task."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as 'box' by the task."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000235-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s5-35822",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000235.json",
+      "caption_sha256": "b16962ee00e6c1d82ae5c790c934866094222736a2205d44f9a02303ef24c13b",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.994823460932821,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:27:01.193228156Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"The visual observation indicates no attachment evidence and the region is identified as a 'box' within the warehouse.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"The visual observation indicates no attachment evidence and the region is identified as a 'box' within the warehouse.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"The visual observation indicates no attachment evidence and the region is identified as a 'box' within the warehouse.\"}, {\"id\": 4, \"classification\": \"movable\", \"reason\": \"The visual observation indicates no attachment evidence and the region is identified as a 'box' within the warehouse.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 993507943,
+        "load_duration": 1176027,
+        "prompt_eval_count": 2009,
+        "prompt_eval_cached_count": 237,
+        "prompt_eval_duration": 162087000,
+        "eval_count": 157,
+        "eval_duration": 693650000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:27:01Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:32:01.193659141Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 235,
+      "vlm": "florence",
+      "vlm_repeat": "r1",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r3/gemma3-q4/t0.3-s44/frame-000235.json",
+      "original_record_sha256": "1518b7a3fed7b1210e2e97493239f569d66133786d030f9add121348ab954768",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000235.json",
+      "frozen_input_sha256": "b16962ee00e6c1d82ae5c790c934866094222736a2205d44f9a02303ef24c13b",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000235-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "19fab3c6f853403f75d158794e9e4a8483693eeb8bbc1ac84908c681df1278f4",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as a 'box' within the warehouse."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as a 'box' within the warehouse."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as a 'box' within the warehouse."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as a 'box' within the warehouse."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as a 'box' within the warehouse."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as a 'box' within the warehouse."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as a 'box' within the warehouse."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "The visual observation indicates no attachment evidence and the region is identified as a 'box' within the warehouse."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000235-long.txt"
+        }
+      ]
+    }
+  }
+}

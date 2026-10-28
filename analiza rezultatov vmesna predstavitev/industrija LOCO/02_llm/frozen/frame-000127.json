@@ -1,0 +1,86 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s3-36397",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r1"
+  },
+  "vlm_repeat": "r1",
+  "image_sha256": "bb07f0b5fc07c653e4ca95ab869cd224f2fcb1b6880166f720b341b76b76c385",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s3-36397/florence/r1/caption.raw.json",
+      "sha256": "38f64bdd17a2b57e41575599af61abf1d24f0d0778598aabc65d4dfc1305afa7",
+      "original_call_id": "65cb768812844d418ba71092f50268fe",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s3-36397/florence/r1/od.raw.json",
+      "sha256": "57aa318ee701eefb27523972dd84b4a5ec96ad4d95c06cd99a296f5dd03026ab",
+      "original_call_id": "951f81d2815147f8b296637f0944e683",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s3-36397/florence/r1/dense.raw.json",
+      "sha256": "26c36e01a1dfcf59367e892457b92cdcb7fd6fe0c8bcfbf41c584b966afed8b8",
+      "original_call_id": "97746bb173674277ad5dad7a58dbbb1a",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows the interior of a large warehouse or storage facility. The floor is made of concrete and the walls are painted white. On the left side of the image, there are rows of blue metal shelves with various items stored on them. In the center of the room, there is a large red pallet truck with a crane attached to it. There are several other pallets and carts scattered around the room. The warehouse appears to be well-maintained and well-organized.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "wheel",
+        "observation": "Florence task <OD> literally returned label/phrase 'wheel'; bbox_xyxy in original image pixels: [244.79998779296875, 794.3400268554688, 294.7200012207031, 834.300048828125]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows the interior of a large warehouse or storage facility. The floor is made of concrete and the walls are painted white. On the left side of the image, there are rows of blue metal shelves with various items stored on them. In the center of the room, there is a large red pallet truck with a crane attached to it. There are several other pallets and carts scattered around the room. The warehouse appears to be well-maintained and well-organized.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows the interior of a large warehouse or storage facility. The floor is made of concrete and the walls are painted white. On the left side of the image, there are rows of blue metal shelves with various items stored on them. In the center of the room, there is a large red pallet truck with a crane attached to it. There are several other pallets and carts scattered around the room. The warehouse appears to be well-maintained and well-organized."
+        }
+      },
+      "od": {
+        "content": "</s><s><s><s>wheel<loc_127><loc_735><loc_153><loc_772></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                244.79998779296875,
+                794.3400268554688,
+                294.7200012207031,
+                834.300048828125
+              ]
+            ],
+            "labels": [
+              "wheel"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s>No object detected.</s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [],
+            "labels": []
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "37c46a2557813bdb761357d9d19a8e2eab5f74ff46b91ab88a226c2ded263733",
+  "status": "ok"
+}

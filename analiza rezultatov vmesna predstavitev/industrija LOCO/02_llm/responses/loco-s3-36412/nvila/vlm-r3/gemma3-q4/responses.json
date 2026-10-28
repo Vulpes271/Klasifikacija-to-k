@@ -1,0 +1,946 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s3-36412",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "caption_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 2.8786042920546606,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T18:52:44.824268647Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": 1, \"classification\":\"movable\", \"reason\":\"gray SUV is parked and appears to be stationary\"}, {\"id\": 2, \"classification\":\"movable\", \"reason\":\"yellow and blue barrier is blocking an area\"}, {\"id\": 3, \"classification\":\"fixed\", \"reason\":\"red and blue metal racks are structural elements\"}, {\"id\": 4, \"classification\":\"movable\", \"reason\":\"blue garage door is a door and can be opened/closed\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 2877853285,
+        "load_duration": 992839,
+        "prompt_eval_count": 1319,
+        "prompt_eval_cached_count": 137,
+        "prompt_eval_duration": 171710000,
+        "eval_count": 104,
+        "eval_duration": 2605168000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T18:52:44Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T18:57:44.824385095Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r1/gemma3-q4/t0.3-s42/frame-000123.json",
+      "original_record_sha256": "718aa7a788268795a687cf58ff353a8bc75db1ef532235b2d07084912d8d97c6",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "frozen_input_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "4e380f579e34376d21bf0b9f28540d69fd8609c66d020a195323423b067d7f12",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "gray SUV is parked and appears to be stationary"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "yellow and blue barrier is blocking an area"
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "red and blue metal racks are structural elements"
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "blue garage door is a door and can be opened/closed"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "gray SUV is parked and appears to be stationary"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "yellow and blue barrier is blocking an area"
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "red and blue metal racks are structural elements"
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "blue garage door is a door and can be opened/closed"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s3-36412",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "caption_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.5365638709627092,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T18:57:26.530110881Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": 1, \"classification\":\"movable\", \"reason\":\"gray SUV is parked and appears to be stationary\"}, {\"id\": 2, \"classification\":\"movable\", \"reason\":\"yellow and blue barrier is blocking an area\"}, {\"id\": 3, \"classification\":\"fixed\", \"reason\":\"red and blue metal racks are structural elements\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 535933555,
+        "load_duration": 877442,
+        "prompt_eval_count": 1319,
+        "prompt_eval_cached_count": 137,
+        "prompt_eval_duration": 111430000,
+        "eval_count": 76,
+        "eval_duration": 319735000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T18:57:26Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:02:26.530246936Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Missing IDs: {('int', 4)}",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r2/gemma3-q4/t0.3-s43/frame-000123.json",
+      "original_record_sha256": "e3c7dbbd38d265e2c66e184adce0523168cc561ff4b27cc6cd3e214af1f57e03",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "frozen_input_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "4e380f579e34376d21bf0b9f28540d69fd8609c66d020a195323423b067d7f12",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "gray SUV is parked and appears to be stationary"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "yellow and blue barrier is blocking an area"
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "red and blue metal racks are structural elements"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s3-36412",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "caption_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.5370336949126795,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:02:17.693684466Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\": 1, \"classification\":\"movable\", \"reason\":\"gray SUV is parked and appears to be stationary\"}, {\"id\": 2, \"classification\":\"movable\", \"reason\":\"yellow and blue barrier is blocking an area\"}, {\"id\": 3, \"classification\":\"fixed\", \"reason\":\"red and blue metal racks are structural elements\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 536316035,
+        "load_duration": 588423,
+        "prompt_eval_count": 1319,
+        "prompt_eval_cached_count": 126,
+        "prompt_eval_duration": 110023000,
+        "eval_count": 76,
+        "eval_duration": 323036000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:02:17Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:07:17.693799805Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Missing IDs: {('int', 4)}",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/gemma3-q4/short/r3/gemma3-q4/t0.3-s44/frame-000123.json",
+      "original_record_sha256": "4b5f416b1d28107a24e62fd34c648d61ca475236011c22389c13bd3c4992c44c",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "frozen_input_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "4e380f579e34376d21bf0b9f28540d69fd8609c66d020a195323423b067d7f12",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "gray SUV is parked and appears to be stationary"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "yellow and blue barrier is blocking an area"
+          },
+          {
+            "id": 3,
+            "classification": "fixed",
+            "reason": "red and blue metal racks are structural elements"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s3-36412",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "caption_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 3.7900531248888,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:08:02.192903098Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [\n  {\"id\": 1, \"classification\": \"movable\", \"reason\": \"A parked SUV can be moved or repositioned.\"},\n  {\"id\": 2, \"classification\": \"movable\", \"reason\": \"A barrier can be carried or moved around.\"},\n  {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Metal racks are designed to be movable.\"},\n  {\"id\": 4, \"classification\": \"movable\", \"reason\": \"A garage door is designed to open and close.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 3789251448,
+        "load_duration": 536462,
+        "prompt_eval_count": 1385,
+        "prompt_eval_cached_count": 206,
+        "prompt_eval_duration": 176402000,
+        "eval_count": 119,
+        "eval_duration": 3510025000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:08:02Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:13:02.193186049Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r1/gemma3-q4/t0.3-s42/frame-000123.json",
+      "original_record_sha256": "a8950ccab68f9d38a0a6142f1b8cdbcbe2a8455fff4e2e90c73546592d64c8bc",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "frozen_input_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "4e380f579e34376d21bf0b9f28540d69fd8609c66d020a195323423b067d7f12",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "A parked SUV can be moved or repositioned."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "A barrier can be carried or moved around."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Metal racks are designed to be movable."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "A garage door is designed to open and close."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "A parked SUV can be moved or repositioned."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "A barrier can be carried or moved around."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Metal racks are designed to be movable."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "A garage door is designed to open and close."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s3-36412",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "caption_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.0461228829808533,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:20:29.695769297Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [\n  {\n    \"id\": 1,\n    \"classification\": \"movable\",\n    \"reason\": \"The SUV is parked and appears to be stationary but could be moved.\"\n  },\n  {\n    \"id\": 2,\n    \"classification\": \"movable\",\n    \"reason\": \"A barrier that can be carried or repositioned in normal use.\"\n  },\n  {\n    \"id\": 3,\n    \"classification\": \"movable\",\n    \"reason\": \"Metal racks that can be carried or repositioned in normal use.\"\n  },\n  {\n    \"id\": 4,\n    \"classification\": \"movable\",\n    \"reason\": \"A garage door that can be carried or repositioned in normal use.\"\n  }\n]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1045353823,
+        "load_duration": 776463,
+        "prompt_eval_count": 1385,
+        "prompt_eval_cached_count": 132,
+        "prompt_eval_duration": 135225000,
+        "eval_count": 177,
+        "eval_duration": 796608000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:20:29Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:25:29.695906404Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r2/gemma3-q4/t0.3-s43/frame-000123.json",
+      "original_record_sha256": "72032f276712661cd8362990386729f42d2d33714a3fb58ac93fc64f3edd2e44",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "frozen_input_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "4e380f579e34376d21bf0b9f28540d69fd8609c66d020a195323423b067d7f12",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "The SUV is parked and appears to be stationary but could be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "A barrier that can be carried or repositioned in normal use."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Metal racks that can be carried or repositioned in normal use."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "A garage door that can be carried or repositioned in normal use."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "The SUV is parked and appears to be stationary but could be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "A barrier that can be carried or repositioned in normal use."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Metal racks that can be carried or repositioned in normal use."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "A garage door that can be carried or repositioned in normal use."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s3-36412",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "caption_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "model": "gemma3:4b-it-q4_K_M",
+      "model_name": "gemma3-q4",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.7100449639838189,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "created_at": "2026-10-28T19:25:27.285847172Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"A parked SUV can be moved and repositioned.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"A barrier can be carried or moved within the warehouse.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Metal racks are designed to be movable and repositioned.\"}, {\"id\": 4, \"classification\": \"movable\", \"reason\": \"A garage door is designed for opening and closing.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 709515011,
+        "load_duration": 719150,
+        "prompt_eval_count": 1385,
+        "prompt_eval_cached_count": 203,
+        "prompt_eval_duration": 106516000,
+        "eval_count": 115,
+        "eval_duration": 489242000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T19:25:27Z",
+      "gpu": {
+        "name": "gemma3:4b-it-q4_K_M",
+        "model": "gemma3:4b-it-q4_K_M",
+        "size": 3059199507,
+        "digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "gemma3",
+          "families": [
+            "gemma3",
+            "clip"
+          ],
+          "parameter_size": "3.9B",
+          "quantization_level": "Q4_K_M"
+        },
+        "expires_at": "2026-10-28T19:30:27.285934031Z",
+        "size_vram": 3059199507,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 123,
+      "vlm": "nvila",
+      "vlm_repeat": "r3",
+      "llm": "gemma3-q4",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/gemma3-q4/long/r3/gemma3-q4/t0.3-s44/frame-000123.json",
+      "original_record_sha256": "56e371a40704b16ceccfdf2746aa0c1f210a8ada473134265d5295eedfa5ab47",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000123.json",
+      "frozen_input_sha256": "a7bbe56a93009ca902f8a61f7fabb0c0cde6a8100bf8bdd6bffcd551984b965d",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "4e380f579e34376d21bf0b9f28540d69fd8609c66d020a195323423b067d7f12",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "A parked SUV can be moved and repositioned."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "A barrier can be carried or moved within the warehouse."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Metal racks are designed to be movable and repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "A garage door is designed for opening and closing."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "A parked SUV can be moved and repositioned."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "A barrier can be carried or moved within the warehouse."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Metal racks are designed to be movable and repositioned."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "A garage door is designed for opening and closing."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "gemma3:4b-it-q4_K_M",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000123-long.txt"
+        }
+      ]
+    }
+  }
+}

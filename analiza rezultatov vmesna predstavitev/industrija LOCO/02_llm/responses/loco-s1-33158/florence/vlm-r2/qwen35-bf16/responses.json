@@ -1,0 +1,936 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s1-33158",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000002.json",
+      "caption_sha256": "2b2e9b63946781bb4d8fa2167667fb445e2b4f61e1166133becada111dff9350",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 5.483338988968171,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:20:14.408207887Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Wheel is part of movable forklift truck.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Forklift truck is designed to be moved and repositioned.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Wheel is part of movable forklift truck.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 5482152692,
+        "load_duration": 3150986577,
+        "prompt_eval_count": 1637,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 316861000,
+        "eval_count": 75,
+        "eval_duration": 2002547000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:20:14Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:25:14.408505077Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 2,
+      "vlm": "florence",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r1/qwen35-bf16/t0.3-s42/frame-000002.json",
+      "original_record_sha256": "b3f1552c0a8fdee9e828d377575c12eeee7d85bfcb2587b00b4e15274f866ffb",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000002.json",
+      "frozen_input_sha256": "2b2e9b63946781bb4d8fa2167667fb445e2b4f61e1166133becada111dff9350",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000002-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "791bd586b73cd7cf947a1ab596ce5a6ba923c2b21ed7be3c9b3cd04d5e2f2a56",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Wheel is part of movable forklift truck."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift truck is designed to be moved and repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Wheel is part of movable forklift truck."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Wheel is part of movable forklift truck."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift truck is designed to be moved and repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Wheel is part of movable forklift truck."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000002-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s1-33158",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000002.json",
+      "caption_sha256": "2b2e9b63946781bb4d8fa2167667fb445e2b4f61e1166133becada111dff9350",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.5633386520203203,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:34:18.520317079Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Wheel is part of movable forklift truck\"}, {\"id\":2,\"classification\":\"movable\",\"reason\":\"Forklift truck is a movable vehicle\"}, {\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Conflicting wheel instances imply uncertain status\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 562805862,
+        "load_duration": 553073,
+        "prompt_eval_count": 1637,
+        "prompt_eval_cached_count": 1633,
+        "prompt_eval_duration": 44294000,
+        "eval_count": 67,
+        "eval_duration": 512182000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:34:18Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:39:18.520419156Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 2,
+      "vlm": "florence",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r2/qwen35-bf16/t0.3-s43/frame-000002.json",
+      "original_record_sha256": "28e44b4ac2debe4e7979980f57518b5eb3e39c38513cc21d242c794a4f3d3f13",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000002.json",
+      "frozen_input_sha256": "2b2e9b63946781bb4d8fa2167667fb445e2b4f61e1166133becada111dff9350",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000002-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "791bd586b73cd7cf947a1ab596ce5a6ba923c2b21ed7be3c9b3cd04d5e2f2a56",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Wheel is part of movable forklift truck"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift truck is a movable vehicle"
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Conflicting wheel instances imply uncertain status"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Wheel is part of movable forklift truck"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift truck is a movable vehicle"
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Conflicting wheel instances imply uncertain status"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000002-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s1-33158",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000002.json",
+      "caption_sha256": "2b2e9b63946781bb4d8fa2167667fb445e2b4f61e1166133becada111dff9350",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.5720483290497214,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:42:45.267088631Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Wheel on forklift is part of movable vehicle\"}, {\"id\":2,\"classification\":\"movable\",\"reason\":\"Forklift truck is a mobile industrial vehicle\"}, {\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Conflicting wheel instances imply uncertain classification\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 571287029,
+        "load_duration": 515070,
+        "prompt_eval_count": 1637,
+        "prompt_eval_cached_count": 1633,
+        "prompt_eval_duration": 39890000,
+        "eval_count": 69,
+        "eval_duration": 524667000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:42:45Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:47:45.267263261Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 2,
+      "vlm": "florence",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r3/qwen35-bf16/t0.3-s44/frame-000002.json",
+      "original_record_sha256": "df950e815e7658febcb24a1f6c33237012f759473f66d529696798c7341dc7c0",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000002.json",
+      "frozen_input_sha256": "2b2e9b63946781bb4d8fa2167667fb445e2b4f61e1166133becada111dff9350",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000002-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "791bd586b73cd7cf947a1ab596ce5a6ba923c2b21ed7be3c9b3cd04d5e2f2a56",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Wheel on forklift is part of movable vehicle"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift truck is a mobile industrial vehicle"
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Conflicting wheel instances imply uncertain classification"
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Wheel on forklift is part of movable vehicle"
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift truck is a mobile industrial vehicle"
+          },
+          {
+            "id": 3,
+            "classification": "uncertain",
+            "reason": "Conflicting wheel instances imply uncertain classification"
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000002-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s1-33158",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000002.json",
+      "caption_sha256": "2b2e9b63946781bb4d8fa2167667fb445e2b4f61e1166133becada111dff9350",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8275745190912858,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:49:36.587223383Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Wheel is part of the forklift which can be moved.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Forklift truck is a vehicle designed to move within the warehouse.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Wheel is part of the forklift which can be moved.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 826921319,
+        "load_duration": 925539,
+        "prompt_eval_count": 1699,
+        "prompt_eval_cached_count": 1695,
+        "prompt_eval_duration": 58908000,
+        "eval_count": 99,
+        "eval_duration": 761714000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:49:36Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:54:36.587353469Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 2,
+      "vlm": "florence",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r1/qwen35-bf16/t0.3-s42/frame-000002.json",
+      "original_record_sha256": "07f933420e3b8063f5455aef673566d68d16201d19273b073a6bcdc5ce22ac15",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000002.json",
+      "frozen_input_sha256": "2b2e9b63946781bb4d8fa2167667fb445e2b4f61e1166133becada111dff9350",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000002-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "791bd586b73cd7cf947a1ab596ce5a6ba923c2b21ed7be3c9b3cd04d5e2f2a56",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Wheel is part of the forklift which can be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift truck is a vehicle designed to move within the warehouse."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Wheel is part of the forklift which can be moved."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Wheel is part of the forklift which can be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift truck is a vehicle designed to move within the warehouse."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Wheel is part of the forklift which can be moved."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000002-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s1-33158",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000002.json",
+      "caption_sha256": "2b2e9b63946781bb4d8fa2167667fb445e2b4f61e1166133becada111dff9350",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.2281409649876878,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:58:02.212735692Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Wheel is part of the forklift which can be moved.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Forklift truck is a vehicle designed to be moved around.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Wheel is part of the forklift which can be moved.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1227437867,
+        "load_duration": 412954,
+        "prompt_eval_count": 1699,
+        "prompt_eval_cached_count": 1695,
+        "prompt_eval_duration": 41185000,
+        "eval_count": 98,
+        "eval_duration": 1180058000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:58:02Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:03:02.213019587Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 2,
+      "vlm": "florence",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r2/qwen35-bf16/t0.3-s43/frame-000002.json",
+      "original_record_sha256": "d60be9c7cb782ca481f0baa8562f86ba372b128b95493d0063ae0408673835de",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000002.json",
+      "frozen_input_sha256": "2b2e9b63946781bb4d8fa2167667fb445e2b4f61e1166133becada111dff9350",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000002-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "791bd586b73cd7cf947a1ab596ce5a6ba923c2b21ed7be3c9b3cd04d5e2f2a56",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Wheel is part of the forklift which can be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift truck is a vehicle designed to be moved around."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Wheel is part of the forklift which can be moved."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Wheel is part of the forklift which can be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift truck is a vehicle designed to be moved around."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Wheel is part of the forklift which can be moved."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000002-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s1-33158",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000002.json",
+      "caption_sha256": "2b2e9b63946781bb4d8fa2167667fb445e2b4f61e1166133becada111dff9350",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 0.8235038840211928,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T16:04:52.294846333Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\": [{\"id\": 1, \"classification\": \"movable\", \"reason\": \"Wheel is part of the forklift, which can be moved.\"}, {\"id\": 2, \"classification\": \"movable\", \"reason\": \"Forklift truck is designed to move and carry loads.\"}, {\"id\": 3, \"classification\": \"movable\", \"reason\": \"Wheel is part of the forklift, which can be moved.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 822998028,
+        "load_duration": 758131,
+        "prompt_eval_count": 1699,
+        "prompt_eval_cached_count": 1695,
+        "prompt_eval_duration": 42192000,
+        "eval_count": 99,
+        "eval_duration": 774571000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:04:52Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:09:52.294993058Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 2,
+      "vlm": "florence",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r3/qwen35-bf16/t0.3-s44/frame-000002.json",
+      "original_record_sha256": "e7365445364e244f87eb872f04090aa4c7d4f737b5b2ed8afe357b4381f33295",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000002.json",
+      "frozen_input_sha256": "2b2e9b63946781bb4d8fa2167667fb445e2b4f61e1166133becada111dff9350",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000002-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "791bd586b73cd7cf947a1ab596ce5a6ba923c2b21ed7be3c9b3cd04d5e2f2a56",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Wheel is part of the forklift, which can be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift truck is designed to move and carry loads."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Wheel is part of the forklift, which can be moved."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "movable",
+            "reason": "Wheel is part of the forklift, which can be moved."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift truck is designed to move and carry loads."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Wheel is part of the forklift, which can be moved."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000002-long.txt"
+        }
+      ]
+    }
+  }
+}

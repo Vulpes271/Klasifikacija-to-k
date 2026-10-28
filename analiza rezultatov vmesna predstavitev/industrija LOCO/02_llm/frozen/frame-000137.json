@@ -1,0 +1,122 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s3-36540",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r2"
+  },
+  "vlm_repeat": "r2",
+  "image_sha256": "2d1fe7daae9350df20d2198f22a46a5cc3d6c7a041271cf00c445041c77b6c56",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s3-36540/florence/r2/caption.raw.json",
+      "sha256": "cebfd09dbeac712c9a13c871f6cd9f015121ec7d2f376f88f4e082e5b6c3e63c",
+      "original_call_id": "833b710a2ede44c0b167a967bd94fa31",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s3-36540/florence/r2/od.raw.json",
+      "sha256": "f260cfd1aa7e3c795d89e18e81f09dea9ce3c80ec57ef3a4460030fbae5c64de",
+      "original_call_id": "2a62a6e21a7740e78182e53b66176472",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s3-36540/florence/r2/dense.raw.json",
+      "sha256": "7a02723ae48fbd0579c1d5556e225019b9402ae77265c3a4bb8b0696291bc07d",
+      "original_call_id": "fcce56976c074a6e9031f3b90b4a7d14",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows a large warehouse with rows of red metal shelves. The shelves are filled with various items such as boxes, pallets, and other storage containers. The floor is made of concrete and there is a forklift on the right side of the image. The warehouse appears to be well-maintained and well-organized. The image is taken from a low angle, looking up at the shelves.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "shelf",
+        "observation": "Florence task <OD> literally returned label/phrase 'shelf'; bbox_xyxy in original image pixels: [313.91998291015625, 73.9800033569336, 1197.1199951171875, 653.9400024414062]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      },
+      {
+        "id": 2,
+        "label": "shelf",
+        "observation": "Florence task <OD> literally returned label/phrase 'shelf'; bbox_xyxy in original image pixels: [1158.719970703125, 0.5400000214576721, 1383.3599853515625, 620.4600219726562]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 2,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      },
+      {
+        "id": 3,
+        "label": "warehouse storage rack with cardboard boxes and pallets",
+        "observation": "Florence task <DENSE_REGION_CAPTION> literally returned label/phrase 'warehouse storage rack with cardboard boxes and pallets'; bbox_xyxy in original image pixels: [313.91998291015625, 75.06000518798828, 1197.1199951171875, 652.8600463867188]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<DENSE_REGION_CAPTION>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows a large warehouse with rows of red metal shelves. The shelves are filled with various items such as boxes, pallets, and other storage containers. The floor is made of concrete and there is a forklift on the right side of the image. The warehouse appears to be well-maintained and well-organized. The image is taken from a low angle, looking up at the shelves.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows a large warehouse with rows of red metal shelves. The shelves are filled with various items such as boxes, pallets, and other storage containers. The floor is made of concrete and there is a forklift on the right side of the image. The warehouse appears to be well-maintained and well-organized. The image is taken from a low angle, looking up at the shelves."
+        }
+      },
+      "od": {
+        "content": "</s><s><s><s>shelf<loc_163><loc_68><loc_623><loc_605><loc_603><loc_0><loc_720><loc_574></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                313.91998291015625,
+                73.9800033569336,
+                1197.1199951171875,
+                653.9400024414062
+              ],
+              [
+                1158.719970703125,
+                0.5400000214576721,
+                1383.3599853515625,
+                620.4600219726562
+              ]
+            ],
+            "labels": [
+              "shelf",
+              "shelf"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s><s><s>warehouse storage rack with cardboard boxes and pallets<loc_163><loc_69><loc_623><loc_604></s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [
+              [
+                313.91998291015625,
+                75.06000518798828,
+                1197.1199951171875,
+                652.8600463867188
+              ]
+            ],
+            "labels": [
+              "warehouse storage rack with cardboard boxes and pallets"
+            ]
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "009688c18b842ad55143a67d239951f85bd528ba12004a16ade3b0840530c6e3",
+  "status": "ok"
+}

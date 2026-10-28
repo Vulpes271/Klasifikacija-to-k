@@ -1,0 +1,86 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s2-34451",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r2"
+  },
+  "vlm_repeat": "r2",
+  "image_sha256": "32c5e62ed5a505db7d986a138026aeb9a87af61f5eeec9195b4cac7b36934910",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s2-34451/florence/r2/caption.raw.json",
+      "sha256": "51c1689f98f8ce6700fbf126e6800fde7d2819d606e2a73785ec329f868bbd99",
+      "original_call_id": "ee8f05fd7acb484eac55fe20b4bd8902",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s2-34451/florence/r2/od.raw.json",
+      "sha256": "e0b693cfb641b5cc2e825f1ed53f0abb987bfc7a86a7c11870b5e55c784c0967",
+      "original_call_id": "7786c937b9114561a4b9237e64e15401",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s2-34451/florence/r2/dense.raw.json",
+      "sha256": "2ea0c8a4c997ce4ae14dc7ff40354c353a69773f1ae54cdac031600633a88f62",
+      "original_call_id": "a144f8b287304324873becaf8472d992",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows a large warehouse with multiple rows of shelves. The shelves are filled with various items such as boxes, pallets, and other storage containers. The floor is made of concrete and there is a blue metal frame on the left side of the image. The warehouse appears to be well-lit with natural light coming in from the windows on the right side. In the background, there are several workers wearing hard hats and safety vests. The image is taken from a low angle, looking down on the warehouse floor.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "building",
+        "observation": "Florence task <OD> literally returned label/phrase 'building'; bbox_xyxy in original image pixels: [0.9599999785423279, 0.5400000214576721, 1919.0399169921875, 839.7000122070312]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows a large warehouse with multiple rows of shelves. The shelves are filled with various items such as boxes, pallets, and other storage containers. The floor is made of concrete and there is a blue metal frame on the left side of the image. The warehouse appears to be well-lit with natural light coming in from the windows on the right side. In the background, there are several workers wearing hard hats and safety vests. The image is taken from a low angle, looking down on the warehouse floor.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows a large warehouse with multiple rows of shelves. The shelves are filled with various items such as boxes, pallets, and other storage containers. The floor is made of concrete and there is a blue metal frame on the left side of the image. The warehouse appears to be well-lit with natural light coming in from the windows on the right side. In the background, there are several workers wearing hard hats and safety vests. The image is taken from a low angle, looking down on the warehouse floor."
+        }
+      },
+      "od": {
+        "content": "</s><s>building<loc_0><loc_0><loc_999><loc_777></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                0.9599999785423279,
+                0.5400000214576721,
+                1919.0399169921875,
+                839.7000122070312
+              ]
+            ],
+            "labels": [
+              "building"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s>No object detected.</s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [],
+            "labels": []
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "c8f3c0fdda56ad238b62eb1896d8d8745e71778a9ce02df94b633a3d43775a9a",
+  "status": "ok"
+}

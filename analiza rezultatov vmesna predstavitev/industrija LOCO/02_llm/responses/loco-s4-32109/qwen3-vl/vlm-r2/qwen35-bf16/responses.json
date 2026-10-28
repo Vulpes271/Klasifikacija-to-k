@@ -1,0 +1,947 @@
+{
+  "short": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s4-32109",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000215.json",
+      "caption_sha256": "84405116cfa2e8bb6bdee9774a286eaac02a24c51661e4ef7b4f67d81402ea23",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 3.9335657210322097,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:32:19.185181055Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Structural element requiring dismantling to relocate.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Vehicle designed for carrying and repositioning.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Handheld tool designed for carrying and repositioning.\"},{\"id\":4,\"classification\":\"uncertain\",\"reason\":\"Person is neither fixed structure nor movable object.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Mounted to floor, requires dismantling to relocate.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Packaging material can be carried or repositioned.\"},{\"id\":7,\"classification\":\"fixed\",\"description\":\"Structural lighting fixture requiring dismantling to relocate.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 3932196384,
+        "load_duration": 478475,
+        "prompt_eval_count": 966,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 155018000,
+        "eval_count": 155,
+        "eval_duration": 3688461000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:32:19Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:37:19.185667384Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Object 7 has missing reason.",
+      "input_index": 215,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r1/qwen35-bf16/t0.3-s42/frame-000215.json",
+      "original_record_sha256": "c7eeb386105c35f0c131cb48d7b8dac2b0a4d88ee6f31b287bc544e247b06cfb",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000215.json",
+      "frozen_input_sha256": "84405116cfa2e8bb6bdee9774a286eaac02a24c51661e4ef7b4f67d81402ea23",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000215-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "d03a59924278432d1817448f33fb67391d65c858c08464e85d8e91a39e4469b4",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural element requiring dismantling to relocate."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Vehicle designed for carrying and repositioning."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Handheld tool designed for carrying and repositioning."
+          },
+          {
+            "id": 4,
+            "classification": "uncertain",
+            "reason": "Person is neither fixed structure nor movable object."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Mounted to floor, requires dismantling to relocate."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Packaging material can be carried or repositioned."
+          },
+          {
+            "id": 7,
+            "classification": "fixed",
+            "description": "Structural lighting fixture requiring dismantling to relocate."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000215-short.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s4-32109",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000215.json",
+      "caption_sha256": "84405116cfa2e8bb6bdee9774a286eaac02a24c51661e4ef7b4f67d81402ea23",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.3168914030538872,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:41:58.713684788Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Structural element requiring dismantling to relocate.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Vehicle designed to be pushed or repositioned.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Handheld tool designed to be moved by person.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Human capable of independent movement.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Mounted to floor, requires dismantling to relocate.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Packaging items easily carried or pushed.\"},{\"id\":7,\"classification\":\"fixed\",\"description\":\"Ceiling mounted fixture requiring dismantling to relocate.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1316317655,
+        "load_duration": 629608,
+        "prompt_eval_count": 966,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 98351000,
+        "eval_count": 149,
+        "eval_duration": 1125997000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:41:58Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:46:58.713778215Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Object 7 has missing reason.",
+      "input_index": 215,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r2/qwen35-bf16/t0.3-s43/frame-000215.json",
+      "original_record_sha256": "7ab74c1c7f5cd34cbdc57c22848a1e8bcc929f99375c6497463752f7c8e1a5ba",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000215.json",
+      "frozen_input_sha256": "84405116cfa2e8bb6bdee9774a286eaac02a24c51661e4ef7b4f67d81402ea23",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000215-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "d03a59924278432d1817448f33fb67391d65c858c08464e85d8e91a39e4469b4",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural element requiring dismantling to relocate."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Vehicle designed to be pushed or repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Handheld tool designed to be moved by person."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "Human capable of independent movement."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Mounted to floor, requires dismantling to relocate."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Packaging items easily carried or pushed."
+          },
+          {
+            "id": 7,
+            "classification": "fixed",
+            "description": "Ceiling mounted fixture requiring dismantling to relocate."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000215-short.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s4-32109",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000215.json",
+      "caption_sha256": "84405116cfa2e8bb6bdee9774a286eaac02a24c51661e4ef7b4f67d81402ea23",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": true,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.466440111049451,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:48:32.818663964Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Structural shelving requiring dismantling to relocate.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Forklift can be pushed or repositioned in normal use.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Pallet jack can be carried or repositioned easily.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Person is a biological entity capable of movement.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Safety barrier mounted to floor, requires dismantling to move.\"},{\"id\":6,\"classification\":\"uncertain\",\"reason\":\"Boxes on pallets/shelves imply uncertain attachment status.\"},{\"id\":7,\"classification\":\"fixed\",\"reason\":\"Ceiling lights are permanent installations requiring dismantling.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1465860457,
+        "load_duration": 1168632,
+        "prompt_eval_count": 966,
+        "prompt_eval_cached_count": 163,
+        "prompt_eval_duration": 99525000,
+        "eval_count": 164,
+        "eval_duration": 1268111000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:48:32Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T15:53:32.818784814Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "ok",
+      "input_index": 215,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "short",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/short/r3/qwen35-bf16/t0.3-s44/frame-000215.json",
+      "original_record_sha256": "9597675922c57114c2895801560016b368e7639c18803ce642adc298f9b5ee24",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000215.json",
+      "frozen_input_sha256": "84405116cfa2e8bb6bdee9774a286eaac02a24c51661e4ef7b4f67d81402ea23",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000215-short.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+      "user_prompt_sha256": "d03a59924278432d1817448f33fb67391d65c858c08464e85d8e91a39e4469b4",
+      "system_prompt_file_sha256": "daafdb09848bc81a87f34b09a77698546f9c73353d1574c19af50399c31495bf",
+      "system_prompt_sha256": "a8ee26d52285fe5e6c4b21572191509fef188506df5b26db28038cac5483d904",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural shelving requiring dismantling to relocate."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift can be pushed or repositioned in normal use."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Pallet jack can be carried or repositioned easily."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "Person is a biological entity capable of movement."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Safety barrier mounted to floor, requires dismantling to move."
+          },
+          {
+            "id": 6,
+            "classification": "uncertain",
+            "reason": "Boxes on pallets/shelves imply uncertain attachment status."
+          },
+          {
+            "id": 7,
+            "classification": "fixed",
+            "reason": "Ceiling lights are permanent installations requiring dismantling."
+          }
+        ]
+      },
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural shelving requiring dismantling to relocate."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift can be pushed or repositioned in normal use."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Pallet jack can be carried or repositioned easily."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "Person is a biological entity capable of movement."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Safety barrier mounted to floor, requires dismantling to move."
+          },
+          {
+            "id": 6,
+            "classification": "uncertain",
+            "reason": "Boxes on pallets/shelves imply uncertain attachment status."
+          },
+          {
+            "id": 7,
+            "classification": "fixed",
+            "reason": "Ceiling lights are permanent installations requiring dismantling."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/short-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000215-short.txt"
+        }
+      ]
+    }
+  },
+  "long": {
+    "r1": {
+      "stage": 2,
+      "frame_id": "loco-s4-32109",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000215.json",
+      "caption_sha256": "84405116cfa2e8bb6bdee9774a286eaac02a24c51661e4ef7b4f67d81402ea23",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s42",
+        "temperature": 0.3,
+        "seed": 42
+      },
+      "syntax_valid": false,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.4783301829593256,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T15:56:46.019142645Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Structural shelving integrated into warehouse building.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Forklift is a vehicle designed to be pushed or driven.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Pallet jack is a handheld tool designed to be moved.\"},{\"id\":4,\"classification\":\"movable\",\"classification\":\"person\",\"reason\":\"Person is biologically capable of walking and changing position.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Safety barrier post appears permanently mounted to the floor.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Cardboard boxes are lightweight items easily carried or pushed.\"},{\"id\":7,\"classification\":\"fixed\",\"reason\":\"Ceiling lights are permanently installed fixtures attached to structure.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1477701856,
+        "load_duration": 773545,
+        "prompt_eval_count": 1028,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 99179000,
+        "eval_count": 167,
+        "eval_duration": 1283794000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T15:56:46Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:01:46.019257516Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Duplicate JSON key: classification",
+      "input_index": 215,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r1",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r1/qwen35-bf16/t0.3-s42/frame-000215.json",
+      "original_record_sha256": "bb9ba0166c9d406d03c3e9339d7afdf156fc720fbd702907fc42116947cacec6",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000215.json",
+      "frozen_input_sha256": "84405116cfa2e8bb6bdee9774a286eaac02a24c51661e4ef7b4f67d81402ea23",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000215-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "d03a59924278432d1817448f33fb67391d65c858c08464e85d8e91a39e4469b4",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 42,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000215-long.txt"
+        }
+      ]
+    },
+    "r2": {
+      "stage": 2,
+      "frame_id": "loco-s4-32109",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000215.json",
+      "caption_sha256": "84405116cfa2e8bb6bdee9774a286eaac02a24c51661e4ef7b4f67d81402ea23",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s43",
+        "temperature": 0.3,
+        "seed": 43
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.5670943160075694,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 43,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T16:03:58.376469075Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Structural shelving integrated into warehouse layout.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Forklift is a vehicle designed to be pushed or repositioned.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Pallet jack is a handheld tool designed for movement.\"},{\"id\":4,\"classification\":\"uncertain\",\"reason\":\"Person's position changes frequently and cannot be predicted.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Safety barrier mounted to floor with visible installation.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Cardboard boxes are easily carried, pushed, or repositioned.\"},{\"id\":7,\"classification\":\"fixed\",\"description\":\"Ceiling lights are permanently installed structural fixtures.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1566361449,
+        "load_duration": 627632,
+        "prompt_eval_count": 1028,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 101021000,
+        "eval_count": 163,
+        "eval_duration": 1363872000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:03:58Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:08:58.37662643Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Object 7 has missing reason.",
+      "input_index": 215,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r2",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r2/qwen35-bf16/t0.3-s43/frame-000215.json",
+      "original_record_sha256": "849df95f4629acc40401ec2441f209ef77dfa735af1e129eea6c2b994f7ac7b5",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000215.json",
+      "frozen_input_sha256": "84405116cfa2e8bb6bdee9774a286eaac02a24c51661e4ef7b4f67d81402ea23",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000215-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "d03a59924278432d1817448f33fb67391d65c858c08464e85d8e91a39e4469b4",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural shelving integrated into warehouse layout."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Forklift is a vehicle designed to be pushed or repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Pallet jack is a handheld tool designed for movement."
+          },
+          {
+            "id": 4,
+            "classification": "uncertain",
+            "reason": "Person's position changes frequently and cannot be predicted."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Safety barrier mounted to floor with visible installation."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Cardboard boxes are easily carried, pushed, or repositioned."
+          },
+          {
+            "id": 7,
+            "classification": "fixed",
+            "description": "Ceiling lights are permanently installed structural fixtures."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 43,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000215-long.txt"
+        }
+      ]
+    },
+    "r3": {
+      "stage": 2,
+      "frame_id": "loco-s4-32109",
+      "caption_source": "/home/student/jakob/Klasifikacija-to-k/analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000215.json",
+      "caption_sha256": "84405116cfa2e8bb6bdee9774a286eaac02a24c51661e4ef7b4f67d81402ea23",
+      "model": "qwen3.5:4b-bf16",
+      "model_name": "qwen35-bf16",
+      "variant": {
+        "id": "t0.3-s44",
+        "temperature": 0.3,
+        "seed": 44
+      },
+      "syntax_valid": true,
+      "schema_valid": false,
+      "input_option_overrides": {},
+      "elapsed_seconds": 1.395224203937687,
+      "finish_reason": "stop",
+      "requested_options": {
+        "temperature": 0.3,
+        "seed": 44,
+        "num_predict": 4096,
+        "num_ctx": 16384,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "unsupported_options": [],
+      "response": {
+        "model": "qwen3.5:4b-bf16",
+        "created_at": "2026-10-28T16:10:49.898041754Z",
+        "message": {
+          "role": "assistant",
+          "content": "{\"objects\":[{\"id\":1,\"classification\":\"fixed\",\"reason\":\"Structural shelving integrated into warehouse building.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Vehicle designed to be driven and repositioned.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Tool designed to be carried and moved by operators.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Human being capable of independent movement.\"},{\"id\":5,\"classification\":\"fixed\",\"reason\":\"Safety barrier explicitly mounted to floor structure.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Packaging items easily shifted or removed from location.\"},{\"id\":7,\"classification\":\"fixed\",\"description\":\"Lighting fixtures permanently mounted to ceiling structure.\"}]}"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 1394228670,
+        "load_duration": 802572,
+        "prompt_eval_count": 1028,
+        "prompt_eval_cached_count": 225,
+        "prompt_eval_duration": 81181000,
+        "eval_count": 149,
+        "eval_duration": 1217267000
+      },
+      "gpu_verified": true,
+      "finished_at_utc": "2026-10-28T16:10:49Z",
+      "gpu": {
+        "name": "qwen3.5:4b-bf16",
+        "model": "qwen3.5:4b-bf16",
+        "size": 9425922292,
+        "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "4.3B",
+          "quantization_level": "BF16"
+        },
+        "expires_at": "2026-10-28T16:15:49.898446247Z",
+        "size_vram": 9425922292,
+        "context_length": 16384,
+        "runner": "llamacpp"
+      },
+      "execution_url": "http://172.18.0.3:11434",
+      "status": "error",
+      "error": "Object 7 has missing reason.",
+      "input_index": 215,
+      "vlm": "qwen3-vl",
+      "vlm_repeat": "r2",
+      "llm": "qwen35-bf16",
+      "prompt_name": "long",
+      "llm_repeat": "r3",
+      "original_record": "results/loco/llm/runs/qwen35-bf16/long/r3/qwen35-bf16/t0.3-s44/frame-000215.json",
+      "original_record_sha256": "b71abbf252342b92f1567d29ac578cde19ce121984ad0e66d54ce91114f054e3",
+      "frozen_input_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/frozen/frame-000215.json",
+      "frozen_input_sha256": "84405116cfa2e8bb6bdee9774a286eaac02a24c51661e4ef7b4f67d81402ea23",
+      "user_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000215-long.txt",
+      "system_prompt_path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+      "user_prompt_sha256": "d03a59924278432d1817448f33fb67391d65c858c08464e85d8e91a39e4469b4",
+      "system_prompt_file_sha256": "689d095e06309df1e5dc260532acc056dcb1d33f638cca57ebaffd915d4c4023",
+      "system_prompt_sha256": "b2ed7de5f9f9cb1af110d26d992ce2e76cd61aef24c7a96e52a48295ef7d85d5",
+      "full_response_text_path": "response.message.content",
+      "parallel_slots_requested": 1,
+      "parallel_slots_actual": 1,
+      "parallel_runtime_note": "Requested setting versus observed n_seq_max; see provenance/runtime-parallel.json and runtime evidence.",
+      "candidate_parsed": {
+        "objects": [
+          {
+            "id": 1,
+            "classification": "fixed",
+            "reason": "Structural shelving integrated into warehouse building."
+          },
+          {
+            "id": 2,
+            "classification": "movable",
+            "reason": "Vehicle designed to be driven and repositioned."
+          },
+          {
+            "id": 3,
+            "classification": "movable",
+            "reason": "Tool designed to be carried and moved by operators."
+          },
+          {
+            "id": 4,
+            "classification": "movable",
+            "reason": "Human being capable of independent movement."
+          },
+          {
+            "id": 5,
+            "classification": "fixed",
+            "reason": "Safety barrier explicitly mounted to floor structure."
+          },
+          {
+            "id": 6,
+            "classification": "movable",
+            "reason": "Packaging items easily shifted or removed from location."
+          },
+          {
+            "id": 7,
+            "classification": "fixed",
+            "description": "Lighting fixtures permanently mounted to ceiling structure."
+          }
+        ]
+      },
+      "request_without_messages": {
+        "model": "qwen3.5:4b-bf16",
+        "stream": false,
+        "think": false,
+        "format": "json",
+        "keep_alive": "5m",
+        "options": {
+          "temperature": 0.3,
+          "seed": 44,
+          "num_predict": 4096,
+          "num_ctx": 16384,
+          "top_p": 0.8,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "num_gpu": 999
+        }
+      },
+      "request_message_references": [
+        {
+          "role": "system",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/prompts/long-no-examples.txt",
+          "text_transform": "strip"
+        },
+        {
+          "role": "user",
+          "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/02_llm/user-prompts/input-000215-long.txt"
+        }
+      ]
+    }
+  }
+}

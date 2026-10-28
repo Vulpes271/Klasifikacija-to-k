@@ -29,6 +29,12 @@ PROMPTS = ('short', 'long')
 CONFIG = ROOT / 'configs/ponovitve'
 
 
+def configure_paths(*, source=SOURCE, target=TARGET, out=OUT):
+    """One explicit experiment per process; keep legacy CLI defaults intact."""
+    global SOURCE, TARGET, OUT
+    SOURCE, TARGET, OUT = Path(source).resolve(), Path(target).resolve(), Path(out).resolve()
+
+
 class ExecutionBackend(Backend):
     """Optional isolated server routing, explicitly recorded per actual call."""
     def __init__(self, spec, timeout=600):
@@ -37,11 +43,11 @@ class ExecutionBackend(Backend):
 
     def metadata(self, vision=False):
         return {**super().metadata(vision), 'execution_url': self.url,
-                'parallel_slots': 4 if os.environ.get('THUD_EXECUTION_OLLAMA_URL') else 1}
+                'parallel_slots': int(os.environ.get('THUD_PARALLEL_SLOTS',4 if os.environ.get('THUD_EXECUTION_OLLAMA_URL') else 1))}
 
     def generate(self, *args, **kwargs):
         metadata = {'execution_url': self.url,
-                    'parallel_slots': 4 if os.environ.get('THUD_EXECUTION_OLLAMA_URL') else 1}
+                    'parallel_slots': int(os.environ.get('THUD_PARALLEL_SLOTS',4 if os.environ.get('THUD_EXECUTION_OLLAMA_URL') else 1))}
         try:
             return {**super().generate(*args, **kwargs), **metadata}
         except Exception as exc:
@@ -169,7 +175,8 @@ def configuration(spec, prompt, repeat):
 def group(spec, prompt, repeat, pilot=False, defer=None, allow_partial=False):
     config = configuration(spec, prompt, repeat)
     destination = OUT / 'runs' / spec['name'] / prompt / repeat
-    args = SimpleNamespace(captions=TARGET / 'frozen', output_dir=destination, limit=180,
+    expected_inputs = len(read_json(TARGET/'frozen/index.json'))
+    args = SimpleNamespace(captions=TARGET / 'frozen', output_dir=destination, limit=expected_inputs,
                            resume=True, warmup=False, max_new_calls=1 if pilot else None,
                            context_overrides=read_json(TARGET/'execution-context-policy.json')['overrides_by_frozen_sha256']
                            if (TARGET/'execution-context-policy.json').exists() else {},
@@ -179,35 +186,35 @@ def group(spec, prompt, repeat, pilot=False, defer=None, allow_partial=False):
     if code == 1: raise RuntimeError('GPU preparation failed; saved records retained')
     if not pilot and not allow_partial:
         paths = list(destination.glob('*/t*/frame-*.json'))
-        if len(paths) != 180: raise RuntimeError('Incomplete reasoning group')
-        write_json(destination / 'complete.json', {'positions': 180, 'exit_code': code})
+        if len(paths) != expected_inputs: raise RuntimeError('Incomplete reasoning group')
+        write_json(destination / 'complete.json', {'positions': expected_inputs, 'exit_code': code})
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('phase', choices=('freeze', 'pilot', 'run', 'export', 'verify'))
-    args = parser.parse_args()
+def execute(phase):
     os.environ['THUD_PROGRESS_FILE'] = str(OUT / 'progress.md')
-    if args.phase == 'freeze':
+    if phase == 'freeze':
         index = freeze(); print('Frozen:', len(index), 'usable:', sum(r['status']=='ok' for r in index)); return
-    if args.phase in ('export', 'verify'):
-        from .thud_stage2_comparison import export, verify
-        (export if args.phase == 'export' else verify)(); return
+    if phase in ('export', 'verify'):
+        from . import thud_stage2_comparison as comparison
+        comparison.configure_paths(source=SOURCE,target=TARGET,out=OUT)
+        (comparison.export if phase == 'export' else comparison.verify)(); return
     # No image or conversion work in an inference/resume phase.
     index = read_json(TARGET / 'frozen/index.json')
     for row in index:
         assert sha256((ROOT / row['path']).read_bytes()) == row['sha256'], 'Frozen input changed'
     for spec in MODELS:
         try:
-            if args.phase == 'pilot': group(spec, 'short', 'r1', pilot=True)
+            if phase == 'pilot': group(spec, 'short', 'r1', pilot=True)
             elif os.environ.get('THUD_EXECUTION_OLLAMA_URL'):
                 # Keep one model and one context size resident. Independent
                 # per-prompt/repeat output directories make these jobs disjoint.
-                long=set(read_json(TARGET/'execution-context-policy.json')['overrides_by_frozen_sha256'])
                 all_sources={r['sha256'] for r in index}
-                for deferred in (long, all_sources-long):
-                    with ThreadPoolExecutor(max_workers=4) as pool:
-                        futures=[pool.submit(group,spec,prompt,repeat,False,deferred,deferred==long)
+                overrides=read_json(TARGET/'execution-context-policy.json')['overrides_by_frozen_sha256']
+                contexts=sorted({overrides.get(d,{}).get('num_ctx',16384) for d in all_sources})
+                for context in contexts:
+                    deferred={d for d in all_sources if overrides.get(d,{}).get('num_ctx',16384)!=context}
+                    with ThreadPoolExecutor(max_workers=int(os.environ.get('THUD_CLIENT_WORKERS',4))) as pool:
+                        futures=[pool.submit(group,spec,prompt,repeat,False,deferred,context!=contexts[-1])
                                  for prompt in PROMPTS for repeat in SEEDS]
                         for future in futures: future.result()
             else:
@@ -215,6 +222,17 @@ def main():
                     for repeat in SEEDS: group(spec, prompt, repeat)
         finally:
             ExecutionBackend({**spec, 'base_url': os.environ['THUD_OLLAMA_URL']}).unload()
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('phase', choices=('freeze', 'pilot', 'run', 'export', 'verify'))
+    parser.add_argument('--source',type=Path,default=SOURCE)
+    parser.add_argument('--target',type=Path,default=TARGET)
+    parser.add_argument('--output-dir',type=Path,default=OUT)
+    args = parser.parse_args()
+    configure_paths(source=args.source,target=args.target,out=args.output_dir)
+    execute(args.phase)
 
 
 if __name__ == '__main__':

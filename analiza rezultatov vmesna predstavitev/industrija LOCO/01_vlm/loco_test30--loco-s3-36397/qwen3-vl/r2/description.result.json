@@ -1,0 +1,149 @@
+{
+  "view": {
+    "scene_description": "A large warehouse interior with high ceilings, concrete floors, and industrial shelving. Blue metal racks hold goods on multiple levels. Pallets with boxes and crates are scattered throughout. A mezzanine level with railings is visible. Lighting fixtures hang from the ceiling. A person is partially visible near a desk area.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "blue metal shelving units",
+        "observation": "Tall blue metal racks line the left side of the warehouse, filled with various items in boxes and bins. They extend upward to near the ceiling. Some shelves have yellow safety barriers at their base. The racks appear freestanding but are likely anchored to the floor.",
+        "attachment_evidence": "appears_freestanding",
+        "identifiable": true
+      },
+      {
+        "id": 2,
+        "label": "stacked red plastic crates",
+        "observation": "A tall stack of bright red plastic crates sits on a wooden pallet in the center-right of the frame. The crates are neatly stacked vertically. The pallet rests directly on the concrete floor. No visible supports or attachments beyond the pallet.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      },
+      {
+        "id": 3,
+        "label": "wooden pallet with wrapped boxes",
+        "observation": "A wooden pallet carrying several cardboard boxes wrapped in clear plastic is located near the center-left. The pallet is on the concrete floor. The boxes are stacked and secured with plastic wrap. No visible supports or attachments beyond the pallet.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      },
+      {
+        "id": 4,
+        "label": "yellow safety barriers",
+        "observation": "Yellow plastic barriers are placed along the base of the blue shelving units on the left. They are short, rectangular, and stand upright on the concrete floor. They appear to be freestanding and serve as protective guards.",
+        "attachment_evidence": "appears_freestanding",
+        "identifiable": true
+      },
+      {
+        "id": 5,
+        "label": "mezzanine platform with railing",
+        "observation": "An elevated walkway or mezzanine platform with blue metal railings is visible in the background on the right. It spans across part of the warehouse. The railing is made of metal bars and mesh panels. It appears to be supported by vertical posts attached to the building structure.",
+        "attachment_evidence": "visible_installation",
+        "identifiable": true
+      },
+      {
+        "id": 6,
+        "label": "person sitting at desk",
+        "observation": "A person is seated at a dark-colored desk in the middle ground, slightly to the left. Their face is blurred. They appear to be working or handling items on the desk. The desk has some equipment and boxes around it. The person is partially obscured by the shelving unit.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      },
+      {
+        "id": 7,
+        "label": "black office chair",
+        "observation": "A black ergonomic office chair is positioned behind the desk where the person is sitting. It has wheels and armrests. The chair is on the concrete floor and is facing towards the person's work area.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      },
+      {
+        "id": 8,
+        "label": "wooden hand truck",
+        "observation": "A wooden hand truck with two wheels is parked on the far left side of the image. It has a flat wooden platform and handles. The truck is empty and resting on the concrete floor. No visible supports or attachments beyond its own structure.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      },
+      {
+        "id": 9,
+        "label": "blue metal cart with wheels",
+        "observation": "A blue metal cart with wheels is located in the center-right area. It has a flat surface and is loaded with various items including boxes and containers. The cart is on the concrete floor and appears to be movable.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      },
+      {
+        "id": 10,
+        "label": "lighting fixtures hanging from ceiling",
+        "observation": "Several fluorescent lighting fixtures hang from the ceiling by cables. They are suspended over the central area of the warehouse. The fixtures are rectangular and emit bright light. They are connected to the ceiling by wires and brackets.",
+        "attachment_evidence": "visible_installation",
+        "identifiable": true
+      },
+      {
+        "id": 11,
+        "label": "concrete floor",
+        "observation": "The entire floor of the warehouse is made of smooth, gray concrete. It extends across the entire frame and provides a flat surface for all objects. No visible seams or cracks are apparent.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true
+      }
+    ],
+    "object_list_available": true,
+    "parsed_json_documents": 1,
+    "unconsumed_characters": 0,
+    "relations": null,
+    "extraction": "validated description"
+  },
+  "prompts": {
+    "system_prompt": "You are a helpful assistant",
+    "user_prompt": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"loco-s3-36397\", \"image_size\": [1920, 1080], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}",
+    "native_chat_prompt_text": "<|im_start|>system\nYou are a helpful assistant<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.\n\nDescribe the photograph using these inputs:\n{\"frame_id\": \"loco-s3-36397\", \"image_size\": [1920, 1080], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}<|im_end|>\n<|im_start|>assistant\n",
+    "instruction": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.",
+    "generic_input_prompt": "Describe the photograph using these inputs:\n{\"frame_id\": \"loco-s3-36397\", \"image_size\": [1920, 1080], \"annotation_kind\": \"unspecified\", \"supplied_objects\": null}"
+  },
+  "metadata": {
+    "frame_id": "loco-s3-36397",
+    "model": "qwen3-vl",
+    "repeat": "r2",
+    "task": "description",
+    "source_path": "results/loco/vlm/qwen3-vl/r2/loco_test30/description/frame-000015.json",
+    "source_sha256": "39efd394f4b0e3844203fec68a2f466634f094aa25c80303304d60b0e53c380d",
+    "published_path": "loco_test30--loco-s3-36397/qwen3-vl/r2/description.raw.json",
+    "call_id": "e37ad6bb7d9047499e207e0adc27b019",
+    "finished_at_utc": "2026-10-28T15:03:23Z",
+    "reused_existing_generation": false,
+    "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+    "model_revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+    "settings": {
+      "model": "Qwen/Qwen3-VL-8B-Instruct",
+      "revision": "0c351dd01ed87e9c1b53cbc748cba10e6187ff3b",
+      "repeat": "r2",
+      "seed": 43,
+      "initialization_seed": 42,
+      "instruction": "Inspect the photograph. Return ONLY one JSON object, no markdown or text outside JSON. Describe the complete scene and list visible objects with separate local integer IDs, separating instances when possible. For every object describe visible appearance, image-relative location, occlusion, supports, contacts and relationships. State uncertainty; do not infer hidden fasteners, weight or permanent installation. Do not classify stability or mobility. Use English text.\nRequired JSON structure (the angle-bracket text specifies field meaning, not example objects):\n{\"scene_description\":\"<full scene description>\",\"objects\":[{\"id\":1,\"label\":\"<visible object name>\",\"observation\":\"<visible appearance, location, occlusion, supports, contacts and relations>\",\"attachment_evidence\":\"not_visible\",\"identifiable\":true}]}\nList all discernible objects, not just one. Every object needs these five fields. attachment_evidence must be visible_installation, appears_freestanding, not_visible or mixed; visible_installation requires visible mounting or integration. Use not_visible when attachment cannot be established. scene_description about 120 words or fewer; each observation about 60 words or fewer.",
+      "instruction_sha256": "2278511ff45960ee58f6628bc3925927e5a1d82d975774ae0dbe9efafe420fa8",
+      "native_system_prompt": "You are a helpful assistant",
+      "precision_requested": "BF16",
+      "attention": "sdpa",
+      "do_sample": true,
+      "temperature": 0.3,
+      "top_p": 0.8,
+      "top_k": 20,
+      "repetition_penalty": 1.05,
+      "num_beams": 1,
+      "max_new_tokens": 4096,
+      "input_plus_output_limit": 16384,
+      "unsupported_comparison_options": [
+        "presence_penalty"
+      ],
+      "processor_resize": "checkpoint defaults, recorded image_grid_thw",
+      "description_schema": "legacy",
+      "json_grammar": false,
+      "warmup_per_load": false
+    },
+    "status": "ok",
+    "syntax_valid": true,
+    "schema_valid": true,
+    "elapsed_seconds": 19.939506174996495,
+    "output_tokens": 1083,
+    "peak_allocated_bytes": 18270387712,
+    "peak_reserved_bytes": 18457034752,
+    "gpu_verified": true,
+    "quality_accuracy": null,
+    "quality_note": "No human reference assessment; format validity is not detection correctness."
+  },
+  "raw_response": "description.raw.json",
+  "note": "Literal extraction only; unavailable parse does not mean an empty scene. Full raw answer is in raw_response, including invalid JSON."
+}

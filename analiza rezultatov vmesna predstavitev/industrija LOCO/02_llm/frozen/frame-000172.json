@@ -1,0 +1,86 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s4-32898",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "florence-r1"
+  },
+  "vlm_repeat": "r1",
+  "image_sha256": "56f40b6da93562486d345f9cfbf25971eccb9ab31bb249ae0d717cf4335a3a27",
+  "source_records": {
+    "caption": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s4-32898/florence/r1/caption.raw.json",
+      "sha256": "4ec485d22c6de54090781ffe6626e66b3a51ba9430d78d7c8ed59255ef47b65c",
+      "original_call_id": "9f9efc88049a4ffdb509ff74984f733e",
+      "native_status": "ok"
+    },
+    "od": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s4-32898/florence/r1/od.raw.json",
+      "sha256": "c640aef2f237d78a5db282d22f35b210b73bda468d7fb27dd3e39b632bab95ad",
+      "original_call_id": "6052704ed8574bcda2d6961058ad9361",
+      "native_status": "ok"
+    },
+    "dense": {
+      "path": "analiza rezultatov vmesna predstavitev/industrija LOCO/01_vlm/loco_test30--loco-s4-32898/florence/r1/dense.raw.json",
+      "sha256": "e9e37938d924e912826d4cb3ec19cd7c4e307d33266ff37e5f380db6ed38f52c",
+      "original_call_id": "88d5bb6407d348a6a422e5b6417d365e",
+      "native_status": "ok"
+    }
+  },
+  "source_revision": "21a599d414c4d928c9032694c424fb94458e3594",
+  "parsed": {
+    "scene_description": "The image shows a large warehouse with a high ceiling and concrete floor. The warehouse is filled with rows of shelves and racks, and there are several forklifts parked on the right side of the image. On the left side, there is a forklift with a yellow forklift attachment. The forklift is moving through the warehouse, and in the background, there are workers working on the shelves. The floor is made of concrete, and the warehouse appears to be well-maintained. The image is taken from a low angle, looking down on the warehouse.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "person",
+        "observation": "Florence task <OD> literally returned label/phrase 'person'; bbox_xyxy in original image pixels: [937.9199829101562, 495.1800231933594, 999.3599853515625, 590.2200317382812]. No attachment/contact/occlusion fields were produced. Identity across tasks is not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "source_task": "<OD>",
+        "source_region_id": 1,
+        "physical_instance_identity": "not established; regions can overlap across and within tasks"
+      }
+    ],
+    "native_task_outputs": {
+      "caption": {
+        "content": "</s><s>The image shows a large warehouse with a high ceiling and concrete floor. The warehouse is filled with rows of shelves and racks, and there are several forklifts parked on the right side of the image. On the left side, there is a forklift with a yellow forklift attachment. The forklift is moving through the warehouse, and in the background, there are workers working on the shelves. The floor is made of concrete, and the warehouse appears to be well-maintained. The image is taken from a low angle, looking down on the warehouse.</s>",
+        "parsed": {
+          "<MORE_DETAILED_CAPTION>": "The image shows a large warehouse with a high ceiling and concrete floor. The warehouse is filled with rows of shelves and racks, and there are several forklifts parked on the right side of the image. On the left side, there is a forklift with a yellow forklift attachment. The forklift is moving through the warehouse, and in the background, there are workers working on the shelves. The floor is made of concrete, and the warehouse appears to be well-maintained. The image is taken from a low angle, looking down on the warehouse."
+        }
+      },
+      "od": {
+        "content": "</s><s><s><s>person<loc_488><loc_458><loc_520><loc_546></s>",
+        "parsed": {
+          "<OD>": {
+            "bboxes": [
+              [
+                937.9199829101562,
+                495.1800231933594,
+                999.3599853515625,
+                590.2200317382812
+              ]
+            ],
+            "labels": [
+              "person"
+            ]
+          }
+        }
+      },
+      "dense": {
+        "content": "</s><s>No object detected.</s>",
+        "parsed": {
+          "<DENSE_REGION_CAPTION>": {
+            "bboxes": [],
+            "labels": []
+          }
+        }
+      }
+    },
+    "adapter_notes": "IDs enumerate native regions, not confirmed distinct physical objects. OD/dense may overlap or describe groups. identifiable=True means the native model named a region, not human confirmation. not_visible means attachment evidence was not supplied. Keep each supplied region ID; do not invent instance identities or mounting."
+  },
+  "partial_input": false,
+  "description_sha256": "1d0b697054ef5b788a161c537d741e391434e26eade063958ced89493cae875a",
+  "status": "ok"
+}

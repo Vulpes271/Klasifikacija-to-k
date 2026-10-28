@@ -27,6 +27,8 @@ def main():
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--repeat', default='original')
     parser.add_argument('--max-new-tokens', type=int, default=8192)
+    parser.add_argument('--max-new-calls', type=int)
+    parser.add_argument('--no-warmup', action='store_true')
     args = parser.parse_args()
     import torch
     import llava
@@ -48,8 +50,10 @@ def main():
     if args.selection is None and args.repeat=='original' and args.temperature==0 and args.schema=='rich-v2':
         for key in ('temperature','repeat','description_schema'): config.pop(key)
         config['note']='Greedy temperature-zero equivalent; top_p/top_k inactive, no JSON grammar constraint.'
+    if args.no_warmup: config['warmup_per_load'] = False
     snapshot(destination, config, selected)
     pending = [f for f in selected[:args.limit] if not check_saved(saved_path(destination, f, 'rich'), f)]
+    if args.max_new_calls is not None: pending = pending[:args.max_new_calls]
     if not pending:
         progress('NVILA: zahtevani odgovori že shranjeni; brez ponovitve inferenc.')
         return
@@ -137,16 +141,17 @@ def main():
         result['finished_at_utc']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
         return result
 
-    warmup = infer(pending[0])
-    write_json(destination / 'warmups' / (str(time.time_ns()) + '.json'),
-               {**warmup, 'excluded_from_quality': True})
-    if 'content' not in warmup:
-        raise RuntimeError('NVILA GPU warmup failed: ' + warmup.get('error', ''))
-    progress('NVILA: prva dejanska slika na GPU uspešno obdelana; veljavnost sheme '+warmup['status']+'.')
+    if not args.no_warmup:
+        warmup = infer(pending[0])
+        write_json(destination / 'warmups' / (str(time.time_ns()) + '.json'),
+                   {**warmup, 'excluded_from_quality': True})
+        if 'content' not in warmup:
+            raise RuntimeError('NVILA GPU warmup failed: ' + warmup.get('error', ''))
+        progress('NVILA: prva dejanska slika na GPU uspešno obdelana; veljavnost sheme '+warmup['status']+'.')
     for frame in pending:
         row = infer(frame)
         write_json(saved_path(destination, frame, 'rich'), row)
-        progress(f"NVILA: {frame['dataset']} {frame['index']+1}/50, {row['status']}, {row['elapsed_seconds']:.2f} s.")
+        progress(f"NVILA: {frame['dataset']} slika {frame['index']+1}, {row['status']}, {row['elapsed_seconds']:.2f} s.")
 
 
 if __name__ == '__main__':
