@@ -1,2 +1,47 @@
+\clearpage
 \subsection{Ostali LLM modeli}
-Preizkusena sta bila tudi Qwen3.5 Q4 in Gemma 3 Q4, s kratkim in dolgim pozivom.
+Isti vhod Qwen3-VL r1; temperatura 0.3, seme 42, ponovitev r1. Izvirni odgovori so brez popravkov.
+\subsubsection{loco-s3-36540}
+\paragraph{Qwen3.5 Q4 -- Kratki poziv}
+Status: error. Object 4 has missing reason.
+\begin{lstlisting}
+{"objects":[{"id":1,"classification":"movable","reason":"Standalone shelving unit can be moved by workers"},{"id":2,"classification":"movable","reason":"Forklift is a vehicle designed for repositioning"},{"id":3,"classification":"uncertain","reason":"Person classification does not determine object status"},{"id":4,"classification":"movable","description":"Freestanding racks can be relocated if needed"},{"id":5,"classification":"movable","reason":"Stacked crates are easily moved by workers"},{"id":6,"classification":"movable","reason":"Pallets are standard movable storage units"},{"id":7,"classification":"movable","reason":"Boxes are lightweight and easily repositioned"},{"id":8,"classification":"movable","reason":"Barrels are portable containers on pallets"}]}
+\end{lstlisting}
+\paragraph{Qwen3.5 Q4 -- Dolgi poziv}
+Status: error. Object 4 has missing reason.
+\begin{lstlisting}
+{"objects":[{"id":1,"classification":"movable","reason":"Independent shelving units can be moved or repositioned."},{"id":2,"classification":"movable","reason":"Forklifts are designed to be driven and relocated."},{"id":3,"classification":"movable","reason":"People move freely and do not stay in one place."},{"id":4,"classification":"movable","description":"Freestanding racks can be moved or repositioned."},{"id":5,"classification":"movable","reason":"Stacked crates are easily moved by forklifts or humans."},{"id":6,"classification":"movable","reason":"Pallets are standard movable items in warehouse use."},{"id":7,"classification":"movable","reason":"Boxes can be stacked, carried, and relocated freely."},{"id":8,"classification":"movable","reason":"Barrels on pallets can be easily moved by forklifts."}]}
+\end{lstlisting}
+\paragraph{Gemma 3 Q4 -- Kratki poziv}
+Status: ok. 
+\begin{lstlisting}
+{"objects":[{"id": 1, "classification":"fixed", "reason":"Tall metal shelves are permanently installed in the warehouse."}, {"id": 2, "classification":"movable", "reason":"Forklift is a vehicle that can be moved around."}, {"id": 3, "classification":"movable", "reason":"Person is a human and can move freely."}, {"id": 4, "classification":"fixed", "reason":"Blue metal racks are permanently installed in the warehouse."}, {"id": 5, "classification":"movable", "reason":"Plastic crates are carried and repositioned during inventory."}, {"id": 6, "classification":"movable", "reason":"Wooden pallets are used to transport and store items."}, {"id": 7, "classification":"movable", "reason":"Cardboard boxes are moved and stacked for storage."}, {"id": 8, "classification":"movable", "reason":"Blue barrel is a container that can be carried."}]}
+\end{lstlisting}
+\paragraph{Gemma 3 Q4 -- Dolgi poziv}
+Status: ok. 
+\begin{lstlisting}
+{"objects": [{"id": 1, "classification": "movable", "reason": "Shelving units are movable and repositionable."}, {"id": 2, "classification": "movable", "reason": "Forklifts are designed for transport and movement."}, {"id": 3, "classification": "movable", "reason": "People move around within the warehouse."}, {"id": 4, "classification": "movable", "reason": "Racks can be moved or repositioned easily."}, {"id": 5, "classification": "movable", "reason": "Crates are designed to be carried and stacked."}, {"id": 6, "classification": "movable", "reason": "Pallets are used for transporting and storing goods."}, {"id": 7, "classification": "movable", "reason": "Boxes can be moved and rearranged within the space."}, {"id": 8, "classification": "movable", "reason": "Barrels are designed to be moved around."}]}
+\end{lstlisting}
+Komentar: Gemma spremeni klasifikacijo regalov; Qwen Q4 vrne nepravilno polje pri objektu 4.
+\subsubsection{loco-s4-31835}
+\paragraph{Qwen3.5 Q4 -- Kratki poziv}
+Status: ok. 
+\begin{lstlisting}
+{"objects":[{"id":1,"classification":"movable","reason":"Boxes rest on pallets and can be easily relocated."},{"id":2,"classification":"movable","reason":"Pallets support boxes and are designed to be moved."},{"id":3,"classification":"fixed","reason":"Shelving units have visible floor anchors requiring dismantling."},{"id":4,"classification":"uncertain","reason":"Barriers show installation evidence but mobility unclear."},{"id":5,"classification":"movable","reason":"Boxes rest on pallets and can be easily relocated."},{"id":6,"classification":"fixed","reason":"Floor is structural base, not relocatable without demolition."}]}
+\end{lstlisting}
+\paragraph{Qwen3.5 Q4 -- Dolgi poziv}
+Status: ok. 
+\begin{lstlisting}
+{"objects":[{"id":1,"classification":"movable","reason":"Stacked boxes can be easily moved or removed."},{"id":2,"classification":"movable","reason":"Pallets are standard warehouse items designed to be moved."},{"id":3,"classification":"fixed","reason":"Shelving units anchored to the floor require dismantling to move."},{"id":4,"classification":"movable","reason":"Safety barriers can be relocated by removing their bases."},{"id":5,"classification":"movable","reason":"Cardboard boxes are lightweight and easily repositioned."},{"id":6,"classification":"fixed","reason":"Concrete floors are structural elements that cannot be moved."}]}
+\end{lstlisting}
+\paragraph{Gemma 3 Q4 -- Kratki poziv}
+Status: ok. 
+\begin{lstlisting}
+{"objects":[{"id": 1, "classification":"movable", "reason":"Stacked boxes on pallets, can be carried or repositioned"},{"id": 2, "classification":"movable", "reason":"Wooden pallets used to support the boxes, movable"},{"id": 3, "classification":"fixed", "reason":"Metal shelving units are a permanent installation"},{"id": 4, "classification":"fixed", "reason":"Yellow safety barriers are a permanent installation"},{"id": 5, "classification":"movable", "reason":"Red cardboard boxes on a pallet, can be carried"},{"id": 6, "classification":"movable", "reason":"Concrete floor is the ground surface, movable"}]}
+\end{lstlisting}
+\paragraph{Gemma 3 Q4 -- Dolgi poziv}
+Status: ok. 
+\begin{lstlisting}
+{"objects": [{"id": 1, "classification": "movable", "reason": "Boxes are stacked on pallets and can be moved."}, {"id": 2, "classification": "movable", "reason": "Pallets are transportable items within the warehouse."}, {"id": 3, "classification": "fixed", "reason": "Shelving units are a permanent structural installation."}, {"id": 4, "classification": "fixed", "reason": "Safety barriers are permanently installed for safety reasons."}, {"id": 5, "classification": "movable", "reason": "Boxes can be moved and are not fixed installations."}, {"id": 6, "classification": "fixed", "reason": "Concrete floor is a permanent ground surface."}]}
+\end{lstlisting}
+Komentar: Razlike v klasifikaciji rumenih zascit in betonskih tal.

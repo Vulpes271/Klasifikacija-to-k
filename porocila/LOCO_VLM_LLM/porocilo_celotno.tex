@@ -1,0 +1,119 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{DejaVu Serif}
+\usepackage[slovene]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true,columns=fullflexible,showstringspaces=false}
+\begin{document}
+\begin{center}
+{\Large Primerjava modelov VLM in LLM na industrijskih slikah}\\
+Delovno poročilo -- LOCO
+\end{center}
+
+\section{VLM}
+VLM prejme fotografijo skladišča in vrne opis scene. Florence-2-large uporablja tudi namensko zaznavanje objektov (OD). Qwen3-VL-8B in NVILA-8B sta bila dodatno preizkušena z zahtevo za koordinate okvirjev. Besedilni opisi so iz prvega testa, okvirji pa iz dodatnega testa. Veljaven okvir še ne pomeni pravilno zaznanega objekta.
+
+\subsection{loco-s3-36540}
+\begin{figure}[H]\centering
+\includegraphics[width=.95\linewidth]{slike/loco-s3-36540-original.jpg}
+\caption{Originalna slika}\end{figure}
+\begin{figure}[H]\centering
+\includegraphics[width=.95\linewidth]{slike/loco-s3-36540-florence.jpg}
+\caption{Florence -- okvirji}\end{figure}
+\begin{figure}[H]\centering
+\includegraphics[width=.95\linewidth]{slike/loco-s3-36540-qwen.jpg}
+\caption{Qwen -- okvirji}\end{figure}
+\begin{figure}[H]\centering
+\includegraphics[width=.95\linewidth]{slike/loco-s3-36540-nvila.jpg}
+\caption{NVILA -- okvirji}\end{figure}
+\textbf{Florence -- opis:} The image shows a large warehouse with rows of red metal shelves. The shelves are filled with various items such as boxes, pallets, and other storage containers. The floor is made of concrete and there is a forklift on the right side of the image. The warehouse appears to be well-maintained and well-organized. The image is taken from a low angle, looking up at the shelves.
+
+\textbf{Qwen -- opis:} A wide-angle view of a large warehouse interior with high ceilings and concrete floors. Dominant red metal shelving units fill the background, stocked with boxes and pallets. An orange forklift is partially visible on the right. A person walks in the left distance near blue racks. The scene suggests active inventory management.
+
+\textbf{NVILA -- opis:} The image depicts the interior of a warehouse or storage facility. The space is filled with tall, red metal shelving units arranged in rows, each unit containing multiple levels of storage. These shelves are densely packed with various items, including boxes and containers of different sizes and colors. The floor is concrete, and there are several pallets scattered throughout the area, some stacked on top of others. On the right side of the image, there's an orange machine with a black arm, possibly a forklift or similar equipment used for moving heavy objects. In the background, there's a blue metal gate, and a person wearing a dark jacket can be seen walking towards it. The overall atmosphere suggests a busy, active workspace where goods are stored and organized for distribution or inventory management.
+
+\textit{Komentar:} V dodatnem testu je Qwen vrnil sedem veljavnih okvirjev. Florence je lokaliziral predvsem regale, NVILA pa ni vrnila okvirjev.
+
+\clearpage
+\subsection{loco-s4-31835}
+\begin{figure}[H]\centering
+\includegraphics[width=.95\linewidth]{slike/loco-s4-31835-original.jpg}
+\caption{Originalna slika}\end{figure}
+\begin{figure}[H]\centering
+\includegraphics[width=.95\linewidth]{slike/loco-s4-31835-florence.jpg}
+\caption{Florence -- okvirji}\end{figure}
+\begin{figure}[H]\centering
+\includegraphics[width=.95\linewidth]{slike/loco-s4-31835-qwen.jpg}
+\caption{Qwen -- okvirji}\end{figure}
+\begin{figure}[H]\centering
+\includegraphics[width=.95\linewidth]{slike/loco-s4-31835-nvila.jpg}
+\caption{NVILA -- okvirji}\end{figure}
+\textbf{Florence -- opis:} The image shows a large warehouse with rows of pallets and shelves. The pallets are arranged in a neat and orderly manner, and the shelves are filled with boxes of various sizes and colors. The boxes are stacked on top of each other and have the word "POTT" written on them in white letters. The warehouse appears to be well-stocked with various items, and there are other shelves and racks visible in the background. The floor is made of concrete and the ceiling is high with overhead lights. The overall atmosphere of the warehouse is industrial and organized.
+
+\textbf{Qwen -- opis:} A large warehouse interior with high ceilings and metal shelving units. Rows of pallets stacked with white boxes labeled 'POTT' line the aisle. Red boxes are visible on a nearby pallet. The floor is concrete, and yellow safety barriers separate storage areas. Lighting fixtures hang from the ceiling.
+
+\textbf{NVILA -- opis:} The image depicts a warehouse storage area with rows of pallets and shelves filled with boxes. The floor is concrete, and the ceiling has exposed beams. The warehouse appears to be well-lit, with fluorescent lights visible in the background. The main focus of the image is on several stacks of white boxes labeled "POTT" that are arranged on wooden pallets. These boxes are neatly stacked, creating a uniform appearance. Other boxes can be seen on the shelves in the background, including some red ones. The overall scene suggests an organized storage facility for goods or products.
+
+\textit{Komentar:} NVILA je vrnila en veljaven okvir za regale. Qwenov odgovor s koordinatami ni bil veljaven. Florence je označil le manjši zaboj.
+
+\clearpage
+\section{LLM}
+LLM ne vidi slike: prejme samo opis in seznam objektov iz VLM. Za vsak objekt določi \texttt{fixed}, \texttt{movable} ali \texttt{uncertain} in vrne razlog. Uporabljen je Qwen3.5 4B BF16 na vhodu Qwen3-VL (prva ponovitev, seme 42). Spodaj so vsi štirje dejanski odgovori na kratki in dolgi poziv brez primerov.
+
+\subsection{loco-s3-36540: kratek poziv}
+Odgovor je \textbf{neveljaven}, ker četrti objekt vsebuje \texttt{description} namesto \texttt{reason}.
+\begin{lstlisting}
+{"objects":[
+{"id":1,"classification":"movable","reason":"Tall freestanding shelves can be relocated without dismantling."},
+{"id":2,"classification":"movable","reason":"Forklift is a standard movable vehicle in warehouse use."},
+{"id":3,"classification":"movable","reason":"Person is inherently mobile and not fixed to the structure."},
+{"id":4,"classification":"movable","description":"Freestanding racks can be pushed or repositioned normally."},
+{"id":5,"classification":"movable","reason":"Stacked crates on pallets are easily moved by forklift."},
+{"id":6,"classification":"movable","reason":"Wooden pallets are lightweight and portable items."},
+{"id":7,"classification":"movable","reason":"Cardboard boxes are light, packable, and easily relocated."},
+{"id":8,"classification":"movable","reason":"Barrel on a pallet is easily carried or pushed away."}]}
+\end{lstlisting}
+
+\subsection{loco-s3-36540: dolg poziv}
+\begin{lstlisting}
+{"objects":[
+{"id":1,"classification":"movable","reason":"Shelves stand independently with no visible permanent mounting."},
+{"id":2,"classification":"movable","reason":"Forklift is a vehicle designed to be moved by operators."},
+{"id":3,"classification":"movable","reason":"Person is an animate object that moves freely."},
+{"id":4,"classification":"movable","reason":"Racks appear freestanding with no visible structural attachment."},
+{"id":5,"classification":"movable","reason":"Crates are stacked items easily repositioned or moved."},
+{"id":6,"classification":"movable","reason":"Pallets are standard warehouse objects designed for transport."},
+{"id":7,"classification":"movable","reason":"Boxes are lightweight and can be moved by hand or machinery."},
+{"id":8,"classification":"movable","reason":"Barrel sits on a pallet, making it easily repositionable."}]}
+\end{lstlisting}
+\textit{Komentar:} Dolg poziv je vrnil pravilen format. Oba odgovora pa regale označita za premične, čeprav iz same fotografije ni mogoče zanesljivo potrditi njihove pritrditve.
+
+\subsection{loco-s4-31835: kratek poziv}
+\begin{lstlisting}
+{"objects":[
+{"id":1,"classification":"movable","reason":"Stacked boxes on pallets can be easily relocated."},
+{"id":2,"classification":"movable","reason":"Pallets are standard warehouse items designed to be moved."},
+{"id":3,"classification":"fixed","reason":"Shelving units have visible floor anchors and structural integration."},
+{"id":4,"classification":"fixed","reason":"Barriers show visible installation evidence and base attachments."},
+{"id":5,"classification":"movable","reason":"Boxes rest on pallets and are not permanently attached."},
+{"id":6,"classification":"uncertain","reason":"Floor is a surface, not an object requiring relocation classification."}]}
+\end{lstlisting}
+
+\subsection{loco-s4-31835: dolg poziv}
+\begin{lstlisting}
+{"objects":[
+{"id":1,"classification":"movable","reason":"Cardboard boxes are easily stacked or moved in normal warehouse operations."},
+{"id":2,"classification":"movable","reason":"Pallets are standard movable units used for transporting goods."},
+{"id":3,"classification":"fixed","reason":"Shelving units have visible floor anchors and require dismantling to move."},
+{"id":4,"classification":"movable","reason":"Safety barriers can be pushed or repositioned without permanent installation."},
+{"id":5,"classification":"movable","reason":"Cardboard boxes are easily stacked or moved in normal warehouse operations."},
+{"id":6,"classification":"fixed","reason":"Concrete floor is a structural building element permanently part of the facility."}]}
+\end{lstlisting}
+\textit{Komentar:} Oba odgovora sta veljavna, vendar se razlikujeta pri rumenih zaščitah in betonskih tleh. Sprememba poziva torej vpliva na odločitev modela.
+\input{ostali_llm.tex}
+\end{document}
