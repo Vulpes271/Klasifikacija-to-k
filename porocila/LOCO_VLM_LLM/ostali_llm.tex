@@ -45,3 +45,24 @@ Status: ok.
 {"objects": [{"id": 1, "classification": "movable", "reason": "Boxes are stacked on pallets and can be moved."}, {"id": 2, "classification": "movable", "reason": "Pallets are transportable items within the warehouse."}, {"id": 3, "classification": "fixed", "reason": "Shelving units are a permanent structural installation."}, {"id": 4, "classification": "fixed", "reason": "Safety barriers are permanently installed for safety reasons."}, {"id": 5, "classification": "movable", "reason": "Boxes can be moved and are not fixed installations."}, {"id": 6, "classification": "fixed", "reason": "Concrete floor is a permanent ground surface."}]}
 \end{lstlisting}
 Komentar: Razlike v klasifikaciji rumenih zascit in betonskih tal.
+\clearpage
+\section{Primerjava rezultatov}
+V tabelah je locena tehnicna veljavnost izhoda od pravilnosti zaznavanja in klasifikacije. Brez rocno potrjenega ground truth ni mogoce izracunati zanesljive tocnosti.
+\subsection{VLM}
+\begin{tabular}{|p{3.2cm}|p{3.3cm}|p{7.0cm}|}
+\hline Model & Strukturirani izhod & Opazanje \\\\ \hline
+Florence-2-large & 90/90 OD odzivov & Najbolj zanesljiv izris koordinat v dosedanjem postopku; pomembne objekte vcasih izpusti. \\\\ \hline
+Qwen3-VL & 90/90 opisov & Najbolj uporaben podroben opis scene med pregledanimi primeri; locena bbox naloga je uspela le pri eni od stirih slik. \\\\ \hline
+NVILA-8B & 0/90 popolnoma veljavnih JSON opisov & Besedilo je pogosto uporabno, izluscenje pa nezanesljivo. Bbox: en veljaven rezultat od stirih. \\\\ \hline
+\end{tabular}
+Primerjava koordinat Qwen in NVILA temelji na samo stirih slikah, zato iz nje ne sklepamo o splosni natancnosti lokalizacije. Veljavnost Florence je tehnicna veljavnost OD, ne pravilnost okvirjev.
+\subsection{LLM}
+Spodaj je delez shematsko veljavnih odgovorov med dejansko izvedenimi klici v dosedanjem agregiranem pregledu (skupaj vec slik, VLM vhodov in ponovitev). Preskoceni vhodi niso vsteti. Veljavnost ni enaka pravilni klasifikaciji.
+\begin{tabular}{|p{4.5cm}|p{4cm}|p{4cm}|}
+\hline Model & Kratek poziv & Dolg poziv \\\\ \hline
+Qwen3.5 4B BF16 & 659/756 (87,2\%) & 677/756 (89,6\%) \\\\ \hline
+Qwen3.5 4B Q4 & 681/756 (90,1\%) & 707/756 (93,5\%) \\\\ \hline
+Gemma 3 4B Q4 & -- & -- \\\\ \hline
+\end{tabular}
+Za Gemmo zakljucni agregat ni bil ponovno izracunan; stare vmesne stevilke zaradi nepopolnega obsega niso primerljive in jih zato ne navajamo.
+Po veljavnosti formata med primerljivima Qwen razlicicama vodi Qwen3.5 Q4 pri kratkem in dolgem pozivu. Dolgi poziv je pri obeh Qwen razlicicah zanesljivejsi. Gemma pri pregledanih primerih vcasih pravilneje klasificira regale, a lahko napacno oznaci betonska tla; najboljsi model po dejanski pravilnosti zato se ni dolocen.
