@@ -43,6 +43,8 @@ lines += [
     "Za Gemmo zakljucni agregat ni bil ponovno izracunan; stare vmesne stevilke zaradi nepopolnega obsega niso primerljive in jih zato ne navajamo.",
     "Po veljavnosti formata med primerljivima Qwen razlicicama vodi Qwen3.5 Q4 pri kratkem in dolgem pozivu. Dolgi poziv je pri obeh Qwen razlicicah zanesljivejsi. Gemma pri pregledanih primerih vcasih pravilneje klasificira regale, a lahko napacno oznaci betonska tla; najboljsi model po dejanski pravilnosti zato se ni dolocen.",
 ]
+for cmd in ("begin", "end", "hline", "clearpage", "section", "subsection"):
+    lines = [line.replace(chr(92) * 2 + cmd, chr(92) + cmd) for line in lines]
 (root / "ostali_llm.tex").write_text("\n".join(lines), encoding="utf-8")
 marker = r"\end{document}"
 assert tex.count(marker) == 1
