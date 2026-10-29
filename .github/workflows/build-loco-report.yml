@@ -5,6 +5,7 @@ on:
     paths:
       - 'porocila/LOCO_VLM_LLM/porocilo.tex'
       - '.github/workflows/build-loco-report.yml'
+      - 'porocila/LOCO_VLM_LLM/ustvari_celotno.py'
   workflow_dispatch:
 permissions:
   contents: write
@@ -30,17 +31,19 @@ jobs:
             cp "results models/bbox_comparison/new_predictions/${id}.qwen3-vl.jpg" "porocila/LOCO_VLM_LLM/slike/${id}-qwen.jpg"
             cp "results models/bbox_comparison/new_predictions/${id}.nvila.jpg" "porocila/LOCO_VLM_LLM/slike/${id}-nvila.jpg"
           done
-      - name: Compile PDF
+      - name: Compile complete PDF
         run: |
+          python porocila/LOCO_VLM_LLM/ustvari_celotno.py
           cd porocila/LOCO_VLM_LLM
-          xelatex -interaction=nonstopmode -halt-on-error porocilo.tex
-          xelatex -interaction=nonstopmode -halt-on-error porocilo.tex
+          xelatex -interaction=nonstopmode -halt-on-error porocilo_celotno.tex
+          xelatex -interaction=nonstopmode -halt-on-error porocilo_celotno.tex
+          mv porocilo_celotno.pdf porocilo.pdf
           test -s porocilo.pdf
       - name: Commit PDF to branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f porocila/LOCO_VLM_LLM/porocilo.pdf
+          git add -f porocila/LOCO_VLM_LLM/porocilo.pdf porocila/LOCO_VLM_LLM/porocilo_celotno.tex porocila/LOCO_VLM_LLM/ostali_llm.tex
           if ! git diff --cached --quiet; then
             git commit -m "Build LOCO PDF report"
             git push origin HEAD:report/loco-pdf
