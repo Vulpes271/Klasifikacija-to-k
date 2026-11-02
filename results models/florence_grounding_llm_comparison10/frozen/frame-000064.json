@@ -1,0 +1,66 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s3-36603",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "caption-grounding-v1"
+  },
+  "image_sha256": "8e0edf4287481496993cb47572ebbc8111eeae2883caeb23503a15f1fc0a162d",
+  "status": "ok",
+  "parsed": {
+    "scene_description": "The image shows a large metal rack in a warehouse. The rack is made of metal wire mesh and has a blue handle on the left side. On the right side of the rack, there are shelves with various items such as boxes, bags, and other storage containers. In the center of the image, there is a cardboard box with the word \"Walgreens\" written on it. The background shows other shelves and racks in the warehouse.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "The rack",
+        "observation": "Florence grounded caption phrase 'The rack' at bbox_xyxy [6.71999979019165, 7.020000457763672, 688.3200073242188, 1071.9000244140625] in original pixels. Attachment/contact evidence and physical-instance identity were not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "bbox_xyxy": [
+          6.71999979019165,
+          7.020000457763672,
+          688.3200073242188,
+          1071.9000244140625
+        ],
+        "source_task": "<CAPTION_TO_PHRASE_GROUNDING>",
+        "source_region_id": 1
+      },
+      {
+        "id": 2,
+        "label": "shelves",
+        "observation": "Florence grounded caption phrase 'shelves' at bbox_xyxy [4.799999713897705, 5.940000057220459, 504.0, 851.5800170898438] in original pixels. Attachment/contact evidence and physical-instance identity were not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "bbox_xyxy": [
+          4.799999713897705,
+          5.940000057220459,
+          504.0,
+          851.5800170898438
+        ],
+        "source_task": "<CAPTION_TO_PHRASE_GROUNDING>",
+        "source_region_id": 2
+      },
+      {
+        "id": 3,
+        "label": "a cardboard box",
+        "observation": "Florence grounded caption phrase 'a cardboard box' at bbox_xyxy [667.2000122070312, 389.34002685546875, 1170.239990234375, 734.9400024414062] in original pixels. Attachment/contact evidence and physical-instance identity were not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "bbox_xyxy": [
+          667.2000122070312,
+          389.34002685546875,
+          1170.239990234375,
+          734.9400024414062
+        ],
+        "source_task": "<CAPTION_TO_PHRASE_GROUNDING>",
+        "source_region_id": 3
+      }
+    ]
+  },
+  "source_records": {
+    "caption": "results models/florence_caption_grounding_test10/loco-s3-36603/caption.raw.json",
+    "grounding": "results models/florence_caption_grounding_test10/loco-s3-36603/grounding.raw.json"
+  },
+  "adapter_notes": "Native regions, not verified physical objects. No LLM/reference labels used."
+}

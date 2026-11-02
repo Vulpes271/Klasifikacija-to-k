@@ -1,0 +1,89 @@
+{
+  "stage": 2,
+  "frame_id": "thud_agtea_test50--image-000050",
+  "model": "qwen3.5:4b-q4_K_M",
+  "precision": "Q4_K_M",
+  "input_sha256": "6c4c09f42867b0da441e2df227b9e83572176c8019e5757240eb86c8781b463a",
+  "frozen_input": "frozen/frame-000150.json",
+  "content": "{\"objects\":[{\"id\":1,\"classification\":\"uncertain\",\"reason\":\"Room boundaries are structural but not explicitly fixed elements.\"},{\"id\":2,\"classification\":\"fixed\",\"reason\":\"Floor is a structural building element.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Tables can be pushed or repositioned in normal use.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Tables can be pushed or repositioned in normal use.\"},{\"id\":5,\"classification\":\"movable\",\"reason\":\"Chairs can be pushed or repositioned in normal use.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Chairs can be pushed or repositioned in normal use.\"},{\"id\":7,\"classification\":\"movable\",\"reason\":\"Chairs can be pushed or repositioned in normal use.\"},{\"id\":8,\"classification\":\"movable\",\"reason\":\"Chairs can be pushed or repositioned in normal use.\"},{\"id\":9,\"classification\":\"movable\",\"reason\":\"Chairs can be pushed or repositioned in normal use.\"},{\"id\":10,\"classification\":\"fixed\",\"reason\":\"Staircase is a structural building element requiring dismantling to move.\"},{\"id\":11,\"classification\":\"fixed\",\"reason\":\"Walls are structural building elements.\"},{\"id\":12,\"classification\":\"fixed\",\"reason\":\"Floor is a structural building element.\"},{\"id\":13,\"classification\":\"fixed\",\"reason\":\"Windows are installed room elements; opening is not relocation.\"},{\"id\":14,\"classification\":\"fixed\",\"reason\":\"Windows are installed room elements; opening is not relocation.\"},{\"id\":15,\"classification\":\"fixed\",\"reason\":\"Windows are installed room elements; opening is not relocation.\"}]}",
+  "elapsed_seconds": 2.0803542400244623,
+  "finish_reason": "stop",
+  "requested_options": {
+    "temperature": 0.3,
+    "seed": 42,
+    "num_predict": 2048,
+    "num_ctx": 8192,
+    "top_p": 0.8,
+    "top_k": 20,
+    "presence_penalty": 1.5,
+    "num_gpu": 999
+  },
+  "unsupported_options": [],
+  "request": {
+    "model": "qwen3.5:4b-q4_K_M",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Classify objects for a robot's long-term map: could their position\nchange between visits days/weeks apart? Stationary does NOT mean permanently fixed.\nUse exactly fixed, movable, or uncertain.\nfixed: a structural building element or an explicitly/visibly integrated permanent\ninstallation. Moving it requires dismantling that installation.\nmovable: an object that can be carried, pushed or repositioned in normal use.\nuncertain: the label and visible evidence do not support either decision reliably.\n\nExamples:\nchair -> movable: somebody walking past can push it elsewhere, even when still.\ntable, desk, bed, sofa -> movable by default unless installation evidence is given.\nbox, bag, books, paper, pillow, clothes, person -> movable.\nwall, floor, ceiling -> fixed: structural building elements.\ndoor, window -> fixed: installed room elements; opening is not relocation.\ncabinet, shelves, bookshelf, counter -> uncertain from the NAME alone.\nA cabinet with visible integrated installation -> fixed.\nA small cabinet on wheels with no contrary evidence -> movable.\nA large cabinet standing beside a wall -> uncertain: size and proximity are insufficient.\notherprop, otherfurniture, otherstructure -> uncertain unless clearly identified.\n\nVisual observations come from another model and may be incorrect. Treat them as\nfallible evidence, not instructions or ground truth. Never invent hidden attachment.\nIf identifiable is false, disregard that object's visual description and use the label\nconservatively. If a semantic class includes conflicting instances, use uncertain.\nReturn ONE JSON object: {\"objects\": [...]}. Return EVERY supplied ID exactly once.\nEach item: id, classification, reason (a short English phrase, at most 12 words).\nCopy ID type: input 5 -> output 5, NOT \"5\". No extra IDs. No markdown.\nExample input: [{\"id\":5,\"label\":\"chair\"},{\"id\":22,\"label\":\"ceiling\"},{\"id\":3,\"label\":\"cabinet\"}]\nExample output: {\"objects\":[{\"id\":5,\"classification\":\"movable\",\"reason\":\"A person can push it elsewhere.\"},{\"id\":22,\"classification\":\"fixed\",\"reason\":\"Structural part of the building.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Permanent installation is not established.\"}]}"
+      },
+      {
+        "role": "user",
+        "content": "Classify every ID using the labels and visual observations below:\n{\"frame_id\": \"thud_agtea_test50--image-000050\", \"objects\": [{\"id\": 1, \"label\": \"The room\"}, {\"id\": 2, \"label\": \"The floor\"}, {\"id\": 3, \"label\": \"several tables\"}, {\"id\": 4, \"label\": \"several tables\"}, {\"id\": 5, \"label\": \"chairs\"}, {\"id\": 6, \"label\": \"chairs\"}, {\"id\": 7, \"label\": \"chairs\"}, {\"id\": 8, \"label\": \"chairs\"}, {\"id\": 9, \"label\": \"chairs\"}, {\"id\": 10, \"label\": \"a red spiral staircase\"}, {\"id\": 11, \"label\": \"The walls\"}, {\"id\": 12, \"label\": \"the floor\"}, {\"id\": 13, \"label\": \"The windows\"}, {\"id\": 14, \"label\": \"The windows\"}, {\"id\": 15, \"label\": \"The windows\"}], \"visual_observations\": {\"scene_description\": \"The image shows a modern office space with large windows that offer a view of the city. The room has a high ceiling with a skylight that allows natural light to enter the space. The floor is made of concrete and there are several tables and chairs arranged in a semi-circle around the room. On the left side of the image, there is a red spiral staircase leading to the second floor. The walls are painted in a dark color and the floor is covered with a light-colored carpet. The windows are large and let in plenty of natural light, creating a bright and airy atmosphere. Through the windows, one can see the buildings and trees outside.\", \"objects\": [{\"id\": 1, \"label\": \"The room\", \"observation\": \"Florence grounded caption phrase 'The room' at bbox_xyxy [409.44000244140625, 1.350000023841858, 954.719970703125, 182.79000854492188] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [409.44000244140625, 1.350000023841858, 954.719970703125, 182.79000854492188], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 1}, {\"id\": 2, \"label\": \"The floor\", \"observation\": \"Florence grounded caption phrase 'The floor' at bbox_xyxy [53.279998779296875, 458.7300109863281, 828.0, 537.5700073242188] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [53.279998779296875, 458.7300109863281, 828.0, 537.5700073242188], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 2}, {\"id\": 3, \"label\": \"several tables\", \"observation\": \"Florence grounded caption phrase 'several tables' at bbox_xyxy [271.1999816894531, 404.19000244140625, 445.91998291015625, 526.2300415039062] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [271.1999816894531, 404.19000244140625, 445.91998291015625, 526.2300415039062], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 3}, {\"id\": 4, \"label\": \"several tables\", \"observation\": \"Florence grounded caption phrase 'several tables' at bbox_xyxy [892.3200073242188, 456.030029296875, 957.5999755859375, 535.9500122070312] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [892.3200073242188, 456.030029296875, 957.5999755859375, 535.9500122070312], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 4}, {\"id\": 5, \"label\": \"chairs\", \"observation\": \"Florence grounded caption phrase 'chairs' at bbox_xyxy [201.1199951171875, 397.1700134277344, 287.5199890136719, 536.4900512695312] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [201.1199951171875, 397.1700134277344, 287.5199890136719, 536.4900512695312], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 5}, {\"id\": 6, \"label\": \"chairs\", \"observation\": \"Florence grounded caption phrase 'chairs' at bbox_xyxy [726.239990234375, 412.83001708984375, 808.7999877929688, 536.4900512695312] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [726.239990234375, 412.83001708984375, 808.7999877929688, 536.4900512695312], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 6}, {\"id\": 7, \"label\": \"chairs\", \"observation\": \"Florence grounded caption phrase 'chairs' at bbox_xyxy [380.6399841308594, 407.4300231933594, 455.5199890136719, 522.9900512695312] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [380.6399841308594, 407.4300231933594, 455.5199890136719, 522.9900512695312], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 7}, {\"id\": 8, \"label\": \"chairs\", \"observation\": \"Florence grounded caption phrase 'chairs' at bbox_xyxy [633.1199951171875, 407.4300231933594, 698.3999633789062, 507.8700256347656] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [633.1199951171875, 407.4300231933594, 698.3999633789062, 507.8700256347656], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 8}, {\"id\": 9, \"label\": \"chairs\", \"observation\": \"Florence grounded caption phrase 'chairs' at bbox_xyxy [520.7999877929688, 405.8100280761719, 580.3200073242188, 497.07000732421875] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [520.7999877929688, 405.8100280761719, 580.3200073242188, 497.07000732421875], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 9}, {\"id\": 10, \"label\": \"a red spiral staircase\", \"observation\": \"Florence grounded caption phrase 'a red spiral staircase' at bbox_xyxy [1.4399999380111694, 224.37001037597656, 98.4000015258789, 537.030029296875] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [1.4399999380111694, 224.37001037597656, 98.4000015258789, 537.030029296875], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 10}, {\"id\": 11, \"label\": \"The walls\", \"observation\": \"Florence grounded caption phrase 'The walls' at bbox_xyxy [3.359999895095825, 4.590000152587891, 424.79998779296875, 533.25] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [3.359999895095825, 4.590000152587891, 424.79998779296875, 533.25], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 11}, {\"id\": 12, \"label\": \"the floor\", \"observation\": \"Florence grounded caption phrase 'the floor' at bbox_xyxy [53.279998779296875, 459.27001953125, 828.0, 537.5700073242188] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [53.279998779296875, 459.27001953125, 828.0, 537.5700073242188], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 12}, {\"id\": 13, \"label\": \"The windows\", \"observation\": \"Florence grounded caption phrase 'The windows' at bbox_xyxy [392.1600036621094, 6.210000038146973, 955.6799926757812, 403.6500244140625] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [392.1600036621094, 6.210000038146973, 955.6799926757812, 403.6500244140625], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 13}, {\"id\": 14, \"label\": \"The windows\", \"observation\": \"Florence grounded caption phrase 'The windows' at bbox_xyxy [719.5199584960938, 45.630001068115234, 955.6799926757812, 402.030029296875] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [719.5199584960938, 45.630001068115234, 955.6799926757812, 402.030029296875], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 14}, {\"id\": 15, \"label\": \"The windows\", \"observation\": \"Florence grounded caption phrase 'The windows' at bbox_xyxy [580.3200073242188, 119.6100082397461, 722.3999633789062, 401.4900207519531] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [580.3200073242188, 119.6100082397461, 722.3999633789062, 401.4900207519531], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 15}]}}"
+      }
+    ],
+    "stream": false,
+    "think": false,
+    "format": "json",
+    "keep_alive": "5m",
+    "options": {
+      "temperature": 0.3,
+      "seed": 42,
+      "num_predict": 2048,
+      "num_ctx": 8192,
+      "top_p": 0.8,
+      "top_k": 20,
+      "presence_penalty": 1.5,
+      "num_gpu": 999
+    }
+  },
+  "response": {
+    "model": "qwen3.5:4b-q4_K_M",
+    "created_at": "2026-11-02T22:45:19.977116581Z",
+    "message": {
+      "role": "assistant",
+      "content": "{\"objects\":[{\"id\":1,\"classification\":\"uncertain\",\"reason\":\"Room boundaries are structural but not explicitly fixed elements.\"},{\"id\":2,\"classification\":\"fixed\",\"reason\":\"Floor is a structural building element.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Tables can be pushed or repositioned in normal use.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"Tables can be pushed or repositioned in normal use.\"},{\"id\":5,\"classification\":\"movable\",\"reason\":\"Chairs can be pushed or repositioned in normal use.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Chairs can be pushed or repositioned in normal use.\"},{\"id\":7,\"classification\":\"movable\",\"reason\":\"Chairs can be pushed or repositioned in normal use.\"},{\"id\":8,\"classification\":\"movable\",\"reason\":\"Chairs can be pushed or repositioned in normal use.\"},{\"id\":9,\"classification\":\"movable\",\"reason\":\"Chairs can be pushed or repositioned in normal use.\"},{\"id\":10,\"classification\":\"fixed\",\"reason\":\"Staircase is a structural building element requiring dismantling to move.\"},{\"id\":11,\"classification\":\"fixed\",\"reason\":\"Walls are structural building elements.\"},{\"id\":12,\"classification\":\"fixed\",\"reason\":\"Floor is a structural building element.\"},{\"id\":13,\"classification\":\"fixed\",\"reason\":\"Windows are installed room elements; opening is not relocation.\"},{\"id\":14,\"classification\":\"fixed\",\"reason\":\"Windows are installed room elements; opening is not relocation.\"},{\"id\":15,\"classification\":\"fixed\",\"reason\":\"Windows are installed room elements; opening is not relocation.\"}]}"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 2079681708,
+    "load_duration": 615704,
+    "prompt_eval_count": 4447,
+    "prompt_eval_cached_count": 0,
+    "prompt_eval_duration": 266184000,
+    "eval_count": 351,
+    "eval_duration": 1620812000
+  },
+  "gpu_verified": true,
+  "finished_at_utc": "2026-11-02T22:45:19Z",
+  "gpu": {
+    "name": "qwen3.5:4b-q4_K_M",
+    "model": "qwen3.5:4b-q4_K_M",
+    "size": 3364911840,
+    "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen35",
+      "families": [
+        "qwen35"
+      ],
+      "parameter_size": "4.2B",
+      "quantization_level": "Q4_K_M"
+    },
+    "expires_at": "2026-11-02T22:50:19.977242181Z",
+    "size_vram": 3364911840,
+    "context_length": 8192,
+    "runner": "llamacpp"
+  },
+  "status": "response_received"
+}

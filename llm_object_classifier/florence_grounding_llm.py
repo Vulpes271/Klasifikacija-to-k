@@ -1,5 +1,6 @@
 """One text-only call per saved Florence input/model; raw answers for human review."""
 import argparse
+import csv
 import html
 import json
 import os
@@ -7,7 +8,7 @@ from pathlib import Path
 import shutil
 
 from .description_prompts import validate_description
-from .experiment import combinations, load_config, options, read_json, sha256, write_json, strict_json, write_csv
+from .experiment import combinations, load_config, options, read_json, sha256, write_json, strict_json
 from .thud_experiment import immutable_json
 from .thud_extended_common import ROOT
 from .vision_backends import Backend
@@ -19,7 +20,30 @@ OUTPUT=ROOT/'results models/florence_grounding_llm_comparison10'
 CONFIG=ROOT/'configs/stage2/florence-grounding-qwen-size.json'
 
 
-def prepare(gemma_only=False,loco30=False):
+def prepare(gemma_only=False,loco30=False,experiment200=False):
+    if experiment200:
+        previous=read_json(OUTPUT/'loco30-manifest.json');config=previous['config']
+        for spec in config['models']:spec['base_url']=os.environ.get('THUD_OLLAMA_URL',spec['base_url'])
+        metadata=read_json(OUTPUT/'inputs200.json');by_id={r['frame_id']:r for r in metadata}
+        frames=[]
+        for f in previous['inputs']:
+            assert sha256((OUTPUT/f['frozen']).read_bytes())==f['sha256']
+            frames.append({**f,'dataset':by_id[f['frame_id']]['dataset'],'environment':by_id[f['frame_id']]['environment']})
+        for index,r in enumerate(metadata[30:],30):
+            path=SOURCE/'stage1'/f'frame-{index+1:06d}.json';saved=read_json(path)
+            assert saved['frame_id']==r['frame_id'] and saved['image_sha256']==r['sha256']
+            if saved['status']=='ok':validate_description(saved['parsed'])
+            frozen=OUTPUT/'frozen'/path.name
+            if frozen.exists():assert frozen.read_bytes()==path.read_bytes(),'Changed frozen input'
+            else:shutil.copyfile(path,frozen)
+            objects=[{'id':o['id'],'label':o['label']} for o in saved['parsed']['objects']]
+            frames.append({'frame_id':r['frame_id'],'dataset':r['dataset'],'environment':r['environment'],
+                'source':str(path.relative_to(ROOT)),'frozen':str(frozen.relative_to(OUTPUT)),
+                'sha256':sha256(path.read_bytes()),'user_prompt':reason_prompt(r['frame_id'],objects,saved['parsed'],config['instruction_file_text'])})
+        immutable_json(OUTPUT/'experiment200-manifest.json',{'config':config,'inputs':frames,
+            'base_manifest_sha256':sha256((OUTPUT/'loco30-manifest.json').read_bytes()),
+            'note':'Reuse matching 30-image results; freeze all new inputs before calls; missing calls only, no warmups.'})
+        return config,frames
     if loco30:
         previous=read_json(OUTPUT/'manifest.json');gemma=read_json(OUTPUT/'gemma3-manifest.json')
         assert previous['inputs']==gemma['inputs']
@@ -113,15 +137,16 @@ def run(config,frames,extension=False):
     for spec in config['models']:
         if all((OUTPUT/'responses'/spec['name']/(f['frame_id']+'.json')).exists() for f in frames):continue
         backend=Backend(spec,config['timeout'])
-        write_json(OUTPUT/'models'/(('loco30-' if extension else '')+spec['name']+'.json'),backend.metadata())
+        write_json(OUTPUT/'models'/((f'extension{len(frames)}-' if extension else '')+spec['name']+'.json'),backend.metadata())
         try:
             for frame in frames:
                 target=OUTPUT/'responses'/spec['name']/(frame['frame_id']+'.json')
                 if target.exists():continue  # Preserve every completed attempt, including errors.
                 row={'stage':2,'frame_id':frame['frame_id'],'model':spec['model'],
                     'precision':spec['precision'],'input_sha256':frame['sha256'],'frozen_input':frame['frozen']}
-                if read_json(OUTPUT/frame['frozen'])['status']!='ok':
-                    write_json(target,{**row,'status':'skipped','error':'Invalid saved Florence input; no LLM call.'})
+                saved=read_json(OUTPUT/frame['frozen'])
+                if saved['status']!='ok' or not saved['parsed']['objects']:
+                    write_json(target,{**row,'status':'skipped','error':'Invalid or empty saved Florence input; no LLM call.'})
                     continue
                 print(spec['model']+' / '+frame['frame_id'],flush=True)
                 try:
@@ -164,7 +189,7 @@ def table_decisions(row,objects):
 def region_table(frame,objects,rows,models):
     """Requested side-by-side classes, with disagreements distinct from data errors."""
     parsed=[table_decisions(row,objects) for row in rows]
-    body='<table><tr><th>ID regije</th><th>Oznaka Florence</th>'
+    body='<table><tr><th>Nabor</th><th>Okolje</th><th>ID regije</th><th>Oznaka Florence</th>'
     body+=''.join('<th>'+html.escape(s['model'])+'</th>' for s in models)+'<th>Primerjava</th></tr>'
     records=[]
     for obj in objects:
@@ -173,10 +198,11 @@ def region_table(frame,objects,rows,models):
         incomplete=any(c is None for c in classes)
         state=('različni razredi' if differing else 'enaki razredi') if not incomplete else ('različni razredi; nepopolno' if differing else 'nepopolno')
         style='different' if differing else ('incomplete' if incomplete else '')
-        body+='<tr class="'+style+'"><td>'+html.escape(json.dumps(obj['id']))+'</td><td>'+html.escape(obj['label'])+'</td>'
+        dataset=frame.get('dataset','loco');environment=frame.get('environment','loco-subset-'+frame['frame_id'].split('-')[1][1:])
+        body+='<tr class="'+style+'"><td>'+html.escape(dataset)+'</td><td>'+html.escape(environment)+'</td><td>'+html.escape(json.dumps(obj['id']))+'</td><td>'+html.escape(obj['label'])+'</td>'
         cells=[c if c is not None else 'MANJKA / NEVELJAVNO' for c in classes]
         body+=''.join('<td>'+html.escape(c)+'</td>' for c in cells)+'<td>'+state+'</td></tr>'
-        records.append({'frame_id':frame['frame_id'],'region_id':json.dumps(obj['id']),
+        records.append({'dataset':dataset,'environment':environment,'frame_id':frame['frame_id'],'region_id':json.dumps(obj['id']),
             'florence_label':obj['label'],**{s['name']:c for s,c in zip(models,cells)},'comparison':state})
     body+='</table>'
     for spec,(_,note) in zip(models,parsed):
@@ -191,13 +217,14 @@ def export(config,frames):
         body+='<p>Gemma nima načina thinking; uporabljen je isti think=false API zahtevek. Njena izvorna pogovorna predloga in zaključni tokeni se razlikujejo. <a href="gemma3-manifest.json">Zabeležene razlike</a>.</p>'
     body+='<p>Rumene vrstice označujejo različne vrnjene razrede. MANJKA / NEVELJAVNO pomeni neuporaben zapis, ne razreda uncertain. Regije se lahko prekrivajo ali opisujejo skupine; tabela ni ocena pravilnosti. <a href="region-classes.csv">Vse regije CSV</a>.</p>'
     if len(frames)==30:body+='<p>Prvih deset primerov je ohranjenih. <a href="loco30-manifest.json">Zamrznjeni vhodi in nastavitve za vseh 30 slik</a>.</p>'
+    if len(frames)>30:body+='<p>Prvih 30 primerov je ohranjenih. <a href="inputs200.json">Seznam RGB vhodov</a> · <a href="experiment200-manifest.json">Zamrznjeni opisi in nastavitve</a>.</p>'
     intro=body;body='';count=0;records=[];all_rows=[];table_errors=0
-    overview='<table><tr><th>Slika</th><th>Florence: oba koraka (s)</th>'+''.join('<th>'+escape(s['model'])+' (s)</th>' for s in config['models'])+'</tr>'
+    overview='<table><tr><th>Nabor</th><th>Okolje</th><th>Slika</th><th>Florence: oba koraka (s)</th>'+''.join('<th>'+escape(s['model'])+' (s)</th>' for s in config['models'])+'</tr>'
     for frame in frames:
         fid=frame['frame_id'];image=OUTPUT/'images'/(fid+'.jpg');image.parent.mkdir(exist_ok=True)
         shutil.copyfile(SOURCE/fid/'caption-grounding.predictions.jpg',image)
         combined=read_json(SOURCE/fid/'combined.raw.json');caption=read_json(OUTPUT/frame['frozen'])
-        body+='<section id="'+fid+'"><h2>'+escape(fid)+'</h2><a href="images/'+fid+'.jpg"><img src="images/'+fid+'.jpg" alt="Napovedi Florence"></a>'
+        body+='<section id="'+fid+'"><h2>'+escape(fid)+'</h2><p>'+escape(frame.get('dataset','loco')+' / '+frame.get('environment',''))+'</p><a href="images/'+fid+'.jpg"><img loading="lazy" src="images/'+fid+'.jpg" alt="Napovedi Florence"></a>'
         body+='<details><summary>Celoten opis Florence in izvorni podatki</summary><p>'+escape(caption['parsed']['scene_description'])+'</p><a href="../florence_caption_grounding_test10/'+fid+'/index.html">Opis, regije in surovi odgovori Florence</a></details><div class="answers">'
         image_rows=[]
         for spec in config['models']:
@@ -209,7 +236,8 @@ def export(config,frames):
                 assert request['options']==options(config,next(combinations(config)))
             if row['status']=='response_received':
                 assert row['gpu_verified']
-                assert row['response']['prompt_eval_count']+config['max_tokens']<config['num_ctx']
+                # Preserve responses even if the configured window was tight.
+                # Actual token counts and finish reason remain in the raw record.
             content=row.get('content',row.get('response_text',''))
             path.with_suffix('.txt').write_text(content,encoding='utf-8')
             elapsed=row.get('elapsed_seconds')
@@ -220,9 +248,11 @@ def export(config,frames):
         table,table_rows,errors=region_table(frame,caption['parsed']['objects'],image_rows,config['models'])
         body+='</div>'+table+'</section>';records.extend(table_rows);table_errors+=errors;all_rows.extend(image_rows)
         times=[combined.get('elapsed_seconds')]+[r.get('elapsed_seconds') for r in image_rows]
-        overview+='<tr><td><a href="#'+fid+'">'+fid+'</a></td>'+''.join('<td>'+(f'{t:.3f}' if t is not None else 'napaka/preskok')+'</td>' for t in times)+'</tr>'
+        overview+='<tr><td>'+escape(frame.get('dataset','loco'))+'</td><td>'+escape(frame.get('environment',''))+'</td><td><a href="#'+fid+'">'+fid+'</a></td>'+''.join('<td>'+(f'{t:.3f}' if t is not None else 'napaka/preskok')+'</td>' for t in times)+'</tr>'
     assert count==len(frames)*len(config['models'])
-    write_csv(OUTPUT/'region-classes.csv',records,['frame_id','region_id','florence_label']+[s['name'] for s in config['models']]+['comparison'])
+    with (OUTPUT/'region-classes.csv').open('w',newline='',encoding='utf-8') as output:
+        writer=csv.DictWriter(output,fieldnames=['dataset','environment','frame_id','region_id','florence_label']+[s['name'] for s in config['models']]+['comparison'],lineterminator='\n')
+        writer.writeheader();writer.writerows(records)
     (OUTPUT/'index.html').write_text('<!doctype html><html lang="sl"><meta charset="utf-8"><title>LLM: '+str(len(frames))+' Florence vhodov</title><style>body{font-family:Arial;margin:24px auto;padding:12px;max-width:1800px}section{border-top:2px solid #aaa;margin-top:30px}img{max-width:100%;max-height:600px}.answers{display:grid;grid-template-columns:repeat('+str(len(config['models']))+',minmax(0,1fr));gap:20px}article{min-width:0}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f4f4;padding:12px}table{border-collapse:collapse;margin:15px 0}td,th{border:1px solid #aaa;padding:7px;text-align:left}.different{background:#fff0bd;font-weight:bold}.incomplete,.error{color:#a00}@media(max-width:800px){.answers{grid-template-columns:1fr}}</style>'+intro+overview+'</table>'+body+'</html>',encoding='utf-8')
     for frame in frames:
         assert sha256((ROOT/frame['source']).read_bytes())==frame['sha256']
@@ -244,12 +274,14 @@ if __name__=='__main__':
     parser.add_argument('phase',choices=('prepare','preflight','run','export'))
     parser.add_argument('--gemma-only',action='store_true',help='Only new Gemma calls; reuse all frozen Qwen inputs and answers')
     parser.add_argument('--loco30',action='store_true',help='Extend all three models to 30 images; no new warmups/preflights')
+    parser.add_argument('--experiment200',action='store_true',help='Reuse 30 old results and classify only the new LOCO/THUD inputs')
     args=parser.parse_args()
     if args.loco30 and (args.gemma_only or args.phase=='preflight'):parser.error('Use --loco30 with prepare, run or export only')
-    config,frames=prepare(args.gemma_only,args.loco30)
+    if args.experiment200 and (args.loco30 or args.gemma_only or args.phase=='preflight'):parser.error('Use --experiment200 alone with prepare/run/export')
+    config,frames=prepare(args.gemma_only,args.loco30,args.experiment200)
     if args.phase=='preflight':preflight(config,frames)
     elif args.phase in ('run','export'):
-        if args.phase=='run':run(config,frames,extension=args.loco30)
+        if args.phase=='run':run(config,frames,extension=args.loco30 or args.experiment200)
         if args.gemma_only:
             config={**config,'models':read_json(OUTPUT/'manifest.json')['config']['models']+config['models']}
         export(config,frames)

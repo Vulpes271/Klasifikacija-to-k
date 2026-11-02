@@ -123,12 +123,74 @@ def image_bytes(info):
     return data
 
 
+def extend100(output):
+    """Keep the old 30; add maximin timestamp views, 20 per subset, resumably."""
+    from PIL import Image
+    output.mkdir(parents=True,exist_ok=True);(output/'images').mkdir(exist_ok=True)
+    previous=Path('data/loco_test30')
+    selection=json.loads((previous/'selection.json').read_text())
+    old={r['frame_id']:r for r in selection}
+    records=[]
+    for line in (previous/'discovery.jsonl').read_text().splitlines():
+        r=json.loads(line);s=old[r['frame_id']]
+        records.append({'frame_id':r['frame_id'],'dataset':'loco','environment':f"loco-subset-{s['subset']}",
+            'image_path':str(previous/r['image_path']),'image_size':r['image_size'],'sha256':r['image_sha256'],
+            'source_image_id':s['source_image_id'],'timestamp':timestamp({'file_name':s['source_file_name']})})
+    target=output/'selection.json'
+    if target.exists():records=json.loads(target.read_text())
+    def save():
+        temp=target.with_suffix('.tmp');temp.write_text(json.dumps(records,indent=2));temp.replace(target)
+    for r in records:assert sha(Path(r['image_path']).read_bytes())==r['sha256']
+    save()
+    if len(records)==100:return
+    cache=Path('results/experiment200/source-coco.json');cache.parent.mkdir(parents=True,exist_ok=True)
+    if not cache.exists():
+        with urllib.request.urlopen(ANNOTATIONS,timeout=120) as response:data=response.read()
+        assert sha(data)==ANNOTATION_SHA;cache.write_bytes(data)
+    original=cache.read_bytes();assert sha(original)==ANNOTATION_SHA
+    coco=json.loads(original)
+    with zipfile.ZipFile(RemoteZip()) as remote:infos={i.filename:i for i in remote.infolist()}
+    used={r['sha256'] for r in records}
+    for dataset in ('thud_agtea_test50','thud_dense_test50'):
+        for path in (Path('data')/dataset/'images').iterdir():
+            if path.is_file():used.add(sha(path.read_bytes()))
+    try:
+        for subset in range(1,6):
+            env=f'loco-subset-{subset}'
+            candidates=[i for i in coco['images'] if f'/subset-{subset}/' in i['path'] and member_name(i,infos)]
+            while sum(r['environment']==env for r in records)<20:
+                ids={r['source_image_id'] for r in records};times=[r['timestamp'] for r in records if r['environment']==env]
+                available=[i for i in candidates if i['id'] not in ids]
+                if not available:raise ValueError('No unique candidates left in '+env)
+                image=max(available,key=lambda i:(min(abs(timestamp(i)-t) for t in times),-i['id']))
+                candidates.remove(image)
+                data=image_bytes(infos[member_name(image,infos)]);digest=sha(data)
+                if digest in used:continue
+                with Image.open(io.BytesIO(data)) as decoded:
+                    decoded.load();assert decoded.size==(image['width'],image['height'])
+                fid=f"loco-s{subset}-{image['id']}";path=output/'images'/(fid+'.jpg');path.write_bytes(data)
+                records.append({'frame_id':fid,'dataset':'loco','environment':env,'image_path':str(path),
+                    'image_size':[image['width'],image['height']],'sha256':digest,'source_image_id':image['id'],
+                    'timestamp':timestamp(image)})
+                used.add(digest);save()
+                print(f'LOCO selected {len(records)}/100',flush=True)
+    except Exception as exc:
+        (output/'download-error.json').write_text(json.dumps({'error':str(exc),'selected':len(records),'missing':100-len(records)}))
+        raise
+    (output/'source.json').write_text(json.dumps({'revision':REVISION,'annotations_sha256':ANNOTATION_SHA,
+        'archive_url':ARCHIVE,'selection':'Keep 30; maximin timestamp distance within each subset, no class-based selection; SHA256 deduplication',
+        'images':len(records),'per_environment':dict(Counter(r['environment'] for r in records))},indent=2))
+
+
 def main():
     from PIL import Image
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--annotations', type=Path, help='Optional local copy of the pinned COCO file.')
     parser.add_argument('--output', type=Path, default=Path('data/loco_test30'))
+    parser.add_argument('--extend100',action='store_true',help='Keep existing 30 and fetch only 70 more selected photographs')
     args = parser.parse_args()
+    if args.extend100:
+        extend100(args.output);return
     if args.output.exists():
         raise ValueError('Output exists. Keep it and use a new output path for a new selection.')
     if args.annotations:

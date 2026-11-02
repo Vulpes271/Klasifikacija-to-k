@@ -22,6 +22,12 @@ Isti HTML vsebuje vseh 90 odgovorov in tabelo razredov po regijah z označenimi
 razlikami; `region-classes.csv` je izvoz tabele. Imeni map s končnico `10`
 ostaneta zaradi obstoječih povezav. Shranjeni klici, tudi napake, se ne ponavljajo.
 
+**Razširitev na 200 slik:** `bash scripts/experiment200.sh` ohrani 30 starih
+primerov, z range prenosom dopolni LOCO na 100 (20/okolje) in uporabi obstoječih
+50 AGTEA + 50 dense THUD slik. Isti pregledovalnik in CSV vključujeta nabor in
+okolje. `inputs200.json` je RGB manifest s SHA256; `verification.json` ločeno
+šteje prejete odgovore, napake in preskoke. Nadaljevanje preskoči shranjene klice.
+
 **Aktualna naloga za Codex:** [VLM in LLM, tri ponovitve ter deset slikovnih primerov](CODEX_PONOVITVE.md).
 Uporabi že delujoče izvajalnike NVILA, Florence, Qwen in Gemma; navodila določajo
 ločen preizkus slikovnega opisa in besedilne presoje ter objavo celotnih odgovorov.

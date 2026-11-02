@@ -44,3 +44,16 @@ podvojeni ali neveljavni ID-ji/razredi niso pretvorjeni v uncertain.
 Regije lahko predstavljajo skupine ali se prekrivajo. Pravilnosti ne ocenjujemo.
 Nadaljevanje preskoči vsako shranjeno datoteko, vključno z napakami/preskoki.
 Končni obseg, napake in preskoki so v verification.json. Ime mape je ohranjeno.
+
+## Razširitev 200
+
+`bash scripts/experiment200.sh`: 100 LOCO (20/okolje, starih 30 ohranjenih),
+50 lokalnih AGTEA in 50 dense THUD. Prenese se samo 70 izbranih LOCO JPEG;
+maximin razmik časovnih oznak, brez podvojenih SHA256. `inputs200.json` navaja
+ID, nabor, okolje, pot, SHA256 in dimenzije vsake slike, brez referenčnih objektov.
+`experiment200-manifest.json` zamrzne vse opisne vhode pred novimi LLM klici.
+Za nove slike samo MORE_DETAILED_CAPTION → CAPTION_TO_PHRASE_GROUNDING;
+neodvisni prejšnji OD/dense niso nadomestilo. Iste uteži/prompt/nastavitve,
+brez novih ogrevanj ali ponovitev. Napake/preskoki ostanejo ohranjeni.
+Samo ponovni HTML/CSV izvoz: `bash scripts/florence_grounding_llm.sh export --experiment200`.
+Pričakovani obseg je 200 slik in 600 položajev; dejanski števci so v verification.json.
