@@ -19,3 +19,12 @@ obnovil GPU dostop. `gpu-preflight-ollama-ps.txt` potrjuje 100% GPU.
 
 Čas v HTML je stenski čas celotnega API klica in lahko vključuje nalaganje.
 Ni analize pravilnosti, primerjav razredov, ponovitev ali PDF. Uteži ostanejo lokalno.
+
+## Dodatek: Gemma 3 27B
+
+`bash scripts/florence_grounding_llm.sh run --gemma-only` doda deset klicev
+gemma3:27b-it-q4_K_M in en ločen kratek GPU preizkus pri kontekstu 8192.
+Za sam izvoz: `bash scripts/florence_grounding_llm.sh export --gemma-only`.
+`gemma3-manifest.json` hrani iste zamrznjene vhode, prompt in nastavitve ter razlike:
+Gemma nima načina thinking; izvorna pogovorna predloga in zaključni tokeni so drugačni.
+HTML ima tretji stolpec. Qwenovi odzivi in Florence so ponovno uporabljeni.

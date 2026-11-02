@@ -18,7 +18,24 @@ OUTPUT=ROOT/'results models/florence_grounding_llm_comparison10'
 CONFIG=ROOT/'configs/stage2/florence-grounding-qwen-size.json'
 
 
-def prepare():
+def prepare(gemma_only=False):
+    if gemma_only:
+        # Read the published frozen inputs/prompts, not a new Florence export.
+        previous=read_json(OUTPUT/'manifest.json');frames=previous['inputs']
+        assert len(frames)==10
+        for frame in frames:
+            assert sha256((OUTPUT/frame['frozen']).read_bytes())==frame['sha256']
+        spec={'name':'gemma3-27b-q4','backend':'ollama','model':'gemma3:27b-it-q4_K_M',
+              'precision':'Q4_K_M','require_gpu':True,
+              'base_url':os.environ.get('THUD_OLLAMA_URL',previous['config']['models'][0]['base_url'])}
+        config={**previous['config'],'models':[spec]}
+        immutable_json(OUTPUT/'gemma3-manifest.json',{'config':config,'inputs':frames,
+            'base_manifest_sha256':sha256((OUTPUT/'manifest.json').read_bytes()),
+            'differences':[
+                'Same API messages and sampler settings; native Gemma chat template/stop tokens differ (see models metadata).',
+                'Gemma has no thinking capability; think=false is retained in the API request, without a Gemma reasoning-mode toggle.'
+            ]})
+        return config,frames
     config=load_config(CONFIG,2)
     for spec in config['models']:
         spec['base_url']=os.environ.get('THUD_OLLAMA_URL',spec['base_url'])
@@ -41,7 +58,7 @@ def prepare():
 
 def preflight(config,frames):
     """One short output with the longest actual input and the full context allocation."""
-    target=OUTPUT/'preflight.json'
+    target=OUTPUT/('gemma3-preflight.json' if config['models'][0]['model'].startswith('gemma3:') else 'preflight.json')
     if target.exists():
         assert read_json(target).get('gpu_verified'),'Previous GPU preflight failed'
         return
@@ -90,7 +107,9 @@ def run(config,frames):
 
 def export(config,frames):
     escape=html.escape
-    body='<h1>Florence grounding → Qwen3.5: 27B in 4B</h1><p>Isti shranjeni vhodi in prompt; T=0,3, seme 42, kontekst 8192, največ 2048 izhodnih tokenov, think=false. Ena izvedba na model in sliko. Čas je celoten API klic (vključno z morebitnim nalaganjem). Kakovost odgovorov ni ocenjena.</p>'
+    body='<h1>Florence grounding → Qwen3.5 in Gemma 3</h1><p>Isti shranjeni vhodi in prompt; T=0,3, seme 42, kontekst 8192, največ 2048 izhodnih tokenov, think=false. Ena izvedba na model in sliko. Čas je celoten API klic (vključno z morebitnim nalaganjem). Kakovost odgovorov ni ocenjena.</p>'
+    if any(s['model'].startswith('gemma3:') for s in config['models']):
+        body+='<p>Gemma nima načina thinking; uporabljen je isti think=false API zahtevek. Njena izvorna pogovorna predloga in zaključni tokeni se razlikujejo. <a href="gemma3-manifest.json">Nastavitve in zabeležene razlike</a>. Florence in Qwenovi rezultati so obstoječi.</p>'
     count=0
     for frame in frames:
         fid=frame['frame_id'];image=OUTPUT/'images'/(fid+'.jpg');image.parent.mkdir(exist_ok=True)
@@ -114,12 +133,13 @@ def export(config,frames):
             if row.get('error'):body+='<p class="error">'+escape(row['error'])+'</p>'
             body+='</article>';count+=1
         body+='</div></section>'
-    assert count==20
-    (OUTPUT/'index.html').write_text('<!doctype html><html lang="sl"><meta charset="utf-8"><title>Qwen3.5 27B / 4B: deset Florence vhodov</title><style>body{font-family:Arial;margin:24px auto;padding:12px;max-width:1600px}section{border-top:2px solid #aaa;margin-top:30px}img{max-width:100%;max-height:600px}.answers{display:grid;grid-template-columns:1fr 1fr;gap:20px}article{min-width:0}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f4f4;padding:12px}.error{color:#a00}@media(max-width:800px){.answers{grid-template-columns:1fr}}</style>'+body+'</html>',encoding='utf-8')
+    assert count==10*len(config['models'])
+    (OUTPUT/'index.html').write_text('<!doctype html><html lang="sl"><meta charset="utf-8"><title>LLM: deset Florence vhodov</title><style>body{font-family:Arial;margin:24px auto;padding:12px;max-width:1800px}section{border-top:2px solid #aaa;margin-top:30px}img{max-width:100%;max-height:600px}.answers{display:grid;grid-template-columns:repeat('+str(len(config['models']))+',minmax(0,1fr));gap:20px}article{min-width:0}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f4f4;padding:12px}.error{color:#a00}@media(max-width:800px){.answers{grid-template-columns:1fr}}</style>'+body+'</html>',encoding='utf-8')
     for frame in frames:
         assert sha256((ROOT/frame['source']).read_bytes())==frame['sha256']
     write_json(OUTPUT/'verification.json',{'images':10,'comparison_records':count,
-        'short_preflight_calls':1,'stage1_rerun':False,'source_inputs_unchanged':True,
+        'short_preflight_calls':sum((OUTPUT/name).exists() for name in ('preflight.json','gemma3-preflight.json')),
+        'stage1_rerun':False,'source_inputs_unchanged':True,
         'interrupted_setup_api_attempts':int((OUTPUT/'setup/preflight-before-gpu-restart.json').exists()),
         'identical_prompts_and_settings':True,'quality_analysis':False})
     print('Saved HTML:',OUTPUT/'index.html')
@@ -128,7 +148,11 @@ def export(config,frames):
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('phase',choices=('prepare','preflight','run','export'))
-    args=parser.parse_args();config,frames=prepare()
+    parser.add_argument('--gemma-only',action='store_true',help='Only new Gemma calls; reuse all frozen Qwen inputs and answers')
+    args=parser.parse_args();config,frames=prepare(args.gemma_only)
     if args.phase=='preflight':preflight(config,frames)
-    elif args.phase=='run':run(config,frames);export(config,frames)
-    elif args.phase=='export':export(config,frames)
+    elif args.phase in ('run','export'):
+        if args.phase=='run':run(config,frames)
+        if args.gemma_only:
+            config={**config,'models':read_json(OUTPUT/'manifest.json')['config']['models']+config['models']}
+        export(config,frames)

@@ -8,4 +8,6 @@ if [[ -z "${THUD_OLLAMA_URL:-}" ]]; then
   ollama_ip="$(docker inspect klasifikacija-ollama-1 --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}')"
   export THUD_OLLAMA_URL="http://$ollama_ip:11434"
 fi
-python3 -m llm_object_classifier.florence_grounding_llm "${1:-run}"
+phase="${1:-run}"
+if (( $# > 0 )); then shift; fi
+python3 -m llm_object_classifier.florence_grounding_llm "$phase" "$@"

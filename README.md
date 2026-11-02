@@ -11,6 +11,9 @@ uporabi lokalna Qwen3.5 27B/4B Q4_K_M z istim obstoječim promptom, enkrat na vh
 En ločen kratek klic preveri GPU pri kontekstu 8192. Celotni odgovori in lokalni
 pregledovalnik so v [results models/florence_grounding_llm_comparison10/index.html](results%20models/florence_grounding_llm_comparison10/index.html).
 Florence se pri tem ne zaganja; shranjeni poskusi se ob nadaljevanju preskočijo.
+Gemma 3 27B Q4_K_M je dodana v tretjem stolpcu istega pregledovalnika;
+`bash scripts/florence_grounding_llm.sh run --gemma-only` uporabi zamrznjene
+vhode/prompt in izvaja samo manjkajoče Gemmine klice.
 
 **Aktualna naloga za Codex:** [VLM in LLM, tri ponovitve ter deset slikovnih primerov](CODEX_PONOVITVE.md).
 Uporabi že delujoče izvajalnike NVILA, Florence, Qwen in Gemma; navodila določajo
