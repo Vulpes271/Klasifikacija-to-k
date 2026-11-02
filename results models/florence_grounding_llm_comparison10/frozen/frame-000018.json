@@ -1,0 +1,51 @@
+{
+  "stage": 1,
+  "frame_id": "loco-s2-35144",
+  "model_name": "florence",
+  "model": "microsoft/Florence-2-large",
+  "variant": {
+    "id": "caption-grounding-v1"
+  },
+  "image_sha256": "c12799da002ba96b6233e1b66bab01429ee752f7d8512a90d26323facd011c66",
+  "status": "ok",
+  "parsed": {
+    "scene_description": "The image shows a large warehouse with multiple shelves and racks. The shelves are filled with cardboard boxes and other items. The floor is made of concrete and there is a metal frame in the foreground. The warehouse appears to be well-lit with natural light coming in from the windows on the left side of the image. The image is taken from a low angle, looking up at the shelves.",
+    "objects": [
+      {
+        "id": 1,
+        "label": "The floor",
+        "observation": "Florence grounded caption phrase 'The floor' at bbox_xyxy [46.71999740600586, 309.6000061035156, 1269.1199951171875, 951.8399658203125] in original pixels. Attachment/contact evidence and physical-instance identity were not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "bbox_xyxy": [
+          46.71999740600586,
+          309.6000061035156,
+          1269.1199951171875,
+          951.8399658203125
+        ],
+        "source_task": "<CAPTION_TO_PHRASE_GROUNDING>",
+        "source_region_id": 1
+      },
+      {
+        "id": 2,
+        "label": "a metal frame",
+        "observation": "Florence grounded caption phrase 'a metal frame' at bbox_xyxy [46.71999740600586, 5.279999732971191, 414.0799865722656, 592.7999877929688] in original pixels. Attachment/contact evidence and physical-instance identity were not established.",
+        "attachment_evidence": "not_visible",
+        "identifiable": true,
+        "bbox_xyxy": [
+          46.71999740600586,
+          5.279999732971191,
+          414.0799865722656,
+          592.7999877929688
+        ],
+        "source_task": "<CAPTION_TO_PHRASE_GROUNDING>",
+        "source_region_id": 2
+      }
+    ]
+  },
+  "source_records": {
+    "caption": "results models/florence_caption_grounding_test10/loco-s2-35144/caption.raw.json",
+    "grounding": "results models/florence_caption_grounding_test10/loco-s2-35144/grounding.raw.json"
+  },
+  "adapter_notes": "Native regions, not verified physical objects. No LLM/reference labels used."
+}

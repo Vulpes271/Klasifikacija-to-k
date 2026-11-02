@@ -15,6 +15,13 @@ Gemma 3 27B Q4_K_M je dodana v tretjem stolpcu istega pregledovalnika;
 `bash scripts/florence_grounding_llm.sh run --gemma-only` uporabi zamrznjene
 vhode/prompt in izvaja samo manjkajoče Gemmine klice.
 
+**Razširitev na vseh 30 slik LOCO:** `bash scripts/stage1_florence.sh --loco30`,
+nato `bash scripts/florence_grounding_llm.sh run --loco30`. Dodanih je samo
+preostalih 20 slik; prvih deset vhodov in njihovih 30 LLM odgovorov ostane ohranjenih.
+Isti HTML vsebuje vseh 90 odgovorov in tabelo razredov po regijah z označenimi
+razlikami; `region-classes.csv` je izvoz tabele. Imeni map s končnico `10`
+ostaneta zaradi obstoječih povezav. Shranjeni klici, tudi napake, se ne ponavljajo.
+
 **Aktualna naloga za Codex:** [VLM in LLM, tri ponovitve ter deset slikovnih primerov](CODEX_PONOVITVE.md).
 Uporabi že delujoče izvajalnike NVILA, Florence, Qwen in Gemma; navodila določajo
 ločen preizkus slikovnega opisa in besedilne presoje ter objavo celotnih odgovorov.

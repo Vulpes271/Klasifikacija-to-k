@@ -28,3 +28,19 @@ Za sam izvoz: `bash scripts/florence_grounding_llm.sh export --gemma-only`.
 `gemma3-manifest.json` hrani iste zamrznjene vhode, prompt in nastavitve ter razlike:
 Gemma nima načina thinking; izvorna pogovorna predloga in zaključni tokeni so drugačni.
 HTML ima tretji stolpec. Qwenovi odzivi in Florence so ponovno uporabljeni.
+
+## Razširitev LOCO 30
+
+Vsebuje 30 slik in 90 položajev LLM; prvi deset vhodov in 30 odgovorov je ohranjenih.
+Samo novih 20 slik: 40 Florence caption/grounding klicev ter 60 klicev LLM,
+brez novih ogrevanj ali predpreizkusov. Isti prompt in nastavitve, modeli zaporedno.
+Ukaza: `bash scripts/stage1_florence.sh --loco30` in
+`bash scripts/florence_grounding_llm.sh run --loco30`; samo HTML/CSV izvoz:
+`bash scripts/florence_grounding_llm.sh export --loco30`.
+`loco30-manifest.json` zamrzne vseh 30 vhodov pred novimi besedilnimi klici.
+`region-classes.csv` in HTML tabeli po slikah prikazujeta dobesedne razrede po
+istem ID regije. Rumena označuje različne razrede, ne napačnosti. Manjkajoči,
+podvojeni ali neveljavni ID-ji/razredi niso pretvorjeni v uncertain.
+Regije lahko predstavljajo skupine ali se prekrivajo. Pravilnosti ne ocenjujemo.
+Nadaljevanje preskoči vsako shranjeno datoteko, vključno z napakami/preskoki.
+Končni obseg, napake in preskoki so v verification.json. Ime mape je ohranjeno.
