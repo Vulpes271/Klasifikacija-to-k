@@ -1,5 +1,11 @@
 # Opisovanje in razvrščanje objektov za robotsko zaznavanje
 
+**Florence za prvi korak:** `bash scripts/stage1_florence.sh` uporabi
+[`MORE_DETAILED_CAPTION → CAPTION_TO_PHRASE_GROUNDING`](configs/stage1/florence-caption-grounding.json).
+Celoten opis je vhod označevanja. Deset preglednih primerov je v
+`results models/florence_caption_grounding_test10/index.html`; `stage1/` v isti
+mapi je shranjen vhod za poznejši drugi korak. Ta ukaz LLM ne zaganja.
+
 **Aktualna naloga za Codex:** [VLM in LLM, tri ponovitve ter deset slikovnih primerov](CODEX_PONOVITVE.md).
 Uporabi že delujoče izvajalnike NVILA, Florence, Qwen in Gemma; navodila določajo
 ločen preizkus slikovnega opisa in besedilne presoje ter objavo celotnih odgovorov.
