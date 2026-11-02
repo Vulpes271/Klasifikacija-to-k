@@ -6,6 +6,12 @@ Celoten opis je vhod označevanja. Deset preglednih primerov je v
 `results models/florence_caption_grounding_test10/index.html`; `stage1/` v isti
 mapi je shranjen vhod za poznejši drugi korak. Ta ukaz LLM ne zaganja.
 
+**Besedilna primerjava teh desetih vhodov:** `bash scripts/florence_grounding_llm.sh`
+uporabi lokalna Qwen3.5 27B/4B Q4_K_M z istim obstoječim promptom, enkrat na vhod.
+En ločen kratek klic preveri GPU pri kontekstu 8192. Celotni odgovori in lokalni
+pregledovalnik so v [results models/florence_grounding_llm_comparison10/index.html](results%20models/florence_grounding_llm_comparison10/index.html).
+Florence se pri tem ne zaganja; shranjeni poskusi se ob nadaljevanju preskočijo.
+
 **Aktualna naloga za Codex:** [VLM in LLM, tri ponovitve ter deset slikovnih primerov](CODEX_PONOVITVE.md).
 Uporabi že delujoče izvajalnike NVILA, Florence, Qwen in Gemma; navodila določajo
 ločen preizkus slikovnega opisa in besedilne presoje ter objavo celotnih odgovorov.
