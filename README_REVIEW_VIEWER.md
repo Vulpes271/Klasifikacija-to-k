@@ -32,7 +32,13 @@ python3 -m llm_object_classifier.review_viewer --results-dir "results models/pro
 
 ## Ocenjevanje in zasebni podatki
 
-Najprej podajte referenčni razred ali izberite **NE MOREM OCENITI**, nato posebej odprite odgovore. **UNCERTAIN je razred**; NE MOREM OCENITI pusti referenčni razred prazen. Nobena ocena ni predizpolnjena. Razred in celotno utemeljitev vsakega odgovora ocenjujete ločeno. Prejšnje ocene lahko kadarkoli spremenite ali počistite.
+Privzeti način **Samo referenčni razredi**: za regijo enkrat izberite FIXED / MOVABLE / UNCERTAIN / NE MOREM OCENITI. Po uspešnem zapisu se samodejno odpre naslednja regija brez referenčne odločitve (po potrebi od začetka nabora). Ko takih regij ni več, ostanete na trenutni. Odgovori ostanejo skriti. Ob napaki se prehod ustavi in pokaže se možnost ponovnega shranjevanja; po ponovnem poskusu lahko nadaljujete z naslednjo regijo ali ponovno izbiro reference.
+
+V načinu **Pregled utemeljitev** po referenčni odločitvi po želji odprite odgovore. Ročne ocene utemeljitev PRAVILNA / NAPAČNA / NE MOREM OCENITI so neobvezne. **UNCERTAIN je referenčni razred**; NE MOREM OCENITI pusti referenčni razred prazen. Nobena ročna ocena ni predizpolnjena. Prejšnje ocene lahko spremenite ali počistite.
+
+Ujemanje napovedanega razreda z referenco se izračuna in shrani v ločeno tabelo `computed_matches`, tudi za skrite odgovore in ponovitve. Ob spremembi ali čiščenju reference se posodobi v isti transakciji. Pri NE MOREM OCENITI, prazni referenci ali neveljavni napovedi je ujemanje prazno; razlog določa `computed_match_status`. Izračun ni nova ročna ocena in ne spreminja prejšnjih ročnih ocen klasifikacije.
+
+Združujejo se samo dobesedno enake, neprazne utemeljitve z enakim veljavnim napovedanim razredom znotraj iste regije in istega SHA vhodnega dokumenta. Presledkov ali besedila se ne normalizira; manjkajočih odgovorov se ne združuje. Ena izrecna ocena skupine v transakciji oceni vse navedene povezane odgovore, tudi ponovitve v drugih zavihkih. Vse identitete in posamezne ocene ostanejo sledljive. Če se stare ročne ocene povezane skupine razlikujejo ali so delno prazne, se to pokaže; samo odpiranje skupine jih ne prepiše.
 
 Glavni odgovori so anonimno premešani A–F (A–C pri 200 slikah); dodatne ponovitve so na ločenem zavihku. Preslikava model/prompt/seme je enkrat ustvarjena in shranjena za vsak nabor. Gumb jo razkrije na zahtevo. Ob prehodu na drugo regijo se odgovori znova skrijejo; ob ponovnem zagonu imena ostanejo skrita. Celotna izvorna besedila utemeljitev ostanejo nespremenjena, tudi če sama omenjajo model.
 
@@ -42,7 +48,24 @@ Privzeta baza je **`reviews/manual_review.sqlite3` v korenu projekta**. Mapa `re
 
 CSV vsebuje trenutne ocene po regijah in odgovorih, JSON tudi zgodovino sprememb in anonimno preslikavo. Oba izvoza **vsebujeta resnične identitete modelov in promptov**. Prenos sprožite s povezavama v vmesniku; izvoze shranite v `reviews/`, če jih želite obdržati zunaj Gita.
 
-Napredek in filter »Samo neocenjene« štejeta regijo kot dokončano, ko ima referenčno odločitev (tudi NE MOREM OCENITI) in obe oceni za vse shranjene odgovore, vključno z dodatnimi ponovitvami. To je zgolj stanje ročnega pregleda.
+Izvoz različice 2 loči `reference_class`, `predicted_classification`, `computed_match` (true/false ali prazno), `computed_match_status` in ročno `reason_rating`. Stari `classification_rating` ostaja izključno prejšnja ročna ocena razreda; program ga ne predizpolnjuje ali prepisuje z izračunom. Čas izračuna je `computed_at`, čas ročne ocene `modified_at`. Izračunano ujemanje pomeni samo primerjavo z vašo referenco.
+
+Ob prvem zagonu nove različice se doda tabela izračunov in iz obstoječih referenc dopolnijo izračuni. Stare ročne ocene, opombe, zgodovina, preslikava ter položaj ostanejo ohranjeni. Obstoječa baza se privzeto odpre v referenčnem načinu; izbira načina se nato shranjuje.
+
+Napredka sta ločena: referenčni šteje referenčne odločitve, vključno z NE MOREM OCENITI; napredek utemeljitev šteje ročno ocenjene posamezne povezane odgovore, tudi dodatne ponovitve. Filter **Samo neocenjene** v referenčnem načinu potrebuje samo referenčno odločitev; v pregledu utemeljitev zahteva še ocene vseh utemeljitev. Neocenjene utemeljitve ne zadržijo referenčnega označevanja. Za popravljanje prejšnjih ocen izklopite filter.
+
+## Bližnjice
+
+Kratka vrstica ostaja ob navigacijskih gumbih; **Pomoč / bližnjice** odpre celotna navodila.
+
+| Tipka | Dejanje |
+|---|---|
+| 1 / 2 / 3 / 4 | FIXED / MOVABLE / UNCERTAIN / NE MOREM OCENITI |
+| ← / → | Prejšnja / naslednja regija |
+| Shift + ← / → | Prejšnja / naslednja slika |
+| Preslednica | Prikaži/skrij odgovore po referenčni odločitvi v načinu Pregled utemeljitev |
+
+Bližnjice ne delujejo med pisanjem opombe, vnosom v polje ali urejanjem besedila, ob odprti pomoči ter med shranjevanjem ali nalaganjem. Držanje tipke ne povzroča ponavljanja ocen. V referenčnem načinu odgovori ostajajo skriti tudi pri preslednici.
 
 ## Preverjanje brez uporabniških ocen
 
@@ -50,4 +73,4 @@ Napredek in filter »Samo neocenjene« štejeta regijo kot dokončano, ko ima re
 python3 -m unittest tests.test_review_viewer -v
 ```
 
-Testi uporabljajo začasne slikovne rezultate in začasno bazo; ne zapisujejo v vašo bazo. Preverijo oba formata, slepi prikaz, referenčno odločitev, ločene ocene, popravke, ponovno nalaganje, navigacijo in lokalni HTTP/CSV/JSON izvoz.
+Testi uporabljajo začasne slikovne rezultate in začasno bazo; ne zapisujejo v vašo bazo. Preverijo oba formata, nedestruktivno nadgradnjo, spremembo reference in izračunov, dobesedne skupine in skupinsko shranjevanje, oba načina, nadaljevanje ter HTTP/CSV/JSON izvoz. Bližnjice in sintakso vmesnika izvedejo z obstoječo sistemsko knjižnico JavaScriptCore, če je na voljo; sicer je ta test izpuščen. Ta knjižnica ni odvisnost pregledovalnika in je ni treba nameščati.

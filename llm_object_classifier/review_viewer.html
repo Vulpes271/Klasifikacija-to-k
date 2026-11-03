@@ -4,12 +4,15 @@
 <style>
 :root{font-family:system-ui,sans-serif;color:#17202d;background:#f4f6f9;font-size:17px}body{margin:0}header{position:sticky;top:0;z-index:5;background:#172c46;color:white;padding:12px 22px}h1{font-size:1.3rem;margin:0 0 6px}button,select,textarea{font:inherit}button{padding:12px 16px;margin:4px;border:1px solid #8895a8;border-radius:7px;background:white;color:#15273c;cursor:pointer;min-height:48px}button:hover{background:#e7eef9}button.active{background:#205dc3;color:white;border-color:#123c83}button:disabled{opacity:.45;cursor:default}.small{font-size:.87rem;color:#4a5768}.layout{display:grid;grid-template-columns:minmax(0,3fr) minmax(260px,1fr);gap:18px;margin:18px;align-items:start}.panel{padding:18px;background:white;border:1px solid #d6dce5;border-radius:9px}.picture{position:relative;line-height:0;background:#d8dfe9}.picture img{display:block;width:100%;height:auto}.picture svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}select{width:100%;padding:10px}#regions{min-height:240px}.selected{border-left:5px solid #205dc3}h2{font-size:1.16rem}h3{font-size:1.03rem}.reference{border:2px solid #205dc3;background:#f6f9ff}textarea{box-sizing:border-box;width:100%;min-height:85px;padding:10px;resize:vertical}.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.answer h3{font-size:1.3rem}.reason{white-space:pre-wrap;overflow-wrap:anywhere;font-size:1.08rem;line-height:1.6}.rating{border-top:1px solid #dce2eb;padding-top:8px;margin-top:14px}.warning,#error{color:#9b201c}.warning:empty{display:none}.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.saved{color:#a4f1ba}.saving{color:#ffe29c}.failed{color:#ffbbb5}.wide{margin:18px}.description{white-space:pre-wrap;line-height:1.55}label{display:block;margin:12px 0}label.inline{display:inline-block}.check{width:20px;height:20px;vertical-align:middle}#responseArea[hidden]{display:none}a{color:#144fab}header a{color:white}footer{padding:20px}.identity{background:#fff4d5;padding:10px;white-space:pre-wrap}.clear{font-size:.85rem;padding:8px;min-height:40px}.region-caption{line-height:1.5}#error{background:#ffe8e5;padding:10px;border-radius:7px}dialog{max-width:800px}dialog::backdrop{background:#0008}@media(max-width:1050px){.layout{grid-template-columns:1fr}.answers{grid-template-columns:1fr}header{position:static}}
 </style></head><body>
-<header><h1>Ročno ocenjevanje Florence regij in odgovorov LLM</h1><div id="progress"></div><div id="saveStatus" class="saved">Lokalno shranjevanje je pripravljeno.</div></header>
+<header><h1>Ročno ocenjevanje Florence regij in odgovorov LLM</h1><div id="progress"></div><strong id="activeMode"></strong><div id="saveStatus" class="saved">Lokalno shranjevanje je pripravljeno.</div></header>
 <div class="wide toolbar">
+  <label>Način <select id="mode"><option value="reference">Samo referenčni razredi</option><option value="reasons">Pregled utemeljitev</option></select></label>
+  <button id="help">Pomoč / bližnjice</button>
   <button data-nav="previous_image">← Prejšnja slika</button><button data-nav="next_image">Naslednja slika →</button>
   <button data-nav="previous_region">← Prejšnja regija</button><button data-nav="next_region">Naslednja regija →</button>
   <label class="inline"><input id="onlyUnrated" class="check" type="checkbox"> Samo neocenjene</label>
 </div>
+<p class="wide small">1 FIXED · 2 MOVABLE · 3 UNCERTAIN · 4 NE MOREM OCENITI · ←/→ regija · Shift+←/→ slika · preslednica odgovori (pregled utemeljitev)</p>
 <div class="wide" id="error" hidden></div><button id="retry" class="wide" hidden>Ponovno shrani neuspele spremembe</button>
 <main>
 <div class="layout"><div class="panel"><h2 id="imageTitle"></h2>
@@ -30,41 +33,48 @@
   <div id="referenceButtons"></div><p id="referenceStatus"></p>
   <button id="showAnswers">Prikaži odgovore za ocenjevanje</button>
 </section>
-<section id="responseArea" class="panel wide" hidden><h2>2. Ocenite razred in utemeljitev vsakega odgovora ločeno</h2>
-  <p>Ocene se ne izpolnijo samodejno iz reference. Podvojeni/skupinski Florence zapisi ostajajo ločene regije.</p>
+<section id="responseArea" class="panel wide" hidden><h2>2. Neobvezen pregled utemeljitev</h2>
+  <p>Ujemanje razreda je izračunano iz vaše reference. Ročno ocenite le utemeljitev. Dobesedno enaki odgovori z enakim razredom v tej regiji so povezani tudi čez zavihke; ena ocena velja za vse povezane oznake.</p>
   <div class="toolbar"><button id="mainTab">Glavni odgovori</button><button id="repeatTab43">Ponovitev 2 (seme 43)</button><button id="repeatTab44">Ponovitev 3 (seme 44)</button><button id="reveal">Razkrij preslikavo A/B/C …</button><button id="hideAnswers">Skrij odgovore</button></div>
   <div id="answers" class="answers"></div>
 </section>
 </main>
 <footer><div class="toolbar"><a href="/export.csv" download>Izvoz ocen CSV</a><a href="/export.json" download>Izvoz ocen, zgodovine in preslikave JSON</a></div>
-  <p class="small">Izvoza vsebujeta tudi resnična imena modelov, različice promptov in semena. Ocene ostanejo v ločeni lokalni bazi. Napredek šteje referenco ter obe oceni vseh shranjenih odgovorov, tudi ponovitev.</p></footer>
+  <p class="small">Izvoza vsebujeta tudi resnična imena modelov, različice promptov in semena. Ocene ostanejo v ločeni lokalni bazi. Referenčni napredek je neodvisen od neobveznih ocen utemeljitev. Napredek utemeljitev šteje posamezne povezane odgovore, tudi ponovitve.</p></footer>
+<dialog id="helpDialog"><h2>Pomoč / bližnjice</h2>
+<p><b>Samo referenčni razredi:</b> izberite referenco enkrat. Po uspešnem shranjevanju se odpre naslednja regija brez reference; odgovori ostanejo skriti. Na koncu ostanete na zadnji regiji.</p>
+<p><b>Pregled utemeljitev:</b> najprej referenca, nato po želji odprite odgovore. Utemeljitve ocenite s PRAVILNA / NAPAČNA / NE MOREM OCENITI. Ocena skupine velja za vse navedene povezane odgovore, tudi iz drugih zavihkov. Stare različne ocene skupine ostanejo nespremenjene, dokler ne izberete nove ocene.</p>
+<p><b>1</b> FIXED · <b>2</b> MOVABLE · <b>3</b> UNCERTAIN · <b>4</b> NE MOREM OCENITI<br><b>← / →</b> prejšnja / naslednja regija<br><b>Shift + ← / →</b> prejšnja / naslednja slika<br><b>Preslednica</b> prikaži/skrij odgovore po referenčni odločitvi v načinu Pregled utemeljitev.</p>
+<p>Bližnjice med pisanjem ali držanjem tipke ne delujejo. UNCERTAIN je razred; NE MOREM OCENITI pusti referenčni razred in ujemanje prazna. Izračunano ujemanje ni ročna ocena utemeljitve in ne prepiše prejšnjih ročnih ocen razreda.</p>
+<p>Filter Samo neocenjene upošteva aktivni način. Referenčni način potrebuje samo referenčno odločitev; pregled utemeljitev potrebuje še ocene vseh utemeljitev. Vse lahko popravite s prejšnja/naslednja in izklopljenim filtrom. Izvoz vsebuje identitete; gumb Razkrij jih pokaže v vmesniku.</p>
+<form method="dialog"><button>Zapri pomoč</button></form></dialog>
 <script>
 'use strict';
 const TOKEN='__TOKEN__', $=id=>document.getElementById(id);
-let state=null, answerData=null, reveal=false, pending=0, failures=[], queue=Promise.resolve();
+let state=null, answerData=null, reveal=false, pending=0, moving=false, failures=[], queue=Promise.resolve();
 const refChoices=[['fixed','FIXED'],['movable','MOVABLE'],['uncertain','UNCERTAIN'],['unassessable','NE MOREM OCENITI'],[null,'Počisti referenco']];
-const ratingChoices=[['correct','PRAVILEN'],['incorrect','NAPAČEN'],['unassessable','NE MOREM OCENITI'],[null,'Počisti oceno']];
+const ratingChoices=[['correct','PRAVILNA'],['incorrect','NAPAČNA'],['unassessable','NE MOREM OCENITI'],[null,'Počisti oceno']];
 async function api(path,body){
   const options=body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json','X-Review-Token':TOKEN},body:JSON.stringify(body)};
   const response=await fetch(path,options);const data=await response.json();if(!response.ok)throw Error(data.error||'Zahteva ni uspela');return data;
 }
 function message(error){$('error').hidden=!error;$('error').textContent=error||'';}
-function progress(p){$('progress').textContent=`Reference: ${p.with_reference}/${p.regions} regij · Dokončane regije: ${p.complete_regions}/${p.regions} · Ločene ocene odgovorov: ${p.answer_ratings}/${p.answer_ratings_total}`;}
+function progress(p){$('progress').textContent=`Reference: ${p.with_reference}/${p.regions} regij · Utemeljitve (neobvezno): ${p.reason_ratings}/${p.reason_ratings_total} odgovorov · V celoti pregledane utemeljitve: ${p.reason_regions}/${p.regions} regij`;}
 function controls(){
-  const blocked=pending>0||failures.length>0;
-  document.querySelectorAll('[data-nav], #regions, #onlyUnrated, #showAnswers, #mainTab, #repeatTab43, #repeatTab44, #reveal, #hideAnswers').forEach(e=>e.disabled=blocked);
-  $('showAnswers').disabled=blocked||!state||state.review.reference_status==='unrated';
+  const blocked=pending>0||moving||failures.length>0;
+  document.querySelectorAll('[data-nav], #regions, #mode, #onlyUnrated, #showAnswers, #mainTab, #repeatTab43, #repeatTab44, #reveal, #hideAnswers, .score-button').forEach(e=>e.disabled=blocked);
+  $('showAnswers').disabled=blocked||!state||state.cursor.mode!=='reasons'||state.review.reference_status==='unrated';
   $('repeatTab43').disabled=$('repeatTab44').disabled=blocked||!state||!state.has_repeats;
-  document.querySelectorAll('.issue, #note, .score-button').forEach(e=>e.disabled=failures.length>0);
+  document.querySelectorAll('.issue, #note').forEach(e=>e.disabled=moving||failures.length>0);
   $('retry').hidden=failures.length===0;
-  $('saveStatus').className=failures.length?'failed':pending?'saving':'saved';
-  $('saveStatus').textContent=failures.length?'Shranjevanje ni uspelo. Spremembe so v čakalni vrsti; ponovno poskusite.':pending?'Shranjujem …':'Vse spremembe so shranjene lokalno.';
+  $('saveStatus').className=failures.length?'failed':pending||moving?'saving':'saved';
+  $('saveStatus').textContent=failures.length?'Shranjevanje ni uspelo. Ostajate na regiji; spremembe čakajo na ponovni poskus.':pending||moving?'Shranjujem / nalagam …':'Vse spremembe so shranjene lokalno.';
 }
-function enqueue(body){
+function enqueue(body,path='/api/rate'){
   pending++;controls();
   queue=queue.then(async()=>{
-    try{if(failures.length){failures.push(body);return;}const result=await api('/api/rate',body);progress(result.progress);}
-    catch(error){failures.push(body);message(error.message);}
+    try{if(failures.length){failures.push({body,path});return;}const result=await api(path,body);progress(result.progress);}
+    catch(error){failures.push({body,path});message(error.message);}
     finally{pending--;controls();}
   });return queue;
 }
@@ -77,15 +87,21 @@ function choiceButtons(container,choices,current,onChange){
     b.addEventListener('click',()=>onChange(value));container.appendChild(b);
   }
 }
+async function setReference(value){
+  if(!state||pending||moving||failures.length)return;
+  state.review.reference_status=value===null?'unrated':value==='unassessable'?'unassessable':'rated';
+  state.review.reference_class=['fixed','movable','uncertain'].includes(value)?value:null;
+  if(value===null){$('responseArea').hidden=true;answerData=null;}
+  renderReference();
+  await save({reference:value});
+  if(failures.length)return; // Never navigate or reveal after a failed write.
+  if(value!==null&&state.cursor.mode==='reference')await navigate('next_unrated');
+  else if(answerData)await loadAnswers(answerData.repeat,answerData.seed===44?44:43);
+}
 function renderReference(){
   const r=state.review,current=r.reference_status==='unassessable'?'unassessable':r.reference_class;
-  choiceButtons($('referenceButtons'),refChoices,current,value=>{
-    state.review.reference_status=value===null?'unrated':value==='unassessable'?'unassessable':'rated';
-    state.review.reference_class=['fixed','movable','uncertain'].includes(value)?value:null;
-    if(value===null){$('responseArea').hidden=true;answerData=null;}
-    renderReference();save({reference:value});controls();
-  });
-  $('referenceStatus').textContent=r.reference_status==='unrated'?'Referenčna ocena še ni podana.':r.reference_status==='unassessable'?'Referenčni razred ni podan: NE MOREM OCENITI.':'Vaš referenčni razred: '+r.reference_class.toUpperCase();
+  choiceButtons($('referenceButtons'),refChoices,current,setReference);
+  $('referenceStatus').textContent=r.reference_status==='unrated'?'Referenčna ocena še ni podana.':r.reference_status==='unassessable'?'Referenčni razred ni podan: NE MOREM OCENITI; ujemanja se ne izračunajo.':'Vaš referenčni razred: '+r.reference_class.toUpperCase();
 }
 function draw(){
   const image=$('image'),svg=$('overlay');svg.replaceChildren();if(!state||!image.naturalWidth)return;
@@ -112,12 +128,14 @@ function render(){
   $('regionLabel').textContent=`Izbrano: ID ${JSON.stringify(state.selected.id)} · ${state.selected.label}`;
   $('observation').textContent=state.selected.observation;
   document.querySelectorAll('.issue').forEach(c=>c.checked=state.review.issues.includes(c.value));$('note').value=state.review.note;
-  $('onlyUnrated').checked=state.cursor.only_unrated;progress(state.progress);renderReference();controls();
+  $('onlyUnrated').checked=state.cursor.only_unrated;$('mode').value=state.cursor.mode;
+  $('activeMode').textContent='Aktivni način: '+(state.cursor.mode==='reference'?'Samo referenčni razredi — po shranjevanju samodejno naprej':'Pregled utemeljitev — ročne ocene so neobvezne');progress(state.progress);renderReference();controls();
 }
 async function navigate(action,extra={}){
-  await queue;if(failures.length)return;
+  await queue;if(failures.length||moving)return;moving=true;controls();
   try{state=await api('/api/navigate',{action,only_unrated:$('onlyUnrated').checked,...extra});answerData=null;reveal=false;$('responseArea').hidden=true;message('');render();}
   catch(error){message(error.message);}
+  finally{moving=false;controls();}
 }
 function renderAnswers(){
   $('answers').replaceChildren();$('responseArea').hidden=false;
@@ -125,42 +143,67 @@ function renderAnswers(){
   for(const seed of [43,44])$('repeatTab'+seed).classList.toggle('active',answerData.repeat&&answerData.seed===seed);
   $('reveal').textContent=reveal?'Skrij preslikavo':'Razkrij preslikavo A/B/C …';
   if(!answerData.answers.length){const p=document.createElement('p');p.textContent='Za to sliko ni shranjenih dodatnih ponovitev.';$('answers').appendChild(p);}
-  for(const row of answerData.answers){
-    const card=document.createElement('article');card.className='panel answer';const h=document.createElement('h3');h.textContent='Odgovor '+row.label;card.appendChild(h);
-    if(row.identity){const id=document.createElement('p');id.className='identity';id.textContent=`${row.identity.model} · prompt ${row.identity.prompt_variant} · seme ${row.identity.seed}`;card.appendChild(id);}
+  for(const row of answerData.groups){
+    const card=document.createElement('article');card.className='panel answer';const h=document.createElement('h3');h.textContent='Odgovor '+row.labels.join(' / ');card.appendChild(h);
+    const linked=document.createElement('p');linked.className='small';linked.textContent='Ocena velja za povezane odgovore: '+row.members.map(m=>m.label).join(', ');card.appendChild(linked);
+    if(reveal){const id=document.createElement('p');id.className='identity';id.textContent=row.members.map(m=>`${m.label}: ${m.identity.model} · prompt ${m.identity.prompt_variant} · seme ${m.identity.seed}`).join('\n');card.appendChild(id);}
     const label=document.createElement('p');label.textContent='Vrnjeni razred: '+(row.classification??'NI VRNJEN');card.appendChild(label);
+    const match=document.createElement('p');match.textContent='Izračunano ujemanje z referenco: '+(row.computed_match===null?'NI IZRAČUNANO':row.computed_match?'DA':'NE');card.appendChild(match);
     const reason=document.createElement('p');reason.className='reason';reason.textContent=row.reason??'Utemeljitev ni vrnjena.';card.appendChild(reason);
-    if(row.warning){const warning=document.createElement('p');warning.className='warning';warning.textContent=row.warning;card.appendChild(warning);}
-    for(const [part,title] of [['classification','Vaša ocena razreda'],['reason','Vaša ocena utemeljitve']]){
-      const box=document.createElement('div');box.className='rating';const heading=document.createElement('h4');heading.textContent=title;box.appendChild(heading);
-      const buttons=document.createElement('div');box.appendChild(buttons);
-      choiceButtons(buttons,ratingChoices,row[part+'_rating'],value=>{
-        row[part+'_rating']=value;renderAnswers();save({answer_id:row.answer_id,part,value});controls();
-      });card.appendChild(box);
-    }
-    $('answers').appendChild(card);
+    if(row.warning||row.mixed_ratings){const warning=document.createElement('p');warning.className='warning';warning.textContent=row.warning+(row.mixed_ratings?' Prejšnje ročne ocene povezanih odgovorov se razlikujejo ali so delno prazne; nobena ni prepisana.':'');card.appendChild(warning);}
+    const box=document.createElement('div');box.className='rating';const heading=document.createElement('h4');heading.textContent='Vaša ocena utemeljitve (neobvezno)';box.appendChild(heading);
+    const buttons=document.createElement('div');box.appendChild(buttons);
+    choiceButtons(buttons,ratingChoices,row.reason_rating,async value=>{
+      if(pending||moving||failures.length)return;
+      await enqueue({frame:state.cursor.frame,region:state.cursor.region,group_id:row.group_id,value},'/api/reason-group');
+      if(!failures.length)await loadAnswers(answerData.repeat,answerData.seed===44?44:43);
+    });card.appendChild(box);$('answers').appendChild(card);
   }
   controls();
 }
 async function loadAnswers(repeat=false,seed=43){
-  await queue;if(failures.length)return;
+  await queue;if(failures.length||moving||state.cursor.mode!=='reasons')return;moving=true;controls();
   try{answerData=await api('/api/answers',{repeat,reveal,seed});renderAnswers();message('');}
   catch(error){message(error.message);}
+  finally{moving=false;controls();}
 }
 document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.nav)));
 $('regions').addEventListener('change',()=>navigate('select',{frame:state.cursor.frame,region:Number($('regions').value)}));
 $('onlyUnrated').addEventListener('change',()=>navigate('filter'));
+$('mode').addEventListener('change',()=>navigate('mode',{mode:$('mode').value}));
+$('help').addEventListener('click',()=>$('helpDialog').showModal());
 $('allBoxes').addEventListener('change',draw);$('image').addEventListener('load',draw);
 document.querySelectorAll('.issue').forEach(c=>c.addEventListener('change',()=>{state.review.issues=[...document.querySelectorAll('.issue:checked')].map(e=>e.value);save({issues:state.review.issues});}));
 $('note').addEventListener('input',()=>{state.review.note=$('note').value;save({note:state.review.note});});
 $('showAnswers').addEventListener('click',()=>loadAnswers(false));$('mainTab').addEventListener('click',()=>loadAnswers(false));
 for(const seed of [43,44])$('repeatTab'+seed).addEventListener('click',()=>loadAnswers(true,seed));
 $('reveal').addEventListener('click',()=>{reveal=!reveal;loadAnswers(answerData?.repeat??false,answerData?.seed===44?44:43);});
-$('hideAnswers').addEventListener('click',async()=>{
+async function hideAnswers(){
   await queue;if(failures.length)return;
   try{await api('/api/hide',{});$('responseArea').hidden=true;answerData=null;reveal=false;}catch(error){message(error.message);}
+}
+$('hideAnswers').addEventListener('click',hideAnswers);
+$('retry').addEventListener('click',()=>{const old=failures;failures=[];message('');for(const edit of old)enqueue(edit.body,edit.path);queue.then(async()=>{if(!failures.length){state=await api('/api/state');render();if(answerData)await loadAnswers(answerData.repeat,answerData.seed===44?44:43);}}).catch(e=>message(e.message));controls();});
+// SHORTCUT_LOGIC_START: pure decision logic, exercised without a browser or models.
+function shortcutAction(event,busy=false){
+  const target=event.target;
+  if(busy||event.repeat||event.isComposing||event.ctrlKey||event.altKey||event.metaKey)return null;
+  if(target&&(target.isContentEditable||target.closest('input,textarea,select,[contenteditable]:not([contenteditable="false"]),[role="textbox"]')))return null;
+  if(!event.shiftKey&&['1','2','3','4'].includes(event.key))return {reference:['fixed','movable','uncertain','unassessable'][Number(event.key)-1]};
+  if(event.key==='ArrowLeft'||event.key==='ArrowRight')return {navigate:(event.key==='ArrowLeft'?'previous_':'next_')+(event.shiftKey?'image':'region')};
+  if(event.key===' '&&!event.shiftKey)return {toggle:true};
+  return null;
+}
+// SHORTCUT_LOGIC_END
+window.addEventListener('keydown',event=>{
+  const action=shortcutAction(event,!state||pending>0||moving||failures.length>0||$('helpDialog').open);
+  if(!action)return;event.preventDefault();
+  if(action.reference)setReference(action.reference);
+  else if(action.navigate)navigate(action.navigate);
+  else if(state.cursor.mode==='reasons'&&state.review.reference_status!=='unrated'){
+    if($('responseArea').hidden)loadAnswers(false);else hideAnswers();
+  }
 });
-$('retry').addEventListener('click',()=>{const old=failures;failures=[];message('');for(const edit of old)enqueue(edit);controls();});
-window.addEventListener('beforeunload',event=>{if(pending||failures.length){event.preventDefault();event.returnValue='Spremembe še niso shranjene.';}});
+window.addEventListener('beforeunload' ,event=>{if(pending||failures.length){event.preventDefault();event.returnValue='Spremembe še niso shranjene.';}});
 (async()=>{try{state=await api('/api/state');render();if(state.cursor.show_answers&&state.review.reference_status!=='unrated')await loadAnswers(state.cursor.tab==='repeat',state.cursor.repeat_seed??43);}catch(error){message(error.message);}})();
 </script></body></html>
