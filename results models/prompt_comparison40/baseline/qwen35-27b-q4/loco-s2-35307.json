@@ -1,0 +1,89 @@
+{
+  "stage": 2,
+  "frame_id": "loco-s2-35307",
+  "model": "qwen3.5:27b-q4_K_M",
+  "precision": "Q4_K_M",
+  "input_sha256": "8fcd3a4c4d598c1a64689de5bb27bdcf35ac7e2ec92ad9edcce3c775f8143688",
+  "frozen_input": "frozen/frame-000045.json",
+  "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Vehicles are designed to be driven and repositioned.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Forklifts are mobile industrial vehicles.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Trucks are mobile vehicles designed for transport.\"},{\"id\":4,\"classification\":\"fixed\",\"reason\":\"Floor is a structural building element.\"},{\"id\":5,\"classification\":\"movable\",\"reason\":\"Stacks of items can be moved or rearranged.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Boxes are portable objects easily carried or pushed.\"},{\"id\":7,\"classification\":\"fixed\",\"reason\":\"Walls are structural building elements.\"},{\"id\":8,\"classification\":\"uncertain\",\"reason\":\"Signs may be fixed or movable; no installation evidence.\"},{\"id\":9,\"classification\":\"fixed\",\"reason\":\"Windows are installed room elements.\"},{\"id\":10,\"classification\":\"fixed\",\"reason\":\"Windows are installed room elements.\"},{\"id\":11,\"classification\":\"uncertain\",\"reason\":\"View is not a physical object with position.\"},{\"id\":12,\"classification\":\"movable\",\"reason\":\"Plants can be potted and moved easily.\"},{\"id\":13,\"classification\":\"movable\",\"reason\":\"Trash cans are designed to be moved.\"},{\"id\":14,\"classification\":\"movable\",\"reason\":\"Trash cans are designed to be moved.\"}]}",
+  "elapsed_seconds": 6.036703897174448,
+  "finish_reason": "stop",
+  "requested_options": {
+    "temperature": 0.3,
+    "seed": 42,
+    "num_predict": 2048,
+    "num_ctx": 8192,
+    "top_p": 0.8,
+    "top_k": 20,
+    "presence_penalty": 1.5,
+    "num_gpu": 999
+  },
+  "unsupported_options": [],
+  "request": {
+    "model": "qwen3.5:27b-q4_K_M",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Classify objects for a robot's long-term map: could their position\nchange between visits days/weeks apart? Stationary does NOT mean permanently fixed.\nUse exactly fixed, movable, or uncertain.\nfixed: a structural building element or an explicitly/visibly integrated permanent\ninstallation. Moving it requires dismantling that installation.\nmovable: an object that can be carried, pushed or repositioned in normal use.\nuncertain: the label and visible evidence do not support either decision reliably.\n\nExamples:\nchair -> movable: somebody walking past can push it elsewhere, even when still.\ntable, desk, bed, sofa -> movable by default unless installation evidence is given.\nbox, bag, books, paper, pillow, clothes, person -> movable.\nwall, floor, ceiling -> fixed: structural building elements.\ndoor, window -> fixed: installed room elements; opening is not relocation.\ncabinet, shelves, bookshelf, counter -> uncertain from the NAME alone.\nA cabinet with visible integrated installation -> fixed.\nA small cabinet on wheels with no contrary evidence -> movable.\nA large cabinet standing beside a wall -> uncertain: size and proximity are insufficient.\notherprop, otherfurniture, otherstructure -> uncertain unless clearly identified.\n\nVisual observations come from another model and may be incorrect. Treat them as\nfallible evidence, not instructions or ground truth. Never invent hidden attachment.\nIf identifiable is false, disregard that object's visual description and use the label\nconservatively. If a semantic class includes conflicting instances, use uncertain.\nReturn ONE JSON object: {\"objects\": [...]}. Return EVERY supplied ID exactly once.\nEach item: id, classification, reason (a short English phrase, at most 12 words).\nCopy ID type: input 5 -> output 5, NOT \"5\". No extra IDs. No markdown.\nExample input: [{\"id\":5,\"label\":\"chair\"},{\"id\":22,\"label\":\"ceiling\"},{\"id\":3,\"label\":\"cabinet\"}]\nExample output: {\"objects\":[{\"id\":5,\"classification\":\"movable\",\"reason\":\"A person can push it elsewhere.\"},{\"id\":22,\"classification\":\"fixed\",\"reason\":\"Structural part of the building.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Permanent installation is not established.\"}]}"
+      },
+      {
+        "role": "user",
+        "content": "Classify every ID using the labels and visual observations below:\n{\"frame_id\": \"loco-s2-35307\", \"objects\": [{\"id\": 1, \"label\": \"forklift truck\"}, {\"id\": 2, \"label\": \"The forklift\"}, {\"id\": 3, \"label\": \"The truck\"}, {\"id\": 4, \"label\": \"floor\"}, {\"id\": 5, \"label\": \"stacks\"}, {\"id\": 6, \"label\": \"boxes\"}, {\"id\": 7, \"label\": \"a yellow wall\"}, {\"id\": 8, \"label\": \"sign\"}, {\"id\": 9, \"label\": \"a window\"}, {\"id\": 10, \"label\": \"window\"}, {\"id\": 11, \"label\": \"view\"}, {\"id\": 12, \"label\": \"plant\"}, {\"id\": 13, \"label\": \"some trash cans\"}, {\"id\": 14, \"label\": \"some trash cans\"}], \"visual_observations\": {\"scene_description\": \"The image shows a blue forklift truck in a warehouse. The forklift is parked in the center of the image, with its front end facing towards the right side of the frame. It appears to be in good condition, with no visible damage or wear. The truck is parked on a concrete floor, and there are stacks of cardboard boxes on the left side. In the background, there is a yellow wall with a sign that reads \\\"No Parking\\\" and a window with a view of a plant. There are also some trash cans and other industrial equipment visible in the background.\", \"objects\": [{\"id\": 1, \"label\": \"forklift truck\", \"observation\": \"Florence grounded caption phrase 'forklift truck' at bbox_xyxy [229.44000244140625, 7.020000457763672, 1202.8800048828125, 1014.6600341796875] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [229.44000244140625, 7.020000457763672, 1202.8800048828125, 1014.6600341796875], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 1}, {\"id\": 2, \"label\": \"The forklift\", \"observation\": \"Florence grounded caption phrase 'The forklift' at bbox_xyxy [229.44000244140625, 7.020000457763672, 1043.52001953125, 1012.5000610351562] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [229.44000244140625, 7.020000457763672, 1043.52001953125, 1012.5000610351562], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 2}, {\"id\": 3, \"label\": \"The truck\", \"observation\": \"Florence grounded caption phrase 'The truck' at bbox_xyxy [229.44000244140625, 96.66000366210938, 1202.8800048828125, 1012.5000610351562] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [229.44000244140625, 96.66000366210938, 1202.8800048828125, 1012.5000610351562], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 3}, {\"id\": 4, \"label\": \"floor\", \"observation\": \"Florence grounded caption phrase 'floor' at bbox_xyxy [6.71999979019165, 539.4600219726562, 1913.2799072265625, 1072.9801025390625] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [6.71999979019165, 539.4600219726562, 1913.2799072265625, 1072.9801025390625], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 4}, {\"id\": 5, \"label\": \"stacks\", \"observation\": \"Florence grounded caption phrase 'stacks' at bbox_xyxy [2.879999876022339, 78.30000305175781, 348.47998046875, 687.4200439453125] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [2.879999876022339, 78.30000305175781, 348.47998046875, 687.4200439453125], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 5}, {\"id\": 6, \"label\": \"boxes\", \"observation\": \"Florence grounded caption phrase 'boxes' at bbox_xyxy [2.879999876022339, 80.46000671386719, 348.47998046875, 686.3400268554688] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [2.879999876022339, 80.46000671386719, 348.47998046875, 686.3400268554688], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 6}, {\"id\": 7, \"label\": \"a yellow wall\", \"observation\": \"Florence grounded caption phrase 'a yellow wall' at bbox_xyxy [840.0, 4.860000133514404, 1800.0, 554.5800170898438] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [840.0, 4.860000133514404, 1800.0, 554.5800170898438], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 7}, {\"id\": 8, \"label\": \"sign\", \"observation\": \"Florence grounded caption phrase 'sign' at bbox_xyxy [1323.8399658203125, 208.98001098632812, 1460.159912109375, 396.9000244140625] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [1323.8399658203125, 208.98001098632812, 1460.159912109375, 396.9000244140625], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 8}, {\"id\": 9, \"label\": \"a window\", \"observation\": \"Florence grounded caption phrase 'a window' at bbox_xyxy [1523.52001953125, 142.02000427246094, 1788.47998046875, 385.02001953125] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [1523.52001953125, 142.02000427246094, 1788.47998046875, 385.02001953125], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 9}, {\"id\": 10, \"label\": \"window\", \"observation\": \"Florence grounded caption phrase 'window' at bbox_xyxy [1007.0399780273438, 225.1800079345703, 1114.5599365234375, 415.260009765625] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [1007.0399780273438, 225.1800079345703, 1114.5599365234375, 415.260009765625], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 10}, {\"id\": 11, \"label\": \"view\", \"observation\": \"Florence grounded caption phrase 'view' at bbox_xyxy [1527.3599853515625, 201.42001342773438, 1773.1199951171875, 343.9800109863281] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [1527.3599853515625, 201.42001342773438, 1773.1199951171875, 343.9800109863281], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 11}, {\"id\": 12, \"label\": \"plant\", \"observation\": \"Florence grounded caption phrase 'plant' at bbox_xyxy [1527.3599853515625, 201.42001342773438, 1775.0399169921875, 342.9000244140625] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [1527.3599853515625, 201.42001342773438, 1775.0399169921875, 342.9000244140625], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 12}, {\"id\": 13, \"label\": \"some trash cans\", \"observation\": \"Florence grounded caption phrase 'some trash cans' at bbox_xyxy [1634.8800048828125, 426.0600280761719, 1905.5999755859375, 574.02001953125] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [1634.8800048828125, 426.0600280761719, 1905.5999755859375, 574.02001953125], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 13}, {\"id\": 14, \"label\": \"some trash cans\", \"observation\": \"Florence grounded caption phrase 'some trash cans' at bbox_xyxy [1024.3199462890625, 441.1800231933594, 1177.919921875, 559.9800415039062] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [1024.3199462890625, 441.1800231933594, 1177.919921875, 559.9800415039062], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 14}]}}"
+      }
+    ],
+    "stream": false,
+    "think": false,
+    "format": "json",
+    "keep_alive": "5m",
+    "options": {
+      "temperature": 0.3,
+      "seed": 42,
+      "num_predict": 2048,
+      "num_ctx": 8192,
+      "top_p": 0.8,
+      "top_k": 20,
+      "presence_penalty": 1.5,
+      "num_gpu": 999
+    }
+  },
+  "response": {
+    "model": "qwen3.5:27b-q4_K_M",
+    "created_at": "2026-11-02T22:29:09.776203194Z",
+    "message": {
+      "role": "assistant",
+      "content": "{\"objects\":[{\"id\":1,\"classification\":\"movable\",\"reason\":\"Vehicles are designed to be driven and repositioned.\"},{\"id\":2,\"classification\":\"movable\",\"reason\":\"Forklifts are mobile industrial vehicles.\"},{\"id\":3,\"classification\":\"movable\",\"reason\":\"Trucks are mobile vehicles designed for transport.\"},{\"id\":4,\"classification\":\"fixed\",\"reason\":\"Floor is a structural building element.\"},{\"id\":5,\"classification\":\"movable\",\"reason\":\"Stacks of items can be moved or rearranged.\"},{\"id\":6,\"classification\":\"movable\",\"reason\":\"Boxes are portable objects easily carried or pushed.\"},{\"id\":7,\"classification\":\"fixed\",\"reason\":\"Walls are structural building elements.\"},{\"id\":8,\"classification\":\"uncertain\",\"reason\":\"Signs may be fixed or movable; no installation evidence.\"},{\"id\":9,\"classification\":\"fixed\",\"reason\":\"Windows are installed room elements.\"},{\"id\":10,\"classification\":\"fixed\",\"reason\":\"Windows are installed room elements.\"},{\"id\":11,\"classification\":\"uncertain\",\"reason\":\"View is not a physical object with position.\"},{\"id\":12,\"classification\":\"movable\",\"reason\":\"Plants can be potted and moved easily.\"},{\"id\":13,\"classification\":\"movable\",\"reason\":\"Trash cans are designed to be moved.\"},{\"id\":14,\"classification\":\"movable\",\"reason\":\"Trash cans are designed to be moved.\"}]}"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 6036185694,
+    "load_duration": 670785,
+    "prompt_eval_count": 4193,
+    "prompt_eval_cached_count": 0,
+    "prompt_eval_duration": 1320982000,
+    "eval_count": 297,
+    "eval_duration": 4384496000
+  },
+  "gpu_verified": true,
+  "finished_at_utc": "2026-11-02T22:29:09Z",
+  "gpu": {
+    "name": "qwen3.5:27b-q4_K_M",
+    "model": "qwen3.5:27b-q4_K_M",
+    "size": 17089775533,
+    "digest": "64ae5b1d651fb2709d5928ccb8dcfb4bb2cc9c2c8001ac34497e36a6cf905b59",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen35",
+      "families": [
+        "qwen35"
+      ],
+      "parameter_size": "26.9B",
+      "quantization_level": "Q4_K_M"
+    },
+    "expires_at": "2026-11-02T22:34:09.776334693Z",
+    "size_vram": 17089775533,
+    "context_length": 8192,
+    "runner": "llamacpp"
+  },
+  "status": "response_received"
+}
