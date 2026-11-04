@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ARHIVSKI IZVAJALNIK: aktivni Florence → Qwen ukaz je v README.md.
 # Exactly four images per installed model; no warmup, retries, LLM or PDF.
 set -euo pipefail
 cd "$(dirname "$0")/.."

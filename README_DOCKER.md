@@ -1,3 +1,5 @@
+> **ARHIVSKA NAVODILA za obstoječe poskuse.** Za aktivni Florence → Qwen pipeline glej [README.md](README.md). Nekateri pretekli modeli niso več nameščeni.
+
 # Majhen prvi test v Dockerju (Linux terminal)
 
 > Starejša, ohranjena pot. Za nova ločena koraka glej [docs/WORKFLOW.md](docs/WORKFLOW.md).

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov; aktivni ukaz je v README.md.
 # Separate native-model environments; one GPU model at a time, resumable outputs.
 set -euo pipefail
 # Parse the complete launcher before a long-running child starts. This also

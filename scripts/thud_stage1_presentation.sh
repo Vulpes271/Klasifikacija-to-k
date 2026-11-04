@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov; aktivni ukaz je v README.md.
 # Stage one only: native Qwen3-VL, then export audited existing Florence/NVILA.
 set -euo pipefail
 cd "$(dirname "$0")/.."

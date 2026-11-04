@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov; aktivni ukaz je v README.md.
 # Resume every stage; failed calls remain recorded and are never repeated.
 set -euo pipefail
 cd "$(dirname "$0")/.."

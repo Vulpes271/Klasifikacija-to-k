@@ -1,3 +1,5 @@
+> **ARHIVSKA NAVODILA za obstoječe poskuse.** Za aktivni Florence → Qwen pipeline glej [README.md](README.md). Nekateri pretekli modeli niso več nameščeni.
+
 # BF16 razširitev istih 40 Florence vhodov
 
 Izvajalnik ponovno uporabi manifest, zamrznjene dokumente, slike ter natančna shranjena besedila obeh sistemskih in vseh uporabniških promptov v `results models/prompt_comparison40`. Nove datoteke so samo v podmapi `bf16/`; izvorni manifest ostane nespremenjen.

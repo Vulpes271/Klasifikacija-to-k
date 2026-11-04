@@ -1,4 +1,6 @@
-"""One text-only call per saved Florence input/model; raw answers for human review."""
+"""ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov.
+
+One text-only call per saved Florence input/model; raw answers for human review."""
 import argparse
 import csv
 import html

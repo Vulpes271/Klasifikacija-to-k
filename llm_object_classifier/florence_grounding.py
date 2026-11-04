@@ -1,4 +1,6 @@
-"""Ten-image export for the existing native Florence caption-to-grounding runner."""
+"""ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov.
+
+Ten-image export for the existing native Florence caption-to-grounding runner."""
 import argparse
 import html
 from pathlib import Path
@@ -11,8 +13,7 @@ from .thud_extended_common import ROOT,saved_path
 WORK=ROOT/'results/florence-caption-grounding-test10'
 PUBLIC=ROOT/'results models/florence_caption_grounding_test10'
 CONFIG=ROOT/'configs/stage1/florence-caption-grounding.json'
-CAPTION='<MORE_DETAILED_CAPTION>'
-GROUND='<CAPTION_TO_PHRASE_GROUNDING>'
+from .grounding_common import CAPTION, GROUND, draw
 REMAINING_WORK=ROOT/'results/florence-caption-grounding-loco20'
 WORK200=ROOT/'results/experiment200/florence'
 
@@ -83,20 +84,6 @@ def prepare200():
     print('Prepared RGB inputs:',len(records),'new Florence images:',len(selected),flush=True)
 
 
-def draw(image_path, regions, target):
-    """Original pixels/coordinates; the full phrases remain in the adjacent legend."""
-    from PIL import Image,ImageDraw,ImageFont
-    image=Image.open(image_path).convert('RGB');pen=ImageDraw.Draw(image)
-    try:font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',max(12,image.width//100))
-    except OSError:font=ImageFont.load_default()
-    for row in regions:
-        color=('#ff3232','#00c3ff','#ffe600','#48ff80','#ff70ff')[(row['id']-1)%5]
-        pen.rectangle(row['bbox_xyxy'],outline=color,width=max(2,image.width//400))
-        label=row['label'];short=label if len(label)<=55 else label[:52]+'...'
-        pen.text((row['bbox_xyxy'][0],max(0,row['bbox_xyxy'][1]-18)),f"{row['id']}: {short}",
-            font=font,fill=color,stroke_width=1,stroke_fill='black')
-    if not regions:pen.text((8,8),'NO VALID GROUNDED REGIONS',font=font,fill='red',stroke_width=1,stroke_fill='white')
-    image.save(target)
 
 
 def document(title,body):

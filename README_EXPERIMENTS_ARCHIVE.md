@@ -1,0 +1,141 @@
+> **ARHIVSKA NAVODILA.** Aktivna pot je opisana v [README.md](README.md).
+> Stari poskusi se ne zaganjajo samodejno. Opuščene uteži je pred reprodukcijo treba obnoviti po izvornih revizijah.
+
+# Opisovanje in razvrščanje objektov za robotsko zaznavanje
+
+**Florence za prvi korak:** `bash scripts/stage1_florence.sh` uporabi
+[`MORE_DETAILED_CAPTION → CAPTION_TO_PHRASE_GROUNDING`](configs/stage1/florence-caption-grounding.json).
+Celoten opis je vhod označevanja. Deset preglednih primerov je v
+`results models/florence_caption_grounding_test10/index.html`; `stage1/` v isti
+mapi je shranjen vhod za poznejši drugi korak. Ta ukaz LLM ne zaganja.
+
+**Besedilna primerjava teh desetih vhodov:** `bash scripts/florence_grounding_llm.sh`
+uporabi lokalna Qwen3.5 27B/4B Q4_K_M z istim obstoječim promptom, enkrat na vhod.
+En ločen kratek klic preveri GPU pri kontekstu 8192. Celotni odgovori in lokalni
+pregledovalnik so v [results models/florence_grounding_llm_comparison10/index.html](results%20models/florence_grounding_llm_comparison10/index.html).
+Florence se pri tem ne zaganja; shranjeni poskusi se ob nadaljevanju preskočijo.
+Gemma 3 27B Q4_K_M je dodana v tretjem stolpcu istega pregledovalnika;
+`bash scripts/florence_grounding_llm.sh run --gemma-only` uporabi zamrznjene
+vhode/prompt in izvaja samo manjkajoče Gemmine klice.
+
+**Razširitev na vseh 30 slik LOCO:** `bash scripts/stage1_florence.sh --loco30`,
+nato `bash scripts/florence_grounding_llm.sh run --loco30`. Dodanih je samo
+preostalih 20 slik; prvih deset vhodov in njihovih 30 LLM odgovorov ostane ohranjenih.
+Isti HTML vsebuje vseh 90 odgovorov in tabelo razredov po regijah z označenimi
+razlikami; `region-classes.csv` je izvoz tabele. Imeni map s končnico `10`
+ostaneta zaradi obstoječih povezav. Shranjeni klici, tudi napake, se ne ponavljajo.
+
+**Razširitev na 200 slik:** `bash scripts/experiment200.sh` ohrani 30 starih
+primerov, z range prenosom dopolni LOCO na 100 (20/okolje) in uporabi obstoječih
+50 AGTEA + 50 dense THUD slik. Isti pregledovalnik in CSV vključujeta nabor in
+okolje. `inputs200.json` je RGB manifest s SHA256; `verification.json` ločeno
+šteje prejete odgovore, napake in preskoke. Nadaljevanje preskoči shranjene klice.
+
+**Aktualna naloga za Codex:** [VLM in LLM, tri ponovitve ter deset slikovnih primerov](CODEX_PONOVITVE.md).
+Uporabi že delujoče izvajalnike NVILA, Florence, Qwen in Gemma; navodila določajo
+ločen preizkus slikovnega opisa in besedilne presoje ter objavo celotnih odgovorov.
+
+**Naloga za Codex na Linuxu:** [cilji, načrt poskusov in poročilo za predstavitev](CODEX_NALOGA.md).
+Dokument loči takojšnji eksperimentalni del od nadaljnje nadgradnje prvega koraka.
+
+Aktivna pot je razdeljena na tri jasne korake. Slike in rezultati ostanejo lokalno;
+Git vsebuje kodo, nastavitve in dokumentacijo.
+
+| Korak | Namen | Ukaz / modul | Rezultati |
+| --- | --- | --- | --- |
+| 0. Izbor slik | Iz nove RGB mape naredi ponovljiv seznam posnetkov | `python -m llm_object_classifier.image_dataset` | `data/selected/frames.jsonl` |
+| 1. Opisi in primerjava | Vsak slikovni model opiše iste slike | `bash scripts/stage1_describe.sh IME ...` | `results/stage1/IME/` |
+| 2. Razvrščanje | Besedilni LLM oceni že shranjene opise, brez slike | `bash scripts/stage2_reason.sh IME ...` | `results/stage2/IME/` |
+
+**Začni z [navodili za Linux in novo bazo](docs/WORKFLOW.md).**
+Za zdaj je smiselno urediti izbor podatkov in primerjati prvi korak. Drugega lahko
+zaženeš pozneje na točno izbranih opisih, brez ponovnega opisovanja slik.
+
+## Vključena izbora THUD: 2 x 50 slik
+
+Oba izbora sta že v repozitoriju: `data/thud_dense_test50` (trgovina) in
+`data/thud_agtea_test50` (raznoliki predmeti). [Podrobnosti in zagon](data/README.md).
+
+```bash
+export COMPOSE_FILE=compose.yaml:compose.gpu.yaml
+bash scripts/stage1_describe.sh thud-prvi \
+  --config configs/stage1/thud-compare.json \
+  --input data/thud_dense_test50/objects.jsonl --limit 2
+```
+
+Za teh 100 izbranih fotografij zunanji disk ni potreben. Celotna izvorna baza
+ostaja lokalno in se ne nalaga v Git.
+
+## Hiter preizkus na že prenesenih slikah NYUv2
+
+Če imaš že `data/nyu20/objects.jsonl`, lahko novo ločitev preveriš takoj:
+
+```bash
+export COMPOSE_FILE=compose.yaml:compose.gpu.yaml
+bash scripts/stage1_describe.sh opisi-preizkus --input data/nyu20/objects.jsonl --limit 2
+xdg-open results/stage1/opisi-preizkus/comparison.html
+```
+
+Privzeto primerja Qwen3.5 4B BF16 in Q4. Primerjava Qwen/NVILA je pripravljena
+kot ločena API predloga; strežnik NVILA mora biti najprej samostojno pripravljen
+in preverjen. Ni samodejnega prenosa NVILA skozi Ollamo.
+
+## Kaj urejati
+
+- **Prvi korak:** `configs/stage1/qwen-compare.json` (modeli, podrobnost, temperatura, tokeni).
+- **NVILA API predloga:** `configs/stage1/nvila-server.example.json` (glej omejitve v navodilih).
+- **Drugi korak:** `configs/stage2/qwen-reason.json`.
+- **Sistemski prompt razvrščanja:** `configs/prompts/reasoning-system.txt`.
+- **Uporabniško navodilo razvrščanja:** `configs/prompts/reasoning.txt`.
+- **Opisovalni prompt:** `llm_object_classifier/description_prompts.py`; za eksperiment lahko
+  v stage1 konfiguraciji nastaviš `system_file` na svojo UTF-8 datoteko.
+
+## Izhodi in vrednotenje
+
+Prvi korak ustvari `comparison.html` s fotografijami in dejanskimi opisi vseh modelov,
+`descriptions.csv`, `summary.json`, manifest s prompti in metapodatki modelov ter
+JSON vsakega odgovora, vključno z napakami. HTML je samostojen in deluje brez strežnika.
+
+Drugi korak ustvari `classifications.csv`, manifest, povzetek in izvorne odgovore z
+utemeljitvami. Predmeti iz neoznačenih fotografij so predlog prvega modela, ne oznake baze.
+Brez ročnih referenc ne poročamo o accuracy. Veljaven JSON ne pomeni pravilnega opisa.
+
+## Dosedanji poskusi in združljivost
+
+[Pregled starejših poskusov](docs/legacy/README.md) loči začetne teste, ki so že dali
+vmesne rezultate. Ostanejo ponovljivi z obstoječimi ukazi in v svojih starih mapah;
+novi prvi/drugi korak se z njimi ne mešata. Rezultatov in lokalnih podatkov koda ne briše.
+
+## Preverjanje kode
+
+```bash
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
+for script in scripts/*.sh; do bash -n "$script"; done
+```
+
+HTTP testi uporabljajo lokalni simulirani strežnik za oba API-ja; preverjajo dejanske
+zahteve, ločitev slike in besedila, enake vhode med modeli, ohranjanje napak, zavrnitev
+CPU in podvojenih ključev JSON. Docker build in inferenco na NVIDIA GPU je treba
+preveriti na ciljnem Linux računalniku.
+
+## Vmesno poročilo THUD: 1. del
+
+Celoten poskus: `bash scripts/thud_experiment.sh --phase all`.
+[Paket poročila in ponovljivost](reports/THUD_VMESNO/README.md) vključuje
+[PDF](reports/THUD_VMESNO/porocilo.pdf), [LaTeX](reports/THUD_VMESNO/porocilo.tex),
+agregate in [sprotni dnevnik](reports/THUD_VMESNO/NAPREDEK.md).
+
+Nadaljevanje z bogatejšimi samostojnimi opisi, vidnimi dokazi in odnosi:
+`bash scripts/thud_part2.sh --phase all`. Uporabi shranjene stare rezultate,
+nove ohrani v `results/thud-part2/` ter dopolni isti PDF/LaTeX.
+[Podrobnosti 2. dela](reports/THUD_VMESNO/README.md#2-del-bogatejši-samostojni-opis).
+
+Nadaljevanje z dejanskima ločenima GPU izvajalnikoma NVILA-8B in Florence-2-large:
+[namestitev, meritve in ponovitev](docs/THUD_EXTENDED.md).
+`bash scripts/thud_extended.sh prepare`, nato faze `nvila`, `florence`, `reason`,
+`report`; že shranjeni odgovori ostanejo. Novi surovi izhodi so lokalno v
+`results/thud-extended/`, primerjava pa dopolni isti PDF in LaTeX.
+
+Tri sveže ponovitve na istem20 ter ločeno razvrščanje BF16/Q4 s kratkim/dolgim promptom:
+`bash scripts/thud_ponovitve.sh all`. [Paket vseh odgovorov in deset primerov](reports/PRIMERJAVA_PONOVITEV/README.md).

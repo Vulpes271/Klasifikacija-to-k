@@ -1,4 +1,6 @@
-"""Adapter for independently processing neutral LILocBench RGB views; no pair reasoning."""
+"""ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov.
+
+Adapter for independently processing neutral LILocBench RGB views; no pair reasoning."""
 import argparse
 import csv
 import html
@@ -17,6 +19,7 @@ from .florence_grounding import draw,CAPTION,GROUND
 from .thud_extended_common import saved_path
 from .thud_experiment import immutable_json
 from .vision_prompts import reason_prompt
+from .ollama_runtime import runner_http, load_model
 from .vision_backends import Backend,request
 from .llm_checks import (validate_response,validity_counts,prepare_position,context_after,finish_position)
 from .llm_checks import make_signature,check_signature
@@ -74,46 +77,8 @@ def prepare():
     immutable_json(OUT/'manifest.json',manifest);return manifest
 
 
-def runner_http(port,endpoint,payload):
-    """Use the existing runner's tokenizer inside its network namespace, no installs.
-
-    Data travels on stdin, never interpolated into shell commands. No completion
-    endpoint is called here. HTTPResponse handles chunked responses correctly.
-    """
-    if endpoint!='/tokenize' or not 1<=int(port)<=65535:raise ValueError('Unexpected runner endpoint')
-    command='''export LC_ALL=C
-body=$(cat)
-exec 3<>/dev/tcp/127.0.0.1/$1
-printf 'POST %s HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\nContent-Type: application/json\r\nContent-Length: %s\r\n\r\n' "$2" "${#body}" >&3
-printf '%s' "$body" >&3
-cat <&3'''
-    proc=subprocess.run(['docker','exec','-i',CONTAINER,'/bin/bash','-c',command,'--',str(port),endpoint],
-        input=json.dumps(payload,ensure_ascii=False).encode(),capture_output=True,timeout=120)
-    if proc.returncode:raise RuntimeError('Runner tokenizer transport failed: '+proc.stderr.decode()[:300])
-    class Socket:
-        def makefile(self,*args,**kwargs):return io.BytesIO(proc.stdout)
-    response=http.client.HTTPResponse(Socket());response.begin();body=response.read()
-    if response.status!=200:raise RuntimeError('Runner tokenizer HTTP '+str(response.status)+': '+body[:300].decode())
-    return json.loads(body)
 
 
-def load_model(backend,opts,digest):
-    # Empty prompt is a load-only request: no prompt evaluation or generation.
-    loaded=request(backend.url+'/api/generate',{'model':backend.spec['model'],'keep_alive':'30m','options':opts},backend.timeout)
-    if loaded.get('eval_count',0):raise ValueError('Unexpected generation during load-only request')
-    state=request(backend.url+'/api/ps');gpu=next(r for r in state['models'] if r['name']==backend.spec['model'])
-    if gpu['digest']!=digest or gpu['size_vram']<gpu['size'] or gpu.get('context_length')!=opts['num_ctx']:
-        raise ValueError('Full GPU/digest/context verification failed; CPU fallback forbidden')
-    ps=subprocess.check_output(['docker','exec',CONTAINER,'ps','-eo','args='],text=True)
-    ports=[]
-    for line in ps.splitlines():
-        if ('runner' in line or 'llama-server' in line) and '--port' in line:
-            match=re.search(r'--port[ =]+(\d+)',line)
-            if match:ports.append(int(match.group(1)))
-    if len(ports)!=1:raise ValueError('Cannot identify exactly one sequential runner tokenizer')
-    # Metadata/tokenization only, not another LLM call or an old-image test.
-    runner_http(ports[0],'/tokenize',{'content':'','add_special':False})
-    return {'load_response':loaded,'gpu':gpu,'tokenizer_port':ports[0],'generation_performed':False}
 
 
 def run():

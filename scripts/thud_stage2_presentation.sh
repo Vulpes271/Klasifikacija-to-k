@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov; aktivni ukaz je v README.md.
 # Existing local Ollama models; never invokes stage one or a PDF compiler.
 set -euo pipefail
 cd "$(dirname "$0")/.."

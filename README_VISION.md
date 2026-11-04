@@ -1,3 +1,5 @@
+> **ARHIVSKA NAVODILA za obstoječe poskuse.** Za aktivni Florence → Qwen pipeline glej [README.md](README.md). Nekateri pretekli modeli niso več nameščeni.
+
 # Image observations -> mobility reasoning (Qwen3.5 4B)
 
 > Starejša, ohranjena pot. Za nova ločena koraka glej [docs/WORKFLOW.md](docs/WORKFLOW.md).

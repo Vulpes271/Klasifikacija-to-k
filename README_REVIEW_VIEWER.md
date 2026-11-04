@@ -84,3 +84,11 @@ python3 -m unittest tests.test_review_viewer -v
 ```
 
 Testi uporabljajo začasne slikovne rezultate in začasno bazo; ne zapisujejo v vašo bazo. Preverijo oba formata, nedestruktivno nadgradnjo, spremembo reference in izračunov, dobesedne skupine in skupinsko shranjevanje, oba načina, nadaljevanje ter HTTP/CSV/JSON izvoz. Bližnjice in sintakso vmesnika izvedejo z obstoječo sistemsko knjižnico JavaScriptCore, če je na voljo; sicer je ta test izpuščen. Ta knjižnica ni odvisnost pregledovalnika in je ni treba nameščati.
+
+## Aktivni Florence → Qwen pipeline
+
+Nov nabor odprete z `python3 -m llm_object_classifier.review_viewer --results-dir results/moj-zagon`.
+Format `florence-qwen-v1` uporablja iste reference, anonimni prikaz in izbirni
+pregled razlogov. Privzeta baza je ločena: `reviews/pipeline/<ID-nabora>.sqlite3`.
+Dosedanji formati in njihove baze ostajajo nespremenjeni. Aktivni zagon je opisan
+v [README.md](README.md).

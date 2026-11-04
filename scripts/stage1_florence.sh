@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov; aktivni ukaz je v README.md.
 # Native first step: a complete detailed caption followed by grounding it.
 set -euo pipefail
 cd "$(dirname "$0")/.."

@@ -46,6 +46,7 @@ class Results:
             self.kind='comparison40';self.manifest_path=self.path/'manifest.json'
         manifest=read_json(self.manifest_path)
         if manifest.get('protocol')=='lilocbench-v1':self.kind='lilocbench'
+        if manifest.get('protocol')=='florence-qwen-v1':self.kind='pipeline'
         if self.kind=='comparison40' and manifest.get('protocol')!='prompt40-v1':
             raise ValueError('Expected prompt40-v1 or experiment200-manifest.json')
         self.manifest_sha=sha256(self.manifest_path.read_bytes())
@@ -72,19 +73,19 @@ class Results:
             if sha256(frozen.read_bytes())!=digest:raise ValueError('Frozen input SHA256 mismatch: '+str(frozen))
             saved=read_json(frozen);fid=entry['frame_id'];objects=saved['parsed']['objects']
             if len({id_key(o['id']) for o in objects})!=len(objects):raise ValueError('Duplicate region IDs')
-            originals=([self.path/'images'/(fid+'.png')] if self.kind=='lilocbench' else
+            originals=([self.path/entry['image_path']] if self.kind=='pipeline' else [self.path/'images'/(fid+'.png')] if self.kind=='lilocbench' else
                 [self.florence/fid/name for name in ('original.jpg','original.png','original.jpeg')])
             original=next((p for p in originals if p.is_file()),None)
-            image=original or self.path/('annotated' if self.kind=='lilocbench' else 'images')/(fid+'.jpg')
+            image=original or self.path/('annotated' if self.kind in ('lilocbench','pipeline') else 'images')/(fid+'.jpg')
             if not image.is_file():raise ValueError('Missing saved image: '+str(image))
-            variants=[('new' if self.kind=='lilocbench' else 'old',42)]
+            variants=[('new' if self.kind in ('lilocbench','pipeline') else 'old',manifest.get('seed',42) if self.kind=='pipeline' else 42)]
             if self.kind=='comparison40':
                 variants+=[('new',s) for s in ([42,43,44] if entry['repeatability'] else [42])]
             descriptors=[]
             for spec in manifest['config']['models']:
                 for prompt,seed in variants:
                     identity=json.dumps([spec['model'],prompt,seed],separators=(',',':'))
-                    if self.kind in ('baseline200','lilocbench'):response=self.path/'responses'/spec['name']/(fid+'.json')
+                    if self.kind in ('baseline200','lilocbench','pipeline'):response=self.path/'responses'/spec['name']/(fid+'.json')
                     elif prompt=='old':response=self.path/'baseline'/spec['name']/(fid+'.json')
                     else:response=self.path/'responses'/spec['name']/str(seed)/(fid+'.json')
                     self.identities[identity]={'model':spec['model'],'prompt_variant':prompt,'seed':seed}
@@ -512,6 +513,7 @@ def main():
     parser.add_argument('--port',type=int,default=8765);parser.add_argument('--no-browser',action='store_true')
     args=parser.parse_args();results=Results(args.results_dir,args.florence_dir)
     database=args.db or (ROOT/'reviews/lilocbench.sqlite3' if results.kind=='lilocbench' else DEFAULT_DB)
+    if args.db is None and results.kind=='pipeline':database=ROOT/'reviews/pipeline'/(results.set_id[:16]+'.sqlite3')
     store=Store(database,results)
     server=make_server(App(results,store),args.host,args.port);url=f'http://{args.host}:{server.server_address[1]}/'
     print(f'Pregledovalnik: {url}\nOcene: {store.path}\nSlike: {len(results.frames)}. Ustavitev: Ctrl+C.',flush=True)

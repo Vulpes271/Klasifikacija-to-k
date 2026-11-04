@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov; aktivni ukaz je v README.md.
 # Exactly 120 main + 60 repeat calls; resume skips every saved attempt.
 set -euo pipefail
 cd "$(dirname "$0")/.."

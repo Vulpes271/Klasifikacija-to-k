@@ -1,0 +1,34 @@
+{
+  "input": "data/input",
+  "output": "results/pipeline/run",
+  "florence": {
+    "model": "microsoft/Florence-2-large",
+    "model_dir": "models/florence-2-large",
+    "revision": "21a599d414c4d928c9032694c424fb94458e3594",
+    "docker_image": "thud-florence:local",
+    "max_new_tokens": 2048,
+    "num_beams": 3,
+    "do_sample": false,
+    "precision": "FP16",
+    "attention": "eager"
+  },
+  "llm": {
+    "selected": "qwen",
+    "alternatives": {
+      "qwen": "qwen3.5:27b-q4_K_M",
+      "gemma": "gemma3:27b-it-q4_K_M"
+    },
+    "container": "klasifikacija-ollama-1",
+    "base_url": "auto",
+    "system_file": "configs/prompts/reasoning-evidence-system.txt",
+    "instruction_file": "configs/prompts/reasoning.txt",
+    "temperature": 0.3,
+    "seed": 42,
+    "max_tokens": 2048,
+    "num_ctx": 8192,
+    "top_p": 0.8,
+    "top_k": 20,
+    "presence_penalty": 1.5,
+    "timeout": 600
+  }
+}

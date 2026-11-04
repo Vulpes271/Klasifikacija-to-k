@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov; aktivni ukaz je v README.md.
 # Uses existing Ollama and stage-2 transport, without loading Florence or images.
 set -euo pipefail
 cd "$(dirname "$0")/.."

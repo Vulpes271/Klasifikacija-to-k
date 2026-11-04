@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov; aktivni ukaz je v README.md.
 # Only LILocBench; all previous experiment folders remain untouched.
 set -euo pipefail
 cd "$(dirname "$0")/.."

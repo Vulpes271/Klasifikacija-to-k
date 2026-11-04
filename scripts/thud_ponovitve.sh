@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov; aktivni ukaz je v README.md.
 # Reuse installed images/models. Never rebuild, download, or erase past results.
 set -euo pipefail
 main() {

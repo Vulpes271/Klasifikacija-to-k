@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov; aktivni ukaz je v README.md.
 # Part two only. Completed part-one requests are read, never rerun.
 set -euo pipefail
 cd "$(dirname "$0")/.."

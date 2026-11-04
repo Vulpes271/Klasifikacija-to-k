@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov; aktivni ukaz je v README.md.
 # Existing local images/weights only. Each native process owns the GPU in turn.
 set -euo pipefail
 main() {

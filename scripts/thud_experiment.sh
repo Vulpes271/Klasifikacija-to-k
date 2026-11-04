@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ARHIVSKI IZVAJALNIK: samo reprodukcija objavljenih poskusov; aktivni ukaz je v README.md.
 # Part one only: selection -> detection/descriptions -> reasoning -> evaluation -> PDF.
 set -euo pipefail
 cd "$(dirname "$0")/.."

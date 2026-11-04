@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# ARHIVSKI IZVAJALNIK: aktivni Florence → Qwen ukaz je v README.md.
 # Optional isolated serving of the same read-only local models. No downloads.
 set -euo pipefail
 cd "$(dirname "$0")/.."
