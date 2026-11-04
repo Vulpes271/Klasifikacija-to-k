@@ -14,6 +14,8 @@ from .thud_extended_common import ROOT
 from .vision_backends import Backend
 from .vision_pipeline import GPURequiredError, typed_id
 from .vision_prompts import reason_prompt
+from .llm_checks import (validate_response, validity_counts, installed_digest,
+    prepare_position, budget_skip, context_after, finish_position)
 
 SOURCE=ROOT/'results models/florence_caption_grounding_test10'
 OUTPUT=ROOT/'results models/florence_grounding_llm_comparison10'
@@ -110,20 +112,27 @@ def prepare(gemma_only=False,loco30=False,experiment200=False):
 def preflight(config,frames):
     """One short output with the longest actual input and the full context allocation."""
     target=OUTPUT/('gemma3-preflight.json' if config['models'][0]['model'].startswith('gemma3:') else 'preflight.json')
-    if target.exists():
-        assert read_json(target).get('gpu_verified'),'Previous GPU preflight failed'
-        return
     spec=config['models'][0];backend=Backend(spec,config['timeout'])
-    write_json(OUTPUT/'models'/(spec['name']+'.json'),backend.metadata())
-    frame=max(frames,key=lambda f:len(f['user_prompt']))
+    metadata=backend.metadata();digest=installed_digest(backend)
+    write_json(OUTPUT/'_technical_checks/models'/(spec['name']+'.json'),metadata)
+    # Ranking is a byte-length heuristic, never an exact token count.
+    frame=max(frames,key=lambda f:len(f['user_prompt'].encode('utf-8')))
     opts=options(config,next(combinations(config)));opts['num_predict']=16
+    prepared=prepare_position(target,OUTPUT/frame['frozen'],frame['sha256'],spec,digest,
+        config['system_file_text'],frame['user_prompt'],opts,metadata.get('show',{}).get('template'))
+    if prepared is None:
+        if not read_json(target).get('gpu_verified'):raise ValueError('Previous GPU preflight failed')
+        return
     row={'model':spec['model'],'input_sha256':frame['sha256'],'frame_id':frame['frame_id'],
-        'excluded_from_comparison':True,'note':'16 output tokens only; full configured context; incomplete JSON is expected.'}
+        **prepared,'excluded_from_comparison':True,'note':'16 output tokens only; full configured context; incomplete JSON is expected.'}
+    if budget_skip(row):
+        write_json(target,row);raise ValueError(row['error'])
     try:
         row.update(backend.generate(config['system_file_text'],frame['user_prompt'],opts))
     except Exception as exc:
         row.update(getattr(exc,'result',{}),error=str(exc));write_json(target,row)
         raise
+    row['context_budget_after']=context_after(row,options(config,next(combinations(config))))
     write_json(target,row)
     assert row['gpu_verified']
     # The actual prompt must leave the full comparison output budget available.
@@ -135,55 +144,45 @@ def run(config,frames,extension=False):
     if not extension:preflight(config,frames)
     opts=options(config,next(combinations(config)))
     for spec in config['models']:
-        if all((OUTPUT/'responses'/spec['name']/(f['frame_id']+'.json')).exists() for f in frames):continue
         backend=Backend(spec,config['timeout'])
-        write_json(OUTPUT/'models'/((f'extension{len(frames)}-' if extension else '')+spec['name']+'.json'),backend.metadata())
+        metadata=backend.metadata();digest=installed_digest(backend);called=False
+        write_json(OUTPUT/'_technical_checks/models'/((f'extension{len(frames)}-' if extension else '')+spec['name']+'.json'),metadata)
         try:
             for frame in frames:
                 target=OUTPUT/'responses'/spec['name']/(frame['frame_id']+'.json')
-                if target.exists():continue  # Preserve every completed attempt, including errors.
+                prepared=prepare_position(target,OUTPUT/frame['frozen'],frame['sha256'],spec,digest,
+                    config['system_file_text'],frame['user_prompt'],opts,metadata.get('show',{}).get('template'))
+                if prepared is None:continue
                 row={'stage':2,'frame_id':frame['frame_id'],'model':spec['model'],
-                    'precision':spec['precision'],'input_sha256':frame['sha256'],'frozen_input':frame['frozen']}
+                    **prepared,'precision':spec['precision'],'input_sha256':frame['sha256'],'frozen_input':frame['frozen']}
                 saved=read_json(OUTPUT/frame['frozen'])
                 if saved['status']!='ok' or not saved['parsed']['objects']:
                     write_json(target,{**row,'status':'skipped','error':'Invalid or empty saved Florence input; no LLM call.'})
                     continue
+                if budget_skip(row):write_json(target,row);continue
                 print(spec['model']+' / '+frame['frame_id'],flush=True)
                 try:
+                    called=True
                     row.update(backend.generate(config['system_file_text'],frame['user_prompt'],opts))
                     row['status']='response_received'  # No interpretation or quality analysis.
                 except Exception as exc:
                     row.update(getattr(exc,'result',{}),status='error',error=str(exc))
                     write_json(target,row)
                     if isinstance(exc,GPURequiredError):raise
+                finish_position(row,saved,opts)
                 write_json(target,row)
+                if not row['signature_check_after']['verified']:raise ValueError('Generated response signature mismatch; response preserved: '+str(target))
         finally:
-            backend.unload()  # Compare sequentially; leave space for the next model.
+            if called:backend.unload()  # Compare sequentially; leave space for the next model.
 
 
 def table_decisions(row,objects):
     """Literal classes by typed local ID. Never fill missing/ambiguous IDs."""
-    if row['status']!='response_received':return {},row.get('error',row['status'])
-    try:
-        value=strict_json(row['content'])
-        if not isinstance(value,dict) or not isinstance(value.get('objects'),list):
-            raise ValueError('Missing JSON objects list')
-        allowed={typed_id(o['id']) for o in objects};result={};duplicates=set();notes=[]
-        for item in value['objects']:
-            if not isinstance(item,dict):raise ValueError('Non-object prediction')
-            key=typed_id(item.get('id'))
-            if key not in allowed:
-                notes.append('Unexpected ID: '+repr(item.get('id')));continue
-            if key in result:duplicates.add(key)
-            label=item.get('classification')
-            result[key]=label if label in ('fixed','movable','uncertain') else None
-        for key in duplicates:result[key]=None
-        if duplicates:notes.append('Duplicate IDs; their classes are not assigned')
-        if any(result.get(k) is None for k in allowed):notes.append('Missing or invalid classes/IDs')
-        if row.get('finish_reason') in ('length','max_tokens'):notes.append('Output token limit reached')
-        return result,'; '.join(notes)
-    except (ValueError,KeyError,TypeError) as exc:
-        return {},'Unusable table JSON: '+str(exc)
+    check=validate_response(row,objects)
+    result={typed_id(item['id']):item['classification'] for item in check['usable_items']}
+    note='; '.join(check['errors'])
+    if not check['api_response_received']:note=row.get('error',row.get('status','No API response'))
+    return result,note
 
 
 def region_table(frame,objects,rows,models):
@@ -218,7 +217,7 @@ def export(config,frames):
     body+='<p>Rumene vrstice označujejo različne vrnjene razrede. MANJKA / NEVELJAVNO pomeni neuporaben zapis, ne razreda uncertain. Regije se lahko prekrivajo ali opisujejo skupine; tabela ni ocena pravilnosti. <a href="region-classes.csv">Vse regije CSV</a>.</p>'
     if len(frames)==30:body+='<p>Prvih deset primerov je ohranjenih. <a href="loco30-manifest.json">Zamrznjeni vhodi in nastavitve za vseh 30 slik</a>.</p>'
     if len(frames)>30:body+='<p>Prvih 30 primerov je ohranjenih. <a href="inputs200.json">Seznam RGB vhodov</a> · <a href="experiment200-manifest.json">Zamrznjeni opisi in nastavitve</a>.</p>'
-    intro=body;body='';count=0;records=[];all_rows=[];table_errors=0
+    intro=body;body='';count=0;records=[];all_rows=[];table_errors=0;checks=[]
     overview='<table><tr><th>Nabor</th><th>Okolje</th><th>Slika</th><th>Florence: oba koraka (s)</th>'+''.join('<th>'+escape(s['model'])+' (s)</th>' for s in config['models'])+'</tr>'
     for frame in frames:
         fid=frame['frame_id'];image=OUTPUT/'images'/(fid+'.jpg');image.parent.mkdir(exist_ok=True)
@@ -244,7 +243,7 @@ def export(config,frames):
             seconds=f'{elapsed:.3f} s' if elapsed is not None else 'ni meritve'
             body+='<article><h3>'+escape(spec['model'])+'</h3><p>'+escape(spec['precision'])+' · '+seconds+' · '+escape(row['status'])+'</p><a href="'+str(path.relative_to(OUTPUT))+'">Celoten surovi zapis</a><pre>'+escape(content)+'</pre>'
             if row.get('error'):body+='<p class="error">'+escape(row['error'])+'</p>'
-            body+='</article>';count+=1;image_rows.append(row)
+            body+='</article>';count+=1;image_rows.append(row);checks.append(validate_response(row,caption['parsed']['objects']))
         table,table_rows,errors=region_table(frame,caption['parsed']['objects'],image_rows,config['models'])
         body+='</div>'+table+'</section>';records.extend(table_rows);table_errors+=errors;all_rows.extend(image_rows)
         times=[combined.get('elapsed_seconds')]+[r.get('elapsed_seconds') for r in image_rows]
@@ -256,11 +255,11 @@ def export(config,frames):
     (OUTPUT/'index.html').write_text('<!doctype html><html lang="sl"><meta charset="utf-8"><title>LLM: '+str(len(frames))+' Florence vhodov</title><style>body{font-family:Arial;margin:24px auto;padding:12px;max-width:1800px}section{border-top:2px solid #aaa;margin-top:30px}img{max-width:100%;max-height:600px}.answers{display:grid;grid-template-columns:repeat('+str(len(config['models']))+',minmax(0,1fr));gap:20px}article{min-width:0}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f4f4;padding:12px}table{border-collapse:collapse;margin:15px 0}td,th{border:1px solid #aaa;padding:7px;text-align:left}.different{background:#fff0bd;font-weight:bold}.incomplete,.error{color:#a00}@media(max-width:800px){.answers{grid-template-columns:1fr}}</style>'+intro+overview+'</table>'+body+'</html>',encoding='utf-8')
     for frame in frames:
         assert sha256((ROOT/frame['source']).read_bytes())==frame['sha256']
-    write_json(OUTPUT/'verification.json',{'images':len(frames),'comparison_records':count,
+    write_json(OUTPUT/'verification.json',{'images':len(frames),'comparison_records':count,**validity_counts(checks),
         'short_preflight_calls':sum((OUTPUT/name).exists() for name in ('preflight.json','gemma3-preflight.json')),
         'first_ten_rerun':False,'source_inputs_unchanged':True,
         'completed_responses':sum(r['status']=='response_received' and r.get('response',{}).get('done',False) for r in all_rows),
-        'api_errors':sum(r['status']=='error' for r in all_rows),'skipped':sum(r['status']=='skipped' for r in all_rows),
+        'api_errors':sum(c['api_error'] for c in checks),'skipped':sum(c['skipped'] for c in checks),
         'output_limit_responses':sum(r.get('finish_reason') in ('length','max_tokens') for r in all_rows),
         'table_records_with_format_or_id_notes':table_errors,
         'fully_gpu_responses':sum(r.get('gpu_verified',False) for r in all_rows),

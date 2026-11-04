@@ -17,6 +17,7 @@ import uuid
 import webbrowser
 
 from .experiment import read_json,strict_json,sha256
+from .llm_checks import validate_response
 
 ROOT=Path(__file__).resolve().parents[1]
 DEFAULT_RESULTS=ROOT/'results models/prompt_comparison40'
@@ -92,24 +93,28 @@ class Results:
         # Read only this image's saved answers, never all model responses.
         if self.cache_frame!=i:self.raw_cache={};self.cache_frame=i
         path=descriptor['path']
+        whole_note=''
         try:
             if path not in self.raw_cache:self.raw_cache[path]=read_json(path)
             row=self.raw_cache[path]
             if row.get('input_sha256',row.get('caption_sha256'))!=self.frames[i]['input_sha256']:
                 raise ValueError('Response input SHA256 does not match this image')
             if row.get('status')!='response_received':raise ValueError(row.get('error','No completed response'))
+            checked=validate_response(row,self.frames[i]['objects'])
+            if not checked['schema_valid_response']:
+                whole_note='Celoten odgovor ni veljaven: '+'; '.join(checked['errors'])
             value=strict_json(row['content'])
             if not isinstance(value,dict) or not isinstance(value.get('objects'),list):raise ValueError('Missing objects list')
             matches=[r for r in value['objects'] if isinstance(r,dict) and type(r.get('id')) is type(obj['id']) and r.get('id')==obj['id']]
             if len(matches)!=1:raise ValueError('Missing or duplicate response ID for this region')
             prediction=matches[0];classification=prediction.get('classification');reason=prediction.get('reason')
-            issues=[]
+            issues=[whole_note] if whole_note else []
             if classification not in ('fixed','movable','uncertain'):issues.append('Razred ni veljavno vrnjen.')
             if not isinstance(reason,str) or not reason.strip():issues.append('Utemeljitev ni vrnjena.')
             return {'classification':classification if isinstance(classification,str) else None,
                 'reason':reason if isinstance(reason,str) else None,'warning':' '.join(issues)}
         except (OSError,ValueError,KeyError,TypeError):
-            return {'classification':None,'reason':None,'warning':'Shranjeni odgovor za ta ID ni uporaben; napaka ostaja v izvornih rezultatih.'}
+            return {'classification':None,'reason':None,'warning':whole_note or 'Shranjeni odgovor za ta ID ni uporaben; napaka ostaja v izvornih rezultatih.'}
 
 
 class Store:
@@ -221,7 +226,8 @@ class Store:
             equality=[obj['_review_key'],frame['input_sha256'],prediction['classification'],prediction['reason']]
             if not valid:equality.append(identity['answer_id'])
             group_id=sha256(json.dumps(equality,ensure_ascii=False).encode())
-            group=groups.setdefault(group_id,{'group_id':group_id,**prediction,'members':[]})
+            group=groups.setdefault(group_id,{'group_id':group_id,**prediction,'warning':'','members':[]})
+            if prediction['warning']:group['warning']+=identity['label']+': '+prediction['warning']+'\n'
             group['members'].append(identity)
         return list(groups.values())
 

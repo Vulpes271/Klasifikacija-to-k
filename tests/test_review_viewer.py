@@ -123,6 +123,20 @@ class ReviewTests(unittest.TestCase):
         view=a.navigate({'action':'next_image'});self.assertEqual(view['cursor']['frame'],1)
         self.assertEqual(a.navigate({'action':'previous_image','only_unrated':False})['cursor']['frame'],0)
 
+    def test_whole_response_warning_preserves_partial_class_and_manual_rating(self):
+        r,s,a=self.fixture();a.navigate({'action':'mode','mode':'reasons'})
+        d=r.frames[0]['answers'][0];row=json.loads(d['path'].read_text())
+        row.update(finish_reason='stop',response={'done':True,'done_reason':'stop'})
+        parsed=json.loads(row['content']);parsed['objects'][1]['description']=parsed['objects'][1].pop('reason')
+        row['content']=json.dumps(parsed);d['path'].write_text(json.dumps(row));original=d['path'].read_bytes()
+        s.rate(0,0,{'reference':'fixed'});aid=s.mapping[d['identity']]['answer_id']
+        s.rate(0,0,{'answer_id':aid,'part':'reason','value':'incorrect'});before=s.snapshot()
+        item=next(item for item in a.answers()['answers'] if item['answer_id']==aid)
+        self.assertEqual(item['classification'],'fixed');self.assertEqual(item['reason'],'Entire unchanged explanation.\nSecond line.')
+        self.assertIn('Celoten odgovor ni veljaven',item['warning']);self.assertIn('reason',item['warning'])
+        self.assertEqual(item['reason_rating'],'incorrect');self.assertEqual(before[1],s.snapshot()[1])
+        self.assertEqual(original,d['path'].read_bytes())
+
     def test_http_and_exports(self):
         r,s,a=self.fixture();server=make_server(a,port=0)
         a.navigate({'action':'mode','mode':'reasons'})

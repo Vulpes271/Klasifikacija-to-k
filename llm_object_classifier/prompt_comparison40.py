@@ -18,6 +18,8 @@ from .thud_extended_common import ROOT
 from .vision_backends import Backend,request
 from .vision_pipeline import GPURequiredError,typed_id
 from .schema import validate_frame,validate_classifications
+from .llm_checks import (validate_response, validity_counts, installed_digest,
+    prepare_position, budget_skip, context_after, finish_position)
 
 OUT=ROOT/'results models/prompt_comparison40'
 WORK=ROOT/'results/prompt_comparison40'
@@ -110,17 +112,20 @@ def run(manifest):
     config=manifest['config'];system=(OUT/'prompts/new-system.txt').read_text()
     for spec in config['models']:
         backend=Backend(spec,config['timeout'])
-        write_json(OUT/'metadata'/(spec['name']+'.json'),backend.metadata())
-        tags=request(backend.url+'/api/tags')['models']
-        actual=next(t for t in tags if t['name']==spec['model'])
+        metadata=backend.metadata();digest=installed_digest(backend);called=False
+        write_json(OUT/'_technical_checks/metadata'/(spec['name']+'.json'),metadata)
         old=read_json(OUT/'baseline'/spec['name']/(manifest['inputs'][0]['frame_id']+'.json'))
-        assert actual['digest']==old['gpu']['digest'],'Installed model differs from the baseline'
+        if digest!=old.get('gpu',{}).get('digest'):raise ValueError('Installed model differs from baseline or baseline digest is unavailable')
         try:
             for frame in manifest['inputs']:
                 for seed in ([42,43,44] if frame['repeatability'] else [42]):
                     target=response_path(spec,frame,seed)
-                    if target.exists():continue
+                    opts=options(config,next(combinations(config)));opts['seed']=seed
+                    prepared=prepare_position(target,OUT/frame['frozen'],frame['input_sha256'],spec,digest,
+                        system,(OUT/frame['user_prompt']).read_text(),opts,metadata.get('show',{}).get('template'))
+                    if prepared is None:continue
                     row={'frame_id':frame['frame_id'],'model':spec['model'],'model_name':spec['name'],
+                        **prepared,
                         'precision':spec['precision'],'seed':seed,'llm_repeat':{42:'r1',43:'r2',44:'r3'}[seed],
                         'call_role':'main' if seed==42 else 'repeatability','call_id':uuid.uuid4().hex,
                         'input_sha256':frame['input_sha256'],'user_prompt_sha256':frame['user_prompt_sha256'],
@@ -128,17 +133,21 @@ def run(manifest):
                     saved=read_json(OUT/frame['frozen'])
                     if saved['status']!='ok' or not saved['parsed']['objects']:
                         write_json(target,{**row,'status':'skipped','error':'Invalid or empty frozen Florence input'});continue
-                    opts=options(config,next(combinations(config)));opts['seed']=seed
+                    if budget_skip(row):write_json(target,row);continue
                     print(f"{spec['name']} / {frame['frame_id']} / seed {seed}",flush=True)
                     try:
                         row['generation_attempted']=True
+                        called=True
                         row.update(backend.generate(system,(OUT/frame['user_prompt']).read_text(),opts))
                         row['status']='response_received'
                     except Exception as exc:
                         row.update(getattr(exc,'result',{}),status='error',error=str(exc));write_json(target,row)
                         if isinstance(exc,GPURequiredError):raise
+                    finish_position(row,saved,opts)
                     write_json(target,row)
-        finally:backend.unload()
+                    if not row['signature_check_after']['verified']:raise ValueError('Generated response signature mismatch; response preserved: '+str(target))
+        finally:
+            if called:backend.unload()
 
 
 def csv_file(path,rows,fields):
@@ -153,11 +162,8 @@ def card(row,label,relative):
 
 
 def schema_note(row,frame_id,objects):
-    if row['status']!='response_received':return row.get('error',row['status'])
-    try:
-        validate_classifications(validate_frame({'frame_id':frame_id,'objects':objects}),strict_json(row['content']))
-        return ''
-    except (ValueError,TypeError,KeyError) as exc:return str(exc)
+    check=validate_response(row,objects)
+    return '; '.join(check['errors']) if check['api_response_received'] else row.get('error',row.get('status','No API response'))
 
 
 def export(manifest):
@@ -242,7 +248,7 @@ def verify(manifest,calls,display):
         assert row['gpu_verified'] and row['gpu']['size_vram']>=row['gpu']['size'] and row['gpu']['context_length']==8192
         objects=read_json(OUT/frame['frozen'])['parsed']['objects']
         _,note=table_decisions(row,objects);schema=schema_note(row,row['frame_id'],objects)
-        valid=row['response'].get('done') and row.get('finish_reason')=='stop' and not note and not schema
+        valid=validate_response(row,objects)['schema_valid_response']
         outcomes['successes' if valid else 'errors']+=1
         if not valid:errors.append({'frame_id':row['frame_id'],'model':row['model'],'seed':row['seed'],'call_role':row['call_role'],'error_type':'schema_or_finish','error':'; '.join(filter(None,(note,schema))) or str(row.get('finish_reason'))})
     for f in manifest['inputs']:
@@ -265,11 +271,12 @@ def verify(manifest,calls,display):
         def handle_data(self,data):
             if self.pre:self.answers[-1]+=data
     page=Page();page.feed((OUT/'index.html').read_text());assert page.answers==display and set(page.links)<=page.ids
-    write_json(OUT/'verification.json',{'images':40,'repeatability_images':10,'heldout_images':160,
+    checks=[validate_response(r,read_json(OUT/by_id[r['frame_id']]['frozen'])['parsed']['objects']) for r in calls]
+    write_json(OUT/'verification.json',{'images':40,'repeatability_images':10,'heldout_images':160,**validity_counts(checks),
         'new_positions':180,'main_positions':120,'repeat_positions':60,'reused_old_responses':120,
         'actual_new_attempts':sum(r.get('generation_attempted',False) for r in calls),
         'successes':outcomes['successes'],'errors':outcomes['errors'],'skips':outcomes['skips'],
-        'api_errors':sum(r['error_type']=='api' for r in errors),'schema_or_finish_errors':sum(r['error_type']!='api' for r in errors),
+        'api_errors':sum(c['api_error'] for c in checks),'schema_or_finish_errors':sum(c['schema_or_finish_error'] for c in checks),
         'old_files_unchanged':len(old),'full_answers_in_html':len(display),'html_links_valid':True,
         'identical_frozen_inputs':True,'quality_evaluation':False,'accuracy':None})
     print('Verified prompt test:',dict(outcomes),flush=True)
