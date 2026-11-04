@@ -49,7 +49,20 @@ class Results:
             raise ValueError('Expected prompt40-v1 or experiment200-manifest.json')
         self.manifest_sha=sha256(self.manifest_path.read_bytes())
         self.set_id=sha256((self.kind+'\0'+self.manifest_sha).encode())
-        self.models=manifest['config']['models'];self.frames=[];self.flat=[]
+        # Extensions never modify the original manifest or the review namespace.
+        extra=[];extension=self.path/'bf16/manifest.json'
+        if self.kind=='comparison40' and extension.exists():
+            added=read_json(extension)
+            if added.get('protocol')!='prompt40-bf16-v1' or added.get('base_manifest_sha256')!=self.manifest_sha:
+                raise ValueError('BF16 extension belongs to another frozen selection')
+            expected={(f['frame_id'],f['input_sha256'],f.get('image_sha256')) for f in manifest['inputs']}
+            actual={(f['frame_id'],f['input_sha256'],f.get('image_sha256')) for f in added['inputs']}
+            if actual!=expected or len(added['inputs'])!=len(manifest['inputs']):raise ValueError('BF16 extension inputs differ')
+            extra=added['models']
+            if added.get('seed')!=42:raise ValueError('BF16 extension must use seed 42')
+            all_models=manifest['config']['models']+extra
+            if len({s['model'] for s in all_models})!=len(all_models):raise ValueError('Duplicate extension model')
+        self.models=manifest['config']['models']+extra;self.frames=[];self.flat=[]
         self.identities={};self.raw_cache={};self.cache_frame=None
         for i,entry in enumerate(manifest['inputs']):
             frozen=(self.path/entry['frozen']).resolve()
@@ -66,7 +79,7 @@ class Results:
             if self.kind=='comparison40':
                 variants+=[('new',s) for s in ([42,43,44] if entry['repeatability'] else [42])]
             descriptors=[]
-            for spec in self.models:
+            for spec in manifest['config']['models']:
                 for prompt,seed in variants:
                     identity=json.dumps([spec['model'],prompt,seed],separators=(',',':'))
                     if self.kind=='baseline200':response=self.path/'responses'/spec['name']/(fid+'.json')
@@ -74,6 +87,13 @@ class Results:
                     else:response=self.path/'responses'/spec['name']/str(seed)/(fid+'.json')
                     self.identities[identity]={'model':spec['model'],'prompt_variant':prompt,'seed':seed}
                     descriptors.append({'identity':identity,'path':response,'repeat':seed!=42})
+            for spec in extra:
+                for prompt in ('old','new'):
+                    identity=json.dumps([spec['model'],prompt,42],separators=(',',':'))
+                    response=(self.path/'bf16/responses'/spec['name']/prompt/(fid+'.json')).resolve()
+                    if not response.is_relative_to(self.path):raise ValueError('Extension response outside results')
+                    self.identities[identity]={'model':spec['model'],'prompt_variant':prompt,'seed':42}
+                    descriptors.append({'identity':identity,'path':response,'repeat':False})
             frame={'frame_id':fid,'dataset':entry.get('dataset','loco'),'environment':entry.get('environment',''),
                 'input_sha256':digest,'description':saved['parsed']['scene_description'],'objects':objects,
                 'image':image,'original':original is not None,'answers':descriptors}
@@ -94,9 +114,11 @@ class Results:
         if self.cache_frame!=i:self.raw_cache={};self.cache_frame=i
         path=descriptor['path']
         whole_note=''
+        response_status='missing_response' if not path.exists() else 'invalid_response'
         try:
             if path not in self.raw_cache:self.raw_cache[path]=read_json(path)
             row=self.raw_cache[path]
+            response_status=row.get('status','invalid_response')
             if row.get('input_sha256',row.get('caption_sha256'))!=self.frames[i]['input_sha256']:
                 raise ValueError('Response input SHA256 does not match this image')
             if row.get('status')!='response_received':raise ValueError(row.get('error','No completed response'))
@@ -112,9 +134,11 @@ class Results:
             if classification not in ('fixed','movable','uncertain'):issues.append('Razred ni veljavno vrnjen.')
             if not isinstance(reason,str) or not reason.strip():issues.append('Utemeljitev ni vrnjena.')
             return {'classification':classification if isinstance(classification,str) else None,
-                'reason':reason if isinstance(reason,str) else None,'warning':' '.join(issues)}
+                'reason':reason if isinstance(reason,str) else None,'warning':' '.join(issues),
+                'response_valid':checked['schema_valid_response'],'response_status':response_status}
         except (OSError,ValueError,KeyError,TypeError):
-            return {'classification':None,'reason':None,'warning':whole_note or 'Shranjeni odgovor za ta ID ni uporaben; napaka ostaja v izvornih rezultatih.'}
+            return {'classification':None,'reason':None,'warning':whole_note or 'Shranjeni odgovor za ta ID ni uporaben; napaka ostaja v izvornih rezultatih.',
+                'response_valid':False,'response_status':response_status}
 
 
 class Store:
@@ -124,6 +148,21 @@ class Store:
         if self.path.is_relative_to(results.path) or self.path.is_relative_to(results.florence):
             raise ValueError('Review database must be outside source results directories')
         self.path.parent.mkdir(parents=True,exist_ok=True)
+        self.backup_path=None
+        if self.path.is_file():
+            # Back up consistently (including WAL contents) BEFORE adding identities.
+            source=sqlite3.connect(self.path.as_uri()+'?mode=ro',uri=True)
+            try:
+                has_mapping=source.execute("SELECT 1 FROM sqlite_master WHERE name='mapping'").fetchone()
+                known={r[0] for r in source.execute('SELECT identity FROM mapping WHERE set_id=?',(self.sid,))} if has_mapping else set()
+                if known and set(results.identities)-known:
+                    backup=self.path.parent/'backups'/(self.path.stem+'-before-model-addition-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')+'.sqlite3')
+                    backup.parent.mkdir(exist_ok=True)
+                    target=sqlite3.connect(backup)
+                    try:source.backup(target)
+                    finally:target.close()
+                    self.backup_path=backup
+            finally:source.close()
         with self.connect() as c:
             c.execute('PRAGMA journal_mode=WAL')
             c.executescript('''
@@ -197,9 +236,11 @@ class Store:
         frame,obj=self.results.region(i,j);key=obj['_review_key']
         ref=c.execute('SELECT reference_status,reference_class FROM regions WHERE set_id=? AND region_key=?',(self.sid,key)).fetchone()
         for d in frame['answers']:
-            predicted=self.results.extract(i,d,obj)['classification'];match=None
+            prediction=self.results.extract(i,d,obj);predicted=prediction['classification'];match=None
             status='no_reference'
-            if ref and ref['reference_status']=='rated':
+            if not prediction['response_valid']:
+                status='missing_response' if prediction['response_status']=='missing_response' else 'invalid_response'
+            elif ref and ref['reference_status']=='rated':
                 status='invalid_prediction'
                 if predicted in ('fixed','movable','uncertain'):
                     match=int(predicted==ref['reference_class']);status='match' if match else 'different'
@@ -393,6 +434,8 @@ class App:
             if not shown:continue
             values=[ratings.get((o['_review_key'],m['answer_id']),{}).get('reason_rating') for m in members]
             public_members=[{'answer_id':m['answer_id'],'label':m['label'],
+                'computed_match':computed.get((o['_review_key'],m['answer_id']),{}).get('computed_match'),
+                'computed_match_status':computed.get((o['_review_key'],m['answer_id']),{}).get('computed_match_status'),
                 **({'identity':{k:m[k] for k in ('model','prompt_variant','seed')}} if reveal else {})} for m in members]
             groups.append({**{k:v for k,v in g.items() if k!='members'},'members':public_members,
                 'labels':[m['label'] for m in shown],'reason_rating':values[0] if len(set(values))==1 else None,
@@ -468,6 +511,7 @@ def main():
     args=parser.parse_args();results=Results(args.results_dir,args.florence_dir);store=Store(args.db,results)
     server=make_server(App(results,store),args.host,args.port);url=f'http://{args.host}:{server.server_address[1]}/'
     print(f'Pregledovalnik: {url}\nOcene: {store.path}\nSlike: {len(results.frames)}. Ustavitev: Ctrl+C.',flush=True)
+    if store.backup_path:print('Varnostna kopija pred dodajanjem modelov: '+str(store.backup_path),flush=True)
     if not args.no_browser:threading.Timer(.3,lambda:webbrowser.open(url)).start()
     try:server.serve_forever()
     except KeyboardInterrupt:pass

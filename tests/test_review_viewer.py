@@ -45,7 +45,7 @@ class ReviewTests(unittest.TestCase):
                     *[folder/'responses'/model['name']/str(seed)/(fid+'.json') for seed in ([42,43,44] if n==0 else [42])]]
                 for dest in destinations:
                     dest.parent.mkdir(parents=True,exist_ok=True)
-                    dest.write_text(json.dumps({'status':'response_received','input_sha256':digest,'content':json.dumps({
+                    dest.write_text(json.dumps({'status':'response_received','finish_reason':'stop','response':{'done':True,'done_reason':'stop'},'input_sha256':digest,'content':json.dumps({
                         'objects':[{'id':7,'classification':'fixed','reason':'Entire unchanged explanation.\nSecond line.'},
                                    {'id':'7','classification':'movable','reason':'Different typed ID.'}]})}))
         manifest={'protocol':'prompt40-v1','config':{'models':models},'inputs':inputs}
@@ -195,6 +195,59 @@ class ReviewTests(unittest.TestCase):
         manual=upgraded.snapshot()[1][(r.flat[0][2],aid)]
         self.assertEqual(manual['classification_rating'],'incorrect');self.assertEqual(manual['reason_rating'],'correct')
         self.assertEqual(Store(s.path,r).snapshot()[1],upgraded.snapshot()[1])
+
+    def test_bf16_extension_preserves_namespace_ratings_and_mapping_with_backup(self):
+        r,s,a=self.fixture();a.navigate({'action':'mode','mode':'reasons'})
+        s.rate(0,0,{'reference':'fixed'});s.rate(0,0,{'note':'Keep this reference'})
+        old_card=a.answers()['answers'][0]
+        s.rate(0,0,{'answer_id':old_card['answer_id'],'part':'reason','value':'incorrect'})
+        a.navigate({'action':'select','frame':1,'region':1})
+        original_manifest=(r.path/'manifest.json').read_bytes();old_mapping=s.mapping.copy();old_events=s.export()['events']
+        original= json.loads(original_manifest)
+        extra=[{'name':'bf16-4','model':'extra-4:bf16'},{'name':'bf16-9','model':'extra-9:bf16'}]
+        extension=r.path/'bf16';extension.mkdir()
+        (extension/'manifest.json').write_text(json.dumps({'protocol':'prompt40-bf16-v1',
+            'base_manifest_sha256':sha256(original_manifest),'inputs':original['inputs'],'models':extra,'seed':42}))
+        for f in original['inputs']:
+            for spec in extra:
+                for variant in ('old','new'):
+                    source=r.path/'baseline/m0'/(f['frame_id']+'.json')
+                    target=extension/'responses'/spec['name']/variant/(f['frame_id']+'.json')
+                    target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(source.read_bytes())
+        expanded=Results(r.path,r.florence);self.assertEqual(expanded.set_id,r.set_id)
+        upgraded=Store(s.path,expanded);app=App(expanded,upgraded)
+        self.assertIsNotNone(upgraded.backup_path);self.assertTrue(upgraded.backup_path.is_file())
+        self.assertEqual(Store(upgraded.backup_path,r).mapping,old_mapping)
+        self.assertEqual(old_events,upgraded.export()['events'])
+        self.assertEqual(upgraded.cursor(),s.cursor())
+        for identity,value in old_mapping.items():self.assertEqual(upgraded.mapping[identity],value)
+        self.assertEqual(len(upgraded.mapping),len(old_mapping)+4)
+        self.assertEqual(app.completion('reference')[1]['with_reference'],1)
+        self.assertEqual(app.completion('reasons')[1]['reason_ratings'],1)
+        app.navigate({'action':'select','frame':0,'region':0})
+        data=app.answers();self.assertEqual(len(data['answers']),10)
+        self.assertEqual(len(data['groups']),1);group=data['groups'][0]
+        self.assertEqual(len(group['members']),16);self.assertTrue(group['mixed_ratings'])
+        computed=upgraded.computed();self.assertEqual(len(computed),16)
+        self.assertTrue(all(x['computed_match']==1 for x in computed.values()))
+        upgraded.rate_group(0,0,group['group_id'],'correct')
+        self.assertEqual(app.completion('reasons')[1]['reason_ratings'],16)
+        upgraded.rate(0,0,{'reference':'unassessable'})
+        self.assertTrue(all(x['computed_match'] is None for x in upgraded.computed().values()))
+        self.assertEqual((r.path/'manifest.json').read_bytes(),original_manifest)
+        again=Store(s.path,expanded);self.assertIsNone(again.backup_path)
+        self.assertEqual(again.mapping,upgraded.mapping)
+
+    def test_invalid_and_missing_answers_do_not_receive_computed_matches(self):
+        r,s,a=self.fixture();descriptors=r.frames[0]['answers']
+        d=descriptors[0];row=json.loads(d['path'].read_text());row['finish_reason']='length'
+        d['path'].write_text(json.dumps(row));descriptors[1]['path'].unlink()
+        s.rate(0,0,{'reference':'fixed'});derived=s.computed()
+        key=r.flat[0][2]
+        invalid=derived[(key,s.mapping[d['identity']]['answer_id'])]
+        missing=derived[(key,s.mapping[descriptors[1]['identity']]['answer_id'])]
+        self.assertIsNone(invalid['computed_match']);self.assertEqual(invalid['computed_match_status'],'invalid_response')
+        self.assertIsNone(missing['computed_match']);self.assertEqual(missing['computed_match_status'],'missing_response')
 
     def test_exact_groups_preserve_conflicts_and_apply_atomically(self):
         r,s,a=self.fixture();a.navigate({'action':'mode','mode':'reasons'});s.rate(0,0,{'reference':'fixed'})

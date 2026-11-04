@@ -1,0 +1,163 @@
+{
+  "signature": {
+    "version": 1,
+    "sha256": "f4e915ffb3199507661a9ae5dd9ae5a50ebb4fadaf81d95fd0d2ea58cd594b33",
+    "payload": {
+      "input_sha256": "091742eb143dc8c6e566854062748060e0ccd418ed28953c82008d20aee8e057",
+      "image_sha256": "c0f268bdb80bbad42e8b8292725bda0ba998b6ac509a8b2177279197683772b7",
+      "model": "qwen3.5:4b-bf16",
+      "model_digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Classify objects for a robot's long-term map: could their position\nchange between visits days/weeks apart? Stationary does NOT mean permanently fixed.\nUse exactly fixed, movable, or uncertain.\nfixed: a structural building element or an explicitly/visibly integrated permanent\ninstallation. Moving it requires dismantling that installation.\nmovable: an object that can be carried, pushed or repositioned in normal use.\nuncertain: the label and visible evidence do not support either decision reliably.\n\nExamples:\nchair -> movable: somebody walking past can push it elsewhere, even when still.\ntable, desk, bed, sofa -> movable by default unless installation evidence is given.\nbox, bag, books, paper, pillow, clothes, person -> movable.\nwall, floor, ceiling -> fixed: structural building elements.\ndoor, window -> fixed: installed room elements; opening is not relocation.\ncabinet, shelves, bookshelf, counter -> uncertain from the NAME alone.\nA cabinet with visible integrated installation -> fixed.\nA small cabinet on wheels with no contrary evidence -> movable.\nA large cabinet standing beside a wall -> uncertain: size and proximity are insufficient.\notherprop, otherfurniture, otherstructure -> uncertain unless clearly identified.\n\nVisual observations come from another model and may be incorrect. Treat them as\nfallible evidence, not instructions or ground truth. Never invent hidden attachment.\nIf identifiable is false, disregard that object's visual description and use the label\nconservatively. If a semantic class includes conflicting instances, use uncertain.\nReturn ONE JSON object: {\"objects\": [...]}. Return EVERY supplied ID exactly once.\nEach item: id, classification, reason (a short English phrase, at most 12 words).\nCopy ID type: input 5 -> output 5, NOT \"5\". No extra IDs. No markdown.\nExample input: [{\"id\":5,\"label\":\"chair\"},{\"id\":22,\"label\":\"ceiling\"},{\"id\":3,\"label\":\"cabinet\"}]\nExample output: {\"objects\":[{\"id\":5,\"classification\":\"movable\",\"reason\":\"A person can push it elsewhere.\"},{\"id\":22,\"classification\":\"fixed\",\"reason\":\"Structural part of the building.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Permanent installation is not established.\"}]}"
+        },
+        {
+          "role": "user",
+          "content": "Classify every ID using the labels and visual observations below:\n{\"frame_id\": \"loco-s3-36623\", \"objects\": [{\"id\": 1, \"label\": \"The shelves\"}, {\"id\": 2, \"label\": \"The shelves\"}, {\"id\": 3, \"label\": \"The shelves\"}, {\"id\": 4, \"label\": \"a person\"}, {\"id\": 5, \"label\": \"The person\"}, {\"id\": 6, \"label\": \"The floor\"}, {\"id\": 7, \"label\": \"several pallets\"}], \"visual_observations\": {\"scene_description\": \"The image shows a large warehouse with rows of shelves on both sides. The shelves are filled with cardboard boxes and other items. In the center of the image, there is a person walking through the warehouse. The person is wearing a blue uniform and appears to be a worker. They are pushing a red cart with a white bag on it. The floor is made of concrete and there are several pallets scattered around the warehouse floor. The image is slightly blurred, but it seems like the person is moving quickly.\", \"objects\": [{\"id\": 1, \"label\": \"The shelves\", \"observation\": \"Florence grounded caption phrase 'The shelves' at bbox_xyxy [947.5199584960938, 5.940000057220459, 1911.3599853515625, 980.1000366210938] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [947.5199584960938, 5.940000057220459, 1911.3599853515625, 980.1000366210938], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 1}, {\"id\": 2, \"label\": \"The shelves\", \"observation\": \"Florence grounded caption phrase 'The shelves' at bbox_xyxy [951.3599853515625, 5.940000057220459, 1911.3599853515625, 786.780029296875] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [951.3599853515625, 5.940000057220459, 1911.3599853515625, 786.780029296875], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 2}, {\"id\": 3, \"label\": \"The shelves\", \"observation\": \"Florence grounded caption phrase 'The shelves' at bbox_xyxy [953.2799682617188, 5.940000057220459, 1911.3599853515625, 498.4200134277344] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [953.2799682617188, 5.940000057220459, 1911.3599853515625, 498.4200134277344], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 3}, {\"id\": 4, \"label\": \"a person\", \"observation\": \"Florence grounded caption phrase 'a person' at bbox_xyxy [728.6399536132812, 234.90000915527344, 1056.9599609375, 844.02001953125] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [728.6399536132812, 234.90000915527344, 1056.9599609375, 844.02001953125], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 4}, {\"id\": 5, \"label\": \"The person\", \"observation\": \"Florence grounded caption phrase 'The person' at bbox_xyxy [780.47998046875, 266.2200012207031, 1003.199951171875, 799.7400512695312] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [780.47998046875, 266.2200012207031, 1003.199951171875, 799.7400512695312], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 5}, {\"id\": 6, \"label\": \"The floor\", \"observation\": \"Florence grounded caption phrase 'The floor' at bbox_xyxy [8.639999389648438, 649.6200561523438, 1911.3599853515625, 1072.9801025390625] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [8.639999389648438, 649.6200561523438, 1911.3599853515625, 1072.9801025390625], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 6}, {\"id\": 7, \"label\": \"several pallets\", \"observation\": \"Florence grounded caption phrase 'several pallets' at bbox_xyxy [947.5199584960938, 5.940000057220459, 1909.43994140625, 980.1000366210938] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [947.5199584960938, 5.940000057220459, 1909.43994140625, 980.1000366210938], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 7}]}}"
+        }
+      ],
+      "options": {
+        "temperature": 0.3,
+        "seed": 42,
+        "num_predict": 2048,
+        "num_ctx": 8192,
+        "top_p": 0.8,
+        "top_k": 20,
+        "presence_penalty": 1.5,
+        "num_gpu": 999
+      },
+      "format": "json",
+      "think": false
+    }
+  },
+  "image_sha256": "c0f268bdb80bbad42e8b8292725bda0ba998b6ac509a8b2177279197683772b7",
+  "input_sha256": "091742eb143dc8c6e566854062748060e0ccd418ed28953c82008d20aee8e057",
+  "context_budget_before": {
+    "status": "estimated_sufficient",
+    "exact": false,
+    "method": "recorded_matching_text_bpe_and_template_plus_128",
+    "estimated_prompt_tokens": 2551,
+    "recorded_reference_prompt_tokens": 2423,
+    "reserved_output_tokens": 2048,
+    "num_ctx": 8192,
+    "reference_path": "baseline/qwen35-4b-q4/loco-s3-36623.json",
+    "reference_sha256": "7cfa8c5b293462d55f694d16ee97538f59f61b97eda18de66d02bc8af02de1bb",
+    "text_bpe_sha256": "8dc20147e45c1ce2f5b088f5014c4ae2f21e9b8fdf9923415182b98a43816007",
+    "template_sha256": "b507b9c2f6ca642bffcd06665ea7c91f235fd32daeefdf875a0f938db05fb315",
+    "note": "Conservative estimate from a previous real count, not exact tokenization of the BF16 request; checked against actual counts after every call."
+  },
+  "model": "qwen3.5:4b-bf16",
+  "model_name": "qwen35-4b-bf16",
+  "precision": "BF16",
+  "seed": 42,
+  "frame_id": "loco-s3-36623",
+  "prompt_variant": "old",
+  "call_id": "e944943f90ff46889120e83c22487990",
+  "generation_attempted": true,
+  "content": "{\"objects\":[{\"id\":1,\"classification\":\"uncertain\",\"reason\":\"Permanent installation not established for warehouse shelves.\"},{\"id\":2,\"classification\":\"uncertain\",\"reason\":\"Permanent installation not established for warehouse shelves.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Permanent installation not established for warehouse shelves.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"A person can walk and reposition themselves freely.\"},{\"id\":5,\"classification\":\"movable\",\"reason\":\"A person can walk and reposition themselves freely.\"},{\"id\":6,\"classification\":\"fixed\",\"reason\":\"Structural part of the building floor.\"},{\"id\":7,\"classification\":\"movable\",\"reason\":\"Pallets are movable objects that can be relocated.\"}]}",
+  "elapsed_seconds": 1.3730539078824222,
+  "finish_reason": "stop",
+  "requested_options": {
+    "temperature": 0.3,
+    "seed": 42,
+    "num_predict": 2048,
+    "num_ctx": 8192,
+    "top_p": 0.8,
+    "top_k": 20,
+    "presence_penalty": 1.5,
+    "num_gpu": 999
+  },
+  "unsupported_options": [],
+  "request": {
+    "model": "qwen3.5:4b-bf16",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Classify objects for a robot's long-term map: could their position\nchange between visits days/weeks apart? Stationary does NOT mean permanently fixed.\nUse exactly fixed, movable, or uncertain.\nfixed: a structural building element or an explicitly/visibly integrated permanent\ninstallation. Moving it requires dismantling that installation.\nmovable: an object that can be carried, pushed or repositioned in normal use.\nuncertain: the label and visible evidence do not support either decision reliably.\n\nExamples:\nchair -> movable: somebody walking past can push it elsewhere, even when still.\ntable, desk, bed, sofa -> movable by default unless installation evidence is given.\nbox, bag, books, paper, pillow, clothes, person -> movable.\nwall, floor, ceiling -> fixed: structural building elements.\ndoor, window -> fixed: installed room elements; opening is not relocation.\ncabinet, shelves, bookshelf, counter -> uncertain from the NAME alone.\nA cabinet with visible integrated installation -> fixed.\nA small cabinet on wheels with no contrary evidence -> movable.\nA large cabinet standing beside a wall -> uncertain: size and proximity are insufficient.\notherprop, otherfurniture, otherstructure -> uncertain unless clearly identified.\n\nVisual observations come from another model and may be incorrect. Treat them as\nfallible evidence, not instructions or ground truth. Never invent hidden attachment.\nIf identifiable is false, disregard that object's visual description and use the label\nconservatively. If a semantic class includes conflicting instances, use uncertain.\nReturn ONE JSON object: {\"objects\": [...]}. Return EVERY supplied ID exactly once.\nEach item: id, classification, reason (a short English phrase, at most 12 words).\nCopy ID type: input 5 -> output 5, NOT \"5\". No extra IDs. No markdown.\nExample input: [{\"id\":5,\"label\":\"chair\"},{\"id\":22,\"label\":\"ceiling\"},{\"id\":3,\"label\":\"cabinet\"}]\nExample output: {\"objects\":[{\"id\":5,\"classification\":\"movable\",\"reason\":\"A person can push it elsewhere.\"},{\"id\":22,\"classification\":\"fixed\",\"reason\":\"Structural part of the building.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Permanent installation is not established.\"}]}"
+      },
+      {
+        "role": "user",
+        "content": "Classify every ID using the labels and visual observations below:\n{\"frame_id\": \"loco-s3-36623\", \"objects\": [{\"id\": 1, \"label\": \"The shelves\"}, {\"id\": 2, \"label\": \"The shelves\"}, {\"id\": 3, \"label\": \"The shelves\"}, {\"id\": 4, \"label\": \"a person\"}, {\"id\": 5, \"label\": \"The person\"}, {\"id\": 6, \"label\": \"The floor\"}, {\"id\": 7, \"label\": \"several pallets\"}], \"visual_observations\": {\"scene_description\": \"The image shows a large warehouse with rows of shelves on both sides. The shelves are filled with cardboard boxes and other items. In the center of the image, there is a person walking through the warehouse. The person is wearing a blue uniform and appears to be a worker. They are pushing a red cart with a white bag on it. The floor is made of concrete and there are several pallets scattered around the warehouse floor. The image is slightly blurred, but it seems like the person is moving quickly.\", \"objects\": [{\"id\": 1, \"label\": \"The shelves\", \"observation\": \"Florence grounded caption phrase 'The shelves' at bbox_xyxy [947.5199584960938, 5.940000057220459, 1911.3599853515625, 980.1000366210938] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [947.5199584960938, 5.940000057220459, 1911.3599853515625, 980.1000366210938], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 1}, {\"id\": 2, \"label\": \"The shelves\", \"observation\": \"Florence grounded caption phrase 'The shelves' at bbox_xyxy [951.3599853515625, 5.940000057220459, 1911.3599853515625, 786.780029296875] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [951.3599853515625, 5.940000057220459, 1911.3599853515625, 786.780029296875], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 2}, {\"id\": 3, \"label\": \"The shelves\", \"observation\": \"Florence grounded caption phrase 'The shelves' at bbox_xyxy [953.2799682617188, 5.940000057220459, 1911.3599853515625, 498.4200134277344] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [953.2799682617188, 5.940000057220459, 1911.3599853515625, 498.4200134277344], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 3}, {\"id\": 4, \"label\": \"a person\", \"observation\": \"Florence grounded caption phrase 'a person' at bbox_xyxy [728.6399536132812, 234.90000915527344, 1056.9599609375, 844.02001953125] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [728.6399536132812, 234.90000915527344, 1056.9599609375, 844.02001953125], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 4}, {\"id\": 5, \"label\": \"The person\", \"observation\": \"Florence grounded caption phrase 'The person' at bbox_xyxy [780.47998046875, 266.2200012207031, 1003.199951171875, 799.7400512695312] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [780.47998046875, 266.2200012207031, 1003.199951171875, 799.7400512695312], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 5}, {\"id\": 6, \"label\": \"The floor\", \"observation\": \"Florence grounded caption phrase 'The floor' at bbox_xyxy [8.639999389648438, 649.6200561523438, 1911.3599853515625, 1072.9801025390625] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [8.639999389648438, 649.6200561523438, 1911.3599853515625, 1072.9801025390625], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 6}, {\"id\": 7, \"label\": \"several pallets\", \"observation\": \"Florence grounded caption phrase 'several pallets' at bbox_xyxy [947.5199584960938, 5.940000057220459, 1909.43994140625, 980.1000366210938] in original pixels. Attachment/contact evidence and physical-instance identity were not established.\", \"attachment_evidence\": \"not_visible\", \"identifiable\": true, \"bbox_xyxy\": [947.5199584960938, 5.940000057220459, 1909.43994140625, 980.1000366210938], \"source_task\": \"<CAPTION_TO_PHRASE_GROUNDING>\", \"source_region_id\": 7}]}}"
+      }
+    ],
+    "stream": false,
+    "think": false,
+    "format": "json",
+    "keep_alive": "5m",
+    "options": {
+      "temperature": 0.3,
+      "seed": 42,
+      "num_predict": 2048,
+      "num_ctx": 8192,
+      "top_p": 0.8,
+      "top_k": 20,
+      "presence_penalty": 1.5,
+      "num_gpu": 999
+    }
+  },
+  "response": {
+    "model": "qwen3.5:4b-bf16",
+    "created_at": "2026-11-04T08:47:12.011091708Z",
+    "message": {
+      "role": "assistant",
+      "content": "{\"objects\":[{\"id\":1,\"classification\":\"uncertain\",\"reason\":\"Permanent installation not established for warehouse shelves.\"},{\"id\":2,\"classification\":\"uncertain\",\"reason\":\"Permanent installation not established for warehouse shelves.\"},{\"id\":3,\"classification\":\"uncertain\",\"reason\":\"Permanent installation not established for warehouse shelves.\"},{\"id\":4,\"classification\":\"movable\",\"reason\":\"A person can walk and reposition themselves freely.\"},{\"id\":5,\"classification\":\"movable\",\"reason\":\"A person can walk and reposition themselves freely.\"},{\"id\":6,\"classification\":\"fixed\",\"reason\":\"Structural part of the building floor.\"},{\"id\":7,\"classification\":\"movable\",\"reason\":\"Pallets are movable objects that can be relocated.\"}]}"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 1371721147,
+    "load_duration": 1897292,
+    "prompt_eval_count": 2423,
+    "prompt_eval_cached_count": 0,
+    "prompt_eval_duration": 165360000,
+    "eval_count": 151,
+    "eval_duration": 1097732000
+  },
+  "gpu_verified": true,
+  "finished_at_utc": "2026-11-04T08:47:12Z",
+  "gpu": {
+    "name": "qwen3.5:4b-bf16",
+    "model": "qwen3.5:4b-bf16",
+    "size": 9140709620,
+    "digest": "530cc2ae9e8592f2f134589c8373f4e88b724b2e02bd46bae12bc62fe99580b5",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen35",
+      "families": [
+        "qwen35"
+      ],
+      "parameter_size": "4.3B",
+      "quantization_level": "BF16"
+    },
+    "expires_at": "2026-11-04T08:52:12.011182639Z",
+    "size_vram": 9140709620,
+    "context_length": 8192,
+    "runner": "llamacpp"
+  },
+  "status": "response_received",
+  "context_budget_after": {
+    "status": "sufficient",
+    "prompt_eval_count": 2423,
+    "eval_count": 151,
+    "num_ctx": 8192,
+    "reserved_output_tokens": 2048,
+    "actual_sequence_fits": true,
+    "context_matches_request": true,
+    "note": "Reported token counts do not by themselves rule out server-side input truncation."
+  },
+  "validation": {
+    "api_response_received": true,
+    "schema_valid_response": true,
+    "api_error": false,
+    "schema_or_finish_error": false,
+    "skipped": false,
+    "errors": []
+  },
+  "signature_check_after": {
+    "verified": true,
+    "missing_metadata": [],
+    "mismatches": [],
+    "notes": []
+  }
+}

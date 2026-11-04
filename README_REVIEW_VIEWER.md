@@ -14,6 +14,16 @@ python3 -m llm_object_classifier.review_viewer
 
 Odpre brskalnik na `http://127.0.0.1:8765/` in privzeto naloži `results models/prompt_comparison40`. Ustavite s Ctrl+C; enak ukaz nadaljuje pri zadnji izbrani sliki/regiji in ohrani ocene. Če samodejno odpiranje brskalnika ni na voljo, odprite izpisani naslov ročno.
 
+Če obstaja `results models/prompt_comparison40/bf16/manifest.json`, samodejno vključi še **Qwen3.5 4B BF16 in 9B BF16**, vsakega s starim in novim promptom ter semenom 42. Izvorni manifest, SHA zamrznjenih vhodov, ID-ji regij in identiteta nabora ostanejo isti. Zato vaša že podana referenca velja tudi za nove modele; referenc ni treba ponoviti. Obstoječe anonimne oznake ostanejo iste, novi odgovori dobijo dodatne oznake.
+
+Ob prvem odpiranju baze po dodajanju modelov pregledovalnik pred spremembo ustvari konsistentno SQLite varnostno kopijo v `reviews/backups/` (oziroma `backups/` ob lastni poti baze). Nato doda samo nove identitete in izračunana ujemanja. Prejšnjih referenc, opomb, ocen utemeljitev, zgodovine in položaja ne združuje ali prepisuje. Med razvojem se dejanska baza ne odpira; migracija se izvede, ko sami zaženete pregledovalnik.
+
+Skupna referenca se vnese samo enkrat. Privzeti način **Samo referenčni razredi** skriva odgovore in po uspešnem shranjevanju odpre naslednjo neocenjeno regijo. Tipke **1/2/3/4** pomenijo FIXED/MOVABLE/UNCERTAIN/NE MOREM OCENITI. Neveljaven ali manjkajoč celoten odgovor se v izračunih posebej označi in ne dobi avtomatskega ujemanja. Delni razred in izvorna utemeljitev ostaneta vidna za pregled, s tehničnim opozorilom.
+
+Utemeljitve so poljubne in imajo svoj način ter napredek. Dobesedno enake utemeljitve z enakim napovedanim razredom iste regije se povežejo tudi med BF16/Q4 modeli, prompti in ponovitvami. Ena izrecna ocena velja za vse navedene povezane odgovore. Različne stare ocene ostanejo nespremenjene, dokler sami ne izberete nove skupne ocene. Neocenjene utemeljitve ne preprečijo dokončanja referenčnega pregleda.
+
+Skupni statični pregled vseh petih modelov in njihovih ponovitev: `results models/prompt_comparison40/bf16/index.html`; skupni izvoz regij: `bf16/all-region-classes.csv`. Oba sta pregled rezultatov, brez vaših zasebnih ocen. CSV/JSON osebnih ocen izvozite iz Python pregledovalnika.
+
 Za obstoječi izvoz 200 slik:
 
 ```bash
@@ -40,7 +50,7 @@ Ujemanje napovedanega razreda z referenco se izračuna in shrani v ločeno tabel
 
 Združujejo se samo dobesedno enake, neprazne utemeljitve z enakim veljavnim napovedanim razredom znotraj iste regije in istega SHA vhodnega dokumenta. Presledkov ali besedila se ne normalizira; manjkajočih odgovorov se ne združuje. Ena izrecna ocena skupine v transakciji oceni vse navedene povezane odgovore, tudi ponovitve v drugih zavihkih. Vse identitete in posamezne ocene ostanejo sledljive. Če se stare ročne ocene povezane skupine razlikujejo ali so delno prazne, se to pokaže; samo odpiranje skupine jih ne prepiše.
 
-Glavni odgovori so anonimno premešani A–F (A–C pri 200 slikah); dodatne ponovitve so na ločenem zavihku. Preslikava model/prompt/seme je enkrat ustvarjena in shranjena za vsak nabor. Gumb jo razkrije na zahtevo. Ob prehodu na drugo regijo se odgovori znova skrijejo; ob ponovnem zagonu imena ostanejo skrita. Celotna izvorna besedila utemeljitev ostanejo nespremenjena, tudi če sama omenjajo model.
+Odgovori imajo stabilne anonimne oznake A/B/C …; dodatne ponovitve so na ločenem zavihku. Novi modeli dobijo dodatne oznake, obstoječe oznake se ne preštevilčijo. Preslikava model/prompt/seme je enkrat ustvarjena in shranjena za vsak nabor. Gumb jo razkrije na zahtevo. Ob prehodu na drugo regijo se odgovori znova skrijejo; ob ponovnem zagonu imena ostanejo skrita. Celotna izvorna besedila utemeljitev ostanejo nespremenjena, tudi če sama omenjajo model.
 
 Vsak klik in sprememba opombe se takoj zapišeta v SQLite transakcijo skupaj z zgodovino sprememb (`synchronous=FULL`, WAL). V primeru neuspelega zapisa vmesnik ohrani čakajoče spremembe, pokaže napako in omogoči ponovni poskus. Pred zapiranjem počakajte na napis, da so vse spremembe shranjene. Ne uporabljajte več zavihkov hkrati za isto ocenjevanje.
 
