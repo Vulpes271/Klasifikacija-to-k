@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Benchmark for Evaluating Long-Term Localization in Indoor
+    Environments Under Substantial Static and Dynamic Scene Changes">
+  <meta name="keywords" content="Localization, Benchmark, Indoor">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Benchmark for Evaluating Long-Term Localization in Indoor
+    Environments Under Substantial Static and Dynamic Scene Changes</title>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <style>
+    .text-rgbd-cam {
+      font-weight: bold;
+      color: #0000ff;
+    }
+
+    .text-fisheye-cam {
+      font-weight: bold;
+      color: #ff00ff;
+    }
+
+    .text-2dlidar {
+      font-weight: bold;
+      color: #00d400;
+    }
+
+    .text-wheel-odom {
+      font-weight: bold;
+      color: #ff0000;
+    }
+
+    .bold-vellip {
+      font-family: 'Impact', sans-serif;
+    }
+
+    boldify {
+      font-weight: 900;
+    }
+
+    .center-line {
+      display: block;
+      text-align: center;
+    }
+
+    .split-column {
+      display: flex;
+      align-items: center;
+      /* display: grid;
+      grid-template-columns: 1fr 1fr; */
+      gap: 0px;
+    }
+
+    .left {
+      /* background-color: lightgray; */
+      padding: 0px 0px 0px 0px;
+    }
+
+    .right {
+      /* background-color: lightblue; */
+      padding: 0px 0px 0px 0px;
+    }
+
+    .icon-enlarged {
+      /* font-size: 20px; */
+      width: 20px;
+      transform: scale(3.0);
+      text-align: center;
+      justify-content: center;
+      display: inline-block;
+    }
+
+    .empty-row {
+      height: 30px;
+    }
+
+    .sequence-teaser {
+      width: 200px;
+      height: auto;
+    }
+
+    .table-dataset {
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .table-dataset td,
+    th {
+      max-width: 320px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">LILocBench: Benchmark for Evaluating Long-Term Localization in
+              Indoor
+              Environments Under Substantial Static and Dynamic Scene Changes
+            </h1>
+
+
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://www.ipb.uni-bonn.de/pdfs/trekel2025iros.pdf"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <!-- TODO: Add link to the video. -->
+                <!--span class="link-block">
+                  <a href="https://www.youtube.com/xxx"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span-->
+                <span class="link-block">
+                  <a href="https://www.codabench.org/competitions/8889/"
+                    class=" external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-trophy"></i>
+                    </span>
+                    <span>CodaBench Challenge</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://github.com/PRBonn/LILocBench"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Challenge Evaluation Tool</span>
+                  </a>
+                </span>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="columns">
+
+        <div class="column">
+          <div class="content has-text-centered">
+            <video id="teaser" autoplay muted playsinline height="100%">
+              <source src="./static/videos/localization_static_laser.webm" type="video/webm">
+            </video>
+
+            <p>2D LiDAR scans</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="content has-text-centered">
+            <video id="teaser" autoplay muted playsinline height="100%">
+              <source src="./static/videos/localization_static_rgb.webm" type="video/webm">
+            </video>
+            <p>RGB images</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="content  has-text-centered">
+            <video id="teaser" autoplay muted playsinline height="100%">
+              <source src="./static/videos/localization_static_depth.webm" type="video/webm">
+            </video>
+            <p>depth images</p>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="content  has-text-centered">
+            <video id="teaser" autoplay muted playsinline height="100%">
+              <source src="./static/videos/localization_static_odometry.webm" type="video/webm">
+            </video>
+            <p>odometry</p>
+          </div>
+        </div>
+        <script>
+          const syncedVideos = document.querySelectorAll("#teaser");
+
+          function restartVideos() {
+            syncedVideos.forEach(video => {
+              video.currentTime = 0;
+              video.play();
+            });
+          }
+
+          syncedVideos[0].addEventListener("ended", restartVideos);
+        </script>
+      </div>
+      <div class="hero-body">
+        <h2 class="subtitle has-text-centered">
+          We introduce <boldify>LILocBench</boldify>, a <boldify>L</boldify>ong-term
+          <boldify>I</boldify>ndoor <boldify>Loc</boldify>alization <boldify>Bench</boldify>mark.
+          Our benchmark comes with a dataset for which we have collected data with a mobile robot platform in an indoor
+          office environment.
+          We provide data from 2D LiDARs, RGB-D cameras, and the robot's wheel odometry. To facilitate the evaluation of
+          localization algorithms on our data, we also provide accurate ground truth within a single global frame over
+          the
+          complete environment.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Overview</h2>
+          <div class="content has-text-centered">
+            <img src="static/images/motivation_dataset_faro_scan_reduced.png" width="80%" />
+            <p>Colored point cloud of the office environment that is captured in our dataset.</p>
+          </div>
+
+          <div class="content has-text-justified">
+
+            <p>
+              We recorded various sequences in an office environment consisting of multiple office rooms of different
+              sizes and a kitchen, which is depicted in the colored point cloud above.
+            </p>
+
+            <p> We recorded the sequences under different conditions, which can be briefly classified into sequences in
+              a static environment, sequences with short-term dynamics, and sequences with long-term changes. Typical
+              examples of the non-static characteristics are shown below:
+            </p>
+            <div class="columns">
+
+              <div class="column is-one-third">
+                <div class="content  has-text-centered">
+                  <video autoplay muted loop playsinline width="85%">
+                    <source src="./static/videos/dynamics.webm" type="video/webm">
+                  </video>
+                  <p>dynamics</p>
+                </div>
+              </div>
+              <div class="column is-two-third">
+                <div class="content  has-text-centered">
+                  <div class="split-column">
+                    <div class="left">
+                      <div class="content has-text-centered">
+                        <video id="vid_lt_changes" autoplay muted playsinline width="85%">
+                          <source src="./static/videos/static.webm" type="video/webm">
+                        </video>
+                      </div>
+                    </div>
+                    <div class="icon-enlarged"><i class="fas fa-solid fa-arrow-right"></i></div>
+                    <div class="right">
+                      <div class="content has-text-centered">
+                        <video id="vid_lt_changes" autoplay muted playsinline width="85%">
+                          <source src="./static/videos/long_term_changes.webm" type="video/webm">
+                        </video>
+                      </div>
+                    </div>
+                  </div>
+                  <p>long-term changes</p>
+                </div>
+                <script>
+                  const syncedVidLTchanges = document.querySelectorAll("#vid_lt_changes");
+
+                  function restartVidLTchanges() {
+                    syncedVidLTchanges.forEach(video => {
+                      video.currentTime = 0;
+                      video.play();
+                    });
+                  }
+
+                  syncedVidLTchanges[0].addEventListener("ended", restartVidLTchanges);
+                </script>
+              </div>
+            </div>
+
+            <p>The following table provides an overview of our dataset's statistics, which we group by the different
+              characteristics of the sequences:</p>
+
+            <table class="table is-fullwidth has-text-centered">
+              <tr>
+                <th>type</th>
+                <th>number of sequences</th>
+                <th>duration [s]</th>
+                <th>size [GB]</th>
+                <th>distance [m]</th>
+              </tr>
+              <tr>
+                <td>mapping</td>
+                <td>1</td>
+                <td>812.0</td>
+                <td>56.4</td>
+                <td>217.8</td>
+              </tr>
+              <tr>
+                <td>static</td>
+                <td>7</td>
+                <td>2857.8</td>
+                <td>198.5</td>
+                <td>1025.1</td>
+              </tr>
+              <tr>
+                <td>dynamics</td>
+                <td>5</td>
+                <td>1261.2</td>
+                <td>87.6</td>
+                <td>375.8</td>
+              </tr>
+              <tr>
+                <td>long-term changes</td>
+                <td>6</td>
+                <td>2688.0</td>
+                <td>186.7</td>
+                <td>979.0</td>
+              </tr>
+              <tr>
+                <td>long-term changes + dynamics</td>
+                <td>2</td>
+                <td>1206.0</td>
+                <td>83.8</td>
+                <td>437.2</td>
+              </tr>
+              <tr class="empty-row">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+
+              <tr>
+                <td>overall</td>
+                <td>21</td>
+                <td>8824.9</td>
+                <td>612.9</td>
+                <td>3034.8</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width content">
+          <h2 class="title is-3">Hardware Platform</h2>
+        </div>
+
+      </div>
+      <div class="columns is-centered content">
+        <div class="column is-half has-text-justified">
+          <p>For the data collection, we use a Clearpath Robotics Dingo omnidirectional wheeled robot. We gather data
+            from the following sensors:
+          </p>
+          <ul>
+            <li>2x <span class="text-2dlidar">SICK TIM781S 2D LiDARs (@15 Hz)</span> </li>
+            <li>3x <span class="text-rgbd-cam">Intel RealSense D455 RGB-D cameras (640 x 480 pixels @15 Hz)</span></li>
+            <li>the robot's <span class="text-wheel-odom">wheel odometry (@15Hz)</span></li>
+            <li>an upward-facing <span class="text-fisheye-cam">FLIR BlackFly S
+                PGE 31S4C-C fisheye camera (2048 × 1036 pixels
+                @20 Hz)</span>, solely used to detect ceiling-mounted AprilTag markers to obtain pose ground
+              truth</li>
+          </ul>
+        </div>
+        <div class="column is-half has-text-centered">
+          <div class="content has-text-centered"><img src="static/images/dingo_sensors.svg" width="80%"></img>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Data Format and Folder Structure</h2>
+          <div class="content has-text-justified">
+            <p>
+              Overall, we provide all data recorded by our hardware platform except the upward-facing camera's images
+              used for the ground truth.
+              We provide raw data in two different ROS bags, one version with all data and for convenience a reduced
+              version that does not contain any camera-related topics. In addition, we also provide data in individual
+              data files
+              that are human-readable. Here, we have for each sequence the following folder structure:
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="columns is-centered content">
+        <div class="column is-one-third">
+          <ul class="file-hierarchy">
+            <li class="folder">sequence_XXX</li>
+            <ul>
+              <li class="folder">camera_XXX</li>
+              <ul>
+                <li class="folder">color</li>
+                <ul>
+                  <li class="folder">images</li>
+                  <ul>
+                    <li class="file-img">1733375656.630170663.png</li>
+                    <li class="file-img">1733375656.696981258.png</li>
+                    <li class="file-img">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="bold-vellip">&vellip;</span>
+                    </li>
+                  </ul>
+                  <li class="file">intrinsics.yaml</li>
+                </ul>
+                <li class="folder">depth</li>
+                <ul>
+                  <li class="folder">images</li>
+                  <ul>
+                    <li class="file-img">1733375656.638256597.png</li>
+                    <li class="file-img">1733375656.704976817.png</li>
+                    <li class="file-img">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="bold-vellip">&vellip;</span>
+                    </li>
+                  </ul>
+                  <li class="file">intrinsics.yaml</li>
+                </ul>
+                <li class="file">extrinsics_depth_to_color.yaml</li>
+
+              </ul>
+
+              <li class="folder">dingo_velocity_controller</li>
+              <ul>
+                <li class="file">cmd_vel.txt</li>
+                <li class="file">odom.txt</li>
+              </ul>
+              <li class="folder">joint_states</li>
+              <ul>
+                <li class="file">front_left_wheel.txt</li>
+                <li class="file">front_right_wheel.txt</li>
+                <li class="file">rear_left_wheel.txt</li>
+                <li class="file">rear_right_wheel.txt</li>
+              </ul>
+              <li class="folder">laser_scan_XXX</li>
+              <ul>
+                <li class="file">intensities.txt</li>
+                <li class="file">ranges.txt</li>
+                <li class="file">laser_specs.yaml</li>
+              </ul>
+
+              <li class="file">transformations.yaml</li>
+              <li class="file">robot_params.yaml</li>
+            </ul>
+          </ul>
+        </div>
+        <div class="column is-two-third has-text-justified">
+          <p>In more detail, the data is stored as follows:</p>
+          <ul>
+            <li><b><tt>camera_XXX</tt></b>: For each of the three cameras, we store for both RGB and depth images all
+              image files in
+              <tt>.png</tt> format in subfolders. The names of the images correspond to their time stamps. In the
+              subfolders, we also provide the intrinsics in <tt>intrinsics.yaml</tt>.
+              The transformation between the RGB and depth frame is provided in the <tt>extrinsics.yaml</tt> file.
+            </li>
+
+            <li><b><tt>dingo_velocity_controller</tt></b>: Contains poses from wheel odometry and input velocity
+              commands to the robot. <br>
+              The poses calculated from wheel odometry in the file <tt>odom.txt</tt> are given in a format with the
+              following columns: <br>
+              <span class="center-line"><tt>time_stamp pos[3]
+                  quat[4] pose_cov[36] vel_t[3] vel_r[3] vel_cov[36]</tt> <br> </span>
+              where <tt>pos[3] = pos_x pos_y pos_z</tt> is the position, <tt>quat[4] = quat_x quat_y
+                quat_z quat_w</tt> a quaternion representing the rotational part, <tt>vel_t[3] = vel_tx vel_ty
+                vel_tz</tt> is the translational velocity, and <tt>vel_r[3] = vel_rx vel_ry vel_rz</tt> the rotational
+              velocity. <tt>pose_cov[36]</tt> and <tt>vel_cov[36]</tt> are the position's and velocity's covariance
+              matrix. <br>
+              The input command velocities in <tt>cmd_vel.txt</tt> follows a format with the columns: <br>
+              <span class="center-line"><tt>time_stamp vel_t[3] vel_r[3]</tt></span>
+            <li><b><tt>joint_states</tt></b>: We provide also the raw output of the four wheel encoders in the four
+              according <tt>.txt</tt> files. The columns in the files correspond to: <br>
+              <span class="center-line"><tt>time_stamp position velocity current</tt> <br></span>
+            </li>
+
+            <li><b><tt>laser_scan_XXX</tt></b>: For the two 2D LiDARs, the ranges and intensities are provided in
+              separate files with with the columns formatted as follows:<br>
+              <span class="center-line"> <tt>ranges.txt</tt>: &nbsp;<tt>time_stamp ranges[]</tt>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>intensities.txt</tt>:&nbsp; <tt>time_stamp
+                  intensities[]</tt><br></span>
+              The parameters of the laser scanner, e.g. required to calculate points from the ranges is provided in the
+              file <tt>laser_specs.yaml</tt>.
+            </li>
+            <li><b><tt>transformations.yaml</tt></b>: Contains all transformations between the sensor frames and
+              the robot base.
+            </li>
+
+            <li><b><tt>robot_params.yaml</tt></b>: Contains additional parameters related to the robot, specifically the
+              position of the wheels relative to the robot base.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Coordinate Frames</h2>
+          <p> The relation between the coordinate frames in the <tt>transformations.yaml</tt> file is depicted in the
+            image below. The <tt>/tf</tt> and <tt>/tf_static</tt> topics in the ROS bags contain additional frames
+            related to the robot, which are however not related to the provided sensor information. For the cameras, the
+            frames follow the convention used in RealSense cameras, with <tt>camera_XXX_link</tt> aligned with the
+            <tt>camera_XXX_depth_frame</tt>. For all three <tt>camera_XXX_link</tt>, <tt>camera_XXX_depth_frame</tt>,
+            and <tt>camera_XXX_color_frame</tt>, the x-axis points out of the image plane and the z-axis upward. The
+            optical frames of the cameras, i.e., <tt>camera_XXX_color_optical_frame</tt> and
+            <tt>camera_XXX_depth_optical_frame</tt>, follow the convention with the z-axis pointing out of the
+            image plane and the y-axis pointing downwards.
+          </p>
+          <div class="content has-text-centered">
+            <img src="static/images/frames.png" width="100%" />
+            <p>Tree of the frames provided in the <tt>transformations.yaml</tt> file.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Ground Truth Poses</h2>
+          <p>We generate ground truth poses by using the upward-facing fisheye camera to detect AprilTag markers
+            installed on all room ceilings.
+            <!-- For more details on this process, we refer to the publication linked below-->
+            Therefore, we are able to provide pose information in the complete environment in a single global frame
+            consistent over all sequences.
+            When using the ground truth poses together with the data from the mapping sequence to build an
+            arbitrary map representation, the estimated poses from the localization sequences based on the generated map
+            can directly be compared with the ground truth poses without requiring trajectory alignment.
+            The ground truth poses are provided with respect to the <tt>base_link</tt> of the robot. <br>
+            The ground truth pose files follow the TUM-format, i.e. the files have the following columns:
+            <span class="center-line"><tt>time_stamp pos_x pos_y pos_z quat_x quat_y quat_z quat_w</tt> </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Download</h2>
+          <div class="content has-text-justified">
+            <p>For convenience, we provide data both as ROS bags and in individual data files. Below are links both
+              for downloading the complete dataset, as well as for downloading data of individual sequences. We
+              provide ground truth only for a subset of the sequences, as the sequences with non-public sequences are
+              part of the benchmark, as described further below.
+            </p>
+          </div>
+
+          <h2 class="title is-5">Full dataset</h2>
+          <div class="content has-text-justified">
+
+            <table class="table-dataset">
+              <tbody>
+                <tr>
+                  <th class="has-text-centered">Individual Files</th>
+                  <th class="has-text-centered">ROS bags <br>(full/no camera topics)</th>
+                  <th class="has-text-centered">Ground Truth</th>
+                </tr>
+                <tr>
+                  <td><span><a download="" href="./data/data_files.zip"><span class="icon"><i
+                            class="fas fa-download"></i></span><span> (203.3 GB)</span></a></span></td>
+                  <td><span><a download="" href="./data/bagfiles.zip"><span class="icon"><i
+                            class="fas fa-download"></i></span><span> (222.0 GB)</span></a></span> <span>/</span>
+                    <span><a download="" href="./data/bagfiles_no_cams.zip"><span class="icon"><i
+                            class="fas fa-download"></i></span><span> (1.1 GB)</span></a></span>
+                  </td>
+                  <td><span><a download="" href="./data/gt_poses_public.zip"><span class="icon"><i
+                            class="fas fa-download"></i></span><span> (3.6 MB)</span></a></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2 class="title is-5">With ground truth</h2>
+          <div class="content has-text-justified">
+            <table class="table-dataset">
+              <tbody>
+                <tr>
+                  <th class="has-text-centered">Sequence</th>
+                  <th class="has-text-centered">Description</th>
+                  <th class="has-text-centered">Individual Files</th>
+                  <th class="has-text-centered">ROS bags <br>(full/no camera topics)</th>
+                  <th class="has-text-centered">Ground Truth</th>
+                </tr>
+                <tr class="download-row" data-sequence="mapping" data-has-gt="true">
+                  <td>mapping</td>
+                  <td>mapping sequence</td>
+                  <td><a download="" href="./data/data_files_zipped/mapping.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (18.3 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/mapping.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (56.4 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/mapping.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (192.2 MB)</span></a></td>
+                  <td><a download="" href="./data/gt_poses_public/mapping/gt_poses.txt"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (2.6 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="static_0" data-has-gt="true">
+                  <td>static_0</td>
+                  <td>static environment</td>
+                  <td><a download="" href="./data/data_files_zipped/static_0.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (13.9 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/static_0.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (41.6 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/static_0.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (141.8 MB)</span></a></td>
+                  <td><a download="" href="./data/gt_poses_public/static_0/gt_poses.txt"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (1.9 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="dynamics_0" data-has-gt="true">
+                  <td>dynamics_0</td>
+                  <td>~10 people moving in the vicinity of the robot</td>
+                  <td><a download="" href="./data/data_files_zipped/dynamics_0.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (3.8 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/dynamics_0.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (11.1 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/dynamics_0.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (38.1 MB)</span></a></td>
+                  <td><a download="" href="./data/gt_poses_public/dynamics_0/gt_poses.txt"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (518.9 KB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="lt_changes_0" data-has-gt="true">
+                  <td>lt_changes_0</td>
+                  <td>rearranged objects in multiple rooms + hallway (rearranged furniture, cardboard boxes placed in
+                    the environment)</td>
+                  <td><a download="" href="./data/data_files_zipped/lt_changes_0.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (10.0 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/lt_changes_0.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (30.3 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/lt_changes_0.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (103.8 MB)</span></a></td>
+                  <td><a download="" href="./data/gt_poses_public/lt_changes_0/gt_poses.txt"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (1.4 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="lt_changes_dynamics_0" data-has-gt="true">
+                  <td>lt_changes_dynamics_0</td>
+                  <td>combination of rearranged objects in multiple rooms + hallway and moving people
+                  </td>
+                  <td><a download="" href="./data/data_files_zipped/lt_changes_dynamics_0.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (12.9 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/lt_changes_dynamics_0.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (38.8 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/lt_changes_dynamics_0.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (132.9 MB)</span></a></td>
+                  <td><a download="" href="./data/gt_poses_public/lt_changes_dynamics_0/gt_poses.txt"><span
+                        class="icon"><i class="fas fa-download"></i></span><span> (1.8 MB)</span></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2 class="title is-5">Without ground truth</h2>
+          <div class="content has-text-justified">
+            <table class="table-dataset">
+              <tbody>
+                <tr>
+                  <th class="has-text-centered">Sequence</th>
+                  <th class="has-text-centered">Description</th>
+                  <th class="has-text-centered">Individual Files</th>
+                  <th class="has-text-centered">ROS bags <br>(full/no camera topics)</th>
+                </tr>
+                <tr class="download-row" data-sequence="static_1" data-has-gt="false">
+                  <td>static_1</td>
+                  <td>static environment </td>
+                  <td><a download="" href="./data/data_files_zipped/static_1.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (16.6 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/static_1.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (49.7 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/static_1.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (169.5 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="static_2" data-has-gt="false">
+                  <td>static_2</td>
+                  <td>static environment, robot moves omnidirectionally </td>
+                  <td><a download="" href="./data/data_files_zipped/static_2.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (4.1 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/static_2.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (12.2 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/static_2.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (41.6 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="static_3" data-has-gt="false">
+                  <td>static_3</td>
+                  <td>static environment, robot moves omnidirectionally </td>
+                  <td><a download="" href="./data/data_files_zipped/static_3.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (4.8 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/static_3.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (14.2 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/static_3.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (48.7 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="static_4" data-has-gt="false">
+                  <td>static_4</td>
+                  <td>static environment, robot moves omnidirectionally </td>
+                  <td><a download="" href="./data/data_files_zipped/static_4.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (7.1 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/static_4.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (20.8 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/static_4.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (71.3 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="static_5" data-has-gt="false">
+                  <td>static_5</td>
+                  <td>"natural" conditions typically found in office environments, e.g. small scene changes due to moved
+                    chairs and few
+                    dynamics due to humans </td>
+                  <td><a download="" href="./data/data_files_zipped/static_5.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (2.4 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/static_5.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (6.9 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/static_5.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (23.7 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="static_6" data-has-gt="false">
+                  <td>static_6</td>
+                  <td>"natural" conditions typically found in office environments, e.g. small scene changes due to moved
+                    chairs and few
+                    dynamics due to humans </td>
+                  <td><a download="" href="./data/data_files_zipped/static_6.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (17.6 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/static_6.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (53.0 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/static_6.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (180.9 MB)</span></a></td>
+                </tr>
+                <tr class="empty-row">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="download-row" data-sequence="dynamics_1" data-has-gt="false">
+                  <td>dynamics_1</td>
+                  <td>~10 people moving in the vicinity of the robot</td>
+                  <td><a download="" href="./data/data_files_zipped/dynamics_1.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (3.2 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/dynamics_1.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (9.3 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/dynamics_1.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (32.0 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="dynamics_2" data-has-gt="false">
+                  <td>dynamics_2</td>
+                  <td>~10 people moving in the vicinity of the robot</td>
+                  <td><a download="" href="./data/data_files_zipped/dynamics_2.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (3.8 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/dynamics_2.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (11.3 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/dynamics_2.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (39.0 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="dynamics_3" data-has-gt="false">
+                  <td>dynamics_3</td>
+                  <td>the robot follows a person carrying a large board </td>
+                  <td><a download="" href="./data/data_files_zipped/dynamics_3.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (13.1 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/dynamics_3.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (39.6 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/dynamics_3.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (136.4 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="dynamics_4" data-has-gt="false">
+                  <td>dynamics_4</td>
+                  <td>~10 people moving in the vicinity of the robot, also shifting cardboard boxes around</td>
+                  <td><a download="" href="./data/data_files_zipped/dynamics_4.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (5.6 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/dynamics_4.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (16.2 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/dynamics_4.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (56.3 MB)</span></a></td>
+                </tr>
+                <tr class="empty-row">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="download-row" data-sequence="lt_changes_1" data-has-gt="false">
+                  <td>lt_changes_1</td>
+                  <td>rearranged objects in multiple rooms + hallway (rearranged furniture, cardboard boxes placed in
+                    the environment)</td>
+                  <td><a download="" href="./data/data_files_zipped/lt_changes_1.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (5.8 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/lt_changes_1.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (17.2 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/lt_changes_1.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (59.0 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="lt_changes_2" data-has-gt="false">
+                  <td>lt_changes_2</td>
+                  <td>a wall in the hallway is "shifted" by placing cardboard boxes in front of it</td>
+                  <td><a download="" href="./data/data_files_zipped/lt_changes_2.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (7.5 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/lt_changes_2.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (22.6 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/lt_changes_2.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (77.3 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="lt_changes_3" data-has-gt="false">
+                  <td>lt_changes_3</td>
+                  <td>robot moves only in the hallway, doors to all offices are closed, which were previously open</td>
+                  <td><a download="" href="./data/data_files_zipped/lt_changes_3.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (10.1 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/lt_changes_3.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (31.9 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/lt_changes_3.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (109.1 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="lt_changes_4" data-has-gt="false">
+                  <td>lt_changes_4</td>
+                  <td>objects are placed in the hallway in such a way that the robot traverses an area that is entirely
+                    inconsistent with
+                    the mapping sequence</td>
+                  <td><a download="" href="./data/data_files_zipped/lt_changes_4.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (22.8 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/lt_changes_4.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (70.1 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/lt_changes_4.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (240.1 MB)</span></a></td>
+                </tr>
+                <tr class="download-row" data-sequence="lt_changes_5" data-has-gt="false">
+                  <td>lt_changes_5</td>
+                  <td>objects are placed in the hallway in such a way that the robot traverses an area that is entirely
+                    inconsistent with
+                    the mapping sequence</td>
+                  <td><a download="" href="./data/data_files_zipped/lt_changes_5.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (4.7 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/lt_changes_5.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (14.4 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/lt_changes_5.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (49.4 MB)</span></a></td>
+                </tr>
+
+                <tr class="empty-row">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr class="download-row" data-sequence="lt_changes_dynamics_1" data-has-gt="false">
+                  <td>lt_changes_dynamics_1</td>
+                  <td>combination of rearranged objects in multiple rooms + hallway and moving people
+                  </td>
+                  <td><a download="" href="./data/data_files_zipped/lt_changes_dynamics_1.zip"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (15.1 GB)</span></a></td>
+                  <td><a download="" href="./data/bagfiles/lt_changes_dynamics_1.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (44.9 GB)</span></a> / <a download=""
+                      href="./data/bagfiles_no_cams/lt_changes_dynamics_1.bag"><span class="icon"><i
+                          class="fas fa-download"></i></span><span> (153.9 MB)</span></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h2 class="title is-5">Occupancy Map</h2>
+          <div class="columns is-centered content">
+            <div class="column is-half">
+              <div class="has-text-justified">
+                <p>
+                  While the mapping sequence can be used to build an arbitrary map representation used for
+                  localization, we provide an occupancy grid map created from laser scans of the front 2D LiDAR. The
+                  map is
+                  generated
+                  based on the ground truth poses together with refinement of the laser scan poses using scan
+                  matching. <br>
+                  The download below comes with a <tt>.yaml</tt> metadata file following the format for the <a
+                    href="http://wiki.ros.org/map_server">ROS1 <tt>map_server</tt></a>.
+                </p>
+              </div>
+              <div class="has-text-centered">
+                <p></p>
+                <span><a download="" href="./data/map_office.zip"><span class="icon"><i
+                        class="fas fa-download"></i></span><span> (17.4 KB)</span></a></span>
+              </div>
+            </div>
+            <div class="column is-half has-text-centered">
+              <img src="static/images/map_office.png" width="90%">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">LILocBench CodaBench Challenge</h2>
+          <p>We created a CodaBench challenge for LILocBench, which is a public competition to evaluate localization
+            algorithms on the part of our dataset without public ground truth.
+            The challenge and informations on how to participate can be found at:
+          </p>
+          <p>
+          <div class="content has-text-centered">
+            <a href="https://www.codabench.org/competitions/8889/">https://www.codabench.org/competitions/8889/</a>
+          </div>
+          </p>
+          <p>
+            In addition, we provide the CodaBench evaluation code for the challenge, which can be used to evaluate
+            localization algorithms on the sequences with public ground truth.
+            The evaluation code is available on <a href="https://github.com/PRBonn/LILocBench">Github</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3"> Help & Issues </h2>
+          <p>For any questions or issues with the data or the benchmark challenge, please open an issue on <a
+              href="https://github.com/PRBonn/LILocBench/issues">Github</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3"> License </h2>
+          <p>We distribute the data under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons
+              Attribution-NonCommercial-ShareAlike license</a>. You are free to share and
+            adapt the data, but have to give appropriate credit and may not use the work for commercial purposes.
+
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Citation</h2>
+          <p>If you use our dataset, we appreciate if you would cite our paper (<a
+              href="https://www.ipb.uni-bonn.de/pdfs/trekel2025iros.pdf">PDF</a>):
+          <pre><code>@inproceedings{trekel2025iros,
+            author = {N. Trekel and T. Guadagnino and T. L\"abe and L. Wiesmann and P. Aguiar and J. Behley and C. Stachniss},
+            title = {{Benchmark for Evaluating Long-Term Localization in Indoor Environments Under Substantial 
+              Static and Dynamic Scene Changes}},
+            booktitle = {Proc.~of the IEEE/RSJ Intl.~Conf.~on Intelligent Robots and Systems (IROS)},
+            year = {2025},
+            }</code></pre>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This work has partially been funded by the German Federal Ministry
+              of Education and Research (BMBF) in the project “Robotics Institute Germany”, grant No. 16ME0999 and by
+              the Deutsche Forschungsgemeinschaft
+              (DFG, German Research Foundation) under Germany’s Excellence Strategy,
+              EXC-2070 – 390732324 – PhenoRob.
+            </p>
+            <p>
+              Parts of the website are borrowed from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies
+                source
+                code</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

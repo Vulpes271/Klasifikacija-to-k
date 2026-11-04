@@ -45,6 +45,7 @@ class Results:
         else:
             self.kind='comparison40';self.manifest_path=self.path/'manifest.json'
         manifest=read_json(self.manifest_path)
+        if manifest.get('protocol')=='lilocbench-v1':self.kind='lilocbench'
         if self.kind=='comparison40' and manifest.get('protocol')!='prompt40-v1':
             raise ValueError('Expected prompt40-v1 or experiment200-manifest.json')
         self.manifest_sha=sha256(self.manifest_path.read_bytes())
@@ -71,18 +72,19 @@ class Results:
             if sha256(frozen.read_bytes())!=digest:raise ValueError('Frozen input SHA256 mismatch: '+str(frozen))
             saved=read_json(frozen);fid=entry['frame_id'];objects=saved['parsed']['objects']
             if len({id_key(o['id']) for o in objects})!=len(objects):raise ValueError('Duplicate region IDs')
-            originals=[self.florence/fid/name for name in ('original.jpg','original.png','original.jpeg')]
+            originals=([self.path/'images'/(fid+'.png')] if self.kind=='lilocbench' else
+                [self.florence/fid/name for name in ('original.jpg','original.png','original.jpeg')])
             original=next((p for p in originals if p.is_file()),None)
-            image=original or self.path/'images'/(fid+'.jpg')
+            image=original or self.path/('annotated' if self.kind=='lilocbench' else 'images')/(fid+'.jpg')
             if not image.is_file():raise ValueError('Missing saved image: '+str(image))
-            variants=[('old',42)]
+            variants=[('new' if self.kind=='lilocbench' else 'old',42)]
             if self.kind=='comparison40':
                 variants+=[('new',s) for s in ([42,43,44] if entry['repeatability'] else [42])]
             descriptors=[]
             for spec in manifest['config']['models']:
                 for prompt,seed in variants:
                     identity=json.dumps([spec['model'],prompt,seed],separators=(',',':'))
-                    if self.kind=='baseline200':response=self.path/'responses'/spec['name']/(fid+'.json')
+                    if self.kind in ('baseline200','lilocbench'):response=self.path/'responses'/spec['name']/(fid+'.json')
                     elif prompt=='old':response=self.path/'baseline'/spec['name']/(fid+'.json')
                     else:response=self.path/'responses'/spec['name']/str(seed)/(fid+'.json')
                     self.identities[identity]={'model':spec['model'],'prompt_variant':prompt,'seed':seed}
@@ -505,10 +507,12 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--results-dir',type=Path,default=DEFAULT_RESULTS)
     parser.add_argument('--florence-dir',type=Path,default=DEFAULT_FLORENCE)
-    parser.add_argument('--db',type=Path,default=DEFAULT_DB)
+    parser.add_argument('--db',type=Path)
     parser.add_argument('--host',choices=('127.0.0.1','localhost'),default='127.0.0.1')
     parser.add_argument('--port',type=int,default=8765);parser.add_argument('--no-browser',action='store_true')
-    args=parser.parse_args();results=Results(args.results_dir,args.florence_dir);store=Store(args.db,results)
+    args=parser.parse_args();results=Results(args.results_dir,args.florence_dir)
+    database=args.db or (ROOT/'reviews/lilocbench.sqlite3' if results.kind=='lilocbench' else DEFAULT_DB)
+    store=Store(database,results)
     server=make_server(App(results,store),args.host,args.port);url=f'http://{args.host}:{server.server_address[1]}/'
     print(f'Pregledovalnik: {url}\nOcene: {store.path}\nSlike: {len(results.frames)}. Ustavitev: Ctrl+C.',flush=True)
     if store.backup_path:print('Varnostna kopija pred dodajanjem modelov: '+str(store.backup_path),flush=True)
