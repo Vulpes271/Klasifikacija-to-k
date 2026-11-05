@@ -8,8 +8,7 @@ from unittest.mock import patch, Mock
 
 from llm_object_classifier.llm_checks import (validate_response, validity_counts,
     make_signature, check_signature, context_before, context_after, prepare_position)
-from llm_object_classifier.experiment import sha256, options, combinations
-from llm_object_classifier import florence_grounding_llm as baseline, prompt_comparison40 as prompt40
+from llm_object_classifier.experiment import sha256
 
 
 class LLMChecksTests(unittest.TestCase):
@@ -26,9 +25,7 @@ class LLMChecksTests(unittest.TestCase):
         checked=validate_response(row,self.objects)
         self.assertTrue(checked['api_response_received']);self.assertFalse(checked['schema_valid_response'])
         self.assertTrue(checked['schema_or_finish_error']);self.assertEqual(len(checked['usable_items']),2)
-        classes,note=baseline.table_decisions(row,self.objects)
-        self.assertEqual(classes[('int',1)],'uncertain');self.assertIn('reason',note)
-        self.assertEqual(note,prompt40.schema_note(row,'fixture',self.objects));self.assertEqual(row,before)
+        self.assertTrue(any('reason' in error for error in checked['errors']));self.assertEqual(row,before)
         for reason in ('', '   ', None, 7):
             items=copy.deepcopy(self.items);items[0]['reason']=reason
             self.assertFalse(validate_response({**row,'content':json.dumps({'objects':items})},self.objects)['schema_valid_response'])
@@ -78,49 +75,19 @@ class LLMChecksTests(unittest.TestCase):
         self.assertEqual(after['status'],'reserved_budget_exceeded');self.assertTrue(after['actual_sequence_fits'])
         self.assertEqual(context_after({},opts)['status'],'unverifiable')
 
-    def test_runners_check_reuse_before_skipping_and_never_overwrite(self):
+
+
+    def test_reuse_checks_signature_and_never_overwrites(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);frozen=root/'frozen.json'
             frozen.write_text(json.dumps({'image_sha256':'image','status':'ok','parsed':{'objects':self.objects}}))
-            digest=sha256(frozen.read_bytes());spec={'name':'test','model':'model','precision':'Q4_K_M'}
-            config={'models':[spec],'timeout':1,'system_file_text':'system','temperatures':[.3],'seeds':[42],
-                'max_tokens':2048,'num_ctx':8192,'top_p':.8,'top_k':20,'presence_penalty':1.5}
-            opts=options(config,next(combinations(config)))
-            signature=make_signature(json.loads(frozen.read_text()),digest,'model','old-weights','system','prompt',opts)
-            saved={**self.row,'input_sha256':digest,'model':'model','gpu':{'digest':'old-weights'},
-                'request':{'model':'model','messages':signature['payload']['messages'],'options':opts,'format':'json','think':False}}
-            target=root/'responses/test/f.json';target.parent.mkdir(parents=True);target.write_text(json.dumps(saved));original=target.read_bytes()
-            with self.assertRaises(ValueError):prepare_position(target,frozen,digest,spec,'new-weights','system','prompt',opts,'template')
-            self.assertEqual(original,target.read_bytes())
-            backend=Mock();backend.metadata.return_value={'show':{'template':'template'}}
-            backend.generate.side_effect=AssertionError('No inference allowed in tests')
-            frame={'frame_id':'f','frozen':'frozen.json','sha256':digest,'user_prompt':'prompt'}
-            with patch.object(baseline,'OUTPUT',root),patch.object(baseline,'Backend',return_value=backend),patch.object(baseline,'installed_digest',return_value='new-weights'):
-                with self.assertRaises(ValueError):baseline.run(config,[frame],extension=True)
-                baseline.run(config,[{**frame,'frame_id':'budget','user_prompt':'long '*4000}],extension=True)
-            skipped=json.loads((root/'responses/test/budget.json').read_text())
-            self.assertEqual(skipped['status'],'skipped');self.assertFalse(skipped['generation_attempted'])
-            self.assertEqual(original,target.read_bytes());backend.generate.assert_not_called()
-            # Prompt comparison must check an existing result too, not just skip it.
-            (root/'prompts').mkdir();(root/'prompts/new-system.txt').write_text('system');(root/'prompts/user.txt').write_text('prompt')
-            old=root/'baseline/test/f.json';old.parent.mkdir(parents=True);old.write_text(json.dumps({'gpu':{'digest':'old-weights'}}))
-            destination=root/'responses/test/42/f.json';destination.parent.mkdir();destination.write_bytes(original)
-            saved['request']['messages'][0]['content']='wrong-system';destination.write_text(json.dumps(saved));original=destination.read_bytes()
-            frame.update(input_sha256=digest,repeatability=False,user_prompt='prompts/user.txt')
-            with patch.object(prompt40,'OUT',root),patch.object(prompt40,'Backend',return_value=backend),patch.object(prompt40,'installed_digest',return_value='old-weights'):
-                with self.assertRaises(ValueError):prompt40.run({'config':config,'inputs':[frame]})
-            self.assertEqual(original,destination.read_bytes());backend.generate.assert_not_called()
-
-    def test_four_known_saved_errors_are_read_only(self):
-        root=Path(__file__).resolve().parents[1]/'results models'
-        cases=[(root/'florence_grounding_llm_comparison10/responses/qwen35-4b-q4/loco-s2-34506.json',
-                root/'florence_grounding_llm_comparison10','loco-s2-34506')]
-        for fid,seed in [('loco-s1-34185',42),('loco-s4-33053',42),('loco-s5-35503',43)]:
-            cases.append((root/f'prompt_comparison40/responses/qwen35-27b-q4/{seed}/{fid}.json',root/'prompt_comparison40',fid))
-        for path,folder,fid in cases:
-            manifest=json.loads((folder/('manifest.json' if folder.name=='prompt_comparison40' else 'experiment200-manifest.json')).read_text())
-            frame=next(f for f in manifest['inputs'] if f['frame_id']==fid)
-            objects=json.loads((folder/frame['frozen']).read_text())['parsed']['objects'];before=path.read_bytes()
-            check=validate_response(json.loads(before),objects)
-            self.assertTrue(check['schema_or_finish_error']);self.assertTrue(any('reason' in e for e in check['errors']))
-            self.assertEqual(before,path.read_bytes())
+            digest=sha256(frozen.read_bytes());spec={'name':'test','model':'model'}
+            opts={'num_ctx':8192,'num_predict':2048,'seed':42}
+            signature=make_signature(json.loads(frozen.read_text()),digest,'model','weights','system','prompt',opts)
+            row={**self.row,'signature':signature,'input_sha256':digest,'model':'model','gpu':{'digest':'weights'},
+                 'request':{'model':'model','messages':signature['payload']['messages'],'options':opts,'format':'json','think':False}}
+            target=root/'response.json';target.write_text(json.dumps(row));original=target.read_bytes()
+            self.assertIsNone(prepare_position(target,frozen,digest,spec,'weights','system','prompt',opts,'template'))
+            for changed_digest,changed_prompt in [('changed','prompt'),('weights','changed')]:
+                with self.assertRaises(ValueError):prepare_position(target,frozen,digest,spec,changed_digest,'system',changed_prompt,opts,'template')
+                self.assertEqual(original,target.read_bytes())

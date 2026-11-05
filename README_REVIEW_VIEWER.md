@@ -22,7 +22,11 @@ Skupna referenca se vnese samo enkrat. Privzeti način **Samo referenčni razred
 
 Utemeljitve so poljubne in imajo svoj način ter napredek. Dobesedno enake utemeljitve z enakim napovedanim razredom iste regije se povežejo tudi med BF16/Q4 modeli, prompti in ponovitvami. Ena izrecna ocena velja za vse navedene povezane odgovore. Različne stare ocene ostanejo nespremenjene, dokler sami ne izberete nove skupne ocene. Neocenjene utemeljitve ne preprečijo dokončanja referenčnega pregleda.
 
-Skupni statični pregled vseh petih modelov in njihovih ponovitev: `results models/prompt_comparison40/bf16/index.html`; skupni izvoz regij: `bf16/all-region-classes.csv`. Oba sta pregled rezultatov, brez vaših zasebnih ocen. CSV/JSON osebnih ocen izvozite iz Python pregledovalnika.
+Statični primerjalni HTML/CSV, stari prompti in izvajalniki so v
+[arhivski veji](https://github.com/Vulpes271/Klasifikacija-to-k/tree/archive/experiments-before-prune-2026-11-05).
+Na aktivni veji ostajajo vsi manifesti, zamrznjeni opisi, izvorni odgovori in slike,
+ki jih ta Python pregledovalnik neposredno potrebuje. Tudi objavljeni izvozi vaših
+ocen ostajajo v `results models/prompt_comparison40/manual-review-2026-11-04/`.
 
 Za obstoječi izvoz 200 slik:
 

@@ -3,6 +3,11 @@ from collections import Counter
 import time
 
 
+class GPURequiredError(RuntimeError):
+    """Prekine zagon, če izvajanja v celoti na GPU ni mogoče potrditi."""
+
+
+
 def validate_eos(last_token, generation_eos, tokenizer_eos):
     """Florence zunanji generation_config lahko nima EOS; tedaj velja tokenizerjev EOS."""
     eos=generation_eos if generation_eos is not None else tokenizer_eos

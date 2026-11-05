@@ -16,16 +16,6 @@ services:
       retries: 30
       start_period: 10s
     # No host port is published. The Python container uses the internal network.
-  app:
-    build: .
-    profiles: ["tools"]
-    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
-    volumes:
-      - ./data:/app/data
-      - ./results:/app/results
-      - ./configs:/app/configs:ro
-    depends_on:
-      ollama:
-        condition: service_healthy
+
 volumes:
   ollama-models:

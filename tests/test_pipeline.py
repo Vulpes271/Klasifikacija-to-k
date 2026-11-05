@@ -52,7 +52,7 @@ class PipelineTests(unittest.TestCase):
     def test_default_and_exact_evidence_prompt(self):
         self.assertEqual(self.cfg['llm']['selected'],'qwen')
         self.assertEqual(self.cfg['llm']['alternatives']['qwen'],'qwen3.5:27b-q4_K_M')
-        self.assertEqual(self.cfg['llm']['system_file_text'],(p.ROOT/'results models/prompt_comparison40/prompts/new-system.txt').read_text())
+        self.assertEqual(sha256(self.cfg['llm']['system_file_text'].encode()),'7b4612e6ddc6ef002a6cc2ac312b143edd7c0b12b4ac30e77dc4437309e850dd')
 
     def test_full_caption_regions_export_and_separate_review(self):
         run,manifest=self.saved_vision();summary=p.export_results(self.output)

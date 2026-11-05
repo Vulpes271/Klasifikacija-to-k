@@ -1,31 +1,18 @@
-# Arhiv preteklih poskusov
+# Arhiv starih poskusov
 
-Za aktivno uporabo glej [README](../README.md). Eksperimentalni izvajalniki niso
-privzeta pot; ohranjeni so zaradi reprodukcije objavljenih rezultatov.
+Pred odstranitvijo je bil celoten posnetek objavljen in preverjen na veji
+[`archive/experiments-before-prune-2026-11-05`](https://github.com/Vulpes271/Klasifikacija-to-k/tree/archive/experiments-before-prune-2026-11-05),
+commit `04eed71ac18d3684c094e4fe9f8449283171addd`. Vsebuje stare rezultate, izbrane
+podatke, poročila, konfiguracije, prompte, izvajalnike in teste.
 
-| Arhivski izvajalnik | Namen |
-| --- | --- |
-| `scripts/stage1_florence.sh`, `florence_grounding_llm.sh` | Florence grounding 10/30 slik in primerjava LLM |
-| `scripts/experiment200.sh` | Izbor in primerjava 200 slik |
-| `scripts/prompt_comparison40.sh`, `prompt_comparison_bf16.sh` | Dva prompta in BF16 razširitev |
-| `scripts/lilocbench.sh` | Geometrijsko izbrani pari LILocBench |
-| `scripts/thud_*.sh`, `loco_experiment.sh`, `bbox_comparison.sh` | Stari industrijski/slikovni/LLM poskusi |
-| `scripts/stage1_describe.sh`, `stage2_reason.sh`, `test_vision*.sh` | Prejšnja generična primerjalna pot |
+Za reprodukcijo uporabite ločeno kopijo arhivske veje. Starih izvajalnikov ne
+vračajte v aktivni pipeline. Arhivska veja ne vsebuje lokalnih uteži, zasebnih
+baz ocen ali nesledenih surovih podatkov. Ti ostajajo lokalno.
 
-Pripadajoči moduli `thud_*`, `loco_experiment`, `florence_grounding`,
-`florence_grounding_llm`, `prompt_comparison*`, `lilocbench` in prejšnji
-`vision_pipeline` ostajajo na istih poteh. Skupne GPU meritve, native validacija,
-izris ter Ollama tokenizer so sedaj ponovno uporabljeni iz nevtralnih modulov;
-podpisi/arhivski formati rezultatov se ne spreminjajo.
+Aktivna veja vsebuje samo Florence → Qwen/Gemma pipeline, pregledovalnik in njegove
+neposredne odvisnosti ter celoten LILocBench. Podatki starega 40/200-slikovnega
+pregleda ostajajo zaradi nadaljevanja že shranjenih ročnih ocen; njihovi manifesti
+in identitete se niso spreminjali.
 
-Pred reprodukcijo je treba obnoviti samo potrebne opuščene modele po izvornih
-model ID-jih, revizijah in manifestih. Uteži NVILA/Qwen3-VL in manjši Ollama modeli
-niso več nameščeni. Obnovitev ni del aktivnega zagona. Delujoča Docker okolja so
-ostala. Florence je fizično v `models/florence-2-large`; stara pot je ohranjena
-kot simbolna povezava. Neutežni podatki odstranjenih checkpointov so lokalno v
-`models/retired-metadata/`, majhne konfiguracije v `maintenance/retired-model-configs/`.
-
-Surovi rezultati, arhivski manifesti, prompte, poročila in objavljene slike so
-nedotaknjeni. Lokalnih map z morebitnimi edinstvenimi rezultati nismo odstranjevali.
-Izbrisani range bloki in popolni ZIP indeksi LILocBench so ponovljivi prenosi;
-izbrane slike, poze, kalibracije, CRC/SHA in izvorni URL-ji so ohranjeni.
+Arhiviranja HTML iz commita `04eed71` nismo ponavljali. Zunanji lokalni arhiv
+ostaja na poti, zapisani v [local-inventory.md](../maintenance/local-inventory.md).

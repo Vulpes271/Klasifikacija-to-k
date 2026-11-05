@@ -1,1 +1,0 @@
-30 slik LOCO: prvih deset ohranjenih, samo preostalih dvajset je novih. Isti profil; 40 novih native klicev, brez ogrevanja ali ponovitev. Ukaz: bash scripts/stage1_florence.sh --loco30. Nadaljevanje preskoči shranjene rezultate, vključno z napakami.

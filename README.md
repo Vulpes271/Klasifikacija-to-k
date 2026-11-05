@@ -23,8 +23,9 @@ Nadaljnje ukaze lahko izvedete z `.venv/bin/python` namesto `python3`.
 Če projektno Ollamo ustavite, jo ponovno vključite z
 `docker compose -f compose.yaml -f compose.gpu.yaml up -d ollama`.
 Na drugem računalniku je treba najprej pripraviti iste lokalne uteži in okolje;
-[arhiv okolij](README_DOCKER.md) ter [Florence Dockerfile](docker/thud-florence.Dockerfile)
-ohranjata podrobnosti. Za nov projekt izberite veljavno pot uteži v konfiguraciji.
+[Florence Dockerfile](docker/thud-florence.Dockerfile) ohranja različice CUDA/PyTorch.
+Slika se po potrebi zgradi z `docker build -f docker/thud-florence.Dockerfile -t thud-florence:local .`.
+Za nov projekt izberite veljavno pot uteži v konfiguraciji.
 
 ## Konfiguracija in en zagon
 
@@ -90,15 +91,20 @@ združljivi in nedotaknjeni. Ocene ostajajo izključene iz Gita; podrobnosti so 
 
 ## Arhiv in preverjanje
 
-Stara navodila so v [README_EXPERIMENTS_ARCHIVE.md](README_EXPERIMENTS_ARCHIVE.md),
-pregled arhivskih izvajalnikov v [docs/ARCHIVE.md](docs/ARCHIVE.md).
-Objavljeni rezultati, izbrani podatki, kalibracije, prompti in surovi zapisi ostajajo.
-Pred čiščenjem je narejen Git checkpoint `checkpoint/before-florence-qwen-cleanup`.
-Ciljni zapis odstranitev in dejansko sproščenih blokov je
-[maintenance/cleanup-florence-qwen.json](maintenance/cleanup-florence-qwen.json).
+Celoten arhiv starih poskusov, podatkov, navodil, skript in testov je objavljen
+na veji [`archive/experiments-before-prune-2026-11-05`](https://github.com/Vulpes271/Klasifikacija-to-k/tree/archive/experiments-before-prune-2026-11-05).
+[Arhivska navodila](docs/ARCHIVE.md) pojasnijo dostop brez vračanja starih izvajalnikov v aktivno pot.
+
+Na tej veji je ohranjen celoten `results models/lilocbench/`. Preostale datoteke
+v imenikih z imeni `prompt_comparison40`, `florence_grounding_llm_comparison10` in
+`florence_caption_grounding_test10` so samo neposredni vhodi pregledovalnika oziroma
+objavljene ročne ocene: izvorni manifesti, zamrznjeni opisi, odgovori in originalne slike.
+Njihove poti, vsebine in identitete naborov so nespremenjene. Starih izvajalnikov ni več.
+Zasebni `reviews/`, uteži, Docker okolja ter lokalni nesledeni rezultati ostajajo nedotaknjeni.
+Zapis odstranitve: [maintenance/active-cleanup.md](maintenance/active-cleanup.md).
 
 Testi brez inferenc in brez dejanskih baz ocen:
 
 ```bash
-python3 -B -m unittest tests.test_pipeline tests.test_llm_checks tests.test_review_viewer tests.test_lilocbench -q
+python3 -B -m unittest discover -s tests -v
 ```

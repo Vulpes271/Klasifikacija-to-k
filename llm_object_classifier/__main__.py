@@ -1,5 +1,5 @@
-from .cli import main
+"""Privzeti ukaz paketa za aktivni Florence → Qwen pipeline."""
+from .pipeline import main
 
-raise SystemExit(main())
-
-
+if __name__ == '__main__':
+    main()

@@ -91,12 +91,16 @@ This is a separate review namespace and database. Existing 40-image ratings are
 untouched. One reference applies to all five models; reason review is optional.
 Private ratings and backups stay excluded from Git.
 
-To continue only this experiment using existing environments/models:
+## Reproduction and active pipeline
 
-```bash
-bash scripts/lilocbench.sh all
-```
+The original five-model experiment is a frozen result set. Its original runners,
+selection adapter and settings are retained on the published branch
+`archive/experiments-before-prune-2026-11-05` (commit
+`04eed71ac18d3684c094e4fe9f8449283171addd`). They are not active commands on this branch.
+All selected images, poses, calibrations, raw answers, prompts and provenance in
+this directory are preserved. No experiment was repeated during cleanup.
 
-Individual phases are `prepare`, `vision`, `text`, `export`. The first setup uses
-existing host NumPy/SciPy/PyYAML/Pillow, the existing `thud-florence:local` image,
-and the existing Ollama container. No new models or packages are installed.
+To use the current Florence → Qwen pipeline on these saved RGB files, use the
+active CLI documented in the root README with `--input "results models/lilocbench/images"`
+and a new output directory. This creates a separate run only when explicitly invoked.
+The paired HTML and Python viewer commands above remain available without inference.

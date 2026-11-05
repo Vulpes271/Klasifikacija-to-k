@@ -7,7 +7,7 @@ import time
 import urllib.error
 import urllib.request
 from .experiment import strict_json
-from .vision_pipeline import GPURequiredError
+from .gpu_runtime import GPURequiredError
 
 
 def request(url, body=None, timeout=600, headers=None):
