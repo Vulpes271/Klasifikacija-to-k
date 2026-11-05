@@ -162,3 +162,39 @@ Preverjenih je vseh šest povezav v vidnem drevesu. Cilji obstajajo; noben zunan
 | `results/thud-vmesno/**/comparison.html` in `results/thud-part2/**/comparison.html` | 1.124.401.152 B (1.05 GiB) skupaj (51 datotek) | Ignorirano; samo lokalno | Veliki pregledni izvozi; pred morebitno obnovitvijo ali brisanjem je treba preveriti generatorje, poročilne povezave in ohranitev surovih odgovorov. |
 
 Vse ostale lokalne eksperimentalne mape `results/` ostajajo zaradi nepreverjene edinstvenosti. `.git`, objavljeni rezultati/podatki, aktivne uteži, `reviews/`, izvozi ocen in varnostne kopije niso predlagani za brisanje. V tem opravilu ni bilo nobenega čiščenja.
+
+## Dopolnitev 2026-11-05: omejeno arhiviranje HTML in odstranitev predpomnilnika
+
+Izhodišče: veja `cleanup/florence-qwen`, commit `41c200be30dd4eaa1cd1ecd83cb7669b9ee79bf9`. Ta dopolnitev opisuje novo, izrecno dovoljeno čiščenje; zgornji popis ostaja zgodovinski posnetek pred njim.
+
+- Najdenih je bilo 51 navadnih datotek z natančnim imenom `comparison.html` pod `results/thud-vmesno/` in `results/thud-part2/`; simbolnim povezavam nismo sledili.
+- Arhiviranih in nato odstranjenih: **51 HTML datotek**. Sledenih ali poročilno odvisnih izvozov ni bilo v izboru; izločenih/nejasnih: 0.
+- Odstranjen predpomnilnik: `llm_object_classifier/__pycache__` (241.664 B dodeljenih blokov). Pot je bila preverjena kot nesledena običajna lokalna mapa znotraj projekta.
+
+### Preverjene odvisnosti
+
+Pregledanih je bilo 138 ohranjenih poročilnih/dokumentacijskih datotek ter URL-ji obeh PDF poročil. Aktivni `llm_object_classifier/review_viewer.py` bere manifeste, JSON in slike; teh starih HTML izvozov ne nalaga. `stage1_describe.save_tables` jih samo ustvarja. Generatorja THUD poročil bereta JSON in ustvarita ločena `manual-review.html`; ta sta ohranjena. Generične navedbe korenskih map surovih rezultatov niso sklici na izbrane `comparison.html`.
+
+Relevantne skripte/moduli (samo pregled, brez zaganjanja): `llm_object_classifier/review_viewer.py`, `llm_object_classifier/pipeline.py`, `llm_object_classifier/stage1_describe.py`, `llm_object_classifier/description_report.py`, `llm_object_classifier/thud_experiment.py`, `llm_object_classifier/thud_part2.py`, `llm_object_classifier/thud_report.py`, `llm_object_classifier/thud_part2_report.py`, `llm_object_classifier/thud_extended_report.py`, `scripts/thud_experiment.sh`, `scripts/thud_part2.sh`, `scripts/compile_thud_report.sh`, `scripts/thud_status.py`, `scripts/thud_ponovitve.py`.
+
+### Lokalni arhiv zunaj repozitorija
+
+- Pot glede na koren projekta: `../Klasifikacija-to-k-archives/comparison-html-2026-11-05-1793872843792162011.tar.xz`.
+- Format: en `tar.xz`; izvorne relativne poti so ohranjene. Vsebuje 51 HTML datotek in `ARCHIVE-MANIFEST.json` (52 članov skupaj). Arhiv ni dodan v Git.
+- Velikost arhiva: 82.702.100 B (78.87 MiB); dejansko dodeljeno: 82.706.432 B (78.88 MiB).
+- SHA256 arhiva: `df3fc5e0711d82d80ff50a416907737f20081bb0f2e6adc12b779244dc2c5c70`.
+- Celoten arhiv je bil ponovno prebran; preverjeni so bili množica članov, tipi, dolžine, manifest in SHA256 vseh HTML datotek. Nato so bile ponovno preverjene kontrolne vsote in identitete izvirnikov. Šele po uspehu vseh preverjanj so bili izvirniki odstranjeni. Njihova vsebina se je obravnavala samo kot bajti za arhiviranje/kontrolne vsote, brez pregleda odgovorov.
+
+### Dejanski prihranek prostora
+
+| Meritev | Dodeljeni prostor |
+| --- | ---: |
+| Odstranjeni HTML izvorniki | 1.124.401.152 B (1072.31 MiB) |
+| Odstranjeni predpomnilnik | 241.664 B (0.23 MiB) |
+| Izmerjeno zmanjšanje dveh izvornih dreves in predpomnilnika | 1.124.642.816 B (1072.54 MiB) |
+| Rast zunanje arhivske mape, skupaj z arhivom in režijo imenika | 82.710.528 B (78.88 MiB) |
+| **Neto sproščeno po odštetju arhiva in režije** | **1.041.932.288 B (993.66 MiB)** |
+
+Izračun uporablja `du -x -B1` pred/po posegu in razliko dodeljenih blokov zunanje arhivske mape. Ne uporablja seštevanja navideznih velikosti ali spremembe prostega prostora celotnega diska, ki bi vključevala druge procese. Kasnejša majhna rast zapisnika/Git objektov ni del meritve čiščenja.
+
+Metapodatki preostalih 29.171 datotek v projektu so ostali nespremenjeni. Vsebina surovih rezultatov, slik, uteži in ocen ni bila pregledovana; kode in poročila smo brali samo zaradi odvisnosti. Ohranjeni so vsi drugi rezultati in sami eksperimentalni imeniki, slike, manifesti, surovi odgovori, LILocBench, `results/experiment200/source-coco.json`, `models/florence-2-large`, `reviews/`, Docker okolja/volumni ter oba 27B modela. Modelov in testov nismo zaganjali. Pipeline in filtri niso spremenjeni. V commit je vključena samo ta dopolnitev zapisnika.
