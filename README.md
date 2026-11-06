@@ -75,6 +75,8 @@ z AMCL na kratkem odseku LILocBench; [ukaz in rezultati A/B](docs/lilocbench-pil
 Oba koraka sta izbirna in ne ponavljata Florence/LLM inferenc.
 Primerjava z vožnjo `static_0` ter slika in tabela treh zagonov A/B/C sta
 v [objavljenem poročilu](docs/lilocbench-abc/README.md).
+Celotni vožnji z RGB pri približno 1 Hz, skupnim prostorskim območjem in primerjavo
+s tabelo III sta v [poročilu celotnega testa](docs/lilocbench-full/README.md).
 
 ## Izhodi in ročni pregled
 
