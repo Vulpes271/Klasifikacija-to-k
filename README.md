@@ -79,6 +79,8 @@ Celotni vožnji z RGB pri približno 1 Hz, skupnim prostorskim območjem in prim
 s tabelo III sta v [poročilu celotnega testa](docs/lilocbench-full/README.md).
 Zamenjava samo klasifikatorja Qwen → Gemma na spodnji desni sobi je v
 [primerjavi Qwen/Gemma](docs/lilocbench-qwen-gemma/README.md).
+Vpliv približno 1 Hz in 5 Hz pri istem oknu maske je v
+[primerjavi gostote RGB](docs/lilocbench-rgb-rate/README.md).
 
 ## Izhodi in ročni pregled
 
