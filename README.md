@@ -77,6 +77,8 @@ Primerjava z vožnjo `static_0` ter slika in tabela treh zagonov A/B/C sta
 v [objavljenem poročilu](docs/lilocbench-abc/README.md).
 Celotni vožnji z RGB pri približno 1 Hz, skupnim prostorskim območjem in primerjavo
 s tabelo III sta v [poročilu celotnega testa](docs/lilocbench-full/README.md).
+Zamenjava samo klasifikatorja Qwen → Gemma na spodnji desni sobi je v
+[primerjavi Qwen/Gemma](docs/lilocbench-qwen-gemma/README.md).
 
 ## Izhodi in ročni pregled
 

@@ -308,7 +308,7 @@ def report(cfg,pilot):
     return metrics
 
 
-def plot_full(output,data,branches,successes):
+def plot_full(output,data,branches,successes,*,bounds=None,titles=None,filename="trajectories.png",heading=None):
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -328,7 +328,8 @@ def plot_full(output,data,branches,successes):
             valid=np.isfinite(poses).all(axis=1)
             if valid.any():low=np.minimum(low,poses[valid,:2].min(axis=0)-.5);high=np.maximum(high,poses[valid,:2].max(axis=0)+.5)
     fig,axes=plt.subplots(1,3,figsize=(19,8),sharex=True,sharey=True)
-    titles={'A':'A — static_0, original','B':'B — lt_changes_0, original','C':'C — same lt_changes_0, movable filter'}
+    if bounds is not None:low=np.array(bounds[:2]);high=np.array(bounds[2:])
+    titles=titles or {'A':'A — static_0, original','B':'B — lt_changes_0, original','C':'C — same lt_changes_0, movable filter'}
     for ax,branch in zip(axes,'ABC'):
         d=branches[branch];gt=d['gt'];valid=d['has_gt'];segments=np.stack([gt[:-1,:2],gt[1:,:2]],axis=1)
         ax.imshow(image,cmap='gray',vmin=0,vmax=255,extent=extent,origin='upper')
@@ -338,8 +339,8 @@ def plot_full(output,data,branches,successes):
         ax.legend(handles=[Line2D([],[],color='#159447',lw=3,label='GT: <10 cm AND <4°'),
                            Line2D([],[],color='#df3025',lw=3,label='GT: failure / missing estimate'),
                            Line2D([],[],color='#1858c9',lw=1,label='AMCL estimate')],fontsize=7,loc='lower right')
-    fig.suptitle('Full recordings — one AMCL run each, seed 42; no trajectory alignment')
-    fig.tight_layout();fig.savefig(output/'trajectories.png',dpi=150);plt.close(fig)
+    fig.suptitle(heading or 'Full recordings — one AMCL run each, seed 42; no trajectory alignment')
+    fig.tight_layout();fig.savefig(output/filename,dpi=150);plt.close(fig)
 
 
 def publish_report(cfg,pilot,metrics):
