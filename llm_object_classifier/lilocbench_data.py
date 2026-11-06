@@ -53,7 +53,7 @@ class RemoteZip(io.RawIOBase):
 def prepare_data(data,sequence,stored):
     """Reuse local GT/calibration; extract no mapping/depth/rear-camera archive members."""
     data=Path(data);stored=Path(stored)
-    if sequence!='lt_changes_0':raise ValueError('This pilot only downloads the authorized lt_changes_0 sequence')
+    if sequence not in {'lt_changes_0','static_0'}:raise ValueError('Only lt_changes_0/static_0 are enabled for bounded downloads')
     seq=data/sequence;seq.mkdir(parents=True,exist_ok=True)
     required=['transformations.yaml','camera_front/color/intrinsics.yaml','laser_scan_front/laser_specs.yaml',
               'laser_scan_front/ranges.txt','dingo_velocity_controller/odom.txt']
@@ -66,12 +66,15 @@ def prepare_data(data,sequence,stored):
         (seq/'gt_poses.txt').write_bytes(downloads.get(BASE+f'data/gt_poses_public/{sequence}/gt_poses.txt'))
     missing=[name for name in required if not (seq/name).exists()]
     if missing:
-        archive_size=10_008_762_359
         url=BASE+f'data/data_files_zipped/{sequence}.zip'
+        if sequence=='lt_changes_0':archive_size=10_008_762_359
+        else:
+            with urllib.request.urlopen(urllib.request.Request(url,method='HEAD'),timeout=60) as response:
+                archive_size=int(response.headers['Content-Length'])
         with zipfile.ZipFile(RemoteZip(downloads,url,archive_size)) as archive:
             # Keep a small index locally for auditable membership and extraction size.
             members={i.filename:i for i in archive.infolist()}
-            (data/'archive-index.json').write_text(json.dumps({n:{'bytes':i.file_size,'compressed_bytes':i.compress_size} for n,i in members.items()},indent=2))
+            (data/f'archive-index-{sequence}.json').write_text(json.dumps({n:{'bytes':i.file_size,'compressed_bytes':i.compress_size} for n,i in members.items()},indent=2))
             missing_paths=[name for name in missing if name not in members]
             if missing_paths:raise FileNotFoundError(f'Archive members missing: {missing_paths}')
             needed=sum(members[name].file_size for name in missing)
@@ -92,3 +95,27 @@ def prepare_data(data,sequence,stored):
         evaluator.parent.mkdir(exist_ok=True)
         evaluator.write_bytes(downloads.get('https://raw.githubusercontent.com/PRBonn/LILocBench/main/src/evaluate.py'))
     return seq
+
+
+def extract_rgb(data,sequence,timestamps):
+    """Fetch only nearest front RGB ZIP members to explicitly selected timestamps."""
+    data=Path(data);downloads=Downloads(data/'http-cache')
+    if sequence not in {'static_0','lt_changes_0'}:raise ValueError('Unsupported sequence')
+    # Exact previously selected image stamps need neither HEAD nor ZIP requests.
+    cached=list((data/sequence/'camera_front/color/images').glob('*.png'))
+    exact=[next((p for p in cached if abs(float(p.stem)-t)<1e-6),None) for t in timestamps]
+    if all(p is not None for p in exact):return exact
+    url=BASE+f'data/data_files_zipped/{sequence}.zip'
+    with urllib.request.urlopen(urllib.request.Request(url,method='HEAD'),timeout=60) as response:
+        size=int(response.headers['Content-Length'])
+    with zipfile.ZipFile(RemoteZip(downloads,url,size)) as archive:
+        images=[i.filename for i in archive.infolist() if i.filename.startswith('camera_front/color/images/') and i.filename.endswith('.png')]
+        if not images:raise FileNotFoundError('No front RGB archive members')
+        selected=[]
+        for t in timestamps:
+            name=min(images,key=lambda n:abs(float(Path(n).stem)-t));target=data/sequence/name
+            if not target.exists():
+                target.parent.mkdir(parents=True,exist_ok=True)
+                target.write_bytes(archive.read(name))
+            selected.append(target)
+    return selected
