@@ -198,8 +198,33 @@ def main():
     """En ukaz za oba koraka, posamična koraka ali povsem offline izvoz."""
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--config',type=Path,default=ROOT/'configs/pipeline.json')
     p.add_argument('--input',type=Path);p.add_argument('--output',type=Path);p.add_argument('--model',choices=('qwen','gemma'))
-    p.add_argument('--stage',choices=('all','florence','llm','export'),default='all');p.add_argument('--florence-from',type=Path)
-    args=p.parse_args();cfg=load_settings(args.config);output=(args.output or ROOT/cfg['output']).resolve()
+    p.add_argument('--stage',choices=('all','florence','llm','export','segment','localize'),default='all');p.add_argument('--florence-from',type=Path)
+    p.add_argument('--results-from',type=Path,help='Stored LILocBench results; used only by --stage segment')
+    p.add_argument('--frames',nargs='+',help='Explicit stored frame IDs for optional segmentation')
+    p.add_argument('--sequence');p.add_argument('--start',type=float);p.add_argument('--end',type=float)
+    p.add_argument('--data',type=Path);p.add_argument('--preflight-only',action='store_true')
+    args=p.parse_args()
+    if args.stage=='localize':
+        if args.input or args.model or args.florence_from or args.results_from or args.frames:
+            p.error('--stage localize uses the stored inputs specified in configs/lilocbench-pilot.json')
+        from .localization_pilot import run_pilot
+        pilot=read_json(ROOT/'configs/lilocbench-pilot.json')
+        run_pilot(args.sequence or pilot['sequence'],args.start if args.start is not None else pilot['start'],
+                  args.end if args.end is not None else pilot['end'],args.data or ROOT/'data/lilocbench-pilot',
+                  args.output or ROOT/'results/lilocbench-pilot',pilot,args.preflight_only)
+        return
+    if args.sequence or args.start is not None or args.end is not None or args.data or args.preflight_only:
+        p.error('--sequence/--start/--end/--data/--preflight-only require --stage localize')
+    if args.stage=='segment':
+        if not args.results_from or not args.output or not args.frames:
+            p.error('--stage segment requires --results-from, --output and --frames')
+        if args.input or args.model or args.florence_from:
+            p.error('--stage segment uses stored results only')
+        from .box_segmentation import run_segmentation
+        run_segmentation(args.results_from,args.output,args.frames,read_json(args.config)['segmentation'],ROOT)
+        return
+    if args.results_from or args.frames:p.error('--results-from/--frames require --stage segment')
+    cfg=load_settings(args.config);output=(args.output or ROOT/cfg['output']).resolve()
     if args.stage=='export':export_results(output);return
     if args.model:cfg['llm']['selected']=args.model
     if args.florence_from and args.stage!='llm':p.error('--florence-from je namenjen samo --stage llm')

@@ -66,6 +66,14 @@ Po klicu se preverijo dejanski tokeni. Celoten GPU, natančnost Q4_K_M in digest
 se preverijo pred generacijo; CPU preklopa ni. Zaključek, JSON, točni ID-ji,
 podvojitve, razredi in neprazen `reason` se preverijo s skupnim validatorjem.
 
+## Izbirna segmentacija in lokalizacijski pilot
+
+`--stage segment` filtrira shranjene okvirje in izdela SAM 2 maske; glejte
+[navodila za segmentacijo](docs/box-segmentation.md).
+`--stage localize` primerja originalne in z maskami filtrirane sprednje skene
+z AMCL na kratkem odseku LILocBench; [ukaz in rezultati A/B](docs/lilocbench-pilot.md).
+Oba koraka sta izbirna in ne ponavljata Florence/LLM inferenc.
+
 ## Izhodi in ročni pregled
 
 - `run.json`, `source/`, okolja in metapodatki: konfiguracija, dejanske različice,

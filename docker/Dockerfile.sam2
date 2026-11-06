@@ -1,0 +1,5 @@
+# Optional box-prompt segmentation; Florence and LLM environments stay untouched.
+FROM thud-florence:local
+ARG SAM2_REVISION=2b90b9f5ceec907a1c18123530e92e794ad901a4
+ENV SAM2_BUILD_CUDA=0
+RUN python -m pip install --no-cache-dir --no-build-isolation "https://github.com/facebookresearch/sam2/archive/${SAM2_REVISION}.zip"
