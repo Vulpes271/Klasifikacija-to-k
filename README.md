@@ -82,6 +82,9 @@ Zamenjava samo klasifikatorja Qwen → Gemma na spodnji desni sobi je v
 Vpliv približno 1 Hz in 5 Hz pri istem oknu maske je v
 [primerjavi gostote RGB](docs/lilocbench-rgb-rate/README.md).
 
+Primerjava filtriranja med izdelavo zemljevida (10 parov AMCL na vsaki od štirih
+sekvenc) je v [poročilu filtriranega zemljevida](docs/lilocbench-filtered-map/README.md).
+
 ## Izhodi in ročni pregled
 
 - `run.json`, `source/`, okolja in metapodatki: konfiguracija, dejanske različice,

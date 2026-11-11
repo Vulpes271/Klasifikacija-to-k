@@ -8,6 +8,7 @@ import zipfile
 
 BASE='https://www.ipb.uni-bonn.de/html/projects/localization_benchmark/'
 LIMIT=12_000_000_000
+PUBLIC_SEQUENCES={'mapping','static_0','dynamics_0','lt_changes_0','lt_changes_dynamics_0'}
 
 
 class Downloads:
@@ -51,9 +52,9 @@ class RemoteZip(io.RawIOBase):
 
 
 def prepare_data(data,sequence,stored):
-    """Reuse local GT/calibration; extract no mapping/depth/rear-camera archive members."""
+    """Reuse local GT/calibration; extract only front scan, odometry and calibration."""
     data=Path(data);stored=Path(stored)
-    if sequence not in {'lt_changes_0','static_0'}:raise ValueError('Only lt_changes_0/static_0 are enabled for bounded downloads')
+    if sequence not in PUBLIC_SEQUENCES:raise ValueError('Only public sequences are enabled for bounded downloads')
     seq=data/sequence;seq.mkdir(parents=True,exist_ok=True)
     required=['transformations.yaml','camera_front/color/intrinsics.yaml','laser_scan_front/laser_specs.yaml',
               'laser_scan_front/ranges.txt','dingo_velocity_controller/odom.txt']
@@ -100,7 +101,7 @@ def prepare_data(data,sequence,stored):
 def extract_rgb(data,sequence,timestamps):
     """Fetch only nearest front RGB ZIP members to explicitly selected timestamps."""
     data=Path(data);downloads=Downloads(data/'http-cache')
-    if sequence not in {'static_0','lt_changes_0'}:raise ValueError('Unsupported sequence')
+    if sequence not in PUBLIC_SEQUENCES:raise ValueError('Unsupported sequence')
     # Exact previously selected image stamps need neither HEAD nor ZIP requests.
     cached=list((data/sequence/'camera_front/color/images').glob('*.png'))
     exact=[next((p for p in cached if abs(float(p.stem)-t)<1e-6),None) for t in timestamps]

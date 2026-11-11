@@ -1,0 +1,17 @@
+{
+  "data": "data/lilocbench-pilot",
+  "cache": "data/lilocbench-filtered-map",
+  "output": "results/lilocbench-filtered-map",
+  "pilot_config": "configs/lilocbench-pilot.json",
+  "pipeline_config": "configs/pipeline.json",
+  "rgb_hz": 5.0,
+  "batch_size": 64,
+  "seeds": [42,43,44,45,46,47,48,49,50,51],
+  "sequences": ["static_0","dynamics_0","lt_changes_0","lt_changes_dynamics_0"],
+  "map": {"resolution":0.05,"width":1000,"height":1000,"origin":[-25.0,-25.0,0.0],"log_hit":0.85,"log_free":-0.4,"log_limit":5.0,"occupied_thresh":0.65,"free_thresh":0.196,"negate":0},
+  "mapping_pose_policy": "Public mapping GT, planar interpolation at each beam time; no scan-matching refinement; identical poses for both maps. Skip beams without interpolable GT in BOTH maps.",
+  "removed_ray_policy": "No update at all for a removed beam, including no free-space update before or behind its endpoint. Other retained beams can independently observe those cells.",
+  "room_bounds_xyxy": [5.0,-10.8,13.8,-5.0],
+  "gallery_section": [1733414160.0,1733414211.0],
+  "paper": "https://www.ipb.uni-bonn.de/wp-content/papercite-data/pdf/trekel2025iros.pdf"
+}
