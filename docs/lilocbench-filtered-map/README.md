@@ -62,10 +62,14 @@ Slike kažejo vnaprej izbrano seme 42; tabelo tvori vseh 10 semen. Modro: AMCL; 
 python3 -m llm_object_classifier.localization_filtered_map --config configs/lilocbench-filtered-map.json
 ```
 
-Posamezni koraki: `--stage prepare`, `preflight`, `models`, `maps`, `amcl`, `report`. Zaključene inference, maske, integracija mreže in AMCL zagoni se ponovno uporabijo. Dnevniki in progress.json so v results/lilocbench-filtered-map/. Podatki, modeli, surovi izhodi in lokalna HTML galerija niso v Git.
+Posamezni koraki: `--stage prepare`, `preflight`, `models`, `maps`, `amcl`, `report`. Zaključene inference, maske, integracija mreže in AMCL zagoni se ponovno uporabijo. Dnevniki in progress.json so v results/lilocbench-filtered-map/. Podatki, modeli in celotni surovi izhodi ostanejo lokalno. Izbrani odzivi, maske in slike galerije so vključeni v Git.
 
-Lokalna galerija: `/home/student/jakob/Klasifikacija-to-k/results/lilocbench-filtered-map/gallery/index.html`. Galerija prikaže originalni RGB, okvirje/oznake, SAM maske (odstranitev rdeča, fixed zelena, uncertain siva) in dejansko odstranjene mapping zadetke. LiDAR primerjave uporabljajo GT samo za diagnostiko in prikazujejo iste originalne lokalizacijske zadetke na obeh zemljevidih.
+[Galerija z vsemi slikami in izbranimi odzivi](gallery/index.html) · [PDF povzetek](porocilo.pdf) · [izvorno besedilo poročila](porocilo.md). Galerija prikaže originalni RGB, okvirje/oznake, SAM maske (odstranitev rdeča, fixed zelena, uncertain siva) in dejansko odstranjene mapping zadetke. LiDAR primerjave uporabljajo GT samo za diagnostiko in prikazujejo iste originalne lokalizacijske zadetke na obeh zemljevidih.
 
 [Metrike vseh ponovitev](metrics.json), [protokol](protocol.json), [kratek preizkus](preflight.json).
 
 Viri: [članek, tabela III](https://www.ipb.uni-bonn.de/wp-content/papercite-data/pdf/trekel2025iros.pdf), [uradni podatki, GT in navodila za zemljevide](https://www.ipb.uni-bonn.de/html/projects/localization_benchmark/), [evaluator](https://github.com/PRBonn/LILocBench). Trekel et al., IROS 2025. Zemljevidi in izpeljane slike: [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+Galerija vsebuje 25 prvotnih primerov, relativne poti, posamezne binarne maske SAM in shranjene odzive za točne RGB ID-je. [Hodnik, sken 4751](gallery/index.html#lt_changes_0-04751) in [spodnja desna soba, sken 4946](gallery/index.html#lt_changes_0-04946) sta posebej označena. Manjkajoči odzivi/obrazložitve so izrecno označeni. Pri lokalizacijskih primerih je odstranitev 0; rdeče točke mapping primerov kažejo dejanske odstranitve.
+
+PDF lahko brez podatkov/cache ponovno izdelaš z `python3 maintenance/render_filtered_map_report.py` (ReportLab, Pillow in pisava DejaVu Sans). Izvoz galerije iz obstoječega cache: `python3 maintenance/export_filtered_map_gallery.py` (Beautiful Soup in NumPy); skripta ne kliče modelov ali AMCL.
