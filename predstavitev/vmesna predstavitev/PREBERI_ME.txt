@@ -1,0 +1,21 @@
+5 prosojnic; približno 5 minut govora.
+
+vmesna_predstavitev.pptx — glavna predstavitev; govor v opombah.
+vmesna_predstavitev.pdf — pregled prosojnic.
+besedilo_5_prosojnic.txt — kratke alineje za slide in ločeno govor.
+shema_pipeline.png / SVG — osnovna črno-bela shema.
+primer_segmentacije.png — isti RGB, Florence okvir in shranjena maska SAM 2.
+tabela_modelov.png / SVG / CSV — dejanske vrednosti iz tvojih oznak.
+predloga/ — nespremenjena izvirna predloga LR z veje feature/configurable-vision-pipeline.
+
+Slog: izvirna predloga LR, 16:9, logotipi, oranžni naslovi; črno besedilo, osnovne tabele in črno-bela shema. Qwen 3.5 27B je poudarjen kot izbrani model. Tabela uporablja uporabnikov izračun 100 % − delež napačnih odločitev. Napačne so samo zamenjave fixed/movable na veljavnih odgovorih z jasno referenco. Napoved uncertain ni napaka; ostane v imenovalcu. Referenčne uncertain in neocenljive regije izpustimo; neveljavne odgovore izpustimo iz imenovalca. Qwen 27B ima 2 napaki med 364 veljavnimi odgovori (81 uncertain; 12 neveljavnih izpuščenih), kar da 99,45 %. Ta kazalnik ni običajna točnost razvrščanja. Podrobni števci so v sledljivost.json.
+
+Primer: LILocBench, lt_changes_0, view-000044, SAM regija 1, izvorna ID 1 in 4. Barva maske je samo vizualizacija enega shranjenega rezultata, ne odstranitev LiDAR zadetkov.
+Sledljivost: sledljivost.json. Brez novih modelnih ali AMCL zagonov.
+
+Vir podatkov/slik: Trekel et al., LILocBench, CC BY-NC-SA 4.0.
+https://www.ipb.uni-bonn.de/html/projects/localization_benchmark/
+https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+Ponovna izdelava: python3 maintenance/build_interim_presentation.py
+Odvisnosti: python-pptx, Matplotlib, NumPy, Pillow.

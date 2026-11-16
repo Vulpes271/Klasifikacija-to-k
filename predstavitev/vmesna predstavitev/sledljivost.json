@@ -1,0 +1,79 @@
+{
+  "template": {
+    "branch": "feature/configurable-vision-pipeline",
+    "path": "templateLaTeX_202627-ppt-doc-teX/PredlogaZaKoncnoPredstavitevLR.pptx",
+    "revision": "e7dce765",
+    "sha256": "afb87415034b942a0c5a442da4e09356ce695f02bdf6b2852f9baaf45697b585"
+  },
+  "segmentation": {
+    "source_report": "results/lilocbench-box-segmentation-test2/segmentation.json",
+    "sequence": "lt_changes_0",
+    "frame_id": "view-000044",
+    "region_id": 1,
+    "source_ids": [
+      1,
+      4
+    ],
+    "mask_sha256": "46ddb6a22dce6b9a031ec482e1fbb7f9e4c554f5cde90d1fc5367a01e2b3b7d8"
+  },
+  "manual_evaluation": {
+    "source": "reviews/manual_review.sqlite3",
+    "reference_regions": 376,
+    "seed": 42,
+    "main_prompt": "new",
+    "score_formula": "100 * (1 - definite_fixed_movable_errors / valid_responses)",
+    "predicted_uncertain": "Not an error; retained in denominator",
+    "reference_uncertain": "Excluded",
+    "invalid_predictions": "Excluded from score denominator; counts retained in results",
+    "metric_note": "Complement of definite error rate, not exact class accuracy",
+    "results": [
+      {
+        "model": "gemma3:27b-it-q4_K_M",
+        "reference_regions": 376,
+        "valid": 376,
+        "wrong": 9,
+        "uncertain": 35,
+        "score_percent": 97.6063829787234,
+        "invalid_or_missing": 0
+      },
+      {
+        "model": "qwen3.5:27b-q4_K_M",
+        "reference_regions": 376,
+        "valid": 364,
+        "wrong": 2,
+        "uncertain": 81,
+        "score_percent": 99.45054945054946,
+        "invalid_or_missing": 12
+      },
+      {
+        "model": "qwen3.5:4b-bf16",
+        "reference_regions": 376,
+        "valid": 376,
+        "wrong": 10,
+        "uncertain": 50,
+        "score_percent": 97.3404255319149,
+        "invalid_or_missing": 0
+      },
+      {
+        "model": "qwen3.5:4b-q4_K_M",
+        "reference_regions": 376,
+        "valid": 376,
+        "wrong": 10,
+        "uncertain": 79,
+        "score_percent": 97.3404255319149,
+        "invalid_or_missing": 0
+      },
+      {
+        "model": "qwen3.5:9b-bf16",
+        "reference_regions": 376,
+        "valid": 376,
+        "wrong": 4,
+        "uncertain": 99,
+        "score_percent": 98.93617021276596,
+        "invalid_or_missing": 0
+      }
+    ]
+  },
+  "inference_rerun": false,
+  "amcl_rerun": false
+}

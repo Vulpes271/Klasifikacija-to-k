@@ -1,0 +1,99 @@
+VMESNA PREDSTAVITEV — 5 PROSOJNIC, PRIBLIŽNO 5 MINUT
+
+Na prosojnice prenesi le del »NA PROSOJNICI«. Del »GOVOR« je za ustno predstavitev in je tudi v opombah priloženega PowerPointa. Govori povezano, brez branja vseh številk tabele. Približno 145–160 besed/minuto.
+
+IZRAČUN TABELE (ZA PRIPRAVO, NE ZA PROSOJNICO)
+Prikaz = 100 % − delež zamenjav fixed/movable med veljavnimi odgovori z jasno ročno referenco fixed/movable. Napoved uncertain ni napaka in ostane v imenovalcu. Referenčne uncertain/neocenljive regije in neveljavne odgovore izpustimo. To je dopolnilo deleža napačnih odločitev, ne običajna točnost razvrščanja. Qwen 27B: 2 napaki / 364 veljavnih odgovorov; 81 napovedi uncertain; 12 neveljavnih odgovorov izpuščenih.
+
+
+PROSOJNICA 1 — ISTO OKOLJE, RAZLIČNE SPREMEMBE
+Čas: približno 55 sekund
+
+NA PROSOJNICI:
+• LILocBench: RGB + 2D LiDAR
+• Statično / ljudje / prestavljeni predmeti
+• Cilj: stabilna geometrija
+
+SLIKA: okolje_rgb.png; po želji majhen zemljevid iz okolje_zemljevid.png.
+
+GOVOR:
+Pri nalogi se ukvarjam z vprašanjem, katere meritve naj robot ohrani v dolgoročnem zemljevidu. Če na primer v hodnik postavimo kartonsko škatlo, jo LiDAR zazna kot oviro. Če takšno oviro vključimo v zemljevid, škatlo pa pozneje odstranimo, se trenutne meritve in zemljevid ne ujemajo več. To lahko oteži določanje položaja robota.
+
+Uporabljam podatkovno zbirko LILocBench. V njej je isto notranje okolje posneto v več razmerah: v statičnem stanju, ob prisotnosti ljudi, po prestavitvah predmetov in s kombinacijo teh sprememb. To ne pomeni, da je statična sekvenca brez pohištva; pomembno je, da lahko primerjamo isto okolje ob različnih spremembah.
+
+Za obdelavo imam RGB slike in 2D LiDAR skene. RGB mi pomaga razumeti, kaj predmet je, LiDAR pa poda meritve razdalj za gradnjo zemljevida in lokalizacijo. Cilj je ohraniti stabilno geometrijo, na primer stene in vrata, ter premične predmete obravnavati posebej.
+
+
+PROSOJNICA 2 — IZBIRA MODELA
+Čas: približno 60 sekund
+
+NA PROSOJNICI:
+Model | %
+Qwen 3.5 27B Q4 | 99,45 %
+Qwen 3.5 9B BF16 | 98,94 %
+Gemma 3 27B Q4 | 97,61 %
+Qwen 3.5 4B BF16 | 97,34 %
+Qwen 3.5 4B Q4 | 97,34 %
+
+GOVOR:
+Najprej smo preizkušali bolj neposreden pristop, pri katerem naj bi model iz slike opravil več nalog hkrati. Nato smo nalogo razdelili. Florence pripravi opis in označi regije na sliki, jezikovni model pa iz tega besedila odloči, ali je posamezna regija stalna, premična ali negotova. S tem lahko ločeno pregledam, ali je težava nastala že pri opisu ali šele pri odločitvi.
+
+Preizkusili smo več velikosti modelov Qwen, različne natančnosti ter Gemmo. Tabela primerja modele glede na napačne odločitve med stalnim in premičnim razredom. Prikazana vrednost je sto odstotkov minus delež teh napak. Negotova napoved pri tem ni napačna odločitev. Neveljavne odgovore obravnavamo ločeno in jih v ta izračun ne vključimo.
+
+Po tem kriteriju ima Qwen 3.5 27B najmanj napačnih odločitev in ga uporabljam v nadaljnjem pipelineu. Ker se model lahko tudi vzdrži odločitve, je treba poleg tega spremljati pokritost. Ta tabela še ne meri kakovosti mask ali uspešnosti lokalizacije robota.
+
+
+PROSOJNICA 3 — KAKO PIPELINE ODLOČA
+Čas: približno 65 sekund
+
+NA PROSOJNICI:
+Shema pipelinea
+Stalno: ohranimo | Premično: kandidat za izločitev | Negotovo: ohranimo
+
+SLIKA: shema_pipeline.png; za spreminjanje velikosti je priložen tudi SVG.
+
+GOVOR:
+Pipeline se začne z RGB sliko. Florence najprej opiše prizor in določi okvirje regij, na katere se opis nanaša. Nato Qwen dobi besedilni opis, oznake in opažanja za posamezne regije. Fotografije v tem koraku ne vidi. Za vsako regijo vrne razred in kratko obrazložitev.
+
+Pri odločitvi nas zanima, ali se položaj predmeta lahko spremeni med običajno uporabo prostora. Stena ali vgrajena vrata sodijo med stalne elemente. Kartonska škatla ali stol sta običajno premična. Če opis ne pove dovolj, na primer ali je polica trajno pritrjena, uporabimo negotovo oznako. Samo dejstvo, da predmet trenutno miruje, še ne pomeni, da je stalen.
+
+SAM 2 iz Florence okvirjev izdela natančnejše maske predmetov. Nato z znano kalibracijo in časovno povezavo preverimo, kateri LiDAR zadetki padejo v te maske. Za izločitev pridejo v poštev le premične regije. Če se prekrivajo s stalnimi ali negotovimi regijami, zaščitni del ostane. Brez veljavne časovno povezane maske meritev ne odstranimo. Tako je odločanje namenoma konservativno.
+
+
+PROSOJNICA 4 — PRIMER SEGMENTACIJE IZ HODNIKA
+Čas: približno 60 sekund
+
+NA PROSOJNICI:
+RGB → okvir → maska SAM 2
+Škatla → premično
+
+SLIKA: primer_segmentacije.png. Primer je view-000044 iz lt_changes_0; vsi trije prikazi temeljijo na isti sliki in shranjeni maski.
+
+GOVOR:
+Na tem primeru je hodnik iz istega okolja. Pred zaprtimi vrati so kartonske škatle. Na levi je originalna RGB slika, na sredini okvir velike škatle, ki ga je določila Florence, na desni pa maska iste škatle, ki jo je izračunal SAM 2.
+
+Razlika med okvirjem in masko je pomembna. Okvir je pravokotnik in vsebuje tudi del okolice. Maska skuša slediti dejanski obliki vidnega predmeta, zato je primernejša za povezovanje z LiDAR meritvami. Jezikovni model je škatlo označil kot premično, ker jo med običajno uporabo lahko prenesemo drugam. To še ne pomeni, da se je med tem posnetkom dejansko premikala.
+
+Prikazujem shranjen rezultat, ne novega zagona. Barvna maska na desni pomeni segmentirano območje škatle, ne že odstranjenih LiDAR točk. Dejanska odstranitev potrebuje še pravilno projekcijo in časovno ujemanje senzorjev. Tudi vizualno dobra maska sama po sebi še ni dokaz, da bo lokalizacija boljša. Je pa dober prikaz, da osnovni koraki že delujejo skupaj.
+
+
+PROSOJNICA 5 — KAJ ŽE DELUJE IN KAJ SLEDI
+Čas: približno 60 sekund
+
+NA PROSOJNICI:
+ŽE DELUJE
+• Izločanje točk pri gradnji zemljevida
+• Preizkusi lokalizacije z AMCL
+
+NASLEDNJE
+• Preveriti napake v maskah in projekciji
+• Povečati pokritost in primerjati rezultate
+
+SLIKA: po želji okolje_zemljevid.png, dovolj majhna, da besedilo ostane veliko.
+
+GOVOR:
+Trenutno imamo povezan potek od slike do oznake, segmentacije in izločanja LiDAR zadetkov. Izvedli smo tudi gradnjo dveh zemljevidov iz iste mapping vožnje: enega z originalnimi meritvami in drugega z izločanjem izbranih zadetkov. Nato smo na obeh preizkusili lokalizacijo z AMCL v različnih razmerah istega okolja.
+
+Pri tem zadnjem preizkusu je pomembno, da smo filtrirali med gradnjo zemljevida, lokalizacijske meritve pa so na obeh zemljevidih ostale originalne. Ločeno imamo tudi prejšnje poskuse filtriranja med samo lokalizacijo. Rezultati še ne kažejo doslednega izboljšanja: v dinamični sekvenci je sprememba ugodna, pri dolgoročnih spremembah pa se lahko lokalizacija poslabša.
+
+Naslednji korak je zato najprej ugotoviti, kje izgubimo uporabne meritve oziroma kje napačne meritve ostanejo. Preveriti želim maske, prekrivanja, časovno povezavo in projekcijo LiDAR točk. Nato je smiselno izboljšati pokritost med slikami in v enakih pogojih primerjati filtriranje pri gradnji zemljevida, pri lokalizaciji ter pri obeh. Cilj je preverljivo izboljšanje na istem okolju, ne samo lep prikaz segmentacije.
