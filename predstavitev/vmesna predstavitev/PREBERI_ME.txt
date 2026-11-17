@@ -1,21 +1,14 @@
-5 prosojnic; približno 5 minut govora.
+VMESNA PREDSTAVITEV — FLORENCE → QWEN → SAM 2
 
-vmesna_predstavitev.pptx — glavna predstavitev; govor v opombah.
-vmesna_predstavitev.pdf — pregled prosojnic.
-besedilo_5_prosojnic.txt — kratke alineje za slide in ločeno govor.
-shema_pipeline.png / SVG — osnovna črno-bela shema.
-primer_segmentacije.png — isti RGB, Florence okvir in shranjena maska SAM 2.
-tabela_modelov.png / SVG / CSV — dejanske vrednosti iz tvojih oznak.
-predloga/ — nespremenjena izvirna predloga LR z veje feature/configurable-vision-pipeline.
+vmesna_predstavitev_popravljena.pptx — zadnja popravljena različica; govor je v opombah.
+vmesna_predstavitev_popravljena.pdf — izvoz iste predstavitve.
+besedilo_predstavitve_popravljeno.txt — govor s časovnico za približno pet minut.
 
-Slog: izvirna predloga LR, 16:9, logotipi, oranžni naslovi; črno besedilo, osnovne tabele in črno-bela shema. Qwen 3.5 27B je poudarjen kot izbrani model. Tabela uporablja uporabnikov izračun 100 % − delež napačnih odločitev. Napačne so samo zamenjave fixed/movable na veljavnih odgovorih z jasno referenco. Napoved uncertain ni napaka; ostane v imenovalcu. Referenčne uncertain in neocenljive regije izpustimo; neveljavne odgovore izpustimo iz imenovalca. Qwen 27B ima 2 napaki med 364 veljavnimi odgovori (81 uncertain; 12 neveljavnih izpuščenih), kar da 99,45 %. Ta kazalnik ni običajna točnost razvrščanja. Podrobni števci so v sledljivost.json.
+Predloga: LMK za vmesno predstavitev, 4 : 3. Študent in mentor sta za dopolnitev. Shema Florence → Qwen → SAM 2 in tabeli so urejevalni PowerPointovi elementi.
 
-Primer: LILocBench, lt_changes_0, view-000044, SAM regija 1, izvorna ID 1 in 4. Barva maske je samo vizualizacija enega shranjenega rezultata, ne odstranitev LiDAR zadetkov.
-Sledljivost: sledljivost.json. Brez novih modelnih ali AMCL zagonov.
+Prvih šest prosojnic obravnava opis, razvrščanje in segmentacijo objektov. Povezava z LiDAR, izločanje točk in gradnja zemljevida so navedeni v zaključku kot nadaljnje delo.
 
-Vir podatkov/slik: Trekel et al., LILocBench, CC BY-NC-SA 4.0.
+Primer: sken 4751 iz lt_changes_0. Rdeče so označeni premični objekti, zeleno stalni. Odgovora Florence in Qwen pripadata temu posnetku; slovenski razlogi v tabeli so prevodi shranjenih odgovorov. Izvirna oznaka, razred in obrazložitev ter poti do virov so v primer_odgovorov.json.
+
+Vir slik: Trekel in sod., LILocBench, CC BY-NC-SA 4.0.
 https://www.ipb.uni-bonn.de/html/projects/localization_benchmark/
-https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-Ponovna izdelava: python3 maintenance/build_interim_presentation.py
-Odvisnosti: python-pptx, Matplotlib, NumPy, Pillow.

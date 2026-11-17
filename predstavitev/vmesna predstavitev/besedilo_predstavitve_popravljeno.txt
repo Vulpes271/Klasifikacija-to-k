@@ -1,0 +1,44 @@
+VMESNA PREDSTAVITEV — FLORENCE → QWEN → SAM 2
+7 prosojnic, približno 5 minut govora.
+
+PROSOJNICA 1: NASLOV
+Čas: 0:00–0:15
+
+Predstavil bom dosedanje delo pri prepoznavanju, razvrščanju in segmentaciji objektov na RGB slikah. Postopek sestavljajo trije zaporedni koraki: Florence pripravi opis, Qwen objekt razvrsti in odločitev obrazloži, SAM 2 pa izdela masko izbranega objekta.
+
+
+PROSOJNICA 2: NALOGA
+Čas: 0:15–0:55
+
+Naloga je iz slike pridobiti podatke o objektih ter določiti, ali so stalni, premični ali negotovi. Stalni objekti so na primer stene in vgrajena vrata. Premični objekti so škatle in stoli, ki jih med običajno uporabo prostora prestavljamo. Pri negotovi oznaki objekt ohranimo za podrobnejšo obravnavo. Najprej potrebujemo opis, kaj se na sliki nahaja. Nato jezikovni model presodi stalnost posameznega objekta in poda razlog za svojo odločitev. Na koncu izdelamo še njegovo masko. Izhod obravnavanega postopka sta torej razred objekta in območje slike, ki temu objektu pripada.
+
+
+PROSOJNICA 3: EKSPERIMENTALNI SISTEM
+Čas: 0:55–1:35
+
+Za preizkuse uporabljam podatkovno zbirko LILocBench. V njej je isto notranje okolje posneto v različnih razmerah: v statičnem stanju, ob prisotnosti ljudi in po prestavitvah predmetov. Na sliki je hodnik, v katerem so vrata, stene in kartonska škatla. Takšen primer je uporaben, ker vsebuje tako stalne kot premične objekte. Vhod v predstavljeni postopek je RGB slika. Za njeno obdelavo uporabljam Florence, jezikovni model Qwen in segmentacijski model SAM 2. Vsak ima svojo nalogo: Florence opisuje, Qwen razvršča in obrazloži, SAM pa določi masko objekta.
+
+
+PROSOJNICA 4: METODOLOGIJA
+Čas: 1:35–2:30
+
+Postopek poteka zaporedno. Florence najprej iz RGB slike pripravi opis prizora in prepozna regije objektov. Za posamezne objekte poda oznake in okvirje. Ta opis nato prejme Qwen. Qwen se odloča na podlagi besedila: objekt označi kot stalen, premičen ali negotov ter doda kratko obrazložitev. Pri kartonski škatli je na primer pomembno, da gre za prenosni predmet, ki ga običajno prestavljamo. Pri vratih je razlog drugačen: gre za trajno vgrajen del stavbe. Po odločitvi jezikovnega modela sledi SAM 2. Za izbrani objekt uporabi okvir, ki ga je določila Florence, in izdela njegovo masko. Tako združimo pomen objekta, odločitev o njegovi stalnosti ter natančnejše območje na sliki.
+
+
+PROSOJNICA 5: REZULTATI: IZBIRA MODELA
+Čas: 2:30–3:20
+
+Pri izbiri jezikovnega modela sem primerjal več velikosti Qwen ter model Gemma. Primerjava temelji na ročno označenih regijah. Prikazani kazalnik je sto odstotkov minus delež zamenjav stalno oziroma premično med veljavnimi odgovori z jasno referenco. Negotove napovedi ostanejo med veljavnimi odgovori, referenčno negotove regije pa obravnavamo posebej. Qwen 3.5 27B Q4 doseže 99,45 odstotka. Pri njem sta bili dve zamenjavi med 364 veljavnimi odgovori; 81 odgovorov je imelo oznako negotovo. Po tem kriteriju sem ga izbral za nadaljnje razvrščanje objektov. Poleg razreda poda tudi kratko obrazložitev, ki jo lahko povežemo z opisom Florence.
+
+
+PROSOJNICA 6: REZULTATI: PRIMER RAZVRŠČANJA
+Čas: 3:20–4:20
+
+Na sliki je z rdečo označena kartonska škatla, z zeleno pa stalni deli prostora. Pod sliko sta prikazana dva primera iz shranjenih odgovorov za isti posnetek. Florence škatlo prepozna z oznako several cardboard boxes. Qwen jo razvrsti kot premično in pojasni, da so kartonske škatle prenosni predmeti, ki jih običajno prestavljamo. Za primerjavo Florence prepozna tudi vrata. Qwen jih razvrsti kot stalna, ker so trajno vgrajen del stavbe. Po razvrščanju SAM 2 izdela maske objektov; na prikazu tako vidimo njihovo območje in pripadajočo oznako. Primer jasno pokaže vloge vseh treh modelov: Florence pove, kaj je objekt, Qwen obrazloži njegovo stalnost, SAM pa določi, kateri piksli mu pripadajo.
+
+
+PROSOJNICA 7: ZAKLJUČEK
+Čas: 4:20–5:00
+
+Predstavljeni del povezuje tri korake: opis objektov s Florence, razvrščanje z obrazložitvijo v Qwen in segmentacijo izbranih objektov s SAM 2. Na primeru škatle in vrat se vidi tudi, kako lahko odločitev modela povežemo s konkretnim objektom na sliki. Naslednja nadgradnja vključuje povezavo teh mask z LiDAR točkami in izločanje točk premičnih objektov. Nato sledi gradnja zemljevida ter preizkus, kako takšna obdelava vpliva na lokalizacijo robota.
+
