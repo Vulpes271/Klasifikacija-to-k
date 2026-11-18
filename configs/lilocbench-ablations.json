@@ -1,0 +1,38 @@
+{
+  "source_commit": "f4631d0876d86d6eacb8653975cb784eba127122",
+  "reference_commit": "695570ace45f1caf312109ac4b0cc360bb631ab2",
+  "output": "docs/lilocbench-ablations",
+  "cache": "data/lilocbench-ablations",
+  "workers": 3,
+  "smoke_scans": 120,
+  "variants": ["ray_paths", "parallel", "additive"],
+  "rays": {
+    "top_candidates": 16,
+    "beams": 192,
+    "step_m": 0.025,
+    "origin_guard_m": 0.20,
+    "endpoint_guard_m": 0.20,
+    "severity_saturation_m": 0.50,
+    "maximum_mean_penalty": 0.20
+  },
+  "parallel": {
+    "minimum_score_advantage": 0.03,
+    "consecutive_advantage_scans": 3,
+    "maximum_pending_s": 2.0
+  },
+  "evaluation": {
+    "minimum_loss_s": 1.0,
+    "stable_recovery_s": 1.0,
+    "success_position_cm": 10.0,
+    "success_yaw_deg": 4.0,
+    "coverage": "reuse exact mask and pose indices from 695570a; 7550 whole, 478 room",
+    "episode_policy": "GT only after replay; sustained failure >=1s, recovery >=1s stable success, delay to start of stable success. Episodes are censored at coverage/GT/room exit. No localizer reset."
+  },
+  "additive": {
+    "old_removals": "data/lilocbench-reverse/projection.npz",
+    "temporal_removals": "data/lilocbench-temporal-cells/removed.npz",
+    "temporal_evidence": "data/lilocbench-temporal-cells/cell-evidence.npz",
+    "rule": "old_three OR temporal_confirmed_without_fixed; never reintroduce any old removal"
+  },
+  "seed": 42
+}

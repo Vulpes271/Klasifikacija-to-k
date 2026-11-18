@@ -1,0 +1,196 @@
+{
+  "configuration": {
+    "source_commit": "f4631d0876d86d6eacb8653975cb784eba127122",
+    "reference_commit": "695570ace45f1caf312109ac4b0cc360bb631ab2",
+    "output": "docs/lilocbench-ablations",
+    "cache": "data/lilocbench-ablations",
+    "workers": 3,
+    "smoke_scans": 120,
+    "variants": [
+      "ray_paths",
+      "parallel",
+      "additive"
+    ],
+    "rays": {
+      "top_candidates": 16,
+      "beams": 192,
+      "step_m": 0.025,
+      "origin_guard_m": 0.2,
+      "endpoint_guard_m": 0.2,
+      "severity_saturation_m": 0.5,
+      "maximum_mean_penalty": 0.2
+    },
+    "parallel": {
+      "minimum_score_advantage": 0.03,
+      "consecutive_advantage_scans": 3,
+      "maximum_pending_s": 2.0
+    },
+    "evaluation": {
+      "minimum_loss_s": 1.0,
+      "stable_recovery_s": 1.0,
+      "success_position_cm": 10.0,
+      "success_yaw_deg": 4.0,
+      "coverage": "reuse exact mask and pose indices from 695570a; 7550 whole, 478 room",
+      "episode_policy": "GT only after replay; sustained failure >=1s, recovery >=1s stable success, delay to start of stable success. Episodes are censored at coverage/GT/room exit. No localizer reset."
+    },
+    "additive": {
+      "old_removals": "data/lilocbench-reverse/projection.npz",
+      "temporal_removals": "data/lilocbench-temporal-cells/removed.npz",
+      "temporal_evidence": "data/lilocbench-temporal-cells/cell-evidence.npz",
+      "rule": "old_three OR temporal_confirmed_without_fixed; never reintroduce any old removal"
+    },
+    "seed": 42
+  },
+  "tracking": {
+    "base_config": "configs/lilocbench-scan-to-map.json",
+    "source_commit": "ba62e13edc2d02090e2da5e0e5e46054a143973c",
+    "output": "docs/lilocbench-tracking",
+    "cache": "data/lilocbench-tracking",
+    "variants": [
+      "three",
+      "empty"
+    ],
+    "modes": [
+      "wheel_odometry",
+      "zero_motion"
+    ],
+    "workers": 4,
+    "smoke_scans": 120,
+    "global_retry_s": 3.0,
+    "lost_after_s": 3.0,
+    "global_acceptance": {
+      "minimum_valid_hits": 100,
+      "minimum_match_fraction": 0.45,
+      "minimum_known_fraction": 0.7,
+      "minimum_score": 0.35,
+      "minimum_distinct_margin": 0.03
+    },
+    "local": {
+      "xy_radius_m": 0.24,
+      "xy_step_m": 0.08,
+      "yaw_radius_deg": 6.0,
+      "yaw_step_deg": 2.0,
+      "coarse_beams": 192,
+      "fine_beams": 256,
+      "keep": 3,
+      "fine_xy_radius_m": 0.04,
+      "fine_xy_step_m": 0.02,
+      "fine_yaw_radius_deg": 1.0,
+      "fine_yaw_step_deg": 0.5,
+      "alternative_separation_m": 0.12,
+      "alternative_separation_deg": 3.0,
+      "minimum_valid_hits": 100,
+      "minimum_match_fraction": 0.4,
+      "minimum_known_fraction": 0.6,
+      "minimum_score": 0.25,
+      "minimum_distinct_margin": 0.01
+    }
+  },
+  "matcher": {
+    "source_commit": "86f7c5759579e3fdc0772ae355f37adb74a26ae9",
+    "maps": "results/lilocbench-reverse/maps",
+    "raw": "data/lilocbench-filtered-map/static_0",
+    "calibration": "data/lilocbench-pilot/static_0/transformations.yaml",
+    "output": "docs/lilocbench-scan-to-map",
+    "cache": "data/lilocbench-scan-to-map",
+    "variants": [
+      "original",
+      "front",
+      "three",
+      "empty"
+    ],
+    "map": {
+      "resolution": 0.05,
+      "origin": [
+        -25.0,
+        -25.0,
+        0.0
+      ],
+      "width": 1000,
+      "height": 1000
+    },
+    "allowed_xyxy": [
+      -13.0,
+      -14.0,
+      18.0,
+      15.0
+    ],
+    "room_xyxy": [
+      5.0,
+      -10.8,
+      13.8,
+      -5.0
+    ],
+    "route_samples": 80,
+    "add_room_if_fewer_than": 12,
+    "additional_room_samples": 20,
+    "coarse": {
+      "xy_step_m": 0.5,
+      "yaw_step_deg": 6.0,
+      "sigma_m": 0.35,
+      "beams": 96,
+      "keep": 48,
+      "separation_m": 0.6,
+      "separation_deg": 18.0
+    },
+    "middle": {
+      "xy_radius_m": 0.5,
+      "xy_step_m": 0.1,
+      "yaw_radius_deg": 6.0,
+      "yaw_step_deg": 1.0,
+      "sigma_m": 0.16,
+      "beams": 192,
+      "keep": 16,
+      "separation_m": 0.5,
+      "separation_deg": 15.0
+    },
+    "fine": {
+      "xy_radius_m": 0.1,
+      "xy_step_m": 0.025,
+      "yaw_radius_deg": 1.0,
+      "yaw_step_deg": 0.25,
+      "sigma_m": 0.1
+    },
+    "free_penalty": 0.15,
+    "free_penalty_saturation_m": 0.3,
+    "match_tolerance_m": 0.1,
+    "alternative_separation_m": 0.5,
+    "alternative_separation_deg": 15.0,
+    "acceptance": {
+      "minimum_valid_hits": 100,
+      "minimum_match_fraction": 0.35,
+      "minimum_known_fraction": 0.6,
+      "minimum_score": 0.2,
+      "minimum_distinct_margin": 0.01
+    },
+    "success": {
+      "position_m": 0.1,
+      "yaw_deg": 4.0
+    },
+    "seed": 42,
+    "backend": "numpy-scipy-cpu",
+    "initialization": "Fixed rectangle from the earlier whole-map display; all its positions and all orientations. No map, including control mapping, restricts this common prior."
+  },
+  "confirmation": {
+    "consecutive_scans": 5,
+    "minimum_span_s": 0.2,
+    "distant_position_m": 1.0,
+    "distant_yaw_deg": 15.0,
+    "maximum_odometry_residual_m": 0.12,
+    "maximum_odometry_residual_deg": 4.0
+  },
+  "source_sha256": "107df74522965a9b6369859728cfdac438ce47fe41bff103d22e6ee6881674e6",
+  "reference_map_sha256": "13993728a9dfae9082203431a4173234d49e72fd3a0934b5dff11ac63061db8b",
+  "test_sha256": "a198298de610bd1a0db940ea734ce97617b5bdf9f5aa3b08e45e69de3d09f4a3",
+  "coverage_sha256": "3b70aefeb85b4449e2097c0cb49a7f8b588f19eb2cebd3e03ccd11b442e9c87c",
+  "covered_pose_list_sha256": "24928fac634a1f5b1d569ec75a8288fb10dae772de4d52dc2267d93d86c5bf1b",
+  "reference_csv_sha256": "8404e1ec3df4fcd9296ce925ea0b5ac649dcf9045a56ea83c65f35473645d791",
+  "temporal_rule_sha256": "948f058750da4f16ec1ac6017e6e6795f8735026610c1ceb4677d1c76945732a",
+  "lidar_origin_policy": "official base_link <- scan_front_link translation; endpoints already include the official extrinsic",
+  "new_runs": [
+    "ray_paths on three",
+    "parallel on three",
+    "unchanged confirmed localizer on additive map"
+  ],
+  "no_combined_ablations": true
+}
