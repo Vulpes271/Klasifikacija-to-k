@@ -1,0 +1,24 @@
+{
+  "base_config": "configs/lilocbench-scan-to-map.json",
+  "source_commit": "ba62e13edc2d02090e2da5e0e5e46054a143973c",
+  "output": "docs/lilocbench-tracking",
+  "cache": "data/lilocbench-tracking",
+  "variants": ["three", "empty"],
+  "modes": ["wheel_odometry", "zero_motion"],
+  "workers": 4,
+  "smoke_scans": 120,
+  "global_retry_s": 3.0,
+  "lost_after_s": 3.0,
+  "global_acceptance": {"minimum_valid_hits": 100, "minimum_match_fraction": 0.45, "minimum_known_fraction": 0.70, "minimum_score": 0.35, "minimum_distinct_margin": 0.03},
+  "local": {
+    "xy_radius_m": 0.24, "xy_step_m": 0.08,
+    "yaw_radius_deg": 6.0, "yaw_step_deg": 2.0,
+    "coarse_beams": 192, "fine_beams": 256, "keep": 3,
+    "fine_xy_radius_m": 0.04, "fine_xy_step_m": 0.02,
+    "fine_yaw_radius_deg": 1.0, "fine_yaw_step_deg": 0.5,
+    "alternative_separation_m": 0.12, "alternative_separation_deg": 3.0,
+    "minimum_valid_hits": 100, "minimum_match_fraction": 0.40,
+    "minimum_known_fraction": 0.60, "minimum_score": 0.25,
+    "minimum_distinct_margin": 0.01
+  }
+}
