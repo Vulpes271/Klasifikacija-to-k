@@ -1,0 +1,63 @@
+{
+  "configuration": {
+    "source_commit": "695570ace45f1caf312109ac4b0cc360bb631ab2",
+    "reverse_config": "configs/lilocbench-reverse.json",
+    "relocalization_config": "configs/lilocbench-relocalization.json",
+    "cache": "data/lilocbench-temporal-cells",
+    "output": "docs/lilocbench-temporal-cells",
+    "rule": {
+      "minimum_movable_epochs": 3,
+      "minimum_epoch_gap_s": 0.5,
+      "minimum_distinct_cameras": 2,
+      "minimum_fixed_epochs_to_protect": 1,
+      "labels": "A region votes only if all Qwen source labels are movable or all are fixed; mixed, uncertain, absent labels abstain. Independent pure regions union; fixed wins overlaps.",
+      "independence": "At most one vote of each class per spatial cell per scan; epochs for each class at least 0.5 s apart. Camera bits from accepted epochs only. Same-scan cameras/beams never create extra epochs.",
+      "construction": "Offline two-pass: collect complete lt_changes_0 evidence, then omit every ray whose endpoint is in a confirmed movable cell without fixed evidence. Other old per-ray removals are not retained automatically."
+    },
+    "point_tolerance_m": 0.1,
+    "smoke_scans": 120,
+    "seed": 42
+  },
+  "map": {
+    "resolution": 0.05,
+    "width": 1000,
+    "height": 1000,
+    "origin": [
+      -25.0,
+      -25.0,
+      0.0
+    ],
+    "log_hit": 0.85,
+    "log_free": -0.4,
+    "log_limit": 5.0,
+    "occupied_thresh": 0.65,
+    "free_thresh": 0.196,
+    "negate": 0
+  },
+  "room_bounds": [
+    5.0,
+    -10.8,
+    13.8,
+    -5.0
+  ],
+  "algorithm_sha256": "d3d4b8bce7ec3ac9b7b54327890e3190172998625f529b600128f459cb920e4a",
+  "projection_sha256": "6051e1f5758ea74fcf4c42d21838e8cf786855a3da3b1845787e2a7a8526f37d",
+  "mapping_scans_sha256": "aa9e22d278a7067fa0c65a9bf5a0025839b65d636492b274a4eeeab19132a1a4",
+  "gt_poses_sha256": "32c1f451eced24dbd4891771c113aaf2dccfb9d67abf54036c3a2b0f42bcb461",
+  "extrinsics_sha256": "bdcbf7255bc1a04b8987210361462f21f7ccd9b199818257dcff165d05b8209e",
+  "camera_status_sha256": {
+    "camera_front": "23db5bca56b81791ee6c11955d22c5fa70c2736520971c8b9835cf29108b0403",
+    "camera_left": "ad9e6674e2c3ce2471023f7098c787a45f4bed9271ca0e3cf2e6de83431bb607",
+    "camera_right": "8c482567427ac03c700ba542c11a063638e1906057261730601b4d10ebebae54"
+  },
+  "camera_intrinsics_sha256": {
+    "camera_front": "a717bb66bda1a31d4f34abd10abe6d0ed9b48e0dbfd49345dfbf9be7e2ab570c",
+    "camera_left": "d7292c58dd62f7a90e3aa9f711046e26fd2484a75c4956fdec77319b547bcec1",
+    "camera_right": "c131a5dbe250f422970fdc1cb6802f1dfef264ef3cceaee540fc9dfc96a1beb7"
+  },
+  "inference_calls": 0,
+  "static_0_read_in_build": false,
+  "reference_geometry": "independent mapping; continuous endpoints, known free occupancy confirms excess",
+  "frozen_utc": "2026-11-18T20:42:51.243660+00:00",
+  "build_source_sha256": "f3e2c09cdcd7a111feb06e26fc927bbe5750b42c6e8d39dd14ff79c60457c665"
+}

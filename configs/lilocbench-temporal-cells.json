@@ -1,0 +1,19 @@
+{
+  "source_commit": "695570ace45f1caf312109ac4b0cc360bb631ab2",
+  "reverse_config": "configs/lilocbench-reverse.json",
+  "relocalization_config": "configs/lilocbench-relocalization.json",
+  "cache": "data/lilocbench-temporal-cells",
+  "output": "docs/lilocbench-temporal-cells",
+  "rule": {
+    "minimum_movable_epochs": 3,
+    "minimum_epoch_gap_s": 0.5,
+    "minimum_distinct_cameras": 2,
+    "minimum_fixed_epochs_to_protect": 1,
+    "labels": "A region votes only if all Qwen source labels are movable or all are fixed; mixed, uncertain, absent labels abstain. Independent pure regions union; fixed wins overlaps.",
+    "independence": "At most one vote of each class per spatial cell per scan; epochs for each class at least 0.5 s apart. Camera bits from accepted epochs only. Same-scan cameras/beams never create extra epochs.",
+    "construction": "Offline two-pass: collect complete lt_changes_0 evidence, then omit every ray whose endpoint is in a confirmed movable cell without fixed evidence. Other old per-ray removals are not retained automatically."
+  },
+  "point_tolerance_m": 0.1,
+  "smoke_scans": 120,
+  "seed": 42
+}
