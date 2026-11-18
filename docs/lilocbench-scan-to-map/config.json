@@ -1,0 +1,85 @@
+{
+  "source_commit": "86f7c5759579e3fdc0772ae355f37adb74a26ae9",
+  "maps": "results/lilocbench-reverse/maps",
+  "raw": "data/lilocbench-filtered-map/static_0",
+  "calibration": "data/lilocbench-pilot/static_0/transformations.yaml",
+  "output": "docs/lilocbench-scan-to-map",
+  "cache": "data/lilocbench-scan-to-map",
+  "variants": [
+    "original",
+    "front",
+    "three",
+    "empty"
+  ],
+  "map": {
+    "resolution": 0.05,
+    "origin": [
+      -25.0,
+      -25.0,
+      0.0
+    ],
+    "width": 1000,
+    "height": 1000
+  },
+  "allowed_xyxy": [
+    -13.0,
+    -14.0,
+    18.0,
+    15.0
+  ],
+  "room_xyxy": [
+    5.0,
+    -10.8,
+    13.8,
+    -5.0
+  ],
+  "route_samples": 80,
+  "add_room_if_fewer_than": 12,
+  "additional_room_samples": 20,
+  "coarse": {
+    "xy_step_m": 0.5,
+    "yaw_step_deg": 6.0,
+    "sigma_m": 0.35,
+    "beams": 96,
+    "keep": 48,
+    "separation_m": 0.6,
+    "separation_deg": 18.0
+  },
+  "middle": {
+    "xy_radius_m": 0.5,
+    "xy_step_m": 0.1,
+    "yaw_radius_deg": 6.0,
+    "yaw_step_deg": 1.0,
+    "sigma_m": 0.16,
+    "beams": 192,
+    "keep": 16,
+    "separation_m": 0.5,
+    "separation_deg": 15.0
+  },
+  "fine": {
+    "xy_radius_m": 0.1,
+    "xy_step_m": 0.025,
+    "yaw_radius_deg": 1.0,
+    "yaw_step_deg": 0.25,
+    "sigma_m": 0.1
+  },
+  "free_penalty": 0.15,
+  "free_penalty_saturation_m": 0.3,
+  "match_tolerance_m": 0.1,
+  "alternative_separation_m": 0.5,
+  "alternative_separation_deg": 15.0,
+  "acceptance": {
+    "minimum_valid_hits": 100,
+    "minimum_match_fraction": 0.35,
+    "minimum_known_fraction": 0.6,
+    "minimum_score": 0.2,
+    "minimum_distinct_margin": 0.01
+  },
+  "success": {
+    "position_m": 0.1,
+    "yaw_deg": 4.0
+  },
+  "seed": 42,
+  "backend": "numpy-scipy-cpu",
+  "initialization": "Fixed rectangle from the earlier whole-map display; all its positions and all orientations. No map, including control mapping, restricts this common prior."
+}
