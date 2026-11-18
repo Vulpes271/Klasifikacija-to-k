@@ -1,0 +1,19 @@
+{
+  "tracking_config": "configs/lilocbench-tracking.json",
+  "output": "docs/lilocbench-relocalization",
+  "cache": "data/lilocbench-relocalization",
+  "variants": ["original", "front", "three", "empty"],
+  "workers": 4,
+  "smoke_scans": 120,
+  "confirmation": {
+    "consecutive_scans": 5,
+    "minimum_span_s": 0.20,
+    "distant_position_m": 1.0,
+    "distant_yaw_deg": 15.0,
+    "maximum_odometry_residual_m": 0.12,
+    "maximum_odometry_residual_deg": 4.0
+  },
+  "coverage": "intersection of cells known (occupancy != -1) in original lt_changes_0 and independent mapping, 5 cm, no dilation; fixed before localization",
+  "baseline_cache": "data/lilocbench-tracking/full",
+  "baseline_validation": "data/lilocbench-tracking/full-validation.json"
+}

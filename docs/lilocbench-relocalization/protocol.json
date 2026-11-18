@@ -1,0 +1,173 @@
+{
+  "configuration": {
+    "tracking_config": "configs/lilocbench-tracking.json",
+    "output": "docs/lilocbench-relocalization",
+    "cache": "data/lilocbench-relocalization",
+    "variants": [
+      "original",
+      "front",
+      "three",
+      "empty"
+    ],
+    "workers": 4,
+    "smoke_scans": 120,
+    "confirmation": {
+      "consecutive_scans": 5,
+      "minimum_span_s": 0.2,
+      "distant_position_m": 1.0,
+      "distant_yaw_deg": 15.0,
+      "maximum_odometry_residual_m": 0.12,
+      "maximum_odometry_residual_deg": 4.0
+    },
+    "coverage": "intersection of cells known (occupancy != -1) in original lt_changes_0 and independent mapping, 5 cm, no dilation; fixed before localization",
+    "baseline_cache": "data/lilocbench-tracking/full",
+    "baseline_validation": "data/lilocbench-tracking/full-validation.json"
+  },
+  "tracking": {
+    "base_config": "configs/lilocbench-scan-to-map.json",
+    "source_commit": "ba62e13edc2d02090e2da5e0e5e46054a143973c",
+    "output": "docs/lilocbench-tracking",
+    "cache": "data/lilocbench-tracking",
+    "variants": [
+      "three",
+      "empty"
+    ],
+    "modes": [
+      "wheel_odometry",
+      "zero_motion"
+    ],
+    "workers": 4,
+    "smoke_scans": 120,
+    "global_retry_s": 3.0,
+    "lost_after_s": 3.0,
+    "global_acceptance": {
+      "minimum_valid_hits": 100,
+      "minimum_match_fraction": 0.45,
+      "minimum_known_fraction": 0.7,
+      "minimum_score": 0.35,
+      "minimum_distinct_margin": 0.03
+    },
+    "local": {
+      "xy_radius_m": 0.24,
+      "xy_step_m": 0.08,
+      "yaw_radius_deg": 6.0,
+      "yaw_step_deg": 2.0,
+      "coarse_beams": 192,
+      "fine_beams": 256,
+      "keep": 3,
+      "fine_xy_radius_m": 0.04,
+      "fine_xy_step_m": 0.02,
+      "fine_yaw_radius_deg": 1.0,
+      "fine_yaw_step_deg": 0.5,
+      "alternative_separation_m": 0.12,
+      "alternative_separation_deg": 3.0,
+      "minimum_valid_hits": 100,
+      "minimum_match_fraction": 0.4,
+      "minimum_known_fraction": 0.6,
+      "minimum_score": 0.25,
+      "minimum_distinct_margin": 0.01
+    }
+  },
+  "matcher": {
+    "source_commit": "86f7c5759579e3fdc0772ae355f37adb74a26ae9",
+    "maps": "results/lilocbench-reverse/maps",
+    "raw": "data/lilocbench-filtered-map/static_0",
+    "calibration": "data/lilocbench-pilot/static_0/transformations.yaml",
+    "output": "docs/lilocbench-scan-to-map",
+    "cache": "data/lilocbench-scan-to-map",
+    "variants": [
+      "original",
+      "front",
+      "three",
+      "empty"
+    ],
+    "map": {
+      "resolution": 0.05,
+      "origin": [
+        -25.0,
+        -25.0,
+        0.0
+      ],
+      "width": 1000,
+      "height": 1000
+    },
+    "allowed_xyxy": [
+      -13.0,
+      -14.0,
+      18.0,
+      15.0
+    ],
+    "room_xyxy": [
+      5.0,
+      -10.8,
+      13.8,
+      -5.0
+    ],
+    "route_samples": 80,
+    "add_room_if_fewer_than": 12,
+    "additional_room_samples": 20,
+    "coarse": {
+      "xy_step_m": 0.5,
+      "yaw_step_deg": 6.0,
+      "sigma_m": 0.35,
+      "beams": 96,
+      "keep": 48,
+      "separation_m": 0.6,
+      "separation_deg": 18.0
+    },
+    "middle": {
+      "xy_radius_m": 0.5,
+      "xy_step_m": 0.1,
+      "yaw_radius_deg": 6.0,
+      "yaw_step_deg": 1.0,
+      "sigma_m": 0.16,
+      "beams": 192,
+      "keep": 16,
+      "separation_m": 0.5,
+      "separation_deg": 15.0
+    },
+    "fine": {
+      "xy_radius_m": 0.1,
+      "xy_step_m": 0.025,
+      "yaw_radius_deg": 1.0,
+      "yaw_step_deg": 0.25,
+      "sigma_m": 0.1
+    },
+    "free_penalty": 0.15,
+    "free_penalty_saturation_m": 0.3,
+    "match_tolerance_m": 0.1,
+    "alternative_separation_m": 0.5,
+    "alternative_separation_deg": 15.0,
+    "acceptance": {
+      "minimum_valid_hits": 100,
+      "minimum_match_fraction": 0.35,
+      "minimum_known_fraction": 0.6,
+      "minimum_score": 0.2,
+      "minimum_distinct_margin": 0.01
+    },
+    "success": {
+      "position_m": 0.1,
+      "yaw_deg": 4.0
+    },
+    "seed": 42,
+    "backend": "numpy-scipy-cpu",
+    "initialization": "Fixed rectangle from the earlier whole-map display; all its positions and all orientations. No map, including control mapping, restricts this common prior."
+  },
+  "source_sha256": "c9d161f220979c5e7c9293b1de58d2b3835d6716184b4f167182ca650d119d77",
+  "tracking_source_sha256": "3032d81e5b85c2f662eb13be94ae1ae183d956064006110334ad28a66388fa36",
+  "config_sha256": "460b97cd0fc47ee216b578350e61df4439222bfc57abdc718961d1b667507701",
+  "test_sha256": "a198298de610bd1a0db940ea734ce97617b5bdf9f5aa3b08e45e69de3d09f4a3",
+  "coverage_sha256": "3b70aefeb85b4449e2097c0cb49a7f8b588f19eb2cebd3e03ccd11b442e9c87c",
+  "coverage_cells": 82681,
+  "coverage_map_sha256": {
+    "original": "2b199c2982fce8582686681867547e6916a9b8246b7fe3ce5d91f970fcb1e2c3",
+    "empty": "0d61a43c8fa365492e1dd17d3ddb71d79342d27b06c8403329b8d877a272d291"
+  },
+  "valid_gt": 8976,
+  "included_gt": 7550,
+  "excluded_unmapped_gt": 1426,
+  "missing_gt": 6,
+  "coverage_policy": "intersection of cells known (occupancy != -1) in original lt_changes_0 and independent mapping, 5 cm, no dilation; fixed before localization",
+  "coverage_not_passed_to_localizer": true,
+  "no_reset_at_coverage_entry": true
+}
