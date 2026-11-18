@@ -120,13 +120,19 @@ Celoten arhiv starih poskusov, podatkov, navodil, skript in testov je objavljen
 na veji [`archive/experiments-before-prune-2026-11-05`](https://github.com/Vulpes271/Klasifikacija-to-k/tree/archive/experiments-before-prune-2026-11-05).
 [Arhivska navodila](docs/ARCHIVE.md) pojasnijo dostop brez vračanja starih izvajalnikov v aktivno pot.
 
-Na tej veji je ohranjen celoten `results models/lilocbench/`. Preostale datoteke
-v imenikih z imeni `prompt_comparison40`, `florence_grounding_llm_comparison10` in
-`florence_caption_grounding_test10` so samo neposredni vhodi pregledovalnika oziroma
-objavljene ročne ocene: izvorni manifesti, zamrznjeni opisi, odgovori in originalne slike.
-Njihove poti, vsebine in identitete naborov so nespremenjene. Starih izvajalnikov ni več.
-Zasebni `reviews/`, uteži, Docker okolja ter lokalni nesledeni rezultati ostajajo nedotaknjeni.
-Zapis odstranitve: [maintenance/active-cleanup.md](maintenance/active-cleanup.md).
+Na aktivni veji ostajajo izvorni LILocBench podatki v `results models/lilocbench/`,
+aktivni Florence–Qwen–SAM pipeline, Gemma, Docker, pregledovalnik, predstavitev,
+končna poročila in aktivni testi. Stare pregledne nabore, začetne podatke in
+lokalne opuščene rezultate smo z manifesti in ocenami arhivirali zunaj projekta.
+Privzeti pregledovalnik zdaj odpre LILocBench; stare preglede je mogoče odpreti iz
+lokalnega arhiva z nespremenjenimi identitetami ocen.
+
+Arhiv trenutnega stanja pred tem čiščenjem je na veji
+[`archive/before-cleanup-relocalization-2026-11-18`](https://github.com/Vulpes271/Klasifikacija-to-k/tree/archive/before-cleanup-relocalization-2026-11-18).
+[Odstranjene poti, preverjanje in prostor](docs/cleanup-2026-11-18/README.md).
+Zasebni `reviews/`, Florence in SAM uteži ter vsi LILocBench skeni, maske,
+kalibracije in mreže ostajajo ohranjeni. Docker volumni in modeli Qwen/Gemma
+niso bili odstranjeni.
 
 Testi brez inferenc in brez dejanskih baz ocen:
 

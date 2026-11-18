@@ -64,7 +64,7 @@ Completed positions, including errors/skips, are preserved on continuation.
 
 ## Review
 
-`index.html` shows each pair side by side, the predicted regions, every model's
+The archived `index.html` shows each pair side by side, the predicted regions, every model's
 classification, full reason and complete raw response. `region-classes.csv`
 contains per-region output with whole-response validity flags. `summary.json`
 counts calls, schema/API errors, skips and times; it is not content accuracy.
@@ -75,13 +75,10 @@ Local region IDs across images do **not** establish object identity. Unchanged
 does not mean fixed; disappearance can reflect occlusion or changed viewpoint.
 No localization performance or accuracy is reported without manual references.
 
-From the repository root:
-
-```bash
-python3 -m http.server 8766 --bind 127.0.0.1 --directory "results models/lilocbench"
-```
-
-Open `http://127.0.0.1:8766/`. For single-region blind reference review:
+The retired static gallery is preserved on
+[the pre-cleanup archive branch](https://github.com/Vulpes271/Klasifikacija-to-k/blob/archive/before-cleanup-relocalization-2026-11-18/results%20models/lilocbench/index.html).
+The source images, masks, frozen inputs and classifications remain here for the
+active pipeline. For single-region blind reference review:
 
 ```bash
 python3 -m llm_object_classifier.review_viewer --results-dir "results models/lilocbench" --db reviews/lilocbench.sqlite3
@@ -103,4 +100,4 @@ this directory are preserved. No experiment was repeated during cleanup.
 To use the current Florence → Qwen pipeline on these saved RGB files, use the
 active CLI documented in the root README with `--input "results models/lilocbench/images"`
 and a new output directory. This creates a separate run only when explicitly invoked.
-The paired HTML and Python viewer commands above remain available without inference.
+The Python viewer remains available without inference; the old HTML is in the archive.

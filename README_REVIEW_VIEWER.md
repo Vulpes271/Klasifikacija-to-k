@@ -12,37 +12,26 @@ Iz korena projekta zaženite:
 python3 -m llm_object_classifier.review_viewer
 ```
 
-Odpre brskalnik na `http://127.0.0.1:8765/` in privzeto naloži `results models/prompt_comparison40`. Ustavite s Ctrl+C; enak ukaz nadaljuje pri zadnji izbrani sliki/regiji in ohrani ocene. Če samodejno odpiranje brskalnika ni na voljo, odprite izpisani naslov ročno.
+Odpre brskalnik na `http://127.0.0.1:8765/` in privzeto naloži `results models/lilocbench`. Ustavite s Ctrl+C; enak ukaz nadaljuje pri zadnji izbrani sliki/regiji in ohrani ocene. Če samodejno odpiranje brskalnika ni na voljo, odprite izpisani naslov ročno.
 
-Če obstaja `results models/prompt_comparison40/bf16/manifest.json`, samodejno vključi še **Qwen3.5 4B BF16 in 9B BF16**, vsakega s starim in novim promptom ter semenom 42. Izvorni manifest, SHA zamrznjenih vhodov, ID-ji regij in identiteta nabora ostanejo isti. Zato vaša že podana referenca velja tudi za nove modele; referenc ni treba ponoviti. Obstoječe anonimne oznake ostanejo iste, novi odgovori dobijo dodatne oznake.
-
-Ob prvem odpiranju baze po dodajanju modelov pregledovalnik pred spremembo ustvari konsistentno SQLite varnostno kopijo v `reviews/backups/` (oziroma `backups/` ob lastni poti baze). Nato doda samo nove identitete in izračunana ujemanja. Prejšnjih referenc, opomb, ocen utemeljitev, zgodovine in položaja ne združuje ali prepisuje. Med razvojem se dejanska baza ne odpira; migracija se izvede, ko sami zaženete pregledovalnik.
-
-Skupna referenca se vnese samo enkrat. Privzeti način **Samo referenčni razredi** skriva odgovore in po uspešnem shranjevanju odpre naslednjo neocenjeno regijo. Tipke **1/2/3/4** pomenijo FIXED/MOVABLE/UNCERTAIN/NE MOREM OCENITI. Neveljaven ali manjkajoč celoten odgovor se v izračunih posebej označi in ne dobi avtomatskega ujemanja. Delni razred in izvorna utemeljitev ostaneta vidna za pregled, s tehničnim opozorilom.
-
-Utemeljitve so poljubne in imajo svoj način ter napredek. Dobesedno enake utemeljitve z enakim napovedanim razredom iste regije se povežejo tudi med BF16/Q4 modeli, prompti in ponovitvami. Ena izrecna ocena velja za vse navedene povezane odgovore. Različne stare ocene ostanejo nespremenjene, dokler sami ne izberete nove skupne ocene. Neocenjene utemeljitve ne preprečijo dokončanja referenčnega pregleda.
-
-Statični primerjalni HTML/CSV, stari prompti in izvajalniki so v
-[arhivski veji](https://github.com/Vulpes271/Klasifikacija-to-k/tree/archive/experiments-before-prune-2026-11-05).
-Na aktivni veji ostajajo vsi manifesti, zamrznjeni opisi, izvorni odgovori in slike,
-ki jih ta Python pregledovalnik neposredno potrebuje. Tudi objavljeni izvozi vaših
-ocen ostajajo v `results models/prompt_comparison40/manual-review-2026-11-04/`.
-
-Za obstoječi izvoz 200 slik:
+Stari nabori 40/200 slik so bili skupaj z manifesti, odgovori, originali in
+ocenami preverjeno arhivirani lokalno. Privzeti zagon jih ne potrebuje.
+Zapis poti arhiva in kontrolnih vsot je v [poročilu čiščenja](docs/cleanup-2026-11-18/README.md).
+Za arhivski pregled določite obe arhivski poti; uporabite kopijo arhivske baze,
+da ohranite nespremenjeni izvirnik:
 
 ```bash
-python3 -m llm_object_classifier.review_viewer --results-dir "results models/florence_grounding_llm_comparison10"
+python3 -m llm_object_classifier.review_viewer \
+  --results-dir "$ARCHIVE_ROOT/tree/results models/prompt_comparison40" \
+  --florence-dir "$ARCHIVE_ROOT/tree/results models/florence_caption_grounding_test10" \
+  --db "$HOME/pregled-arhiva.sqlite3" --no-browser
 ```
 
-Ta izvoz vsebuje samo stari prompt, zato pregledovalnik zanj prikaže tri shranjene odgovore. Novi prompt in dodatne ponovitve so na voljo tam, kjer so dejansko shranjeni v izboru 40 slik.
-
-Poti in vrata so nastavljivi, na primer:
-
-```bash
-python3 -m llm_object_classifier.review_viewer --results-dir "results models/prompt_comparison40" --florence-dir "results models/florence_caption_grounding_test10" --db reviews/moje-ocene.sqlite3 --port 8766 --no-browser
-```
-
-`--florence-dir` določa mapo izvirnikov; če posamezni izvirnik manjka, vmesnik uporabi shranjeno označeno sliko in to izpiše. Izbrani okvir poudari brez spreminjanja njegovih koordinat. Nabor in zamrznjene vhode preveri s SHA256. Odgovore poveže z regijo po njenem izvornem ID in preveri SHA vhodnega dokumenta; manjkajočih podatkov ne dopolnjuje.
+`ARCHIVE_ROOT` je lokalni arhiv iz poročila. Če želite nadaljevati obstoječe
+ocene, najprej kopirajte `manual_review-consistent.sqlite3` v navedeno bazo.
+Manifesti in identitete regij so ohranjeni; adapterji starih formatov ostajajo
+podprti. BF16 razširitve se ob prisotnosti v arhivu še vedno vključijo. Aktivni
+novi nabor odprete z `--results-dir results/moj-zagon`.
 
 ## Ocenjevanje in zasebni podatki
 

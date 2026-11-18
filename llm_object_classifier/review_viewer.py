@@ -20,8 +20,8 @@ from .experiment import read_json,strict_json,sha256
 from .llm_checks import validate_response
 
 ROOT=Path(__file__).resolve().parents[1]
-DEFAULT_RESULTS=ROOT/'results models/prompt_comparison40'
-DEFAULT_FLORENCE=ROOT/'results models/florence_caption_grounding_test10'
+DEFAULT_RESULTS=ROOT/'results models/lilocbench'
+DEFAULT_FLORENCE=ROOT/'results/pipeline/run'
 DEFAULT_DB=ROOT/'reviews/manual_review.sqlite3'
 RATINGS={None,'correct','incorrect','unassessable'}
 ISSUES={'wrong_label','wrong_box','duplicate','group'}
