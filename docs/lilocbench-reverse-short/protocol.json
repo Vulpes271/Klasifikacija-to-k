@@ -1,0 +1,58 @@
+{
+  "source_commit": "86f7c575",
+  "seed": 42,
+  "sequences": {
+    "map": "lt_changes_0",
+    "control": "mapping",
+    "test": "static_0"
+  },
+  "room_bounds_xyxy": [
+    5.0,
+    -10.8,
+    13.8,
+    -5.0
+  ],
+  "map": {
+    "resolution": 0.05,
+    "width": 1000,
+    "height": 1000,
+    "origin": [
+      -25.0,
+      -25.0,
+      0.0
+    ],
+    "log_hit": 0.85,
+    "log_free": -0.4,
+    "log_limit": 5.0,
+    "occupied_thresh": 0.65,
+    "free_thresh": 0.196,
+    "negate": 0
+  },
+  "independent_algorithm": "Exhaustive coarse SE(2) likelihood-field + bounded least-squares refinement",
+  "initialization": "mapping free cells on 0.4 m lattice, all orientations at 5 degrees; identical candidate array for all maps",
+  "candidates": 132408,
+  "coarse_beams": 96,
+  "fine_beams": 400,
+  "refined_modes": 24,
+  "max_nfev": 35,
+  "sequential_algorithm": "2048-particle likelihood-field filter, 40 global particles per scan, local refinement; same broad first-scan search",
+  "process_noise_std": [
+    0.025,
+    0.025,
+    0.015
+  ],
+  "selection": "24 equal path-distance samples plus 8 equal room-distance samples; deduplicated before matching",
+  "no_scan_deskew": "Localization uses current raw scan and fixed extrinsic only; no intra-scan wheel odometry in either arm.",
+  "thresholds": {
+    "position_m": 0.1,
+    "yaw_deg": 4
+  },
+  "test_scan_sha256": "a198298de610bd1a0db940ea734ce97617b5bdf9f5aa3b08e45e69de3d09f4a3",
+  "projection_sha256": "6051e1f5758ea74fcf4c42d21838e8cf786855a3da3b1845787e2a7a8526f37d",
+  "source_sha256": "31f3e453fba6f5212351ef2143abd3deb2a8aebd86041883ffd60b52392def41",
+  "map_sha256": {
+    "original": "2b199c2982fce8582686681867547e6916a9b8246b7fe3ce5d91f970fcb1e2c3",
+    "three": "13993728a9dfae9082203431a4173234d49e72fd3a0934b5dff11ac63061db8b",
+    "empty": "0d61a43c8fa365492e1dd17d3ddb71d79342d27b06c8403329b8d877a272d291"
+  }
+}
