@@ -58,11 +58,16 @@ def main():
     grid.info.origin.orientation.z=math.sin(data['map']['origin'][2]/2)
     grid.info.origin.orientation.w=math.cos(data['map']['origin'][2]/2)
     grid.data=arrays['occupancy'].flatten().tolist()
-    received={}
+    received={};reliable={}
     def callback(msg):
         t=msg.header.stamp.sec+msg.header.stamp.nanosec/1e9
         pose=msg.pose.pose;q=pose.orientation
         received[round(t,6)]=[pose.position.x,pose.position.y,math.atan2(2*(q.w*q.z+q.x*q.y),1-2*(q.y*q.y+q.z*q.z))]
+        bridge=data.get('bridge')
+        if bridge:
+            cov=msg.pose.covariance
+            reliable[round(t,6)]=(max(cov[0],cov[7])<=bridge['anchor_max_position_std_m']**2
+                and cov[35]<=math.radians(bridge['anchor_max_yaw_std_deg'])**2)
     sub=node.create_subscription(PoseWithCovarianceStamped,'amcl_pose',callback,qos)
     library=args.output/'amcl_seed.so'
     subprocess.run(['gcc','-shared','-fPIC','-o',str(library),str(Path(__file__).with_name('amcl_seed.c')),'-ldl'],check=True)
@@ -89,17 +94,28 @@ def main():
         initial.pose.pose.orientation.z,initial.pose.pose.orientation.w=xyquat(data['initial_pose'])
         initial.pose.covariance[0]=0.2**2;initial.pose.covariance[7]=0.2**2;initial.pose.covariance[35]=math.radians(10)**2
         init_pub.publish(initial);settle(0.3)
-        rows=[]
+        rows=[];anchor=None;anchor_odom=None
         for i,t in enumerate(times):
             t=float(t);send_clock(t);broadcaster.sendTransform(transform(t,odom[i]))
             # Make the transform covering the scan end available before the scan arrives.
             broadcaster.sendTransform(transform(t+data['laser']['scan_time'],arrays['odom_end'][i]));settle(0.01)
+            key=round(t,6)
+            if data.get('bridge') and 'skip_lidar' in arrays and arrays['skip_lidar'][i]:
+                # Keep publishing odom/clock, but never feed the sparse scan to AMCL.
+                # The particle filter receives the accumulated odometry on recovery.
+                from .odometry_bridge import propagate
+                estimate=propagate(anchor,anchor_odom,odom[i]) if anchor is not None else None
+                rows.append({'timestamp':t,'pose':estimate,'bridged':estimate is not None,'lidar_skipped':True})
+                continue
             msg=LaserScan();msg.header.stamp=stamp(t);msg.header.frame_id='scan_front_link'
             for field in ['angle_min','angle_max','angle_increment','time_increment','scan_time','range_min','range_max']:
                 setattr(msg,field,float(data['laser'][field]))
             msg.ranges=ranges[i].astype(np.float32).tolist();scan_pub.publish(msg)
-            key=round(t,6);spin_until(lambda:key in received,2 if i==0 else 0.4)
-            rows.append({'timestamp':t,'pose':received.get(key)})
+            spin_until(lambda:key in received,2 if i==0 else 0.4)
+            estimate=received.get(key)
+            if data.get('bridge') and estimate is not None and reliable.get(key,False):
+                anchor=estimate;anchor_odom=odom[i].copy()
+            rows.append({'timestamp':t,'pose':estimate,'bridged':False,'lidar_skipped':False})
             if i%100==0:print(f'{args.branch}: {i+1}/{len(times)} scans, received={len(received)}',flush=True)
         (args.output/'poses.json').write_text(json.dumps(rows,indent=2)+'\n')
         (args.output/'runtime.json').write_text(json.dumps({'amcl_version':'1.3.12','seed':data['seed'],

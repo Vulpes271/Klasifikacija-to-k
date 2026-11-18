@@ -98,20 +98,24 @@ def prepare_data(data,sequence,stored):
     return seq
 
 
-def extract_rgb(data,sequence,timestamps):
-    """Fetch only nearest front RGB ZIP members to explicitly selected timestamps."""
+def extract_rgb(data,sequence,timestamps,camera='camera_front'):
+    """Fetch nearest RGB members for one calibrated camera, reusing exact files."""
     data=Path(data);downloads=Downloads(data/'http-cache')
     if sequence not in PUBLIC_SEQUENCES:raise ValueError('Unsupported sequence')
+    if camera not in {'camera_front','camera_left','camera_right'}:raise ValueError('Unsupported camera')
     # Exact previously selected image stamps need neither HEAD nor ZIP requests.
-    cached=list((data/sequence/'camera_front/color/images').glob('*.png'))
+    cached=list((data/sequence/camera/'color/images').glob('*.png'))
     exact=[next((p for p in cached if abs(float(p.stem)-t)<1e-6),None) for t in timestamps]
-    if all(p is not None for p in exact):return exact
+    if all(p is not None for p in exact) and (camera=='camera_front' or (data/sequence/camera/'color/intrinsics.yaml').exists()):return exact
     url=BASE+f'data/data_files_zipped/{sequence}.zip'
     with urllib.request.urlopen(urllib.request.Request(url,method='HEAD'),timeout=60) as response:
         size=int(response.headers['Content-Length'])
     with zipfile.ZipFile(RemoteZip(downloads,url,size)) as archive:
-        images=[i.filename for i in archive.infolist() if i.filename.startswith('camera_front/color/images/') and i.filename.endswith('.png')]
-        if not images:raise FileNotFoundError('No front RGB archive members')
+        images=[i.filename for i in archive.infolist() if i.filename.startswith(camera+'/color/images/') and i.filename.endswith('.png')]
+        if not images:raise FileNotFoundError(f'No {camera} RGB archive members')
+        calibration=f'{camera}/color/intrinsics.yaml';target=data/sequence/calibration
+        if not target.exists():
+            target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(archive.read(calibration))
         selected=[]
         for t in timestamps:
             name=min(images,key=lambda n:abs(float(Path(n).stem)-t));target=data/sequence/name

@@ -85,6 +85,12 @@ Vpliv približno 1 Hz in 5 Hz pri istem oknu maske je v
 Primerjava filtriranja med izdelavo zemljevida (10 parov AMCL na vsaki od štirih
 sekvenc) je v [poročilu filtriranega zemljevida](docs/lilocbench-filtered-map/README.md).
 
+Zaključen obratni preizkus s tremi kamerami, primerjavo osnovnega in spremenjenih
+zemljevidov ter lokalizacijo je v [prečiščenem poročilu](docs/lilocbench-reverse/README.md)
+in [PDF](docs/lilocbench-reverse/porocilo.pdf). Glavni pregled najprej obravnava
+običajni AMCL brez dodatne odometrijske premostitve; ta še vedno uporablja
+kolesno odometrijo. Premostitev je obravnavana v ločenem dodatku.
+
 ## Izhodi in ročni pregled
 
 - `run.json`, `source/`, okolja in metapodatki: konfiguracija, dejanske različice,
