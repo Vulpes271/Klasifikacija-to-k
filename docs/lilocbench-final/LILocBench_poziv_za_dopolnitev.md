@@ -1,0 +1,8 @@
+# Poziv za Codex na laboratorijskem računalniku
+
+Na veji `lilocbench-filtered-map` dopolni samo manjkajoče meritve obratnega preizkusa LILocBench. Uporabi shranjene zemljevide, skene, odometrijo, maske in rezultate. Maska naj bo točno obstoječa `docs/lilocbench-relocalization/scan-coverage.csv`: 7.550 veljavnih poz na poti in 478 v sobi. Združuj po indeksu in preveri čas skena.
+
+1. **AMCL.** Najprej poišči že shranjene poze desetih semen 42–51 v `results/lilocbench-reverse/runs/reverse-*/natural/seed-*/standard/poses.json`. Iz njih preračunaj obratni preizkus na skupni maski za tri zemljevidne različice `lt_changes_0` in kontrolo `mapping`, vedno na originalnih skenih `static_0`. Manjkajoče zagone zaženi samo enkrat, z izvirnimi nastavitvami. Izvozi metrike po semenih in povprečje ± SD. Zunaj maske skene še vedno neprekinjeno predvajaj, ocene zunaj preseka pa izpusti iz metrike in izrisa. Za seme 42 izriši zvezno referenčno pot po gradientu E = max(napaka položaja / 10 cm, napaka zasuka / 4°), z legendo zelena pri 0, rumena pri 1, rdeča pri ≥2 ter siva ob manjkajoči oceni.
+2. **Naključna mesta.** Obstoječi test je bil deterministično vzorčen. Če želimo dobesedno naključen preizkus, iz skupne maske s semenom 42 izberi 80 skenov `static_0` brez ponavljanja. Vsak sken obdelaj neodvisno z obstoječim matcherjem, brez začetne poze in odometrije. Za vse različice uporabi iste skene. Izvozi indekse, napake, uspehe, napačne sprejeme, zavrnitve in čase.
+
+Uspeh zahteva položaj <10 cm in zasuk <4° hkrati. Shrani CSV, PNG in kratek opis v `docs/lilocbench-final/`. Preveri imenovalce, ohrani obstoječe rezultate in naredi commit ter push. Brez nove inference, gradnje kart ali iskanja boljših nastavitev.
